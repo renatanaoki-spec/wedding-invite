@@ -22,9 +22,9 @@
       position: relative;
     }
 
-    /* Use the same image for left and right */
+    /* Left background image */
     .left {
-      background: url('Screenshot 2025-08-28 at 17.29.50.png') center/cover no-repeat;
+      background: url('left.png') center/cover no-repeat;
       display: flex;
       align-items: flex-end;
       padding: 40px;
@@ -34,10 +34,12 @@
       font-size: 28px;
       font-weight: bold;
       letter-spacing: 2px;
+      text-shadow: 1px 1px 2px black;
     }
 
+    /* Right background image */
     .right {
-      background: url('Screenshot 2025-08-28 at 17.29.50.png') center/cover no-repeat;
+      background: url('right.png') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,6 +51,7 @@
       background: rgba(0,0,0,0.6);
       padding: 40px;
       border-radius: 8px;
+      max-width: 80%;
     }
 
     .overlay h2 {
@@ -71,4 +74,51 @@
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
-      border: 1px solid
+      border: 1px solid white;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .button:hover {
+      background: white;
+      color: black;
+    }
+
+    /* Make it mobile-friendly */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .left, .right {
+        height: 50vh;
+      }
+      .left h1 {
+        font-size: 20px;
+      }
+      .overlay h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Section -->
+    <div class="left">
+      <h1>WEDDING THANKSGIVING GREETINGS<br> DANIEL & GABRIELLA</h1>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right">
+      <div class="overlay">
+        <h2>SUNDAY, JUNE 15<sup>TH</sup> 2025</h2>
+        <h1>SDRI. YESSICA NATALIA</h1>
+        <p>Without diminishing respect,<br> We invite you to attend our wedding ceremony.</p>
+        <a href="#" class="button">OPEN INVITATION</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
