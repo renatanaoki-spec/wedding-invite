@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #fefefe;
+  color: #333;
+  text-align: center;
+}
+
+.hero {
+  padding: 50px;
+  background: linear-gradient(to right, #f8cdda, #1d2b64);
+  color: white;
+}
+
+.story, .rsvp {
+  padding: 30px;
+}
+form input, form button {
+  padding: 10px;
+  margin: 5px;
+}
