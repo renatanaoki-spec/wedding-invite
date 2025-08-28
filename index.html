@@ -3,122 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daniel & Gabriella Wedding Invitation</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #111;
-      color: white;
-    }
-
-    .container {
-      display: flex;
-      height: 100vh;
-    }
-
-    .left, .right {
-      flex: 1;
-      position: relative;
-    }
-
-    /* Left background image */
-    .left {
-      background: url('left.png') center/cover no-repeat;
-      display: flex;
-      align-items: flex-end;
-      padding: 40px;
-    }
-
-    .left h1 {
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-shadow: 1px 1px 2px black;
-    }
-
-    /* Right background image */
-    .right {
-      background: url('right.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 30px;
-    }
-
-    .overlay {
-      background: rgba(0,0,0,0.6);
-      padding: 40px;
-      border-radius: 8px;
-      max-width: 80%;
-    }
-
-    .overlay h2 {
-      font-size: 22px;
-      margin: 0;
-    }
-
-    .overlay h1 {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
-    .overlay p {
-      margin: 10px 0;
-      font-size: 14px;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: 1px solid white;
-      border-radius: 5px;
-      text-decoration: none;
-      color: white;
-      transition: all 0.3s;
-    }
-
-    .button:hover {
-      background: white;
-      color: black;
-    }
-
-    /* Make it mobile-friendly */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      .left, .right {
-        height: 50vh;
-      }
-      .left h1 {
-        font-size: 20px;
-      }
-      .overlay h1 {
-        font-size: 22px;
-      }
-    }
-  </style>
+  <title>Our Wedding Invitation</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Left Section -->
-    <div class="left">
-      <h1>WEDDING THANKSGIVING GREETINGS<br> DANIEL & GABRIELLA</h1>
-    </div>
+  <section class="hero">
+    <h1>Zen & Cika</h1>
+    <p>We’re getting married!</p>
+    <p><b>Date:</b> 14 February 2026</p>
+    <p><b>Location:</b> Jakarta, Indonesia</p>
+  </section>
 
-    <!-- Right Section -->
-    <div class="right">
-      <div class="overlay">
-        <h2>SUNDAY, JUNE 15<sup>TH</sup> 2025</h2>
-        <h1>SDRI. YESSICA NATALIA</h1>
-        <p>Without diminishing respect,<br> We invite you to attend our wedding ceremony.</p>
-        <a href="#" class="button">OPEN INVITATION</a>
-      </div>
-    </div>
-  </div>
+  <section class="story">
+    <h2>Our Story</h2>
+    <p>From the moment we met… [write your story here]</p>
+  </section>
+
+  <section class="rsvp">
+    <h2>RSVP</h2>
+    <p>Please confirm your attendance.</p>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
