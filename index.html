@@ -23,7 +23,7 @@
       color: white;
       padding: 40px 20px;
       text-align: center;
-      overflow-y: auto;   /* ✅ make scrollable */
+      overflow-y: auto;   /* ✅ scrollable */
     }
     .right h2 { margin-top: 30px; }
 
@@ -126,26 +126,23 @@
       <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
       <h2>Our Moment</h2>
       <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
-     <h2>RSVP & Wishes</h2>
-<form id="rsvpForm">
-  <input type="text" name="name" placeholder="Your Name" required
-         style="width:90%; padding:10px; margin:5px 0;"><br>
-
-  <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
-    <option value="">-- Apakah Anda akan hadir? --</option>
-    <option value="Ya">Ya, saya akan hadir</option>
-    <option value="Tidak">Maaf, saya tidak bisa hadir</option>
-  </select><br>
-
-  <textarea name="wishes" placeholder="Your wishes..."
-            style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-
-  <button type="submit"
-          style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
-    Send
-  </button>
-</form>
-<p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
+      <h2>RSVP & Wishes</h2>
+      <form id="rsvpForm">
+        <input type="text" name="name" placeholder="Your Name" required
+               style="width:90%; padding:10px; margin:5px 0;"><br>
+        <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
+          <option value="">-- Apakah Anda akan hadir? --</option>
+          <option value="Ya">Ya, saya akan hadir</option>
+          <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+        </select><br>
+        <textarea name="wishes" placeholder="Your wishes..."
+                  style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+        <button type="submit"
+                style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
+          Send
+        </button>
+      </form>
+      <p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
     </div>
   </div>
 
@@ -169,7 +166,6 @@
 
   <!-- Mobile Content -->
   <div class="mobile-content" id="mobileContent">
-    <!-- same sections as desktop -->
     <h3 style="margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
     <h1>Zen & Yessica</h1>
     <p>Saturday, 17 January 2025</p>
@@ -189,28 +185,23 @@
     <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
     <h2>Our Moment</h2>
     <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
-<h2>RSVP & Wishes</h2>
-<form id="rsvpForm">
-  <input type="text" name="name" placeholder="Your Name" required
-         style="width:90%; padding:10px; margin:5px 0;"><br>
-
-  <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
-    <option value="">-- Apakah Anda akan hadir? --</option>
-    <option value="Ya">Ya, saya akan hadir</option>
-    <option value="Tidak">Maaf, saya tidak bisa hadir</option>
-  </select><br>
-
-  <textarea name="wishes" placeholder="Your wishes..."
-            style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-
-  <button type="submit"
-          style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
-    Send
-  </button>
-</form>
-
-<p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
-
+    <h2>RSVP & Wishes</h2>
+    <form id="rsvpFormMobile">
+      <input type="text" name="name" placeholder="Your Name" required
+             style="width:90%; padding:10px; margin:5px 0;"><br>
+      <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
+        <option value="">-- Apakah Anda akan hadir? --</option>
+        <option value="Ya">Ya, saya akan hadir</option>
+        <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+      </select><br>
+      <textarea name="wishes" placeholder="Your wishes..."
+                style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+      <button type="submit"
+              style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
+        Send
+      </button>
+    </form>
+    <p id="responseMsgMobile" style="margin-top:10px; font-size:14px;"></p>
   </div>
 
   <script>
@@ -243,40 +234,44 @@
         controlBtn.textContent = "🔊";
       }
     });
-// === RSVP FORM to Google Sheets ===
-const form = document.getElementById("rsvpForm");
-const msg = document.getElementById("responseMsg");
 
-// Ganti dengan URL Web App dari Apps Script kamu
-const scriptURL = "https://script.google.com/macros/s/AKfycbzBa4Pvwhbc6dK0AVBJBW4XZnJs7LdW7IkRywgrId57dHO0icii6B5PFaJ1w5XXiXIF/exec";
+    // === RSVP FORM to Google Sheets ===
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzBa4Pvwhbc6dK0AVBJBW4XZnJs7LdW7IkRywgrId57dHO0icii6B5PFaJ1w5XXiXIF/exec";
 
-if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+    function handleFormSubmit(formId, msgId) {
+      const form = document.getElementById(formId);
+      const msg = document.getElementById(msgId);
+      if (!form) return;
 
-    const formData = {
-      name: form.name.value,
-      attendance: form.attendance.value,
-      wishes: form.wishes.value
-    };
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-    fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
-    })
-    .then(res => {
-      msg.textContent = "✅ RSVP berhasil dikirim!";
-      form.reset();
-    })
-    .catch(err => {
-      msg.textContent = "❌ Gagal mengirim RSVP.";
-      console.error(err);
-    });
-  });
-}    
+        const formData = {
+          name: form.name.value,
+          attendance: form.attendance.value,
+          wishes: form.wishes.value
+        };
+
+        fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: { "Content-Type": "application/json" },
+        })
+        .then(res => {
+          msg.textContent = "✅ RSVP berhasil dikirim!";
+          form.reset();
+        })
+        .catch(err => {
+          msg.textContent = "❌ Gagal mengirim RSVP.";
+          console.error("Error:", err);
+        });
+      });
+    }
+
+    // aktifkan form desktop & mobile
+    handleFormSubmit("rsvpForm", "responseMsg");
+    handleFormSubmit("rsvpFormMobile", "responseMsgMobile");
   </script>
-
-  
 </body>
 </html>
+
