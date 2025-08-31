@@ -3,157 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation - Daniel & Gabriella</title>
+  <title>Wedding Invitation - Zen & Yessica</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      color: white;
-      overflow: hidden;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body, html { height:100%; font-family:Arial, sans-serif; }
 
+    /* Desktop Layout */
     .container {
       display: flex;
       height: 100vh;
     }
-
-    /* Left side (photo) */
     .left {
       flex: 1;
       background: url("image/bg-photo.jpg") no-repeat center center/cover;
     }
-
-    /* Right side (scroll content) */
     .right {
       flex: 1;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0,0,0,0.6);
+      color: white;
       padding: 40px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
-    .title {
+    /* Mobile Cover */
+    .mobile-cover {
+      display: none;
+      height: 100vh;
+      background: url("image/bg-photo.jpg") no-repeat center center/cover;
+      color: white;
       text-align: center;
-      margin-bottom: 40px;
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
-
-    .title h1 {
-      font-size: 36px;
-      letter-spacing: 2px;
+    .mobile-cover h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
     }
-
-    .title p {
-      font-size: 16px;
-      opacity: 0.9;
-    }
-
-    section {
-      margin: 60px 0;
-    }
-
-    section h2 {
-      text-align: center;
-      font-size: 24px;
+    .mobile-cover p {
       margin-bottom: 20px;
-      text-transform: uppercase;
     }
-
-    .verse {
-      font-style: italic;
-      text-align: center;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 250px;
+    .open-btn {
+      padding: 12px 25px;
+      font-size: 18px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      background: #bc8887;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Mobile Content (hidden by default) */
+    .mobile-content {
+      display: none;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    /* Music button */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 22px;
+      cursor: pointer;
+      display: none; /* hidden until invitation opened */
+    }
+
+    /* Responsive break */
+    @media (max-width: 768px) {
+      .container { display: none; } /* hide desktop view */
+      .mobile-cover { display: flex; }
     }
   </style>
 </head>
 <body>
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="music/Dive-Olivia Dean-Acoustic.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-control">🔊</button>
+
+  <!-- Desktop view -->
   <div class="container">
-    <!-- LEFT (Photo) -->
     <div class="left"></div>
-
-    <!-- RIGHT (Content scroll) -->
     <div class="right">
-      <div class="title">
-        <p>WEDDING THANKSGIVING GREETINGS</p>
-        <h1>DANIEL & GABRIELLA</h1>
-        <p>Sunday, June 15th 2025</p>
-      </div>
-
-      <!-- Verse -->
-      <section>
-        <div class="verse">
-          “So they are no longer two, but one flesh.  
-          What therefore God has joined together, let no man separate.”  
-          <br><br>Matthew 19:6
-        </div>
-      </section>
-
-      <!-- The Groom -->
-      <section>
-        <h2>The Groom</h2>
-        <p style="text-align:center">Photo and description here.</p>
-        <img src="image/groom.jpg" alt="Groom" style="width:100%; border-radius:10px; margin-top:10px;">
-      </section>
-
-      <!-- The Bride -->
-      <section>
-        <h2>The Bride</h2>
-        <p style="text-align:center">Photo and description here.</p>
-        <img src="image/bride.jpg" alt="Bride" style="width:100%; border-radius:10px; margin-top:10px;">
-      </section>
-
-      <!-- Save the Date -->
-      <section>
-        <h2>Save the Date</h2>
-        <p style="text-align:center">June 15th, 2025 – Venue Name, City</p>
-      </section>
-
-      <!-- Google Maps -->
-      <section>
-        <h2>Location</h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!..."></iframe>
-      </section>
-
-      <!-- Our Moment -->
-      <section>
-        <h2>Our Moment</h2>
-        <div class="gallery">
-          <img src="image/photo1.jpg" alt="Moment 1">
-          <img src="image/photo2.jpg" alt="Moment 2">
-          <img src="image/photo3.jpg" alt="Moment 3">
-          <img src="image/photo4.jpg" alt="Moment 4">
-        </div>
-      </section>
-
-      <!-- RSVP and Wishes -->
-      <section>
-        <h2>RSVP & Wishes</h2>
-        <form style="text-align:center">
-          <input type="text" placeholder="Your Name" style="width:80%; padding:10px; margin:5px;">
-          <textarea placeholder="Write your wishes..." style="width:80%; padding:10px; margin:5px;"></textarea>
-          <br>
-          <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
-        </form>
-      </section>
+      <h3 style="text-align:center; margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
+      <h1 style="text-align:center;">Zen & Yessica</h1>
+      <p style="text-align:center;">Wedding Thanksgiving Greeting</p>
+      <p style="text-align:center;">Saturday, 17 January 2025</p>
+      <hr>
+      <p style="margin-top:20px; font-style:italic; text-align:center">
+        “So they are no longer two, but one flesh.  
+        What therefore God has joined together, let no man separate.”  
+        <br>Matthew 19:6
+      </p>
+      <!-- add other sections here -->
     </div>
   </div>
+
+  <!-- Mobile Cover -->
+  <div class="mobile-cover" id="mobileCover">
+    <h1>Wedding Invitation</h1>
+    <p>Zen & Yessica</p>
+    <p>Saturday, 17 January 2025</p>
+    <button class="open-btn" onclick="openInvitation()">Open Invitation</button>
+  </div>
+
+  <!-- Mobile Content -->
+  <div class="mobile-content" id="mobileContent">
+    <h3 style="text-align:center; margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
+    <h1 style="text-align:center;">Zen & Yessica</h1>
+    <p style="text-align:center;">Saturday, 17 January 2025</p>
+    <hr>
+    <p style="margin:20px 0; text-align:center; font-style:italic;">
+      “So they are no longer two, but one flesh.  
+      What therefore God has joined together, let no man separate.”  
+      <br>Matthew 19:6
+    </p>
+    <!-- Sections: Groom, Bride, Save the Date, Maps, Gallery, RSVP -->
+    <h2>The Groom</h2>
+    <p style="text-align:center;">Zen</p>
+    <h2>The Bride</h2>
+    <p style="text-align:center;">Yessica</p>
+    <h2>Save the Date</h2>
+    <p style="text-align:center;">Saturday, 17 January 2025<br>Venue Name, City</p>
+    <h2>Location</h2>
+    <iframe src="https://www.google.com/maps/embed?..."></iframe>
+    <h2>Our Moment</h2>
+    <img src="image/photo1.jpg" width="100%">
+    <h2>RSVP & Wishes</h2>
+    <form style="text-align:center;">
+      <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;">
+      <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea>
+      <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const music = document.getElementById("bg-music");
+    const controlBtn = document.getElementById("music-control");
+
+    function openInvitation() {
+      document.getElementById("mobileCover").style.display = "none";
+      document.getElementById("mobileContent").style.display = "block";
+
+      // Play music only after invitation opened
+      music.play().catch(()=>{});
+      controlBtn.style.display = "block";
+    }
+
+    // Toggle play/pause
+    controlBtn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        controlBtn.textContent = "🔊";
+      } else {
+        music.pause();
+        controlBtn.textContent = "🔇";
+      }
+    });
+
+    // Auto pause when switching apps/tabs
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        music.pause();
+        controlBtn.textContent = "🔇";
+      } else {
+        music.play().catch(()=>{});
+        controlBtn.textContent = "🔊";
+      }
+    });
+  </script>
 </body>
 </html>
