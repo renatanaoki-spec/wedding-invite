@@ -10,8 +10,18 @@
 
     /* Desktop Layout */
     .container { display:flex; height:100vh; }
-    .left { flex:0 0 65%; background:url("image/Main-Image.jpeg") no-repeat center center/cover; }
-    .right { flex:0 0 35%; background:rgba(0,0,0,0.6); padding:40px 20px; text-align:center; overflow-y:auto; }
+    .left {
+      flex:0 0 65%;
+      background:url("image/Main-Image.jpeg") no-repeat center center;
+      background-size:cover;
+    }
+    .right {
+      flex:0 0 35%;
+      background:rgba(0,0,0,0.6);
+      padding:40px 20px;
+      text-align:center;
+      overflow-y:auto;
+    }
     .right h2 { margin-top:30px; }
 
     /* Mobile Cover */
@@ -27,11 +37,37 @@
     .mobile-content { display:none; min-height:100vh; background:rgba(0,0,0,0.6); padding:20px; text-align:center; overflow-y:auto; }
 
     /* Music button */
-    #music-control { position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.6); color:white; border:2px solid white; border-radius:50%; width:55px; height:55px; font-size:22px; cursor:pointer; display:none; }
+    #music-control {
+      position:fixed; bottom:20px; right:20px;
+      background:rgba(0,0,0,0.6); color:white;
+      border:2px solid white; border-radius:50%;
+      width:55px; height:55px; font-size:22px;
+      cursor:pointer; display:none;
+    }
 
     /* Wishes */
-    #wishesList, #wishesListMobile { text-align:left; margin-top:20px; padding:10px; background:rgba(255,255,255,0.1); border-radius:8px; max-height:300px; overflow-y:auto; }
+    #wishesList, #wishesListMobile {
+      text-align:left; margin-top:20px; padding:10px;
+      background:rgba(255,255,255,0.1);
+      border-radius:8px; max-height:300px; overflow-y:auto;
+    }
     .wish { margin-bottom:10px; padding:10px; border-bottom:1px solid #666; }
+
+    /* Gallery */
+    .gallery {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:15px;
+      margin-bottom:20px;
+    }
+    .gallery img {
+      width:100%;
+      border-radius:10px;
+      object-fit:cover;
+    }
+    @media (min-width:1024px) {
+      .gallery { grid-template-columns:1fr 1fr; }
+    }
 
     /* Responsive */
     @media (max-width:768px) {
@@ -67,13 +103,20 @@
       <!-- Location Sections -->
       <h2>Holy Matrimony</h2>
       <p>Gereja Santo Fransiskus Asisi</p>
-      <a href="https://maps.app.goo.gl/Mhi1TxmzQpiAWSjo9" target="_blank" style="color:#ffd;">📍 View Map</a>
+      <iframe src="https://www.google.com/maps?q=Gereja+Katolik+St+Fransiskus+Asisi+Cibinong&output=embed"
+              width="100%" height="250" style="border:0; border-radius:8px;" allowfullscreen="" loading="lazy"></iframe>
 
       <h2>Reception</h2>
       <p>Bagas Raya Cibinong</p>
-      <a href="https://maps.app.goo.gl/1EEFd33p6nrv7vUcA" target="_blank" style="color:#ffd;">📍 View Map</a>
+      <iframe src="https://www.google.com/maps?q=Bagas+Raya+Cibinong&output=embed"
+              width="100%" height="250" style="border:0; border-radius:8px;" allowfullscreen="" loading="lazy"></iframe>
 
-      <h2>Our Moment</h2><img src="image/photo1.jpg" width="100%">
+      <h2>Our Moment</h2>
+      <div class="gallery">
+        <img src="image/photo1.jpg" alt="Moment 1">
+        <img src="image/photo2.jpg" alt="Moment 2">
+        <img src="image/photo3.jpg" alt="Moment 3">
+      </div>
 
       <!-- RSVP Form -->
       <h2>RSVP & Wishes</h2>
@@ -128,13 +171,20 @@
     <!-- Location Sections -->
     <h2>Holy Matrimony</h2>
     <p>Gereja Santo Fransiskus Asisi</p>
-    <a href="https://maps.app.goo.gl/Mhi1TxmzQpiAWSjo9" target="_blank" style="color:#ffd;">📍 View Map</a>
+    <iframe src="https://www.google.com/maps?q=Gereja+Katolik+St+Fransiskus+Asisi+Cibinong&output=embed"
+            width="100%" height="250" style="border:0; border-radius:8px;" allowfullscreen="" loading="lazy"></iframe>
 
     <h2>Reception</h2>
     <p>Bagas Raya Cibinong</p>
-    <a href="https://maps.app.goo.gl/1EEFd33p6nrv7vUcA" target="_blank" style="color:#ffd;">📍 View Map</a>
+    <iframe src="https://www.google.com/maps?q=Bagas+Raya+Cibinong&output=embed"
+            width="100%" height="250" style="border:0; border-radius:8px;" allowfullscreen="" loading="lazy"></iframe>
 
-    <h2>Our Moment</h2><img src="image/Main-image.jpeg" width="100%">
+    <h2>Our Moment</h2>
+    <div class="gallery">
+      <img src="image/photo1.jpg" alt="Moment 1">
+      <img src="image/photo2.jpg" alt="Moment 2">
+      <img src="image/photo3.jpg" alt="Moment 3">
+    </div>
 
     <!-- RSVP Form -->
     <h2>RSVP & Wishes</h2>
