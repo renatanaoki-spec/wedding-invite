@@ -26,8 +26,8 @@
       padding: 60px 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;   /* vertical center */
-      align-items: center;       /* horizontal center */
+      justify-content: center;
+      align-items: center;
       text-align: center;
       overflow-y: auto;
     }
@@ -40,7 +40,6 @@
       color: white;
       text-align: center;
       padding: 50px 20px;
-      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -65,7 +64,7 @@
     /* Mobile Content (hidden by default) */
     .mobile-content {
       display: none;
-      height: 100vh;
+      min-height: 100vh;
       background: rgba(0,0,0,0.6);
       color: white;
       padding: 20px;
@@ -91,8 +90,8 @@
 
     /* Responsive break */
     @media (max-width: 768px) {
-      .container { display: none; } /* hide desktop view */
-      .mobile-cover { display: flex; }
+      .container { display: none; } /* hide desktop on mobile */
+      .mobile-cover { display: flex; } /* show mobile cover first */
     }
   </style>
 </head>
@@ -103,7 +102,7 @@
   </audio>
   <button id="music-control">🔊</button>
 
-  <!-- Desktop view -->
+  <!-- Desktop view (always visible on large screens) -->
   <div class="container">
     <div class="left"></div>
     <div class="right">
@@ -117,10 +116,11 @@
         What therefore God has joined together, let no man separate.”  
         <br>Matthew 19:6
       </p>
+      <!-- Add more sections for desktop (scrollable inside right panel if long) -->
     </div>
   </div>
 
-  <!-- Mobile Cover -->
+  <!-- Mobile Cover (only shown on phones) -->
   <div class="mobile-cover" id="mobileCover">
     <h1>Wedding Invitation</h1>
     <p>Zen & Yessica</p>
