@@ -10,7 +10,7 @@
 
     /* Desktop Layout */
     .container { display:flex; height:100vh; }
-    .left { flex:0 0 65%; background:url("image/bg-photo.jpg") no-repeat center center/cover; }
+    .left { flex:0 0 65%; background:url("image/Main-Image.jpeg") no-repeat center center/cover; }
     .right { flex:0 0 35%; background:rgba(0,0,0,0.6); padding:40px 20px; text-align:center; overflow-y:auto; }
     .right h2 { margin-top:30px; }
 
@@ -59,11 +59,23 @@
       <p style="margin:20px 0; font-style:italic;">
         “So they are no longer two, but one flesh.<br>What therefore God has joined together, let no man separate.”<br>Matthew 19:6
       </p>
+
       <h2>The Groom</h2><p>Zen</p>
       <h2>The Bride</h2><p>Yessica</p>
-      <h2>Save the Date</h2><p>Saturday, 17 January 2025<br>Venue Name, City</p>
-      <h2>Location</h2><iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
+      <h2>Save the Date</h2><p>Saturday, 17 January 2025</p>
+
+      <!-- Location Sections -->
+      <h2>Holy Matrimony</h2>
+      <p>Gereja Santo Fransiskus Asisi</p>
+      <a href="https://maps.app.goo.gl/Mhi1TxmzQpiAWSjo9" target="_blank" style="color:#ffd;">📍 View Map</a>
+
+      <h2>Reception</h2>
+      <p>Bagas Raya Cibinong</p>
+      <a href="https://maps.app.goo.gl/1EEFd33p6nrv7vUcA" target="_blank" style="color:#ffd;">📍 View Map</a>
+
       <h2>Our Moment</h2><img src="image/photo1.jpg" width="100%">
+
+      <!-- RSVP Form -->
       <h2>RSVP & Wishes</h2>
       <form id="rsvpForm" method="POST" action="https://script.google.com/macros/s/AKfycbwspA-PN2szYXXJCDgqJeP5Tqd3b1FULfpnRKzijFcHUA0iOpsHVfjV94eVzh7LR92Z/exec">
         <input name="Name" type="text" placeholder="Your Name" required style="width:90%; padding:10px; margin:5px 0;"><br>
@@ -76,6 +88,8 @@
         <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
       </form>
       <p id="responseMsg"></p>
+
+      <!-- All Wishes -->
       <h2 style="margin-top:40px;">All Wishes 💌</h2>
       <div id="wishesList"><p>Loading wishes...</p></div>
       <div style="margin-top:10px; text-align:center;">
@@ -106,11 +120,23 @@
     <p style="margin:20px 0; font-style:italic;">
       “So they are no longer two, but one flesh.<br>What therefore God has joined together, let no man separate.”<br>Matthew 19:6
     </p>
+
     <h2>The Groom</h2><p>Zen</p>
     <h2>The Bride</h2><p>Yessica</p>
-    <h2>Save the Date</h2><p>Saturday, 17 January 2025<br>Venue Name, City</p>
-    <h2>Location</h2><iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
-    <h2>Our Moment</h2><img src="image/photo1.jpg" width="100%">
+    <h2>Save the Date</h2><p>Saturday, 17 January 2025</p>
+
+    <!-- Location Sections -->
+    <h2>Holy Matrimony</h2>
+    <p>Gereja Santo Fransiskus Asisi</p>
+    <a href="https://maps.app.goo.gl/Mhi1TxmzQpiAWSjo9" target="_blank" style="color:#ffd;">📍 View Map</a>
+
+    <h2>Reception</h2>
+    <p>Bagas Raya Cibinong</p>
+    <a href="https://maps.app.goo.gl/1EEFd33p6nrv7vUcA" target="_blank" style="color:#ffd;">📍 View Map</a>
+
+    <h2>Our Moment</h2><img src="image/Main-image.jpeg" width="100%">
+
+    <!-- RSVP Form -->
     <h2>RSVP & Wishes</h2>
     <form id="rsvpFormMobile" method="POST" action="https://script.google.com/macros/s/AKfycbwspA-PN2szYXXJCDgqJeP5Tqd3b1FULfpnRKzijFcHUA0iOpsHVfjV94eVzh7LR92Z/exec">
       <input name="Name" type="text" placeholder="Your Name" required style="width:90%; padding:10px; margin:5px 0;"><br>
@@ -123,6 +149,8 @@
       <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
     </form>
     <p id="responseMsgMobile"></p>
+
+    <!-- All Wishes -->
     <h2 style="margin-top:40px;">All Wishes 💌</h2>
     <div id="wishesListMobile"><p>Loading wishes...</p></div>
     <div style="margin-top:10px; text-align:center;">
