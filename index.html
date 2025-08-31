@@ -16,11 +16,22 @@
   </audio>
 
   <script>
-    // Ensures autoplay works after user interaction (needed in some browsers like Chrome/Safari)
-    document.addEventListener("click", function() {
-      const music = document.getElementById("bg-music");
+    const music = document.getElementById("bg-music");
+
+    // Autoplay workaround (user must interact first in Chrome/Safari)
+    document.addEventListener("click", function startMusic() {
       if (music.paused) {
-        music.play();
+        music.play().catch(()=>{});
+      }
+      document.removeEventListener("click", startMusic);
+    });
+
+    // Pause when browser tab/window is not active
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        music.pause();
+      } else {
+        music.play().catch(()=>{});
       }
     });
   </script>
