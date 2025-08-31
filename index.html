@@ -126,12 +126,26 @@
       <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
       <h2>Our Moment</h2>
       <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
-      <h2>RSVP & Wishes</h2>
-      <form>
-        <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;"><br>
-        <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-        <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
-      </form>
+     <h2>RSVP & Wishes</h2>
+<form id="rsvpForm">
+  <input type="text" name="name" placeholder="Your Name" required
+         style="width:90%; padding:10px; margin:5px 0;"><br>
+
+  <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
+    <option value="">-- Apakah Anda akan hadir? --</option>
+    <option value="Ya">Ya, saya akan hadir</option>
+    <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+  </select><br>
+
+  <textarea name="wishes" placeholder="Your wishes..."
+            style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+
+  <button type="submit"
+          style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
+    Send
+  </button>
+</form>
+<p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
     </div>
   </div>
 
@@ -175,12 +189,28 @@
     <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
     <h2>Our Moment</h2>
     <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
-    <h2>RSVP & Wishes</h2>
-    <form>
-      <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;"><br>
-      <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-      <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
-    </form>
+<h2>RSVP & Wishes</h2>
+<form id="rsvpForm">
+  <input type="text" name="name" placeholder="Your Name" required
+         style="width:90%; padding:10px; margin:5px 0;"><br>
+
+  <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
+    <option value="">-- Apakah Anda akan hadir? --</option>
+    <option value="Ya">Ya, saya akan hadir</option>
+    <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+  </select><br>
+
+  <textarea name="wishes" placeholder="Your wishes..."
+            style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+
+  <button type="submit"
+          style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
+    Send
+  </button>
+</form>
+
+<p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
+
   </div>
 
   <script>
@@ -213,6 +243,40 @@
         controlBtn.textContent = "🔊";
       }
     });
+// === RSVP FORM to Google Sheets ===
+const form = document.getElementById("rsvpForm");
+const msg = document.getElementById("responseMsg");
+
+// Ganti dengan URL Web App dari Apps Script kamu
+const scriptURL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: form.name.value,
+      attendance: form.attendance.value,
+      wishes: form.wishes.value
+    };
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: { "Content-Type": "application/json" },
+    })
+    .then(res => {
+      msg.textContent = "✅ RSVP berhasil dikirim!";
+      form.reset();
+    })
+    .catch(err => {
+      msg.textContent = "❌ Gagal mengirim RSVP.";
+      console.error(err);
+    });
+  });
+}    
   </script>
+
+  
 </body>
 </html>
