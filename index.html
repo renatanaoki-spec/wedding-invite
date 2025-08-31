@@ -3,74 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Circle Buttons</title>
+  <title>Wedding Invitation - Daniel & Gabriella</title>
   <style>
-    body {
-      background: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      gap: 15px;
-    }
-
-    .circle-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid white;
-      background: rgba(128, 128, 128, 0.8);
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
       color: white;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: 0.2s;
+      overflow: hidden;
     }
 
-    .circle-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Left side (photo) */
+    .left {
+      flex: 1;
+      background: url("image/bg-photo.jpg") no-repeat center center/cover;
+    }
+
+    /* Right side (scroll content) */
+    .right {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      overflow-y: scroll;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .title h1 {
+      font-size: 36px;
+      letter-spacing: 2px;
+    }
+
+    .title p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    section {
+      margin: 60px 0;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .verse {
+      font-style: italic;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <!-- LEFT (Photo) -->
+    <div class="left"></div>
 
-  <!-- Fullscreen button -->
-  <button class="circle-btn" onclick="toggleFullScreen()">⤢</button>
+    <!-- RIGHT (Content scroll) -->
+    <div class="right">
+      <div class="title">
+        <p>WEDDING THANKSGIVING GREETINGS</p>
+        <h1>DANIEL & GABRIELLA</h1>
+        <p>Sunday, June 15th 2025</p>
+      </div>
 
-  <!-- Sound button -->
-  <button class="circle-btn" onclick="toggleSound()">🔊</button>
+      <!-- Verse -->
+      <section>
+        <div class="verse">
+          “So they are no longer two, but one flesh.  
+          What therefore God has joined together, let no man separate.”  
+          <br><br>Matthew 19:6
+        </div>
+      </section>
 
-  <audio id="bg-music" loop>
-    <source src="music/Dive-Olivia Dean-Acoustic.mp3" type="audio/mpeg">
-  </audio>
+      <!-- The Groom -->
+      <section>
+        <h2>The Groom</h2>
+        <p style="text-align:center">Photo and description here.</p>
+        <img src="image/groom.jpg" alt="Groom" style="width:100%; border-radius:10px; margin-top:10px;">
+      </section>
 
-  <script>
-    const music = document.getElementById("bg-music");
-    let soundOn = false;
+      <!-- The Bride -->
+      <section>
+        <h2>The Bride</h2>
+        <p style="text-align:center">Photo and description here.</p>
+        <img src="image/bride.jpg" alt="Bride" style="width:100%; border-radius:10px; margin-top:10px;">
+      </section>
 
-    function toggleSound() {
-      if (soundOn) {
-        music.pause();
-        event.target.textContent = "🔇"; // mute icon
-      } else {
-        music.play();
-        event.target.textContent = "🔊"; // sound icon
-      }
-      soundOn = !soundOn;
-    }
+      <!-- Save the Date -->
+      <section>
+        <h2>Save the Date</h2>
+        <p style="text-align:center">June 15th, 2025 – Venue Name, City</p>
+      </section>
 
-    function toggleFullScreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-      }
-    }
-  </script>
+      <!-- Google Maps -->
+      <section>
+        <h2>Location</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!..."></iframe>
+      </section>
 
+      <!-- Our Moment -->
+      <section>
+        <h2>Our Moment</h2>
+        <div class="gallery">
+          <img src="image/photo1.jpg" alt="Moment 1">
+          <img src="image/photo2.jpg" alt="Moment 2">
+          <img src="image/photo3.jpg" alt="Moment 3">
+          <img src="image/photo4.jpg" alt="Moment 4">
+        </div>
+      </section>
+
+      <!-- RSVP and Wishes -->
+      <section>
+        <h2>RSVP & Wishes</h2>
+        <form style="text-align:center">
+          <input type="text" placeholder="Your Name" style="width:80%; padding:10px; margin:5px;">
+          <textarea placeholder="Write your wishes..." style="width:80%; padding:10px; margin:5px;"></textarea>
+          <br>
+          <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
+        </form>
+      </section>
+    </div>
+  </div>
 </body>
 </html>
