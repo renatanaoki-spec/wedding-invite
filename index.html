@@ -30,7 +30,7 @@
     #music-control { position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.6); color:white; border:2px solid white; border-radius:50%; width:55px; height:55px; font-size:22px; cursor:pointer; display:none; }
 
     /* Wishes */
-    #wishesList { text-align:left; margin-top:20px; padding:10px; background:rgba(255,255,255,0.1); border-radius:8px; max-height:300px; overflow-y:auto; }
+    #wishesList, #wishesListMobile { text-align:left; margin-top:20px; padding:10px; background:rgba(255,255,255,0.1); border-radius:8px; max-height:300px; overflow-y:auto; }
     .wish { margin-bottom:10px; padding:10px; border-bottom:1px solid #666; }
 
     /* Responsive */
@@ -158,21 +158,50 @@
       const form = document.getElementById(formId);
       const msg = document.getElementById(msgId);
       if (!form) return;
-      form.addEventListener("submit", e => {
-        e.preventDefault();
-        fetch(scriptURL, { method:"POST", body:new FormData(form)})
-          .then(res=>res.json())
-          .then(()=>{ msg.textContent="✅ RSVP berhasil dikirim!"; msg.style.color="lightgreen"; form.reset(); loadWishes(); })
-          .catch(()=>{ msg.textContent="❌ Gagal mengirim RSVP."; msg.style.color="red"; });
-      });
+      if (!form.dataset.bound) {
+        form.dataset.bound = true;
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+          const submitBtn = form.querySelector("button[type='submit']");
+          submitBtn.disabled = true;
+          fetch(scriptURL, { method:"POST", body:new FormData(form)})
+            .then(res=>res.json())
+            .then(()=>{
+              msg.textContent="✅ RSVP berhasil dikirim!";
+              msg.style.color="lightgreen";
+              form.reset();
+              loadWishes();
+            })
+            .catch(()=>{
+              msg.textContent="❌ Gagal mengirim RSVP.";
+              msg.style.color="red";
+            })
+            .finally(()=>{ submitBtn.disabled = false; });
+        });
+      }
     }
 
     setupForm("rsvpForm","responseMsg");
     setupForm("rsvpFormMobile","responseMsgMobile");
 
-    // === LOAD WISHES with pagination ===
+    // === WISHES LIST ===
     let page = 1;
     const perPage = 10;
+
+    function timeAgo(dateString) {
+      const now = new Date();
+      const date = new Date(dateString);
+      const diff = (now - date) / 1000;
+      if (diff < 60) return "baru saja";
+      const minutes = Math.floor(diff/60);
+      if (minutes < 60) return `${minutes} menit lalu`;
+      const hours = Math.floor(minutes/60);
+      if (hours < 24) return `${hours} jam lalu`;
+      const days = Math.floor(hours/24);
+      if (days < 7) return `${days} hari lalu`;
+      const weeks = Math.floor(days/7);
+      return `${weeks} minggu lalu`;
+    }
 
     async function loadWishes() {
       try {
@@ -196,10 +225,11 @@
 
       list.innerHTML=pageData.map(w=>`
         <div class="wish">
-          <strong>${w.name}</strong> (${w.attendance})<br>
+          <strong>${w.name}</strong><br>
           <em>"${w.wishes}"</em><br>
-          <small>${new Date(w.timestamp).toLocaleString()}</small>
+          <small>${timeAgo(w.timestamp)}</small>
         </div>`).join("");
+
       pageInfo.textContent=`Page ${page} of ${Math.ceil(data.length/perPage)}`;
       prev.disabled=page===1;
       next.disabled=end>=data.length;
@@ -211,4 +241,3 @@
   </script>
 </body>
 </html>
-
