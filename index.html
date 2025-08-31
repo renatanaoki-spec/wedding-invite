@@ -3,40 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First HTML Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fdfdfd;
-      margin: 0;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      padding: 20px;
-      background: #eee;
-    }
-    main {
-      margin-top: 20px;
-    }
-  </style>
+  <title>Wedding Invitation</title>
 </head>
 <body>
-  <header>
-    <h1>Welcome!</h1>
-    <p>This is my first HTML page.</p>
-  </header>
+  <h1>Welcome to Our Wedding Invitation</h1>
+  <p>Enjoy the background music while browsing 💕</p>
 
-  <main>
-    <h2>About</h2>
-    <p>This section can hold text, images, or anything else.</p>
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="music/Dive-Olivia Dean-Acoustic.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-    <h2>Gallery</h2>
-    <img src="example.jpg" alt="Example Image" width="200">
-  </main>
-
-  <footer style="text-align:center; margin-top:40px;">
-    <p>&copy; 2025 My Website</p>
-  </footer>
+  <script>
+    // Ensures autoplay works after user interaction (needed in some browsers like Chrome/Safari)
+    document.addEventListener("click", function() {
+      const music = document.getElementById("bg-music");
+      if (music.paused) {
+        music.play();
+      }
+    });
+  </script>
 </body>
 </html>
