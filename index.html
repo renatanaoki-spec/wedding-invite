@@ -13,15 +13,22 @@
       display: flex;
       height: 100vh;
     }
+
     .left {
-      flex: 1;
+      flex: 0 0 65%;   /* 65% width for photo */
       background: url("image/bg-photo.jpg") no-repeat center center/cover;
     }
+
     .right {
-      flex: 1;
+      flex: 0 0 35%;   /* 35% width for text */
       background: rgba(0,0,0,0.6);
       color: white;
-      padding: 40px;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;   /* vertical center */
+      align-items: center;       /* horizontal center */
+      text-align: center;
       overflow-y: auto;
     }
 
@@ -63,6 +70,7 @@
       color: white;
       padding: 20px;
       overflow-y: auto;
+      text-align: center;
     }
 
     /* Music button */
@@ -99,17 +107,16 @@
   <div class="container">
     <div class="left"></div>
     <div class="right">
-      <h3 style="text-align:center; margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
-      <h1 style="text-align:center;">Zen & Yessica</h1>
-      <p style="text-align:center;">Wedding Thanksgiving Greeting</p>
-      <p style="text-align:center;">Saturday, 17 January 2025</p>
-      <hr>
-      <p style="margin-top:20px; font-style:italic; text-align:center">
+      <h3 style="margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
+      <h1>Zen & Yessica</h1>
+      <p>Wedding Thanksgiving Greeting</p>
+      <p>Saturday, 17 January 2025</p>
+      <hr style="width:80%; margin:20px auto; border:0.5px solid #fff;">
+      <p style="margin-top:20px; font-style:italic;">
         “So they are no longer two, but one flesh.  
         What therefore God has joined together, let no man separate.”  
         <br>Matthew 19:6
       </p>
-      <!-- add other sections here -->
     </div>
   </div>
 
@@ -123,28 +130,28 @@
 
   <!-- Mobile Content -->
   <div class="mobile-content" id="mobileContent">
-    <h3 style="text-align:center; margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
-    <h1 style="text-align:center;">Zen & Yessica</h1>
-    <p style="text-align:center;">Saturday, 17 January 2025</p>
-    <hr>
-    <p style="margin:20px 0; text-align:center; font-style:italic;">
+    <h3 style="margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
+    <h1>Zen & Yessica</h1>
+    <p>Saturday, 17 January 2025</p>
+    <hr style="width:80%; margin:20px auto; border:0.5px solid #fff;">
+    <p style="margin:20px 0; font-style:italic;">
       “So they are no longer two, but one flesh.  
       What therefore God has joined together, let no man separate.”  
       <br>Matthew 19:6
     </p>
-    <!-- Sections: Groom, Bride, Save the Date, Maps, Gallery, RSVP -->
+
     <h2>The Groom</h2>
-    <p style="text-align:center;">Zen</p>
+    <p>Zen</p>
     <h2>The Bride</h2>
-    <p style="text-align:center;">Yessica</p>
+    <p>Yessica</p>
     <h2>Save the Date</h2>
-    <p style="text-align:center;">Saturday, 17 January 2025<br>Venue Name, City</p>
+    <p>Saturday, 17 January 2025<br>Venue Name, City</p>
     <h2>Location</h2>
     <iframe src="https://www.google.com/maps/embed?..."></iframe>
     <h2>Our Moment</h2>
     <img src="image/photo1.jpg" width="100%">
     <h2>RSVP & Wishes</h2>
-    <form style="text-align:center;">
+    <form>
       <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;">
       <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea>
       <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
