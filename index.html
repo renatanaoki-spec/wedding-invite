@@ -9,84 +9,63 @@
     body, html { height:100%; font-family:Arial, sans-serif; }
 
     /* Desktop Layout */
-    .container {
-      display: flex;
-      height: 100vh;
-    }
+    .container { display:flex; height:100vh; }
     .left {
-      flex: 0 0 65%;
-      background: url("image/image (2).jpeg") no-repeat center center/cover;
+      flex:0 0 65%;
+      background:url("image/image (2).jpeg") no-repeat center center/cover;
     }
     .right {
-      flex: 0 0 35%;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      overflow-y: auto;
+      flex:0 0 35%;
+      background:rgba(0,0,0,0.6);
+      color:white;
+      padding:40px 20px;
+      text-align:center;
+      overflow-y:auto;
     }
-    .right h2 { margin-top: 30px; }
+    .right h2 { margin-top:30px; }
 
     /* Mobile Cover */
     .mobile-cover {
-      display: none;
-      height: 100vh;
-      width: 100%;
-      background: url("image/images (2).jpeg") no-repeat center center/cover;
-      background-size: cover;
-      color: white;
-      text-align: center;
-      justify-content: center;
-      align-items: center;
+      display:none; height:100vh; width:100%;
+      background:url("image/images (2).jpeg") no-repeat center center/cover;
+      background-size:cover; color:white; text-align:center;
+      justify-content:center; align-items:center;
     }
     .mobile-cover .overlay {
-      background: rgba(0,0,0,0.5);
-      padding: 40px 20px;
-      border-radius: 10px;
-      width: 90%;
+      background:rgba(0,0,0,0.5);
+      padding:40px 20px; border-radius:10px; width:90%;
     }
-    .subtitle { font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
-    .couple { font-size: 28px; font-weight: bold; margin: 5px 0; }
-    .couple span { font-family:"Times New Roman", serif; font-size: 30px; }
-    .date { font-size: 14px; margin-bottom: 20px; }
-    .invite-text { font-size: 14px; margin-bottom: 25px; }
+    .subtitle { font-size:14px; letter-spacing:2px; margin-bottom:10px; }
+    .couple { font-size:28px; font-weight:bold; margin:5px 0; }
+    .couple span { font-family:"Times New Roman", serif; font-size:30px; font-weight:normal; }
+    .date { font-size:14px; margin-bottom:20px; }
+    .invite-text { font-size:14px; line-height:1.5; margin-bottom:25px; }
     .open-btn {
-      padding: 12px 25px; font-size: 16px; border: none;
-      border-radius: 25px; background: white; color: black;
-      font-weight: bold; cursor: pointer;
+      padding:12px 25px; font-size:16px; border:none;
+      border-radius:25px; background:white; color:black;
+      font-weight:bold; cursor:pointer;
     }
 
     /* Mobile Content */
     .mobile-content {
-      display: none;
-      min-height: 100vh;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      padding: 20px;
-      overflow-y: auto;
-      text-align: center;
+      display:none; min-height:100vh;
+      background:rgba(0,0,0,0.6); color:white;
+      padding:20px; overflow-y:auto; text-align:center;
     }
 
     /* Music button */
     #music-control {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      border: 2px solid white;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      font-size: 22px;
-      cursor: pointer;
-      display: none;
+      position:fixed; bottom:20px; right:20px;
+      background:rgba(0,0,0,0.6); color:white;
+      border:2px solid white; border-radius:50%;
+      width:55px; height:55px; font-size:22px;
+      cursor:pointer; display:none;
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      .container { display: none; }
-      .mobile-cover { display: flex; }
+    @media(max-width:768px){
+      .container{display:none;} 
+      .mobile-cover{display:flex;}
     }
   </style>
 </head>
@@ -101,7 +80,7 @@
   <div class="container">
     <div class="left"></div>
     <div class="right">
-      <h3>Dear Mr/Mrs [Guest Name]</h3>
+      <h3 style="margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
       <h1>Zen & Yessica</h1>
       <p>Wedding Thanksgiving Greeting</p>
       <p>Saturday, 17 January 2025</p>
@@ -112,37 +91,30 @@
         Matthew 19:6
       </p>
 
-      <h2>The Groom</h2>
-      <p>Zen</p>
-      <h2>The Bride</h2>
-      <p>Yessica</p>
-      <h2>Save the Date</h2>
-      <p>Saturday, 17 January 2025<br>Venue Name, City</p>
-      <h2>Location</h2>
-      <iframe src="https://www.google.com/maps/embed?..."
-              style="width:100%; height:200px; border:0;"></iframe>
-      <h2>Our Moment</h2>
-      <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
-
       <!-- RSVP Form -->
       <h2>RSVP & Wishes</h2>
       <form id="rsvpForm">
-        <input name="Name" type="text" placeholder="Your Name" required
-               style="width:90%; padding:10px; margin:5px 0;"><br>
-        <select name="Attendance" required 
-                style="width:90%; padding:10px; margin:5px 0;">
+        <input name="Name" type="text" placeholder="Your Name" required style="width:90%; padding:10px; margin:5px 0;"><br>
+        <select name="Attendance" required style="width:90%; padding:10px; margin:5px 0;">
           <option value="">-- Apakah Anda akan hadir? --</option>
           <option value="Ya">Ya, saya akan hadir</option>
           <option value="Tidak">Maaf, saya tidak bisa hadir</option>
         </select><br>
-        <textarea name="Wishes" placeholder="Your wishes..."
-                  style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-        <button type="submit"
-                style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
-          Send
-        </button>
+        <textarea name="Wishes" placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+        <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
       </form>
       <p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
+
+      <!-- Wishes Section -->
+      <h2 style="margin-top:40px;">All Wishes 💌</h2>
+      <div id="wishesList" style="text-align:left; margin-top:20px; padding:10px; background:rgba(255,255,255,0.1); border-radius:8px; max-height:300px; overflow-y:auto;">
+        <p>Loading wishes...</p>
+      </div>
+      <div style="margin-top:10px; text-align:center;">
+        <button id="prevBtn" style="padding:5px 10px; margin:5px;">⬅ Prev</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn" style="padding:5px 10px; margin:5px;">Next ➡</button>
+      </div>
     </div>
   </div>
 
@@ -152,17 +124,14 @@
       <p class="subtitle">WEDDING THANKSGIVING GREETINGS</p>
       <h1 class="couple">ZEN <span>&</span> YESSICA</h1>
       <p class="date">SATURDAY, JANUARY 17<sup>th</sup> 2025</p>
-      <p class="invite-text">
-        Without diminishing respect,<br>
-        We invite you to attend our wedding ceremony.
-      </p>
+      <p class="invite-text">Without diminishing respect,<br>We invite you to attend our wedding ceremony.</p>
       <button class="open-btn" onclick="openInvitation()">OPEN INVITATION</button>
     </div>
   </div>
 
   <!-- Mobile Content -->
   <div class="mobile-content" id="mobileContent">
-    <h3>Dear Mr/Mrs [Guest Name]</h3>
+    <h3 style="margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
     <h1>Zen & Yessica</h1>
     <p>Saturday, 17 January 2025</p>
     <hr style="width:80%; margin:20px auto; border:0.5px solid #fff;">
@@ -171,162 +140,84 @@
       What therefore God has joined together, let no man separate.”<br>
       Matthew 19:6
     </p>
-    <h2>The Groom</h2>
-    <p>Zen</p>
-    <h2>The Bride</h2>
-    <p>Yessica</p>
-    <h2>Save the Date</h2>
-    <p>Saturday, 17 January 2025<br>Venue Name, City</p>
-    <h2>Location</h2>
-    <iframe src="https://www.google.com/maps/embed?..."
-            style="width:100%; height:200px; border:0;"></iframe>
-    <h2>Our Moment</h2>
-    <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
-
-    <!-- RSVP Form -->
-    <h2>RSVP & Wishes</h2>
-    <form id="rsvpFormMobile">
-      <input name="Name" type="text" placeholder="Your Name" required
-             style="width:90%; padding:10px; margin:5px 0;"><br>
-      <select name="Attendance" required 
-              style="width:90%; padding:10px; margin:5px 0;">
-        <option value="">-- Apakah Anda akan hadir? --</option>
-        <option value="Ya">Ya, saya akan hadir</option>
-        <option value="Tidak">Maaf, saya tidak bisa hadir</option>
-      </select><br>
-      <textarea name="Wishes" placeholder="Your wishes..."
-                style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-      <button type="submit"
-              style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
-        Send
-      </button>
-    </form>
-    <p id="responseMsgMobile" style="margin-top:10px; font-size:14px;"></p>
   </div>
 
-  <!-- Wishes Section -->
-  <h2 style="margin-top:40px; text-align:center;">All Wishes 💌</h2>
-  <div id="wishesList" 
-       style="text-align:left; margin:20px auto; max-width:600px; padding:10px; background:rgba(255,255,255,0.1); border-radius:8px; max-height:300px; overflow-y:auto;">
-    <p>Loading wishes...</p>
-  </div>
-  <div style="margin-top:10px; text-align:center;">
-    <button id="prevBtn" style="padding:5px 10px; margin:5px;">⬅ Prev</button>
-    <span id="pageInfo"></span>
-    <button id="nextBtn" style="padding:5px 10px; margin:5px;">Next ➡</button>
-  </div>
-
-  <!-- Scripts -->
   <script>
-    // Music control
+    // === Music control ===
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
-
     function openInvitation() {
       document.getElementById("mobileCover").style.display = "none";
       document.getElementById("mobileContent").style.display = "block";
       music.play().catch(()=>{});
       controlBtn.style.display = "block";
     }
-
     controlBtn.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-        controlBtn.textContent = "🔊";
-      } else {
-        music.pause();
-        controlBtn.textContent = "🔇";
-      }
+      if (music.paused) { music.play(); controlBtn.textContent = "🔊"; }
+      else { music.pause(); controlBtn.textContent = "🔇"; }
     });
-
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        music.pause();
-        controlBtn.textContent = "🔇";
-      } else {
-        music.play().catch(()=>{});
-        controlBtn.textContent = "🔊";
-      }
+      if (document.hidden) { music.pause(); controlBtn.textContent = "🔇"; }
+      else { music.play().catch(()=>{}); controlBtn.textContent = "🔊"; }
     });
 
-    // RSVP to Google Sheets
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzBum31nymV5kFP9r_g3JB5sll3laWgVHWq3QOP1EvR31-Okvmx4XqwFHrWOBUWbEKn/exec";
+    // === RSVP + Wishes ===
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxnThVrO_I1-hVn2r6J4TWUGGtRiCA_oQLeaHzwzNk9SjRW59ZQglxLaJwDrrkvP64o/exec";
+    const rsvpForm = document.getElementById("rsvpForm");
+    const responseMsg = document.getElementById("responseMsg");
+    rsvpForm.addEventListener("submit", e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: "POST", body: new FormData(rsvpForm)})
+        .then(() => {
+          responseMsg.textContent = "✅ RSVP berhasil dikirim!";
+          responseMsg.style.color = "lightgreen";
+          rsvpForm.reset();
+          loadWishes();
+        })
+        .catch(error => {
+          responseMsg.textContent = "❌ Gagal mengirim RSVP.";
+          responseMsg.style.color = "red";
+          console.error(error);
+        });
+    });
 
-    function handleForm(formId, msgId) {
-      const form = document.getElementById(formId);
-      const msg = document.getElementById(msgId);
-      if (!form) return;
-
-      form.addEventListener("submit", e => {
-        e.preventDefault();
-        fetch(scriptURL, { method: "POST", body: new FormData(form)})
-          .then(() => {
-            msg.textContent = "✅ RSVP berhasil dikirim!";
-            msg.style.color = "lightgreen";
-            form.reset();
-            loadWishes();
-          })
-          .catch(() => {
-            msg.textContent = "❌ Gagal mengirim RSVP.";
-            msg.style.color = "red";
-          });
-      });
-    }
-
-    handleForm("rsvpForm", "responseMsg");
-    handleForm("rsvpFormMobile", "responseMsgMobile");
-
-    // Wishes Pagination
+    // === Wishes Pagination ===
     const wishesList = document.getElementById("wishesList");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const pageInfo = document.getElementById("pageInfo");
-
-    let wishesData = [];
-    let currentPage = 1;
-    const perPage = 10;
+    let wishesData = [], currentPage = 1, perPage = 10;
 
     async function loadWishes() {
       try {
         const res = await fetch(scriptURL);
         wishesData = await res.json();
-
-        wishesData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
+        wishesData.sort((a,b)=> new Date(b.timestamp)-new Date(a.timestamp));
         renderPage(1);
-      } catch (err) {
-        wishesList.innerHTML = "<p>❌ Gagal memuat wishes.</p>";
+      } catch(err) {
+        wishesList.innerHTML="<p>❌ Gagal memuat wishes.</p>";
+        console.error(err);
       }
     }
 
     function renderPage(page) {
       currentPage = page;
-      const start = (page - 1) * perPage;
-      const end = start + perPage;
-      const items = wishesData.slice(start, end);
-
-      wishesList.innerHTML = items.map(item => `
+      const start=(page-1)*perPage, end=start+perPage;
+      const items=wishesData.slice(start,end);
+      wishesList.innerHTML=items.map(item=>`
         <div style="margin-bottom:15px; padding:10px; border-bottom:1px solid rgba(255,255,255,0.2);">
           <p><strong>${item.name}</strong> (${item.attendance})</p>
-          <p style="margin:5px 0; font-style:italic;">"${item.wishes || ''}"</p>
+          <p style="margin:5px 0; font-style:italic;">"${item.wishes||''}"</p>
           <small style="opacity:0.7;">${new Date(item.timestamp).toLocaleString()}</small>
         </div>
       `).join("");
-
-      const totalPages = Math.ceil(wishesData.length / perPage);
-      pageInfo.textContent = `Page ${page} of ${totalPages}`;
-      prevBtn.disabled = (page === 1);
-      nextBtn.disabled = (page === totalPages);
+      const totalPages=Math.ceil(wishesData.length/perPage);
+      pageInfo.textContent=`Page ${page} of ${totalPages}`;
+      prevBtn.disabled=(page===1);
+      nextBtn.disabled=(page===totalPages);
     }
-
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 1) renderPage(currentPage - 1);
-    });
-    nextBtn.addEventListener("click", () => {
-      const totalPages = Math.ceil(wishesData.length / perPage);
-      if (currentPage < totalPages) renderPage(currentPage + 1);
-    });
-
+    prevBtn.addEventListener("click",()=>{ if(currentPage>1) renderPage(currentPage-1); });
+    nextBtn.addEventListener("click",()=>{ const totalPages=Math.ceil(wishesData.length/perPage); if(currentPage<totalPages) renderPage(currentPage+1); });
     loadWishes();
   </script>
 </body>
