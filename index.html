@@ -13,23 +13,21 @@
       display: flex;
       height: 100vh;
     }
-
     .left {
-      flex: 0 0 65%;   /* 65% width for photo */
+      flex: 0 0 65%;
       background: url("image/bg-photo.jpg") no-repeat center center/cover;
     }
-
     .right {
-      flex: 0 0 35%;   /* 35% width for text */
+      flex: 0 0 35%;
       background: rgba(0,0,0,0.6);
       color: white;
       padding: 60px 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       text-align: center;
       overflow-y: auto;
+      justify-content: center;
+      align-items: center;
     }
 
     /* Mobile Cover */
@@ -42,24 +40,20 @@
       background-size: cover;
       color: white;
       text-align: center;
-      display: flex;
       justify-content: center;
       align-items: center;
     }
-
     .mobile-cover .overlay {
       background: rgba(0,0,0,0.5);
       padding: 40px 20px;
       border-radius: 10px;
       width: 90%;
     }
-
     .subtitle {
       font-size: 14px;
       letter-spacing: 2px;
       margin-bottom: 10px;
     }
-
     .couple {
       font-size: 28px;
       font-weight: bold;
@@ -70,27 +64,18 @@
       font-size: 30px;
       font-weight: normal;
     }
-
-    .date {
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .guest p {
-      font-size: 14px;
-    }
+    .date { font-size: 14px; margin-bottom: 20px; }
+    .guest p { font-size: 14px; }
     .guest h2 {
       font-size: 18px;
       font-weight: bold;
       margin: 5px 0 20px 0;
     }
-
     .invite-text {
       font-size: 14px;
       line-height: 1.5;
       margin-bottom: 25px;
     }
-
     .open-btn {
       padding: 12px 25px;
       font-size: 16px;
@@ -102,7 +87,7 @@
       cursor: pointer;
     }
 
-    /* Mobile Content (hidden by default) */
+    /* Mobile Content */
     .mobile-content {
       display: none;
       min-height: 100vh;
@@ -129,10 +114,10 @@
       display: none;
     }
 
-    /* Responsive break */
+    /* Responsive: switch between desktop and mobile */
     @media (max-width: 768px) {
-      .container { display: none; }
-      .mobile-cover { display: flex; }
+      .container { display: none; } /* hide desktop layout */
+      .mobile-cover { display: flex; } /* show mobile cover */
     }
   </style>
 </head>
@@ -143,7 +128,7 @@
   </audio>
   <button id="music-control">🔊</button>
 
-  <!-- Desktop view -->
+  <!-- Desktop view (browser) -->
   <div class="container">
     <div class="left"></div>
     <div class="right">
@@ -153,10 +138,11 @@
       <p>Saturday, 17 January 2025</p>
       <hr style="width:80%; margin:20px auto; border:0.5px solid #fff;">
       <p style="margin-top:20px; font-style:italic;">
-        “So they are no longer two, but one flesh.  
-        What therefore God has joined together, let no man separate.”  
-        <br>Matthew 19:6
+        “So they are no longer two, but one flesh.<br>
+        What therefore God has joined together, let no man separate.”<br>
+        Matthew 19:6
       </p>
+      <!-- Add scrollable sections here if needed -->
     </div>
   </div>
 
@@ -166,17 +152,14 @@
       <p class="subtitle">WEDDING THANKSGIVING GREETINGS</p>
       <h1 class="couple">ZEN <span>&</span> YESSICA</h1>
       <p class="date">SATURDAY, JANUARY 17<sup>th</sup> 2025</p>
-
       <div class="guest">
         <p>Dear Mr./Mrs./Mr(s).</p>
         <h2>SDRI. YESSICA NATALIA</h2>
       </div>
-
       <p class="invite-text">
         Without diminishing respect,<br>
         We invite you to attend our wedding ceremony.
       </p>
-
       <button class="open-btn" onclick="openInvitation()">OPEN INVITATION</button>
     </div>
   </div>
@@ -188,11 +171,10 @@
     <p>Saturday, 17 January 2025</p>
     <hr style="width:80%; margin:20px auto; border:0.5px solid #fff;">
     <p style="margin:20px 0; font-style:italic;">
-      “So they are no longer two, but one flesh.  
-      What therefore God has joined together, let no man separate.”  
-      <br>Matthew 19:6
+      “So they are no longer two, but one flesh.<br>
+      What therefore God has joined together, let no man separate.”<br>
+      Matthew 19:6
     </p>
-
     <h2>The Groom</h2>
     <p>Zen</p>
     <h2>The Bride</h2>
@@ -218,7 +200,6 @@
     function openInvitation() {
       document.getElementById("mobileCover").style.display = "none";
       document.getElementById("mobileContent").style.display = "block";
-
       music.play().catch(()=>{});
       controlBtn.style.display = "block";
     }
@@ -245,3 +226,4 @@
   </script>
 </body>
 </html>
+
