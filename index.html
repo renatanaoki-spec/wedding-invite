@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation Test - Zen & Yessica</title>
+  <title>Wedding Invitation - Zen & Yessica</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body, html { height:100%; font-family:Arial, sans-serif; }
@@ -50,8 +50,6 @@
     .couple { font-size: 28px; font-weight: bold; margin: 5px 0; }
     .couple span { font-family:"Times New Roman", serif; font-size: 30px; font-weight: normal; }
     .date { font-size: 14px; margin-bottom: 20px; }
-    .guest p { font-size: 14px; }
-    .guest h2 { font-size: 18px; font-weight: bold; margin: 5px 0 20px 0; }
     .invite-text { font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
     .open-btn {
       padding: 12px 25px; font-size: 16px; border: none;
@@ -126,16 +124,18 @@
       <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
       <h2>Our Moment</h2>
       <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
+
+      <!-- RSVP Form -->
       <h2>RSVP & Wishes</h2>
-      <form id="rsvpForm">
-        <input type="text" name="name" placeholder="Your Name" required
+      <form name="submit-to-google-sheet">
+        <input name="Name" type="text" placeholder="Your Name" required
                style="width:90%; padding:10px; margin:5px 0;"><br>
-        <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
+        <select name="Attendance" required style="width:90%; padding:10px; margin:5px 0;">
           <option value="">-- Apakah Anda akan hadir? --</option>
           <option value="Ya">Ya, saya akan hadir</option>
           <option value="Tidak">Maaf, saya tidak bisa hadir</option>
         </select><br>
-        <textarea name="wishes" placeholder="Your wishes..."
+        <textarea name="Wishes" placeholder="Your wishes..."
                   style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
         <button type="submit"
                 style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
@@ -152,10 +152,6 @@
       <p class="subtitle">WEDDING THANKSGIVING GREETINGS</p>
       <h1 class="couple">ZEN <span>&</span> YESSICA</h1>
       <p class="date">SATURDAY, JANUARY 17<sup>th</sup> 2025</p>
-      <div class="guest">
-        <p>Dear Mr./Mrs./Mr(s).</p>
-        <h2>SDRI. YESSICA NATALIA</h2>
-      </div>
       <p class="invite-text">
         Without diminishing respect,<br>
         We invite you to attend our wedding ceremony.
@@ -185,26 +181,30 @@
     <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
     <h2>Our Moment</h2>
     <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
+
+    <!-- RSVP Form -->
     <h2>RSVP & Wishes</h2>
-    <form id="rsvpFormMobile">
-      <input type="text" name="name" placeholder="Your Name" required
+    <form name="submit-to-google-sheet">
+      <input name="Name" type="text" placeholder="Your Name" required
              style="width:90%; padding:10px; margin:5px 0;"><br>
-      <select name="attendance" required style="width:90%; padding:10px; margin:5px 0;">
+      <select name="Attendance" required style="width:90%; padding:10px; margin:5px 0;">
         <option value="">-- Apakah Anda akan hadir? --</option>
         <option value="Ya">Ya, saya akan hadir</option>
         <option value="Tidak">Maaf, saya tidak bisa hadir</option>
       </select><br>
-      <textarea name="wishes" placeholder="Your wishes..."
+      <textarea name="Wishes" placeholder="Your wishes..."
                 style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
       <button type="submit"
               style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
         Send
       </button>
     </form>
-    <p id="responseMsgMobile" style="margin-top:10px; font-size:14px;"></p>
+    <p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
   </div>
 
+  <!-- Scripts -->
   <script>
+    // Music control
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
 
@@ -235,53 +235,28 @@
       }
     });
 
-    // === RSVP FORM to Google Sheets ===
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxBqMUKGt9QihqnYfOGjcTtjwLG8ZlLxzrCLHtiQbvoKifzsF-tenvMfv4pPoN1ogc/exec";
+    // RSVP to Google Sheets
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwq5cPaMSgxds-uZfpdmWux8jzgPswO6B4QQgi2P3gO18mlKEXjNUgOotDSADgf8B_0/exec";
+    const forms = document.querySelectorAll("form[name='submit-to-google-sheet']");
+    const msgEls = document.querySelectorAll("#responseMsg");
 
-    function handleFormSubmit(formId, msgId) {
-      const form = document.getElementById(formId);
-      const msg = document.getElementById(msgId);
-      if (!form) return;
-
-      form.addEventListener("submit", (e) => {
+    forms.forEach(form => {
+      form.addEventListener('submit', e => {
         e.preventDefault();
-
-        const formData = {
-          name: form.name.value,
-          attendance: form.attendance.value,
-          wishes: form.wishes.value
-        };
-
-        console.log("📤 Sending data:", formData);
-
-        fetch(scriptURL, {
-          method: "POST",
-          body: JSON.stringify(formData),
-          headers: { "Content-Type": "application/json" },
-        })
-        .then(res => res.json())
-        .then(result => {
-          console.log("✅ Response:", result);
-          if (result.result === "success") {
+        const msg = form.nextElementSibling;
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => {
             msg.textContent = "✅ RSVP berhasil dikirim!";
             msg.style.color = "lightgreen";
             form.reset();
-          } else {
-            msg.textContent = "❌ Gagal mengirim RSVP: " + (result.message || "Unknown error");
+          })
+          .catch(error => {
+            msg.textContent = "❌ Gagal mengirim RSVP.";
             msg.style.color = "red";
-          }
-        })
-        .catch(err => {
-          msg.textContent = "❌ Error koneksi ke server.";
-          msg.style.color = "red";
-          console.error("❌ Fetch error:", err);
-        });
+            console.error('Error!', error.message);
+          })
       });
-    }
-
-    // aktifkan form desktop & mobile
-    handleFormSubmit("rsvpForm", "responseMsg");
-    handleFormSubmit("rsvpFormMobile", "responseMsgMobile");
+    });
   </script>
 </body>
 </html>
