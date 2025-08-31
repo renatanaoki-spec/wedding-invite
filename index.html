@@ -36,28 +36,69 @@
     .mobile-cover {
       display: none;
       height: 100vh;
-      background: url("image/bg-photo.jpg") no-repeat center center/cover;
+      width: 100%;
+      position: relative;
+      background: url("image/cover.jpg") no-repeat center center/cover;
+      background-size: cover;
       color: white;
       text-align: center;
-      padding: 50px 20px;
-      flex-direction: column;
+      display: flex;
       justify-content: center;
       align-items: center;
     }
-    .mobile-cover h1 {
-      font-size: 28px;
+
+    .mobile-cover .overlay {
+      background: rgba(0,0,0,0.5);
+      padding: 40px 20px;
+      border-radius: 10px;
+      width: 90%;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      letter-spacing: 2px;
       margin-bottom: 10px;
     }
-    .mobile-cover p {
+
+    .couple {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .couple span {
+      font-family: "Times New Roman", serif;
+      font-size: 30px;
+      font-weight: normal;
+    }
+
+    .date {
+      font-size: 14px;
       margin-bottom: 20px;
     }
+
+    .guest p {
+      font-size: 14px;
+    }
+    .guest h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 5px 0 20px 0;
+    }
+
+    .invite-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
     .open-btn {
       padding: 12px 25px;
-      font-size: 18px;
+      font-size: 16px;
       border: none;
-      border-radius: 10px;
-      background: #bc8887;
-      color: white;
+      border-radius: 25px;
+      background: white;
+      color: black;
+      font-weight: bold;
       cursor: pointer;
     }
 
@@ -85,13 +126,13 @@
       height: 55px;
       font-size: 22px;
       cursor: pointer;
-      display: none; /* hidden until invitation opened */
+      display: none;
     }
 
     /* Responsive break */
     @media (max-width: 768px) {
-      .container { display: none; } /* hide desktop on mobile */
-      .mobile-cover { display: flex; } /* show mobile cover first */
+      .container { display: none; }
+      .mobile-cover { display: flex; }
     }
   </style>
 </head>
@@ -102,7 +143,7 @@
   </audio>
   <button id="music-control">🔊</button>
 
-  <!-- Desktop view (always visible on large screens) -->
+  <!-- Desktop view -->
   <div class="container">
     <div class="left"></div>
     <div class="right">
@@ -116,16 +157,28 @@
         What therefore God has joined together, let no man separate.”  
         <br>Matthew 19:6
       </p>
-      <!-- Add more sections for desktop (scrollable inside right panel if long) -->
     </div>
   </div>
 
-  <!-- Mobile Cover (only shown on phones) -->
+  <!-- Mobile Cover -->
   <div class="mobile-cover" id="mobileCover">
-    <h1>Wedding Invitation</h1>
-    <p>Zen & Yessica</p>
-    <p>Saturday, 17 January 2025</p>
-    <button class="open-btn" onclick="openInvitation()">Open Invitation</button>
+    <div class="overlay">
+      <p class="subtitle">WEDDING THANKSGIVING GREETINGS</p>
+      <h1 class="couple">ZEN <span>&</span> YESSICA</h1>
+      <p class="date">SATURDAY, JANUARY 17<sup>th</sup> 2025</p>
+
+      <div class="guest">
+        <p>Dear Mr./Mrs./Mr(s).</p>
+        <h2>SDRI. YESSICA NATALIA</h2>
+      </div>
+
+      <p class="invite-text">
+        Without diminishing respect,<br>
+        We invite you to attend our wedding ceremony.
+      </p>
+
+      <button class="open-btn" onclick="openInvitation()">OPEN INVITATION</button>
+    </div>
   </div>
 
   <!-- Mobile Content -->
@@ -166,12 +219,10 @@
       document.getElementById("mobileCover").style.display = "none";
       document.getElementById("mobileContent").style.display = "block";
 
-      // Play music only after invitation opened
       music.play().catch(()=>{});
       controlBtn.style.display = "block";
     }
 
-    // Toggle play/pause
     controlBtn.addEventListener("click", () => {
       if (music.paused) {
         music.play();
@@ -182,7 +233,6 @@
       }
     });
 
-    // Auto pause when switching apps/tabs
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         music.pause();
