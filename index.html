@@ -21,14 +21,11 @@
       flex: 0 0 35%;
       background: rgba(0,0,0,0.6);
       color: white;
-      padding: 60px 40px;
-      display: flex;
-      flex-direction: column;
+      padding: 40px 20px;
       text-align: center;
-      overflow-y: auto;
-      justify-content: center;
-      align-items: center;
+      overflow-y: auto;   /* ✅ make scrollable */
     }
+    .right h2 { margin-top: 30px; }
 
     /* Mobile Cover */
     .mobile-cover {
@@ -49,42 +46,17 @@
       border-radius: 10px;
       width: 90%;
     }
-    .subtitle {
-      font-size: 14px;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-    .couple {
-      font-size: 28px;
-      font-weight: bold;
-      margin: 5px 0;
-    }
-    .couple span {
-      font-family: "Times New Roman", serif;
-      font-size: 30px;
-      font-weight: normal;
-    }
+    .subtitle { font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
+    .couple { font-size: 28px; font-weight: bold; margin: 5px 0; }
+    .couple span { font-family:"Times New Roman", serif; font-size: 30px; font-weight: normal; }
     .date { font-size: 14px; margin-bottom: 20px; }
     .guest p { font-size: 14px; }
-    .guest h2 {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 5px 0 20px 0;
-    }
-    .invite-text {
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
+    .guest h2 { font-size: 18px; font-weight: bold; margin: 5px 0 20px 0; }
+    .invite-text { font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
     .open-btn {
-      padding: 12px 25px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px;
-      background: white;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
+      padding: 12px 25px; font-size: 16px; border: none;
+      border-radius: 25px; background: white; color: black;
+      font-weight: bold; cursor: pointer;
     }
 
     /* Mobile Content */
@@ -114,10 +86,10 @@
       display: none;
     }
 
-    /* Responsive: switch between desktop and mobile */
+    /* Responsive */
     @media (max-width: 768px) {
-      .container { display: none; } /* hide desktop layout */
-      .mobile-cover { display: flex; } /* show mobile cover */
+      .container { display: none; } /* hide desktop */
+      .mobile-cover { display: flex; } /* show cover */
     }
   </style>
 </head>
@@ -128,7 +100,7 @@
   </audio>
   <button id="music-control">🔊</button>
 
-  <!-- Desktop view (browser) -->
+  <!-- Desktop view -->
   <div class="container">
     <div class="left"></div>
     <div class="right">
@@ -137,12 +109,29 @@
       <p>Wedding Thanksgiving Greeting</p>
       <p>Saturday, 17 January 2025</p>
       <hr style="width:80%; margin:20px auto; border:0.5px solid #fff;">
-      <p style="margin-top:20px; font-style:italic;">
+      <p style="margin:20px 0; font-style:italic;">
         “So they are no longer two, but one flesh.<br>
         What therefore God has joined together, let no man separate.”<br>
         Matthew 19:6
       </p>
-      <!-- Add scrollable sections here if needed -->
+
+      <!-- ✅ Scrollable Sections -->
+      <h2>The Groom</h2>
+      <p>Zen</p>
+      <h2>The Bride</h2>
+      <p>Yessica</p>
+      <h2>Save the Date</h2>
+      <p>Saturday, 17 January 2025<br>Venue Name, City</p>
+      <h2>Location</h2>
+      <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
+      <h2>Our Moment</h2>
+      <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
+      <h2>RSVP & Wishes</h2>
+      <form>
+        <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;"><br>
+        <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+        <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
+      </form>
     </div>
   </div>
 
@@ -166,6 +155,7 @@
 
   <!-- Mobile Content -->
   <div class="mobile-content" id="mobileContent">
+    <!-- same sections as desktop -->
     <h3 style="margin-bottom:20px;">Dear Mr/Mrs [Guest Name]</h3>
     <h1>Zen & Yessica</h1>
     <p>Saturday, 17 January 2025</p>
@@ -182,13 +172,13 @@
     <h2>Save the Date</h2>
     <p>Saturday, 17 January 2025<br>Venue Name, City</p>
     <h2>Location</h2>
-    <iframe src="https://www.google.com/maps/embed?..."></iframe>
+    <iframe src="https://www.google.com/maps/embed?..." style="width:100%; height:200px; border:0;"></iframe>
     <h2>Our Moment</h2>
-    <img src="image/photo1.jpg" width="100%">
+    <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
     <h2>RSVP & Wishes</h2>
     <form>
-      <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;">
-      <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea>
+      <input type="text" placeholder="Your Name" style="width:90%; padding:10px; margin:5px 0;"><br>
+      <textarea placeholder="Your wishes..." style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
       <button type="submit" style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">Send</button>
     </form>
   </div>
@@ -226,4 +216,3 @@
   </script>
 </body>
 </html>
-
