@@ -126,22 +126,30 @@
       <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
 
       <!-- RSVP Form -->
-      <h2>RSVP & Wishes</h2>
-      <form name="submit-to-google-sheet">
-        <input name="Name" type="text" placeholder="Your Name" required
-               style="width:90%; padding:10px; margin:5px 0;"><br>
-        <select name="Attendance" required style="width:90%; padding:10px; margin:5px 0;">
-          <option value="">-- Apakah Anda akan hadir? --</option>
-          <option value="Ya">Ya, saya akan hadir</option>
-          <option value="Tidak">Maaf, saya tidak bisa hadir</option>
-        </select><br>
-        <textarea name="Wishes" placeholder="Your wishes..."
-                  style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-        <button type="submit"
-                style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
-          Send
-        </button>
-      </form>
+    <h2>RSVP & Wishes</h2>
+<form 
+  method="POST" 
+  action="https://script.google.com/macros/s/AKfycbzBum31nymV5kFP9r_g3JB5sll3laWgVHWq3QOP1EvR31-Okvmx4XqwFHrWOBUWbEKn/exec"
+  style="text-align:center;"
+>
+  <input name="Name" type="text" placeholder="Your Name" required
+         style="width:90%; padding:10px; margin:5px 0;"><br>
+
+  <select name="Attendance" required 
+          style="width:90%; padding:10px; margin:5px 0;">
+    <option value="">-- Apakah Anda akan hadir? --</option>
+    <option value="Ya">Ya, saya akan hadir</option>
+    <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+  </select><br>
+
+  <textarea name="Wishes" placeholder="Your wishes..."
+            style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+
+  <button type="submit"
+          style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
+    Send
+  </button>
+</form>
       <p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
     </div>
   </div>
@@ -183,22 +191,30 @@
     <img src="image/photo1.jpg" width="100%" style="margin-bottom:20px;">
 
     <!-- RSVP Form -->
-    <h2>RSVP & Wishes</h2>
-    <form name="submit-to-google-sheet">
-      <input name="Name" type="text" placeholder="Your Name" required
-             style="width:90%; padding:10px; margin:5px 0;"><br>
-      <select name="Attendance" required style="width:90%; padding:10px; margin:5px 0;">
-        <option value="">-- Apakah Anda akan hadir? --</option>
-        <option value="Ya">Ya, saya akan hadir</option>
-        <option value="Tidak">Maaf, saya tidak bisa hadir</option>
-      </select><br>
-      <textarea name="Wishes" placeholder="Your wishes..."
-                style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
-      <button type="submit"
-              style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
-        Send
-      </button>
-    </form>
+   <h2>RSVP & Wishes</h2>
+<form 
+  method="POST" 
+  action="https://script.google.com/macros/s/AKfycbzBum31nymV5kFP9r_g3JB5sll3laWgVHWq3QOP1EvR31-Okvmx4XqwFHrWOBUWbEKn/exec"
+  style="text-align:center;"
+>
+  <input name="Name" type="text" placeholder="Your Name" required
+         style="width:90%; padding:10px; margin:5px 0;"><br>
+
+  <select name="Attendance" required 
+          style="width:90%; padding:10px; margin:5px 0;">
+    <option value="">-- Apakah Anda akan hadir? --</option>
+    <option value="Ya">Ya, saya akan hadir</option>
+    <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+  </select><br>
+
+  <textarea name="Wishes" placeholder="Your wishes..."
+            style="width:90%; padding:10px; margin:5px 0;"></textarea><br>
+
+  <button type="submit"
+          style="padding:10px 20px; background:#bc8887; color:white; border:none; border-radius:8px;">
+    Send
+  </button>
+</form>
     <p id="responseMsg" style="margin-top:10px; font-size:14px;"></p>
   </div>
 
