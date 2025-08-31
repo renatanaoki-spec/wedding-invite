@@ -4,34 +4,95 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    /* Overlay for mobile first tap */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      z-index: 1000;
+    }
+
+    /* Music control button */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #bc8887;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: none; /* hidden until overlay dismissed */
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to Our Wedding Invitation</h1>
   <p>Enjoy the background music while browsing 💕</p>
 
   <!-- Background Music -->
-  <audio id="bg-music" autoplay loop>
+  <audio id="bg-music" autoplay muted loop>
     <source src="music/Dive-Olivia Dean-Acoustic.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
+  <!-- Overlay -->
+  <div id="overlay">🎵 Tap anywhere to start music</div>
+
+  <!-- Music Control -->
+  <button id="music-control">⏸️</button>
+
   <script>
     const music = document.getElementById("bg-music");
+    const overlay = document.getElementById("overlay");
+    const controlBtn = document.getElementById("music-control");
 
-    // Autoplay workaround (user must interact first in Chrome/Safari)
-    document.addEventListener("click", function startMusic() {
+    // First tap starts music
+    document.addEventListener("click", () => {
+      music.muted = false;
+      music.play().catch(()=>{});
+      overlay.style.display = "none";
+      controlBtn.style.display = "block";
+    }, { once: true });
+
+    // Toggle play/pause button
+    controlBtn.addEventListener("click", () => {
       if (music.paused) {
-        music.play().catch(()=>{});
+        music.play();
+        controlBtn.textContent = "⏸️"; // change to pause icon
+      } else {
+        music.pause();
+        controlBtn.textContent = "▶️"; // change to play icon
       }
-      document.removeEventListener("click", startMusic);
     });
 
-    // Pause when browser tab/window is not active
+    // Pause/resume when switching tabs
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         music.pause();
+        controlBtn.textContent = "▶️";
       } else {
         music.play().catch(()=>{});
+        controlBtn.textContent = "⏸️";
       }
     });
   </script>
