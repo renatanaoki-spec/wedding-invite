@@ -7,186 +7,99 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      /* ⬇️ Use BG3.JPEG as the site background */
-      background: url("image/BG3.JPEG") no-repeat center center fixed;
+    /* ===== Global ===== */
+    html, body{
+      margin:0; padding:0;
+      font-family:'Poppins', sans-serif;
+      /* BG3 as page background */
+      background: url("image/BG3.jpeg") no-repeat center center fixed;
       background-size: cover;
-      color: #333;
-      height: 100%;
-      overflow-x: hidden;
+      color:#333; overflow-x:hidden;
     }
-    h1, h2 {
-      font-family: 'Great Vibes', cursive;
-      color: #bc6c89;
-    }
+    h1, h2{ font-family:'Great Vibes', cursive; color:#bc6c89; }
 
-    /* Cover */
-    .cover {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      /* ⬇️ Use BG3.JPEG on cover as well */
+    section{ padding:50px 20px; text-align:center; }
+    .date{ font-size:1.3rem; margin:15px 0; }
+    .venue{ margin:8px 0; font-style:italic; }
+    .verse{ font-style:italic; max-width:600px; margin:auto; line-height:1.5; color:#555; }
+    footer{ background:#333; color:#fff; padding:20px; margin-top:40px; }
+
+    /* ===== Cover as its own page (NOT overlay) ===== */
+    .cover{
+      position: relative;            /* not fixed */
+      width:100%;
+      min-height:100vh;              /* full viewport */
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      text-align:center;
+      /* BG3 also on cover to guarantee same look */
       background: url("image/BG3.JPEG") no-repeat center center;
       background-size: cover;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
-    .cover h1 {
-      font-size: 3rem;
-      color: white;
-      margin-bottom: 10px;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.35);
+    .cover h1{
+      font-size:3rem; color:#fff; margin-bottom:10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,.35);
     }
-    .cover p {
-      font-size: 1.2rem;
-      color: white;
-      margin-bottom: 30px;
-      text-shadow: 0 1px 3px rgba(0,0,0,.3);
+    .cover p{
+      font-size:1.2rem; color:#fff; margin-bottom:30px;
+      text-shadow: 0 1px 3px rgba(0,0,0,.30);
     }
-    .cover button {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      background: white;
-      color: #bc6c89;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+    .cover button{
+      padding:12px 30px; border:none; border-radius:30px;
+      background:#fff; color:#bc6c89; font-size:1rem; font-weight:600; cursor:pointer;
+      transition:.3s;
     }
-    .cover button:hover {
-      background: #bc6c89;
-      color: white;
+    .cover button:hover{ background:#bc6c89; color:#fff; }
+
+    /* ===== Hero ===== */
+    .hero{
+      min-height:100vh;
+      background: transparent;       /* remove gradient/overlay */
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      padding:20px; color:#fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,.35);
     }
-    .cover.hidden {
-      opacity: 0;
-      visibility: hidden;
+    .hero h1{ font-size:4rem; margin-bottom:15px; }
+    .hero .quote{ max-width:600px; font-size:1.2rem; margin:20px auto 40px; line-height:1.6; }
+    #countdown{
+      font-size:1.2rem; font-weight:bold; margin:20px 0 40px;
+      display:flex; gap:20px; justify-content:center;
+    }
+    .time-box span{ display:block; font-size:2rem; }
+    .btn{
+      display:inline-block; padding:12px 30px; background:#bc6c89; border:none; color:#fff;
+      border-radius:30px; text-decoration:none; font-size:1rem; transition:.3s;
+    }
+    .btn:hover{ background:#a44d6c; }
+
+    /* ===== Music button ===== */
+    #music-control{
+      position:fixed; bottom:20px; right:20px;
+      background:#bc6c89; color:#fff; border:none; border-radius:50%;
+      width:50px; height:50px; font-size:1.2rem; cursor:pointer;
+      box-shadow:0 4px 6px rgba(0,0,0,.2); display:none;
     }
 
-    section { padding: 50px 20px; text-align: center; }
-    .date { font-size: 1.3rem; margin: 15px 0; }
-    .venue { margin: 8px 0; font-style: italic; }
-    .verse { font-style: italic; max-width: 600px; margin: auto; line-height: 1.5; color: #555; }
-    footer { background: #333; color: white; padding: 20px; margin-top: 40px; }
-
-    /* Hero */
-    .hero {
-      height: 100vh;
-      /* ⬇️ Remove gradient so BG3 is visible */
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: white;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.35);
+    /* ===== RSVP & Notes ===== */
+    form{
+      max-width:500px; margin:0 auto; display:flex; flex-direction:column; gap:15px; text-align:left;
     }
-    .hero h1 { font-size: 4rem; margin-bottom: 15px; }
-    .hero .quote { max-width: 600px; font-size: 1.2rem; margin: 20px auto 40px; line-height: 1.6; }
-    #countdown {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin: 20px 0 40px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
+    form input, form textarea, form select{
+      padding:12px; border:1px solid #ddd; border-radius:8px; font-size:1rem; font-family:'Poppins',sans-serif;
     }
-    .time-box span { display: block; font-size: 2rem; }
-    .btn {
-      display: inline-block;
-      padding: 12px 30px;
-      background: #bc6c89;
-      border: none;
-      color: white;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: 0.3s;
-    }
-    .btn:hover { background: #a44d6c; }
-
-    /* Music button */
-    #music-control {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #bc6c89;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-      display: none;
-    }
-
-    /* RSVP Form + Notes */
-    form {
-      max-width: 500px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      text-align: left;
-    }
-    form input, form textarea, form select {
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-    }
-    form textarea { min-height: 100px; resize: vertical; }
-    form button {
-      background: #bc6c89;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    form button:hover { background: #a44d6c; }
-    #responseMsg { text-align: center; margin-top: 15px; font-weight: 600; }
-
-    .attendance-wrapper { margin-top: 15px; text-align: center; }
-    .attendance-label { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
-    #attendanceInput {
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      width: 80%;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .error-msg {
-      color: #d46a6a;
-      font-size: 0.9rem;
-      display: none;
-      margin-top: 5px;
-      font-style: italic;
-    }
-
-    #notesContainer { margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; text-align: left; }
-    .note { padding: 12px; border-bottom: 1px solid #ddd; }
-    .note strong { color: #bc6c89; }
-    .pagination { margin-top: 15px; display: flex; justify-content: center; gap: 10px; }
-    .pagination button { padding: 8px 15px; border: none; border-radius: 6px; background: #bc6c89; color: white; cursor: pointer; }
-    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
+    form textarea{ min-height:100px; resize:vertical; }
+    form button{ background:#bc6c89; color:#fff; padding:12px; border:none; border-radius:8px; font-size:1rem; cursor:pointer; transition:.3s; }
+    form button:hover{ background:#a44d6c; }
+    #responseMsg{ text-align:center; margin-top:15px; font-weight:600; }
+    .attendance-wrapper{ margin-top:15px; text-align:center; }
+    .attendance-label{ font-size:.9rem; color:#666; margin-bottom:8px; }
+    #attendanceInput{ padding:12px; border:1px solid #ddd; border-radius:8px; font-size:1rem; width:80%; text-align:center; cursor:pointer; }
+    .error-msg{ color:#d46a6a; font-size:.9rem; display:none; margin-top:5px; font-style:italic; }
+    #notesContainer{ margin-top:30px; max-width:600px; margin-left:auto; margin-right:auto; text-align:left; }
+    .note{ padding:12px; border-bottom:1px solid #ddd; }
+    .note strong{ color:#bc6c89; }
+    .pagination{ margin-top:15px; display:flex; justify-content:center; gap:10px; }
+    .pagination button{ padding:8px 15px; border:none; border-radius:6px; background:#bc6c89; color:#fff; cursor:pointer; }
+    .pagination button:disabled{ background:#ccc; cursor:not-allowed; }
   </style>
 </head>
 <body>
@@ -197,12 +110,12 @@
   </audio>
   <button id="music-control">⏸️</button>
 
-  <!-- COVER PAGE -->
-  <div class="cover" id="coverPage">
+  <!-- COVER PAGE (separate section, not overlay) -->
+  <section class="cover" id="coverPage">
     <h1>Zen & Yessica</h1>
     <p>Dear <span id="guestName">Guest</span></p>
     <button id="openBtn">Open Invitation</button>
-  </div>
+  </section>
 
   <!-- Save the Date -->
   <section class="hero">
@@ -288,54 +201,57 @@
     const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
     document.getElementById("referer").value = window.location.hostname;
 
-    // Cover + music
-    const cover = document.getElementById("coverPage");
+    // Elements
     const openBtn = document.getElementById("openBtn");
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
 
+    // Guest param
     const urlParams = new URLSearchParams(window.location.search);
     const guest = urlParams.get("to");
     if (guest) document.getElementById("guestName").textContent = guest;
 
+    // Open Invitation -> show music button + scroll to hero (no overlay hide)
     openBtn.addEventListener("click", () => {
-      cover.classList.add("hidden");
       controlBtn.style.display = "block";
-      music.play().catch(err => console.log("Autoplay blocked:", err));
+      music.play().catch(()=>{});
+      document.querySelector(".hero").scrollIntoView({ behavior: "smooth" });
     });
 
+    // Music toggle
     controlBtn.addEventListener("click", () => {
       if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
       else { music.pause(); controlBtn.textContent = "▶️"; }
     });
 
+    // Pause on tab hidden / close
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) { music.pause(); controlBtn.textContent = "▶️"; }
     });
-    window.addEventListener("beforeunload", () => { music.pause(); });
+    window.addEventListener("beforeunload", () => music.pause());
 
     // Countdown
     function updateCountdown() {
       const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
-      const now = new Date().getTime();
+      const now = Date.now();
       const diff = weddingDate - now;
       if (diff <= 0) {
         document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
         return;
       }
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-      const seconds = Math.floor((diff % (1000*60)) / 1000);
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const s = Math.floor((diff % (1000*60)) / 1000);
+      days.textContent = d; hours.textContent = h; minutes.textContent = m; seconds.textContent = s;
     }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    const days = document.getElementById("days"),
+          hours = document.getElementById("hours"),
+          minutes = document.getElementById("minutes"),
+          seconds = document.getElementById("seconds");
+    setInterval(updateCountdown, 1000); updateCountdown();
 
-    // RSVP validation + submit
+    // RSVP submit (unchanged)
     const form = document.getElementById("rsvpForm");
     const nameInput = document.getElementById("nameInput");
     const nameError = document.getElementById("nameError");
@@ -345,55 +261,24 @@
 
     form.addEventListener("submit", e => {
       let valid = true;
-
-      if (!nameInput.value.trim()) {
-        nameError.style.display = "block";
-        valid = false;
-      } else {
-        nameError.style.display = "none";
-      }
-
-      if (!attendanceInput.value) {
-        attendanceError.style.display = "block";
-        valid = false;
-      } else {
-        attendanceError.style.display = "none";
-      }
-
-      if (!valid) {
-        e.preventDefault();
-        msg.textContent = "⚠️ Please check the form again, some fields are missing 🌸";
-        msg.style.color = "#d46a6a";
-        return;
-      }
+      if (!nameInput.value.trim()) { nameError.style.display = "block"; valid = false; } else { nameError.style.display = "none"; }
+      if (!attendanceInput.value)  { attendanceError.style.display = "block"; valid = false; } else { attendanceError.style.display = "none"; }
+      if (!valid) { e.preventDefault(); msg.textContent = "⚠️ Please check the form again, some fields are missing 🌸"; msg.style.color = "#d46a6a"; return; }
 
       e.preventDefault();
-      msg.textContent = "⏳ Sending...";
-      msg.style.color = "gray";
-
+      msg.textContent = "⏳ Sending..."; msg.style.color = "gray";
       fetch(scriptURL, { method: "POST", body: new FormData(form) })
         .then(res => res.json())
         .then(data => {
-          if (data.status === "success") {
-            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
-            msg.style.color = "green";
-            form.reset();
-            loadNotes();
-          } else {
-            msg.textContent = "❌ Gagal mengirim RSVP.";
-            msg.style.color = "red";
-          }
+          if (data.status === "success") { msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕"; msg.style.color = "green"; form.reset(); loadNotes(); }
+          else { msg.textContent = "❌ Gagal mengirim RSVP."; msg.style.color = "red"; }
         })
-        .catch(err => {
-          msg.textContent = "❌ Error: " + err;
-          msg.style.color = "red";
-        });
+        .catch(err => { msg.textContent = "❌ Error: " + err; msg.style.color = "red"; });
     });
 
     // Helper: waktu relatif
     function timeAgo(dateString) {
-      const now = new Date();
-      const date = new Date(dateString);
+      const now = new Date(); const date = new Date(dateString);
       const diff = (now - date) / 1000;
       if (diff < 60) return "baru saja";
       const minutes = Math.floor(diff / 60);
@@ -408,56 +293,38 @@
       return `${months} bulan lalu`;
     }
 
-    // Notes pagination
-    let notes = [];
-    let currentPage = 1;
-    const notesPerPage = 5;
-
+    // Notes + pagination (unchanged)
+    let notes = []; let currentPage = 1; const notesPerPage = 5;
     async function loadNotes() {
       try {
         const res = await fetch(scriptURL);
         notes = await res.json();
-        notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        notes.sort((a,b)=> new Date(b.timestamp) - new Date(a.timestamp));
         renderNotes();
-      } catch (err) {
+      } catch {
         document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
       }
     }
-
     function renderNotes() {
       const container = document.getElementById("notesContainer");
       container.innerHTML = "";
-      const empty = "<p>No notes yet.</p>";
-      if (!notes.length) { container.innerHTML = empty; return; }
-
-      const start = (currentPage - 1) * notesPerPage;
-      const end = start + notesPerPage;
-      const pageNotes = notes.slice(start, end);
-
+      if (!notes.length) { container.innerHTML = "<p>No notes yet.</p>"; return; }
+      const start = (currentPage-1) * notesPerPage;
+      const pageNotes = notes.slice(start, start + notesPerPage);
       pageNotes.forEach(n => {
-        let attendanceIcon = "";
-        if (n.attendance === "Yes") attendanceIcon = "💖";
-        if (n.attendance === "No") attendanceIcon = "🌸";
+        const icon = n.attendance === "Yes" ? "💖" : (n.attendance === "No" ? "🌸" : "");
         container.innerHTML += `
           <div class="note">
-            <strong>${n.name}</strong> ${attendanceIcon}<br>
+            <strong>${n.name}</strong> ${icon}<br>
             <em>${n.notes}</em><br>
             <small>${timeAgo(n.timestamp)}</small>
-          </div>
-        `;
+          </div>`;
       });
-
       document.getElementById("prevBtn").disabled = currentPage === 1;
-      document.getElementById("nextBtn").disabled = end >= notes.length;
+      document.getElementById("nextBtn").disabled = (currentPage * notesPerPage) >= notes.length;
     }
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) { currentPage--; renderNotes(); }
-    });
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
-    });
-
+    document.getElementById("prevBtn").addEventListener("click", ()=>{ if (currentPage>1){ currentPage--; renderNotes(); }});
+    document.getElementById("nextBtn").addEventListener("click", ()=>{ if ((currentPage*notesPerPage)<notes.length){ currentPage++; renderNotes(); }});
     loadNotes();
   </script>
 </body>
