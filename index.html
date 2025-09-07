@@ -277,153 +277,194 @@
     <p>With love, Zen & Yessica 💕</p>
   </footer>
 
-  <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
-    document.getElementById("referer").value = window.location.hostname;
+ <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
+  document.getElementById("referer").value = window.location.hostname;
 
-    // Cover Page
-    const cover = document.getElementById("coverPage");
-    const openBtn = document.getElementById("openBtn");
-    const music = document.getElementById("bg-music");
-    const controlBtn = document.getElementById("music-control");
+  // Cover Page
+  const cover = document.getElementById("coverPage");
+  const openBtn = document.getElementById("openBtn");
+  const music = document.getElementById("bg-music");
+  const controlBtn = document.getElementById("music-control");
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const guest = urlParams.get("to");
-    if (guest) document.getElementById("guestName").textContent = guest;
+  const urlParams = new URLSearchParams(window.location.search);
+  const guest = urlParams.get("to");
+  if (guest) document.getElementById("guestName").textContent = guest;
 
-    openBtn.addEventListener("click", () => {
-      cover.classList.add("hidden");
-      controlBtn.style.display = "block";
-      music.play().catch(err => console.log("Autoplay blocked:", err));
-    });
+  openBtn.addEventListener("click", () => {
+    cover.classList.add("hidden");
+    controlBtn.style.display = "block";
+    music.play().catch(err => console.log("Autoplay blocked:", err));
+  });
 
-    controlBtn.addEventListener("click", () => {
-      if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
-      else { music.pause(); controlBtn.textContent = "▶️"; }
-    });
-
-    // Countdown
-    function updateCountdown() {
-      const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
-      if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
-        return;
-      }
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-      const seconds = Math.floor((diff % (1000*60)) / 1000);
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
+  controlBtn.addEventListener("click", () => {
+    if (music.paused) { 
+      music.play(); 
+      controlBtn.textContent = "⏸️"; 
+    } else { 
+      music.pause(); 
+      controlBtn.textContent = "▶️"; 
     }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+  });
 
-    // RSVP validation + submit
-    const form = document.getElementById("rsvpForm");
-    const nameInput = document.getElementById("nameInput");
-    const nameError = document.getElementById("nameError");
-    const attendanceInput = document.getElementById("attendanceInput");
-    const attendanceError = document.getElementById("attendanceError");
-    const msg = document.getElementById("responseMsg");
+  // Pause music kalau tab tidak aktif / keluar browser
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      music.pause();
+      controlBtn.textContent = "▶️";
+    }
+  });
 
-    form.addEventListener("submit", e => {
-      let valid = true;
-      if (!nameInput.value.trim()) {
-        nameError.style.display = "block";
-        valid = false;
-      } else {
-        nameError.style.display = "none";
-      }
-      if (!attendanceInput.value) {
-        attendanceError.style.display = "block";
-        valid = false;
-      } else {
-        attendanceError.style.display = "none";
-      }
-      if (!valid) { e.preventDefault(); return; }
+  // Pause music kalau user keluar / refresh
+  window.addEventListener("beforeunload", () => {
+    music.pause();
+  });
 
-      e.preventDefault();
-      msg.textContent = "⏳ Sending...";
-      msg.style.color = "gray";
+  // Countdown
+  function updateCountdown() {
+    const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
+      return;
+    }
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((diff % (1000*60)) / 1000);
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === "success") {
-            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
-            msg.style.color = "green";
-            form.reset();
-            loadNotes();
-          } else {
-            msg.textContent = "❌ Gagal mengirim RSVP.";
-            msg.style.color = "red";
-          }
-        })
-        .catch(err => {
-          msg.textContent = "❌ Error: " + err;
+  // RSVP validation + submit
+  const form = document.getElementById("rsvpForm");
+  const nameInput = document.getElementById("nameInput");
+  const nameError = document.getElementById("nameError");
+  const attendanceInput = document.getElementById("attendanceInput");
+  const attendanceError = document.getElementById("attendanceError");
+  const msg = document.getElementById("responseMsg");
+
+  form.addEventListener("submit", e => {
+    let valid = true;
+    if (!nameInput.value.trim()) {
+      nameError.style.display = "block";
+      valid = false;
+    } else {
+      nameError.style.display = "none";
+    }
+    if (!attendanceInput.value) {
+      attendanceError.style.display = "block";
+      valid = false;
+    } else {
+      attendanceError.style.display = "none";
+    }
+    if (!valid) { e.preventDefault(); return; }
+
+    e.preventDefault();
+    msg.textContent = "⏳ Sending...";
+    msg.style.color = "gray";
+
+    fetch(scriptURL, { method: "POST", body: new FormData(form) })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "success") {
+          msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
+          msg.style.color = "green";
+          form.reset();
+          loadNotes();
+        } else {
+          msg.textContent = "❌ Gagal mengirim RSVP.";
           msg.style.color = "red";
-        });
-    });
-
-    // Notes pagination
-    let notes = [];
-    let currentPage = 1;
-    const notesPerPage = 5;
-
-    async function loadNotes() {
-      try {
-        const res = await fetch(scriptURL);
-        notes = await res.json();
-        renderNotes();
-      } catch (err) {
-        document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
-      }
-    }
-
-    function renderNotes() {
-      const container = document.getElementById("notesContainer");
-      container.innerHTML = "";
-
-      if (!notes.length) {
-        container.innerHTML = "<p>No notes yet.</p>";
-        return;
-      }
-
-      const start = (currentPage - 1) * notesPerPage;
-      const end = start + notesPerPage;
-      const pageNotes = notes.slice(start, end);
-
-      pageNotes.forEach(n => {
-        let attendanceIcon = "";
-        if (n.attendance === "Yes") attendanceIcon = "💖";
-        if (n.attendance === "No") attendanceIcon = "🌸";
-
-        container.innerHTML += `
-          <div class="note">
-            <strong>${n.name}</strong> ${attendanceIcon}<br>
-            <em>${n.notes}</em><br>
-            <small>${new Date(n.timestamp).toLocaleString()}</small>
-          </div>
-        `;
+        }
+      })
+      .catch(err => {
+        msg.textContent = "❌ Error: " + err;
+        msg.style.color = "red";
       });
+  });
 
-      document.getElementById("prevBtn").disabled = currentPage === 1;
-      document.getElementById("nextBtn").disabled = end >= notes.length;
+  // Helper: waktu relatif
+  function timeAgo(dateString) {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diff = (now - date) / 1000;
+
+    if (diff < 60) return "baru saja";
+    const minutes = Math.floor(diff / 60);
+    if (minutes < 60) return `${minutes} menit lalu`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} jam lalu`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days} hari lalu`;
+    const weeks = Math.floor(days / 7);
+    if (weeks < 4) return `${weeks} minggu lalu`;
+    const months = Math.floor(days / 30);
+    return `${months} bulan lalu`;
+  }
+
+  // Notes pagination
+  let notes = [];
+  let currentPage = 1;
+  const notesPerPage = 5;
+
+  async function loadNotes() {
+    try {
+      const res = await fetch(scriptURL);
+      notes = await res.json();
+
+      // Urutkan terbaru ke atas
+      notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      renderNotes();
+    } catch (err) {
+      document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
+    }
+  }
+
+  function renderNotes() {
+    const container = document.getElementById("notesContainer");
+    container.innerHTML = "";
+
+    if (!notes.length) {
+      container.innerHTML = "<p>No notes yet.</p>";
+      return;
     }
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) { currentPage--; renderNotes(); }
-    });
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
+    const start = (currentPage - 1) * notesPerPage;
+    const end = start + notesPerPage;
+    const pageNotes = notes.slice(start, end);
+
+    pageNotes.forEach(n => {
+      let attendanceIcon = "";
+      if (n.attendance === "Yes") attendanceIcon = "💖";
+      if (n.attendance === "No") attendanceIcon = "🌸";
+
+      container.innerHTML += `
+        <div class="note">
+          <strong>${n.name}</strong> ${attendanceIcon}<br>
+          <em>${n.notes}</em><br>
+          <small>${timeAgo(n.timestamp)}</small>
+        </div>
+      `;
     });
 
-    loadNotes();
-  </script>
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = end >= notes.length;
+  }
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (currentPage > 1) { currentPage--; renderNotes(); }
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
+  });
+
+  loadNotes();
+</script>
 </body>
 </html>
