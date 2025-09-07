@@ -10,69 +10,96 @@
 
   <style>
     html { scroll-behavior: smooth; }
+    .hidden { display: none; }
+
     body, html {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       font-family: 'Nunito', sans-serif;
       background: url('image/BG2.jpeg') no-repeat center center fixed;
       background-size: cover;
       color: #2f4f4f;
+      height: 100%;
       overflow-x: hidden;
     }
-    h1, h2 { font-family: 'Marcellus', serif; }
 
-    /* COVER */
-    .cover {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      background: rgba(255,255,255,0.8);
-      z-index: 9999; text-align: center;
-      opacity: 1; transition: opacity 1s ease;
+    h1, h2 {
+      font-family: 'Marcellus', serif;
+      color: #2f4f4f;
     }
-    .cover.hidden { opacity: 0; pointer-events: none; }
-    .cover h1 { font-size: 3rem; margin-bottom: 15px; }
-    .cover p { font-size: 1.2rem; margin-bottom: 25px; }
+
+    /* Cover */
+    .cover {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.75);
+      z-index: 9999;
+      text-align: center;
+    }
+    .cover h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .cover p { font-size: 1.2rem; margin-bottom: 30px; }
     .cover button {
-      padding: 12px 30px; border: none; border-radius: 30px;
-      background: #8AA899; color: #fff;
-      font-size: 1rem; font-weight: 600;
-      cursor: pointer; transition: background 0.3s;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      background: #8AA899;
+      color: #fdfdf9;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
     }
     .cover button:hover { background: #2f4f4f; }
 
-    /* HERO */
+    /* Hero */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      padding: 20px; text-align: center;
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      opacity: 0;
     }
-    .hero.show { opacity: 1; transform: translateY(0); }
     .hero h1 { font-size: 3rem; margin-bottom: 10px; }
     .hero h2 { font-size: 2rem; margin-bottom: 15px; }
     .hero .quote {
-      max-width: 600px; font-size: 1.1rem;
-      margin: 20px auto 40px; line-height: 1.6; font-style: italic;
+      max-width: 600px;
+      font-size: 1.1rem;
+      margin: 20px auto 40px;
+      line-height: 1.6;
+      font-style: italic;
     }
 
-    /* Countdown */
     #countdown {
-      font-size: 1.2rem; font-weight: bold;
+      font-size: 1.2rem;
+      font-weight: bold;
       margin: 20px 0 40px;
-      display: flex; gap: 20px; justify-content: center;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
     }
     .time-box span { display: block; font-size: 2rem; color: #8AA899; }
 
-    /* Button */
+    /* Buttons */
     .btn, form button {
       display: inline-block;
       padding: 12px 30px;
-      background: #8AA899; border: none;
-      color: #fff; border-radius: 30px;
-      font-size: 1rem; font-weight: 600;
+      background: #8AA899;
+      border: none;
+      color: #fdfdf9;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
       text-decoration: none;
       transition: background 0.3s, transform 0.2s;
       cursor: pointer;
@@ -82,81 +109,85 @@
       transform: translateY(-2px);
     }
 
-    /* Music */
+    /* Music button */
     #music-control {
-      position: fixed; bottom: 20px; right: 20px;
-      background: #8AA899; color: #fff;
-      border: none; border-radius: 50%;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #8AA899;
+      color: #fdfdf9;
+      border: none;
+      border-radius: 50%;
       width: 50px; height: 50px;
-      font-size: 1.2rem; cursor: pointer;
+      font-size: 1.2rem;
+      cursor: pointer;
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
       display: none;
     }
+    #music-control:hover { background: #2f4f4f; }
 
-    /* Sections */
+    /* Section wrapper */
     section {
-      background: rgba(255,255,255,0.6);
-      margin: 30px auto; padding: 30px 20px;
+      background: rgba(255,255,255,0.55);
+      margin: 30px auto;
+      padding: 30px 20px;
       border-radius: 12px;
-      max-width: 800px; text-align: center;
+      max-width: 800px;
+      text-align: center;
     }
 
     /* RSVP Form */
     form {
-      max-width: 500px; margin: 0 auto;
-      display: flex; flex-direction: column; gap: 18px;
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
       text-align: left;
     }
     form input, form textarea, form select {
-      width: 100%; padding: 12px 15px;
+      width: 100%;
+      padding: 12px 15px;
       border: 1px solid #cfd8dc;
-      border-radius: 10px; font-size: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
+      color: #333;
     }
     form textarea { min-height: 100px; resize: vertical; }
 
     #notesContainer {
-      margin-top: 20px; max-width: 600px;
-      margin: auto; text-align: left;
+      margin-top: 20px;
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
       background: rgba(255, 255, 255, 0.4);
-      padding: 15px; border-radius: 10px;
+      padding: 15px;
+      border-radius: 10px;
     }
-
     .note {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUp 0.6s ease forwards;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
+      padding: 12px 0;
       border-bottom: 1px solid rgba(47,79,79,0.2);
     }
     .note strong { color: #2f4f4f; }
-    .note em { display: block; margin-top: 5px; font-style: italic; }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .note em { display: block; margin-top: 5px; font-style: italic; color: #444; }
 
     footer {
       background: rgba(255,255,255,0.65);
-      padding: 20px; text-align: center;
-      border-radius: 12px; max-width: 800px; margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      border-radius: 12px;
+      max-width: 800px;
+      margin: 40px auto;
     }
 
-    /* Reveal */
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-
-    /* Stagger text */
-    .reveal span { display: inline-block; opacity: 0; transform: translateY(20px); }
-    .reveal.active span { animation: fadeStagger 0.6s ease forwards; }
-    .reveal.active span:nth-child(1) { animation-delay: 0.1s; }
-    .reveal.active span:nth-child(2) { animation-delay: 0.3s; }
-    .reveal.active span:nth-child(3) { animation-delay: 0.5s; }
-    .reveal.active span:nth-child(4) { animation-delay: 0.7s; }
-    @keyframes fadeStagger {
+    /* Fade animation */
+    .fade-in {
+      animation: fadeInUp 1s ease forwards;
+    }
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -175,8 +206,8 @@
     <button id="openBtn">Open Invitation</button>
   </div>
 
-  <!-- HERO -->
-  <section class="hero" id="heroSection">
+  <!-- HERO (hidden first) -->
+  <section class="hero hidden" id="heroSection">
     <h1>SAVE THE DATE</h1>
     <h2>Zen & Yessica</h2>
     <p class="quote">“Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal.”</p>
@@ -191,8 +222,8 @@
     <a class="btn" href="#rsvpSection">RSVP Now</a>
   </section>
 
-  <!-- Wedding Details -->
-  <section class="reveal">
+  <!-- Details -->
+  <section>
     <h2>Wedding Day</h2>
     <p>Saturday, 17 January 2026</p>
     <p>Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
@@ -200,7 +231,7 @@
   </section>
 
   <!-- RSVP -->
-  <section id="rsvpSection" class="reveal">
+  <section id="rsvpSection">
     <h2>RSVP & Notes</h2>
     <form id="rsvpForm">
       <input name="Name" type="text" placeholder="We’d like to know you 💌" required>
@@ -217,40 +248,33 @@
     <div id="notesContainer">Loading...</div>
   </section>
 
-  <footer class="reveal"><p>With love, Zen & Yessica 💕</p></footer>
+  <footer><p>With love, Zen & Yessica 💕</p></footer>
 
   <!-- SCRIPT -->
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
-    const SECRET_TOKEN = "ZENYESSICA2026"; // sama dengan di Apps Script
-
     const cover = document.getElementById("coverPage");
     const openBtn = document.getElementById("openBtn");
     const hero = document.getElementById("heroSection");
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
 
-    // Open Invitation
     openBtn.addEventListener("click", () => {
       cover.classList.add("hidden");
-      setTimeout(() => {
-        cover.style.display = "none";
-        hero.classList.add("show");
-      }, 1000);
+      hero.classList.remove("hidden");
+      hero.classList.add("fade-in"); // add fade animation
       controlBtn.style.display = "block";
       music.play().catch(() => console.log("Autoplay blocked."));
     });
 
-    // Music toggle
     controlBtn.addEventListener("click", () => {
       if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
       else { music.pause(); controlBtn.textContent = "▶️"; }
     });
+
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) { music.pause(); controlBtn.textContent = "▶️"; }
     });
 
-    // Countdown
     function updateCountdown() {
       const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
       const now = new Date().getTime();
@@ -269,88 +293,6 @@
       document.getElementById("seconds").textContent = s;
     }
     setInterval(updateCountdown, 1000); updateCountdown();
-
-    // Wrap text inside reveal
-    document.querySelectorAll(".reveal h2, .reveal p").forEach(el => {
-      const text = el.innerHTML.trim().split(" ");
-      el.innerHTML = text.map(word => `<span>${word}</span>`).join(" ");
-    });
-
-    // Scroll reveal
-    function revealOnScroll() {
-      const reveals = document.querySelectorAll(".reveal");
-      for (let i = 0; i < reveals.length; i++) {
-        const windowHeight = window.innerHeight;
-        const elementTop = reveals[i].getBoundingClientRect().top;
-        const elementVisible = 120;
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        }
-      }
-    }
-    window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll();
-
-    // Humanize time
-    function timeAgo(ts) {
-      const diff = (Date.now() - new Date(ts))/1000;
-      if (diff<60) return "just now";
-      const m = Math.floor(diff/60); if (m<60) return `${m} min ago`;
-      const h = Math.floor(m/60); if (h<24) return `${h} hr ago`;
-      const d = Math.floor(h/24); return `${d} days ago`;
-    }
-
-    // Render notes with animation
-    function renderNotes(data) {
-      const container = document.getElementById("notesContainer");
-      container.innerHTML = "";
-      data.forEach((note, index) => {
-        const div = document.createElement("div");
-        div.classList.add("note");
-        div.style.animationDelay = `${index * 0.15}s`;
-        div.innerHTML = `
-          <strong>${note.Name} ${note.Attendance === "Yes" ? "💖" : "🌸"}</strong>
-          <em>${note.Notes || ""}</em>
-          <small>${timeAgo(note.Date)}</small>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    // Load notes from Google Sheet
-    async function loadNotes() {
-      try {
-        const res = await fetch(`${scriptURL}?token=${SECRET_TOKEN}`);
-        const data = await res.json();
-        renderNotes(data.reverse());
-      } catch {
-        document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load ucapan.</p>";
-      }
-    }
-
-    // Handle RSVP form submit
-    const form = document.getElementById("rsvpForm");
-    const msg = document.getElementById("responseMsg");
-
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      formData.append("token", SECRET_TOKEN); // kirim token
-      fetch(scriptURL, { method: "POST", body: formData })
-        .then(() => {
-          msg.textContent = "✅ RSVP berhasil dikirim!";
-          msg.style.color = "green";
-          form.reset();
-          loadNotes();
-        })
-        .catch(() => {
-          msg.textContent = "❌ Gagal mengirim RSVP.";
-          msg.style.color = "red";
-        });
-    });
-
-    // Initial load
-    loadNotes();
   </script>
 </body>
 </html>
