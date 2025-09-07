@@ -1,475 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation - Zen & Yessica</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --sage:#6b8e72;
-      --sage-strong:#5f8066;
-      --terra:#c17c74;
-      --forest:#2f3e2c;
-      --ivory:#fffefa;
-      --ivory-80:rgba(255,254,250,.85);
-      --ivory-90:rgba(255,254,250,.92);
-      --white:#fff;
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #333;
+      height: 100%;
+      overflow-x: hidden;
     }
-
-    /* Base */
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      font-family:'Poppins',sans-serif;
-      color:var(--forest);
-      background:url("image/BG3.JPEG") no-repeat center center fixed;
-      background-size:cover;
-      overflow-x:hidden;
-    }
-
-    h1,h2{
-      font-family:'Playfair Display',serif;
-      letter-spacing:.5px;
-      margin:0 0 .6rem 0;
-    }
-
-    a.btn, button.btn{
-      display:inline-block;
-      padding:12px 28px;
-      border:none;
-      border-radius:999px;
-      background:var(--sage);
-      color:var(--white);
-      font-weight:600;
-      cursor:pointer;
-      box-shadow:0 0 14px rgba(107,142,114,.45);
-      transition:.25s ease;
-      text-decoration:none;
-    }
-    a.btn:hover, button.btn:hover{
-      background:var(--terra);
-      box-shadow:0 0 20px rgba(193,124,116,.55);
-      transform:translateY(-1px);
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+      color: #bc6c89;
     }
 
     /* Cover */
-    .cover{
-      position:fixed; inset:0;
-      background:url("image/BG3.JPEG") center/cover no-repeat;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; z-index:9999;
-      transition:opacity .9s ease, visibility .9s ease;
+    .cover {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #fbd3e9, #91a1f0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
-    .cover.hidden{opacity:0; visibility:hidden}
-    .cover h1{
-      font-size:3rem; color:var(--white);
-      text-shadow:0 0 12px rgba(107,142,114,.85),0 0 24px rgba(255,255,255,.9);
-      margin-bottom:.25rem;
-      animation:softGlow 3s ease-in-out infinite alternate;
+    .cover h1 {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
     }
-    .cover p{
-      color:#f6fbf6; margin:.25rem 0 1.3rem 0; font-size:1.15rem;
-      text-shadow:0 1px 2px rgba(0,0,0,.25);
+    .cover p {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 30px;
     }
-    @keyframes softGlow{
-      from{ text-shadow:0 0 8px rgba(107,142,114,.6),0 0 16px rgba(255,255,255,.6) }
-      to  { text-shadow:0 0 18px rgba(107,142,114,1),0 0 30px rgba(255,255,255,1) }
+    .cover button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #bc6c89;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
     }
-
-    /* Sections / boxes */
-    .section{
-      padding:64px 18px;
-      display:flex; justify-content:center;
+    .cover button:hover {
+      background: #bc6c89;
+      color: white;
     }
-    .box{
-      width:min(960px, 92vw);
-      background:var(--ivory-80);
-      backdrop-filter:saturate(1.1) blur(1px);
-      border-radius:16px;
-      padding:28px;
-      box-shadow:0 10px 30px rgba(0,0,0,.12);
-      animation:fadeInUp .8s ease both;
-    }
-    .hero-title{
-      color:var(--sage);
-      text-shadow:0 0 10px rgba(107,142,114,.5);
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      animation:heroGlow 3s ease-in-out infinite alternate;
-      text-align:center;
-    }
-    @keyframes heroGlow{
-      from{ text-shadow:0 0 8px rgba(107,142,114,.45),0 0 14px rgba(255,255,255,.5) }
-      to  { text-shadow:0 0 16px rgba(107,142,114,.85),0 0 26px rgba(255,255,255,.9) }
+    .cover.hidden {
+      opacity: 0;
+      visibility: hidden;
     }
 
-    .quote{
-      max-width:720px; margin:16px auto 28px; text-align:center; color:#41543a;
+    section { padding: 50px 20px; text-align: center; }
+    .date { font-size: 1.3rem; margin: 15px 0; }
+    .venue { margin: 8px 0; font-style: italic; }
+    .verse { font-style: italic; max-width: 600px; margin: auto; line-height: 1.5; color: #555; }
+    footer { background: #333; color: white; padding: 20px; margin-top: 40px; }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #fbd3e9, #bbd2c5, #91a1f0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+    }
+    .hero h1 { font-size: 4rem; margin-bottom: 15px; }
+    .hero .quote { max-width: 600px; font-size: 1.2rem; margin: 20px auto 40px; line-height: 1.6; }
+    #countdown {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 20px 0 40px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .time-box span { display: block; font-size: 2rem; }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #bc6c89;
+      border: none;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #a44d6c; }
+
+    /* Music button */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #bc6c89;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: none;
     }
 
-    /* Countdown */
-    #countdown{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
-    .time-box{ min-width:90px; text-align:center; }
-    .time-box span{ display:block; font-size:2rem; color:var(--sage); font-weight:700 }
-    .time-box small{ display:block; opacity:.8; font-weight:600 }
+    /* RSVP Form + Notes */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
+    }
+    form input, form textarea, form select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    form textarea { min-height: 100px; resize: vertical; }
+    form button {
+      background: #bc6c89;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    form button:hover { background: #a44d6c; }
+    #responseMsg { text-align: center; margin-top: 15px; font-weight: 600; }
 
-    /* Music & Fullscreen buttons */
-    .round-fab{
-      position:fixed; bottom:20px; z-index:10;
-      width:56px; height:56px; border-radius:50%;
-      display:grid; place-items:center; cursor:pointer;
-      border:2px solid var(--sage); background:rgba(255,255,255,.2); color:var(--sage);
-      box-shadow:0 0 12px rgba(107,142,114,.4); backdrop-filter:blur(6px);
-      transition:.25s ease; display:none;
-    }
-    .round-fab:hover{ transform:scale(1.06); background:rgba(255,255,255,.28) }
-    #music-control{ right:20px; }
-    #fs-control{ right:86px; }
-
-    /* Form */
-    form{
-      width:min(720px, 100%); margin:0 auto; display:grid; gap:14px;
-    }
-    form input, form textarea, form select{
-      padding:12px 14px; border-radius:10px; border:1px solid var(--sage);
-      background:var(--ivory-90); color:var(--forest); font-size:1rem;
-    }
-    form textarea{ min-height:110px; resize:vertical }
-    form input:focus, form textarea:focus, form select:focus{
-      outline:none; border-color:var(--terra); box-shadow:0 0 0 3px rgba(193,124,116,.2)
-    }
-    #responseMsg{ text-align:center; margin-top:6px; font-weight:600 }
-
-    /* Notes */
-    .notes-header{
-      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
-      margin:12px 0 16px;
-    }
-    .notes-controls{ display:flex; gap:10px; align-items:center }
-    .notes-controls select{
-      padding:8px 10px; border-radius:10px; border:1px solid var(--sage);
-      background:var(--ivory-90); color:var(--forest);
-    }
-    #notesContainer{ width:min(720px, 100%); margin:0 auto }
-    .note{
-      padding:12px 0; border-bottom:1px solid rgba(47,62,44,.15);
-      opacity:0; transform:translateY(12px); animation:fadeNote .7s forwards;
-    }
-    @keyframes fadeNote{ to{ opacity:1; transform:translateY(0) } }
-
-    /* Reveal on scroll */
-    .reveal{ opacity:0; transform:translateY(20px) }
-    .reveal.show{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s ease }
-
-    /* Anim base */
-    @keyframes fadeInUp{ from{ opacity:0; transform:translateY(14px) } to{ opacity:1; transform:none } }
-
-    footer{
-      text-align:center; color:#4e6350; padding:28px 12px; font-weight:600;
-      text-shadow:0 1px 1px rgba(255,255,255,.6)
+    .attendance-wrapper { margin-top: 15px; text-align: center; }
+    .attendance-label { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
+    #attendanceInput {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 80%;
+      text-align: center;
+      cursor: pointer;
     }
 
-    /* Responsive */
-    @media (max-width:420px){
-      .cover h1{ font-size:2.2rem }
-      .time-box{ min-width:72px }
-      .round-fab{ width:52px; height:52px }
-      #fs-control{ right:82px }
+    .error-msg {
+      color: #d46a6a;
+      font-size: 0.9rem;
+      display: none;
+      margin-top: 5px;
+      font-style: italic;
     }
+
+    #notesContainer { margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; text-align: left; }
+    .note { padding: 12px; border-bottom: 1px solid #ddd; }
+    .note strong { color: #bc6c89; }
+    .pagination { margin-top: 15px; display: flex; justify-content: center; gap: 10px; }
+    .pagination button { padding: 8px 15px; border: none; border-radius: 6px; background: #bc6c89; color: white; cursor: pointer; }
+    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
   </style>
 </head>
 <body>
-  <!-- Audio -->
+
+  <!-- 🎶 Music -->
   <audio id="bg-music" loop>
     <source src="music/Music-1.mp3" type="audio/mpeg">
   </audio>
+  <button id="music-control">⏸️</button>
 
-  <!-- Floating Controls -->
-  <button id="fs-control" class="round-fab" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
-  <button id="music-control" class="round-fab" title="Play/Pause music"><i class="fa-solid fa-music"></i></button>
-
-  <!-- COVER -->
+  <!-- COVER PAGE -->
   <div class="cover" id="coverPage">
     <h1>Zen & Yessica</h1>
     <p>Dear <span id="guestName">Guest</span></p>
-    <button id="openBtn" class="btn">Open Invitation</button>
+    <button id="openBtn">Open Invitation</button>
   </div>
 
-  <!-- HERO -->
-  <section class="section hero reveal">
-    <div class="box">
-      <h1 class="hero-title">SAVE THE DATE</h1>
-      <p class="quote">
-        “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal.
-        It is only fitting that every effort to attain His love is pursued with joy.”
-      </p>
-
-      <div id="countdown" aria-label="Countdown to wedding">
-        <div class="time-box"><span id="days">00</span><small>Days</small></div>
-        <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
-        <div class="time-box"><span id="minutes">00</span><small>Minutes</small></div>
-        <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
-      </div>
-
-      <div style="text-align:center; margin-top:24px;">
-        <a class="btn"
-           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong"
-           target="_blank" rel="noopener">
-          Add to Google Calendar
-        </a>
-      </div>
+  <!-- Save the Date -->
+  <section class="hero">
+    <h1>SAVE THE DATE</h1>
+    <p class="quote">
+      “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
+      It is only fitting that every effort to attain His love is pursued with joy.”
+    </p>
+    <div id="countdown">
+      <div class="time-box"><span id="days">00</span>Days</div>
+      <div class="time-box"><span id="hours">00</span>Hours</div>
+      <div class="time-box"><span id="minutes">00</span>Minutes</div>
+      <div class="time-box"><span id="seconds">00</span>Seconds</div>
     </div>
+    <a class="btn" 
+       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
+       target="_blank">
+      SAVE THE DATE
+    </a>
   </section>
 
-  <!-- RSVP & NOTES -->
-  <section class="section reveal">
-    <div class="box">
-      <h2 style="text-align:center;color:var(--sage)">RSVP & Notes</h2>
+  <!-- Details -->
+  <section>
+    <h2>Wedding Day</h2>
+    <p class="date">Saturday, 17 January 2026</p>
+    <p class="venue">Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
+    <p class="venue">Reception: Bagas Raya Cibinong</p>
+  </section>
 
-      <form id="rsvpForm">
-        <input type="hidden" name="token" value="ZENYESSICA2026">
-        <input type="hidden" id="referer" name="referer">
+  <!-- Verse -->
+  <section>
+    <h2>Bible Verse</h2>
+    <p class="verse">
+      “So they are no longer two, but one flesh.  
+      What therefore God has joined together, let no man separate.”  
+      <br>– Matthew 19:6
+    </p>
+  </section>
 
-        <input name="Name" id="nameInput" type="text" placeholder="Your name 💌" required>
-        <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
+  <!-- RSVP -->
+  <section>
+    <h2>RSVP & Notes</h2>
+    <form id="rsvpForm">
+      <input type="hidden" name="token" value="ZENYESSICA2026">
+      <input type="hidden" id="referer" name="referer">
 
+      <!-- Name -->
+      <input name="Name" id="nameInput" type="text" placeholder="We’d like to know you 💌" required>
+      <small id="nameError" class="error-msg">Oops, please tell us your name 🌷</small>
+
+      <!-- Notes -->
+      <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
+
+      <!-- Attendance -->
+      <div class="attendance-wrapper">
+        <p class="attendance-label">Attendance confirmation</p>
         <select name="Attendance" id="attendanceInput" required>
-          <option value="">-- Attendance --</option>
+          <option value="">-- Select attendance --</option>
           <option value="Yes">💖 Yes, I’ll be there</option>
           <option value="No">🌸 Sorry, can’t attend</option>
         </select>
-
-        <button type="submit" class="btn">Send</button>
-      </form>
-      <p id="responseMsg"></p>
-
-      <hr style="border:none;border-top:1px solid rgba(47,62,44,.18);margin:22px 0">
-
-      <div class="notes-header">
-        <h2 style="margin:0;color:var(--sage)">Guest Notes 💌</h2>
-        <div class="notes-controls">
-          <label for="sortSelect" style="font-weight:600;color:#4e6350;">Sort:</label>
-          <select id="sortSelect" aria-label="Sort notes">
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="name">Name A–Z</option>
-            <option value="attendance">Attendance (Yes first)</option>
-          </select>
-        </div>
+        <small id="attendanceError" class="error-msg">Please let us know if you can attend 💐</small>
       </div>
 
-      <div id="notesContainer">Loading...</div>
+      <button type="submit">SEND</button>
+    </form>
+    <p id="responseMsg"></p>
 
-      <div class="notes-controls" style="justify-content:center;margin-top:12px">
-        <button id="prevBtn" class="btn" type="button" style="padding:8px 16px">Prev</button>
-        <button id="nextBtn" class="btn" type="button" style="padding:8px 16px">Next</button>
-      </div>
+    <h2>Guest Notes 💌</h2>
+    <div id="notesContainer">Loading...</div>
+    <div class="pagination">
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
     </div>
   </section>
 
-  <footer class="reveal">With love, Zen &amp; Yessica 💕</footer>
+  <footer>
+    <p>With love, Zen & Yessica 💕</p>
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- SCRIPT -->
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
     document.getElementById("referer").value = window.location.hostname;
 
-    // Elements
+    // Cover + music
     const cover = document.getElementById("coverPage");
     const openBtn = document.getElementById("openBtn");
     const music = document.getElementById("bg-music");
-    const musicBtn = document.getElementById("music-control");
-    const fsBtn = document.getElementById("fs-control");
+    const controlBtn = document.getElementById("music-control");
 
-    // Guest name param
-    const params = new URLSearchParams(window.location.search);
-    const guest = params.get("to");
+    const urlParams = new URLSearchParams(window.location.search);
+    const guest = urlParams.get("to");
     if (guest) document.getElementById("guestName").textContent = guest;
 
-    /* ---------- Fullscreen (manual toggle) ---------- */
-    function isFullscreen() {
-      return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
-    }
-    function requestFS(el) {
-      if (el.requestFullscreen) el.requestFullscreen();
-      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
-      else if (el.msRequestFullscreen) el.msRequestFullscreen();
-    }
-    function exitFS() {
-      if (document.exitFullscreen) document.exitFullscreen();
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-      else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
-    function syncFSIcon() {
-      const icon = fsBtn.querySelector("i");
-      if (isFullscreen()) { icon.classList.remove("fa-expand"); icon.classList.add("fa-compress"); }
-      else { icon.classList.remove("fa-compress"); icon.classList.add("fa-expand"); }
-    }
-    fsBtn.addEventListener("click", () => {
-      if (isFullscreen()) exitFS(); else requestFS(document.documentElement);
-    });
-    document.addEventListener("fullscreenchange", syncFSIcon);
-    document.addEventListener("webkitfullscreenchange", syncFSIcon);
-
-    /* ---------- Open Invitation ---------- */
     openBtn.addEventListener("click", () => {
       cover.classList.add("hidden");
-      // show floating buttons
-      musicBtn.style.display = "grid";
-      fsBtn.style.display = "grid";
-      // start music (user gesture present)
-      setTimeout(() => {
-        music.play().catch(()=>{});
-        const i = musicBtn.querySelector("i");
-        i.classList.remove("fa-play","fa-music"); i.classList.add("fa-pause");
-      }, 500);
-      // scroll to hero
-      document.querySelector(".hero").scrollIntoView({ behavior: "smooth" });
+      controlBtn.style.display = "block";
+      music.play().catch(err => console.log("Autoplay blocked:", err));
     });
 
-    /* ---------- Music Controls ---------- */
-    musicBtn.addEventListener("click", () => {
-      const i = musicBtn.querySelector("i");
-      if (music.paused) { music.play(); i.classList.remove("fa-play","fa-music"); i.classList.add("fa-pause"); }
-      else { music.pause(); i.classList.remove("fa-pause"); i.classList.add("fa-play"); }
+    controlBtn.addEventListener("click", () => {
+      if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
+      else { music.pause(); controlBtn.textContent = "▶️"; }
     });
-    // auto-pause when tab hidden / closing
+
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        music.pause();
-        const i = musicBtn.querySelector("i");
-        i.classList.remove("fa-pause"); i.classList.add("fa-play");
-      }
+      if (document.hidden) { music.pause(); controlBtn.textContent = "▶️"; }
     });
-    window.addEventListener("beforeunload", () => music.pause());
+    window.addEventListener("beforeunload", () => { music.pause(); });
 
-    /* ---------- Countdown ---------- */
+    // Countdown
     function updateCountdown() {
-      const target = new Date("Jan 17, 2026 09:00:00").getTime();
-      const now = Date.now();
-      const diff = target - now;
-      const el = document.getElementById("countdown");
-      if (diff <= 0) { el.innerHTML = "🎉 Today is the wedding day!"; return; }
-      const d = Math.floor(diff / (1000*60*60*24));
-      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-      const s = Math.floor((diff % (1000*60)) / 1000);
-      document.getElementById("days").textContent = d;
-      document.getElementById("hours").textContent = h;
-      document.getElementById("minutes").textContent = m;
-      document.getElementById("seconds").textContent = s;
-    }
-    setInterval(updateCountdown, 1000); updateCountdown();
-
-    /* ---------- RSVP Submit ---------- */
-    const form = document.getElementById("rsvpForm");
-    const msg = document.getElementById("responseMsg");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!form.Name.value.trim() || !form.Attendance.value) {
-        msg.textContent = "⚠️ Please fill out name and attendance.";
-        msg.style.color = "#c17c74"; return;
+      const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
+      const now = new Date().getTime();
+      const diff = weddingDate - now;
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
+        return;
       }
-      msg.textContent = "⏳ Sending..."; msg.style.color = "#666";
-      fetch(scriptURL, { method:"POST", body:new FormData(form) })
-        .then(r => r.json())
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // RSVP validation + submit
+    const form = document.getElementById("rsvpForm");
+    const nameInput = document.getElementById("nameInput");
+    const nameError = document.getElementById("nameError");
+    const attendanceInput = document.getElementById("attendanceInput");
+    const attendanceError = document.getElementById("attendanceError");
+    const msg = document.getElementById("responseMsg");
+
+    form.addEventListener("submit", e => {
+      let valid = true;
+
+      if (!nameInput.value.trim()) {
+        nameError.style.display = "block";
+        valid = false;
+      } else {
+        nameError.style.display = "none";
+      }
+
+      if (!attendanceInput.value) {
+        attendanceError.style.display = "block";
+        valid = false;
+      } else {
+        attendanceError.style.display = "none";
+      }
+
+      if (!valid) {
+        e.preventDefault();
+        msg.textContent = "⚠️ Please check the form again, some fields are missing 🌸";
+        msg.style.color = "#d46a6a";
+        return;
+      }
+
+      e.preventDefault();
+      msg.textContent = "⏳ Sending...";
+      msg.style.color = "gray";
+
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(res => res.json())
         .then(data => {
           if (data.status === "success") {
-            msg.textContent = "✅ RSVP terkirim. Thank you!"; msg.style.color = "green";
-            form.reset(); currentPage = 1; loadNotes();
-          } else if (data.status === "duplicate") {
-            msg.textContent = "⚠️ You already submitted recently."; msg.style.color = "#c78966";
-          } else if (data.status === "unauthorized" || data.status === "forbidden") {
-            msg.textContent = "❌ Access denied. Please open from official link."; msg.style.color = "crimson";
+            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
+            msg.style.color = "green";
+            form.reset();
+            loadNotes();
           } else {
-            msg.textContent = "❌ Gagal mengirim RSVP."; msg.style.color = "crimson";
+            msg.textContent = "❌ Gagal mengirim RSVP.";
+            msg.style.color = "red";
           }
         })
-        .catch(err => { msg.textContent = "❌ Error: " + err; msg.style.color = "crimson"; });
+        .catch(err => {
+          msg.textContent = "❌ Error: " + err;
+          msg.style.color = "red";
+        });
     });
 
-    /* ---------- Notes + Sorting ---------- */
-    function timeAgo(ts){
-      const now = new Date(), d = new Date(ts);
-      const diff = (now - d)/1000;
-      if (diff < 60) return "just now";
-      const min = Math.floor(diff/60); if (min < 60) return `${min} minute${min>1?"s":""} ago`;
-      const hr = Math.floor(min/60); if (hr < 24) return `${hr} hour${hr>1?"s":""} ago`;
-      const day = Math.floor(hr/24); if (day < 7) return `${day} day${day>1?"s":""} ago`;
-      const wk = Math.floor(day/7); if (wk < 4) return `${wk} week${wk>1?"s":""} ago`;
-      const mo = Math.floor(day/30); return `${mo} month${mo>1?"s":""} ago`;
+    // Helper: waktu relatif
+    function timeAgo(dateString) {
+      const now = new Date();
+      const date = new Date(dateString);
+      const diff = (now - date) / 1000;
+      if (diff < 60) return "baru saja";
+      const minutes = Math.floor(diff / 60);
+      if (minutes < 60) return `${minutes} menit lalu`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} jam lalu`;
+      const days = Math.floor(hours / 24);
+      if (days < 7) return `${days} hari lalu`;
+      const weeks = Math.floor(days / 7);
+      if (weeks < 4) return `${weeks} minggu lalu`;
+      const months = Math.floor(days / 30);
+      return `${months} bulan lalu`;
     }
 
+    // Notes pagination
     let notes = [];
     let currentPage = 1;
-    const perPage = 5;
-    const sortSelect = document.getElementById("sortSelect");
+    const notesPerPage = 5;
 
-    async function loadNotes(){
-      try{
+    async function loadNotes() {
+      try {
         const res = await fetch(scriptURL);
         notes = await res.json();
+        notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         renderNotes();
-      }catch{
-        document.getElementById("notesContainer").innerHTML = "<p>❌ Failed to load notes.</p>";
+      } catch (err) {
+        document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
       }
     }
 
-    function getSortedNotes(){
-      const type = sortSelect.value || "newest";
-      const arr = [...notes];
-      if (type === "newest") arr.sort((a,b)=> new Date(b.timestamp)-new Date(a.timestamp));
-      if (type === "oldest") arr.sort((a,b)=> new Date(a.timestamp)-new Date(b.timestamp));
-      if (type === "name")   arr.sort((a,b)=> (a.name||"").localeCompare(b.name||""));
-      if (type === "attendance") arr.sort((a,b)=> (b.attendance==="Yes") - (a.attendance==="Yes") || (a.name||"").localeCompare(b.name||""));
-      return arr;
-    }
-
-    function renderNotes(){
+    function renderNotes() {
       const container = document.getElementById("notesContainer");
       container.innerHTML = "";
-      if (!notes.length){ container.innerHTML = "<p>No notes yet.</p>"; return; }
-
-      const sorted = getSortedNotes();
-      const start = (currentPage-1)*perPage;
-      const page = sorted.slice(start, start+perPage);
-
-      page.forEach((n,i)=>{
-        let icon = n.attendance==="Yes" ? "💖" : (n.attendance==="No" ? "🌸" : "");
-        const el = document.createElement("div");
-        el.className = "note";
-        el.style.animationDelay = `${i*0.15}s`;
-        el.innerHTML = `
-          <strong style="color:var(--sage)">${n.name||"Guest"}</strong> ${icon}<br>
-          <em>${(n.notes||"").toString().replace(/</g,"&lt;")}</em><br>
-          <small style="opacity:.75">${timeAgo(n.timestamp)}</small>
+      if (!notes.length) {
+        container.innerHTML = "<p>No notes yet.</p>";
+        return;
+      }
+      const start = (currentPage - 1) * notesPerPage;
+      const end = start + notesPerPage;
+      const pageNotes = notes.slice(start, end);
+      pageNotes.forEach(n => {
+        let attendanceIcon = "";
+        if (n.attendance === "Yes") attendanceIcon = "💖";
+        if (n.attendance === "No") attendanceIcon = "🌸";
+        container.innerHTML += `
+          <div class="note">
+            <strong>${n.name}</strong> ${attendanceIcon}<br>
+            <em>${n.notes}</em><br>
+            <small>${timeAgo(n.timestamp)}</small>
+          </div>
         `;
-        container.appendChild(el);
       });
-
-      document.getElementById("prevBtn").disabled = start<=0;
-      document.getElementById("nextBtn").disabled = start+perPage >= sorted.length;
+      document.getElementById("prevBtn").disabled = currentPage === 1;
+      document.getElementById("nextBtn").disabled = end >= notes.length;
     }
 
-    document.getElementById("prevBtn").addEventListener("click",()=>{ if(currentPage>1){ currentPage--; renderNotes(); } });
-    document.getElementById("nextBtn").addEventListener("click",()=>{ currentPage++; renderNotes(); });
-    sortSelect.addEventListener("change", ()=>{ currentPage=1; renderNotes(); });
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentPage > 1) { currentPage--; renderNotes(); }
+    });
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
+    });
 
     loadNotes();
-
-    /* ---------- Reveal on Scroll ---------- */
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
-      });
-    }, {threshold: .15});
-    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
   </script>
 </body>
 </html>
