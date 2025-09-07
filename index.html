@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wedding Invitation - Zen & Yessica</title>
 
-  <!-- Early guard: redirect to cover.html if ?opened=1 belum ada -->
-  <script src="js/early-guard.js"></script>
+  <!-- Redirect to cover if not opened -->
+  <script>
+    (function () {
+      const qp = new URLSearchParams(location.search);
+      if (qp.get("opened") !== "1") location.replace("cover.html" + (location.search || ""));
+    })();
+  </script>
 
-  <!-- Icons -->
+  <!-- Icons + Styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/invite.css" />
 </head>
 <body>
   <!-- FABs -->
@@ -20,8 +23,8 @@
   <button id="music" class="round-fab" title="Play/Pause" aria-label="Play music"><i class="fa-solid fa-play"></i></button>
 
   <!-- Audio -->
-  <audio id="bgm" loop>
-    <source src="music/Music-1.mp3" type="audio/mpeg">
+  <audio id="bgm" preload="metadata" loop>
+    <source src="music/Music-1.mp3" type="audio/mpeg" />
   </audio>
 
   <main id="snap">
@@ -30,7 +33,7 @@
       <div class="inner transparent">
         <h1 class="title">SAVE THE DATE</h1>
         <h2 class="names">Zen &amp; Yessica</h2>
-        <p id="dearLine" class="quote" style="display:none"></p>
+        <p id="dearLine" class="quote" hidden></p>
 
         <p class="quote">
           “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal.
@@ -44,9 +47,9 @@
           <div class="chip"><span id="s">00</span>Seconds</div>
         </div>
 
-        <p style="text-align:center; margin-top:16px">
+        <p class="cta">
           <a class="btn" target="_blank" rel="noopener"
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong">
+             href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong">
             Add to Google Calendar
           </a>
         </p>
@@ -55,7 +58,7 @@
 
     <!-- DETAILS -->
     <section class="s" id="details">
-      <div class="inner">
+      <div class="inner card">
         <h2>Wedding Day</h2>
         <p>Saturday, 17 January 2026</p>
         <p>Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
@@ -65,21 +68,21 @@
 
     <!-- VERSE -->
     <section class="s" id="verse">
-      <div class="inner">
+      <div class="inner card">
         <h2>Bible Verse</h2>
         <p>“So they are no longer two, but one flesh. What therefore God has joined together, let no man separate.”
           <br>– Matthew 19:6</p>
       </div>
     </section>
 
-    <!-- RSVP & NOTES -->
+    <!-- RSVP + NOTES -->
     <section class="s" id="rsvp">
-      <div class="inner">
+      <div class="inner card">
         <h2>RSVP & Notes</h2>
         <form id="rsvpForm">
-          <input type="hidden" name="token" value="ZENYESSICA2026">
-          <input type="hidden" id="referer" name="referer">
-          <input name="Name" type="text" placeholder="Your name 💌" required>
+          <input type="hidden" name="token" value="ZENYESSICA2026" />
+          <input type="hidden" id="referer" name="referer" />
+          <input name="Name" type="text" placeholder="Your name 💌" required />
           <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
           <select name="Attendance" required>
             <option value="">-- Attendance --</option>
@@ -90,7 +93,7 @@
         </form>
         <p id="responseMsg"></p>
 
-        <h3 style="color:var(--accent-2)">Guest Notes 💌</h3>
+        <h3 class="subtle">Guest Notes 💌</h3>
         <div id="notesContainer">Loading...</div>
         <div class="pagination">
           <button id="prevBtn" type="button">Prev</button>
@@ -115,7 +118,6 @@
     </form>
   </div>
 
-  <!-- Main JS -->
-  <script src="js/index.js" defer></script>
+  <script src="js/invite.js"></script>
 </body>
 </html>
