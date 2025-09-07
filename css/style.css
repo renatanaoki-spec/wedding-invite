@@ -5,38 +5,45 @@ body, html {
   height: 100%;
   font-family: 'Arial', sans-serif;
   color: #333;
-  text-align: center;
   background: #f7f4f2;
+  text-align: center;
 }
 
 section {
   padding: 40px 20px;
 }
 
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
 .date {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 20px 0;
 }
 .venue {
-  margin: 10px 0;
+  margin: 8px 0;
   font-style: italic;
 }
+.verse {
+  font-style: italic;
+  max-width: 600px;
+  margin: auto;
+  line-height: 1.5;
+}
+
 footer {
   background: #333;
   color: white;
   padding: 20px;
   margin-top: 40px;
 }
-.verse {
-  font-style: italic;
-  max-width: 600px;
-  margin: auto;
-}
 
 /* 🎉 Hero Save the Date */
 .hero {
   height: 100vh;
-  background: #bc8887;
+  background: linear-gradient(135deg, #f6d1d1, #7360ff);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,7 +65,7 @@ footer {
   line-height: 1.5;
 }
 #countdown {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin: 20px 0 40px;
   display: flex;
@@ -107,13 +114,15 @@ footer {
   max-width: 500px;
   margin: 0 auto;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 #notesForm input,
 #notesForm textarea,
 #notesForm select {
   width: 100%;
   padding: 12px 15px;
-  margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
@@ -133,8 +142,6 @@ footer {
   resize: vertical;
 }
 #notesForm button {
-  display: block;
-  width: 100%;
   background: #bc8887;
   color: white;
   padding: 12px;
@@ -155,6 +162,15 @@ footer {
   border-bottom: 1px solid #ccc;
   max-width: 600px;
   text-align: left;
+  background: #fff;
+  border-radius: 8px;
+}
+#notesList strong {
+  font-weight: bold;
+  color: #333;
+}
+#notesList em {
+  color: #555;
 }
 .pagination {
   margin-top: 10px;
