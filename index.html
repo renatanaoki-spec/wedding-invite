@@ -134,7 +134,7 @@
       gap: 15px;
       text-align: left;
     }
-    form input, form textarea {
+    form input, form textarea, form select {
       padding: 12px;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -157,19 +157,15 @@
 
     .attendance-wrapper { margin-top: 15px; text-align: center; }
     .attendance-label { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
-    .attendance-options { display: flex; justify-content: center; gap: 20px; margin-bottom: 8px; }
-    .attend-btn {
-      padding: 12px 25px;
+    #attendanceInput {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
       font-size: 1rem;
-      border: none;
-      border-radius: 30px;
+      width: 80%;
+      text-align: center;
       cursor: pointer;
-      background: #f8e1ec;
-      color: #bc6c89;
-      transition: 0.3s;
     }
-    .attend-btn:hover { background: #bc6c89; color: white; }
-    .attend-btn.active { background: #bc6c89; color: white; font-weight: 600; }
 
     .error-msg {
       color: #d46a6a;
@@ -246,20 +242,23 @@
     <form id="rsvpForm">
       <input type="hidden" name="token" value="ZENYESSICA2026">
       <input type="hidden" id="referer" name="referer">
-      <input type="hidden" id="attendanceInput" name="Attendance" required>
 
-      <input name="Name" id="nameInput" type="text" placeholder="Name" required>
-      <small id="nameError" class="error-msg">We’d love to know your name 💌</small>
+      <!-- Name -->
+      <input name="Name" id="nameInput" type="text" placeholder="We’d like to know you 💌" required>
+      <small id="nameError" class="error-msg">Please tell us your name 🌷</small>
 
+      <!-- Notes -->
       <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
 
+      <!-- Attendance -->
       <div class="attendance-wrapper">
         <p class="attendance-label">Attendance confirmation</p>
-        <div class="attendance-options">
-          <button type="button" class="attend-btn" data-value="Yes">💖 Yes</button>
-          <button type="button" class="attend-btn" data-value="No">🌸 No</button>
-        </div>
-        <small id="attendanceError" class="error-msg">Please let us know if you can join 🌷</small>
+        <select name="Attendance" id="attendanceInput" required>
+          <option value="">-- Select attendance --</option>
+          <option value="Yes">💖 Yes</option>
+          <option value="No">🌸 No</option>
+        </select>
+        <small id="attendanceError" class="error-msg">Please let us know if you can join 💐</small>
       </div>
 
       <button type="submit">SEND</button>
@@ -324,23 +323,13 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // RSVP validation
+    // RSVP validation + submit
     const form = document.getElementById("rsvpForm");
     const nameInput = document.getElementById("nameInput");
     const nameError = document.getElementById("nameError");
-    const attendanceBtns = document.querySelectorAll(".attend-btn");
     const attendanceInput = document.getElementById("attendanceInput");
     const attendanceError = document.getElementById("attendanceError");
     const msg = document.getElementById("responseMsg");
-
-    attendanceBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        attendanceBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        attendanceInput.value = btn.getAttribute("data-value");
-        attendanceError.style.display = "none";
-      });
-    });
 
     form.addEventListener("submit", e => {
       let valid = true;
@@ -369,8 +358,6 @@
             msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
             msg.style.color = "green";
             form.reset();
-            attendanceBtns.forEach(b => b.classList.remove("active"));
-            attendanceInput.value = "";
             loadNotes();
           } else {
             msg.textContent = "❌ Gagal mengirim RSVP.";
@@ -412,9 +399,13 @@
       const pageNotes = notes.slice(start, end);
 
       pageNotes.forEach(n => {
+        let attendanceIcon = "";
+        if (n.attendance === "Yes") attendanceIcon = "💖";
+        if (n.attendance === "No") attendanceIcon = "🌸";
+
         container.innerHTML += `
           <div class="note">
-            <strong>${n.name}</strong> (${n.attendance})<br>
+            <strong>${n.name}</strong> ${attendanceIcon}<br>
             <em>${n.notes}</em><br>
             <small>${new Date(n.timestamp).toLocaleString()}</small>
           </div>
