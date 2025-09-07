@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zen & Yessica — Invitation</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wedding Invitation - Zen & Yessica</title>
+
+<!-- Redirect ke cover bila belum "dibuka" -->
+<script>
+(function(){
+  const qpOpened = new URLSearchParams(location.search).get('opened') === '1';
+  let ssOpened = false; try{ ssOpened = sessionStorage.getItem('opened') === '1'; }catch(e){}
+  if(!qpOpened && !ssOpened){ location.replace('cover.html' + (location.search || '')); }
+})();
+</script>
 
 <style>
   @font-face{
@@ -11,111 +20,128 @@
     src:url("font/WhiteAngelica.ttf") format("truetype");
     font-display:swap;
   }
+  @font-face{
+    font-family:"Mrs Eaves";
+    src:url("font/MrsEaves.ttf") format("truetype");
+    font-display:swap;
+  }
   :root{
-    --mauve:#b46b88; --mauve-2:#9a5673;
-    --ink:#2f2f2f; --glass:rgba(255,255,255,.9);
-    --shadow:0 10px 30px rgba(0,0,0,.14);
-    --ease:cubic-bezier(.22,.61,.36,1);
+    --sage:#6f8b6a; --sage-strong:#5e7a5b;
+    --rose:#b36b85; --rose-2:#9a5673;
+    --forest:#26352b; --ivory:#fffdf5;
   }
-
-  /* layout: body fixed, scroll happens inside #snap */
-  html,body{ height:100%; margin:0; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
   body{
-    overflow:hidden;
+    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
+    color:var(--forest);
     background:url("image/BG3.jpeg") center/cover fixed no-repeat;
-    color:var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow:hidden; /* scroll ada di #snap */
   }
 
-  /* sticky nav */
-  .nav{
-    position:fixed; top:12px; left:0; right:0; z-index:30; display:flex; justify-content:center; gap:10px;
+  /* tombol, teks, nama */
+  .btn{
+    display:inline-block; padding:12px 28px; border:none; border-radius:999px;
+    background:var(--rose); color:#fff; font-weight:700; cursor:pointer; text-decoration:none;
+    box-shadow:0 10px 24px rgba(179,107,133,.35); transition:.25s;
   }
-  .pill{
-    padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.5);
-    background:rgba(255,255,255,.5); backdrop-filter:blur(8px);
-    text-decoration:none; color:#203; font-weight:700; opacity:.8;
+  .btn:hover{ background:var(--rose-2); transform:translateY(-2px) }
+  .names{
+    font-family:"White Angelica", cursive;
+    color:#fff; margin:8px 0 12px;
+    -webkit-text-stroke:.5px rgba(0,0,0,.15);
+    text-shadow:0 2px 10px rgba(0,0,0,.35), 0 0 22px rgba(255,255,255,.3);
   }
-  .pill.active{ background:var(--mauve); color:#fff; border-color:transparent; box-shadow:0 6px 16px rgba(180,107,136,.28); opacity:1 }
 
-  /* snap container */
-  #snap{
-    position:relative; height:100vh; overflow-y:auto; scroll-snap-type:y mandatory;
-    scroll-behavior:smooth;
-  }
-  section.s{ min-height:100vh; scroll-snap-align:start; scroll-snap-stop:always;
-             display:flex; align-items:center; justify-content:center; padding:64px 18px; position:relative; }
+  /* scroll-snap container */
+  #snap{ height:100vh; overflow-y:auto; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  section.s{ min-height:100vh; scroll-snap-align:start; scroll-snap-stop:always; display:flex; align-items:center; justify-content:center; padding:64px 18px; position:relative; }
 
-  /* hero overlay for readability */
+  /* hero readability overlay */
   .hero::before{
     content:""; position:absolute; inset:0; z-index:0;
     background:
-      radial-gradient(100% 70% at 50% 40%, rgba(18,24,21,.60) 0%, rgba(18,24,21,.30) 60%, rgba(18,24,21,.08) 100%),
-      linear-gradient(to bottom, rgba(18,24,21,.45), rgba(18,24,21,.18) 55%, rgba(18,24,21,0) 100%);
+      radial-gradient(100% 70% at 50% 40%, rgba(18,24,21,.62) 0%, rgba(18,24,21,.32) 60%, rgba(18,24,21,.12) 100%),
+      linear-gradient(to bottom, rgba(18,24,21,.48), rgba(18,24,21,.2) 55%, rgba(18,24,21,0) 100%);
     backdrop-filter: blur(1.2px);
   }
-  .hero .inner{ position:relative; z-index:1; }
+  .hero > .inner{ position:relative; z-index:1 }
 
-  .title{ color:#fff; font-size:clamp(38px,7vw,86px); margin:0 0 10px; text-shadow:0 4px 22px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.28) }
-  .names{ font-family:"White Angelica", cursive; font-size:clamp(42px,9vw,92px); color:#fff; margin:0 0 8px;
-          -webkit-text-stroke:.5px rgba(0,0,0,.15); text-shadow:0 2px 10px rgba(0,0,0,.35), 0 0 22px rgba(255,255,255,.3) }
-  .quote{ color:#f5f5f2; text-shadow:0 3px 14px rgba(0,0,0,.5); max-width:760px; margin:12px auto 24px; }
+  /* glass cards */
+  .inner{
+    width:min(960px,92vw); background:rgba(255,255,255,.92); border-radius:16px; padding:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.14);
+  }
+  h1.title{ color:#fff; font-size:clamp(38px,7vw,86px); margin:0 0 8px; text-shadow:0 4px 22px rgba(0,0,0,.55) }
+  .quote{ color:#f5f5f2; text-shadow:0 3px 14px rgba(0,0,0,.5); max-width:760px; margin:12px auto 22px; }
+  h2{ color:var(--sage-strong); margin:0 0 .4rem }
 
-  /* countdown glass chips */
+  /* countdown chips */
   #countdown{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap }
-  .chip{ min-width:100px; text-align:center; padding:10px 14px; border-radius:14px;
-         background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35);
-         color:#fff; backdrop-filter: blur(2px); box-shadow:0 6px 18px rgba(0,0,0,.18); }
+  .chip{
+    min-width:100px; text-align:center; padding:10px 14px; border-radius:14px;
+    background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35);
+    color:#fff; backdrop-filter: blur(2px); box-shadow:0 6px 18px rgba(0,0,0,.18);
+  }
   .chip span{ display:block; font-size:2rem }
-  .chip span.pop{ animation:pop .5s var(--ease) }
+  .chip span.pop{ animation:pop .5s cubic-bezier(.22,.61,.36,1) }
   @keyframes pop{ 0%{transform:scale(.9); opacity:.7} 60%{transform:scale(1.08); opacity:1} 100%{transform:scale(1)} }
 
-  /* generic inner card */
-  .inner{
-    width:min(960px, 92vw);
-    background:var(--glass); border-radius:16px; padding:28px; box-shadow:var(--shadow);
+  /* music button */
+  #music{
+    position:fixed; bottom:18px; right:18px; z-index:40; width:54px; height:54px;
+    border-radius:50%; border:none; background:var(--rose); color:#fff; font-size:1.2rem;
+    box-shadow:0 10px 24px rgba(179,107,133,.35); cursor:pointer;
   }
-  h2{ color:var(--mauve); margin:0 0 .5rem }
 
-  .btn{
-    display:inline-block; padding:12px 28px; border:none; border-radius:999px;
-    background:var(--mauve); color:#fff; font-weight:700; cursor:pointer; text-decoration:none;
-    box-shadow:0 10px 24px rgba(180,107,136,.35); position:relative; overflow:hidden; transition:transform .25s var(--ease);
-  }
-  .btn:hover{ transform:translateY(-2px) }
-  .btn::after{ content:""; position:absolute; inset:0; transform:translateX(-120%) skewX(-20deg);
-               background:linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
-               transition:transform .65s var(--ease) }
-  .btn:hover::after{ transform:translateX(200%) skewX(-20deg) }
-
-  /* music */
-  #music{ position:fixed; bottom:18px; right:18px; z-index:40; width:54px; height:54px;
-          border-radius:50%; border:none; background:var(--mauve); color:#fff; font-size:1.2rem; box-shadow:var(--shadow); cursor:pointer }
-
-  /* notes + form */
+  /* form/notes */
   form{ max-width:560px; margin:0 auto; display:flex; flex-direction:column; gap:14px; text-align:left }
-  form input, form textarea, form select{
-    padding:12px; border:1px solid #ddd; border-radius:10px; font-size:1rem; background:#fff;
-  }
+  form input, form textarea, form select{ padding:12px; border:1px solid #ddd; border-radius:10px; font-size:1rem; background:#fff }
   form textarea{ min-height:110px; resize:vertical }
   .pagination{ display:flex; gap:10px; justify-content:center; margin-top:12px }
-  .pagination button{ padding:8px 14px; border:none; border-radius:8px; background:var(--mauve); color:#fff; cursor:pointer }
+  .pagination button{ padding:8px 14px; border:none; border-radius:8px; background:var(--rose); color:#fff; cursor:pointer }
   .pagination button:disabled{ background:#cfcfcf; cursor:not-allowed }
   .note{ padding:12px; border-bottom:1px solid rgba(0,0,0,.1); opacity:0; transform:translateY(8px) }
-  .note.show{ opacity:1; transform:none; transition:opacity .5s var(--ease), transform .5s var(--ease) }
+  .note.show{ opacity:1; transform:none; transition:opacity .5s, transform .5s }
+
+  footer{ text-align:center; color:#4e6350; padding:26px 12px; font-weight:600; text-shadow:0 1px 1px rgba(255,255,255,.6) }
+
+  /* ===== Aira Chat ===== */
+  .ai-fab{
+    position:fixed; bottom:86px; right:18px; z-index:60;
+    width:56px; height:56px; border:none; border-radius:50%;
+    background:var(--rose); color:#fff; font-size:22px; cursor:pointer;
+    box-shadow:0 10px 24px rgba(179,107,133,.35);
+  }
+  .ai-panel{
+    position:fixed; right:18px; bottom:150px; z-index:60;
+    width:min(92vw, 380px); max-height:70vh; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.96); border-radius:16px; box-shadow:0 18px 40px rgba(0,0,0,.22);
+    opacity:0; transform:translateY(12px); pointer-events:none; transition:.25s;
+  }
+  .ai-panel.open{ opacity:1; transform:none; pointer-events:auto; }
+  .ai-head{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.08); color:var(--sage-strong) }
+  .ai-close{ background:transparent; border:none; font-size:18px; cursor:pointer }
+  .ai-body{ padding:12px; overflow:auto }
+  .ai-msg{ display:flex; margin:10px 0 }
+  .ai-msg.user{ justify-content:flex-end }
+  .ai-bubble{
+    max-width:78%; padding:10px 12px; border-radius:14px;
+    background:#f3f6f2; border:1px solid rgba(0,0,0,.06); color:var(--forest);
+  }
+  .ai-msg.user .ai-bubble{ background:var(--rose); color:#fff; border-color:transparent }
+  .ai-form{ display:flex; gap:8px; padding:12px; border-top:1px solid rgba(0,0,0,.08) }
+  .ai-form input{ flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:12px; font-size:1rem; background:#fff }
 </style>
 </head>
 <body>
 
-<!-- sticky nav -->
-<nav class="nav">
-  <a class="pill active" href="#home">Home</a>
-  <a class="pill" href="#details">Details</a>
-  <a class="pill" href="#verse">Verse</a>
-  <a class="pill" href="#rsvp">RSVP</a>
-</nav>
+<!-- music -->
+<button id="music" title="Play/Pause">▶️</button>
+<audio id="bgm" loop>
+  <source src="music/Music-1.mp3" type="audio/mpeg">
+</audio>
 
-<!-- scroll-snap container -->
 <main id="snap">
   <!-- HERO -->
   <section class="s hero" id="home">
@@ -133,7 +159,7 @@
 
       <p style="text-align:center; margin-top:16px">
         <a class="btn" target="_blank" rel="noopener"
-          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong">
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong">
           Add to Google Calendar
         </a>
       </p>
@@ -154,7 +180,8 @@
   <section class="s" id="verse">
     <div class="inner">
       <h2>Bible Verse</h2>
-      <p>“So they are no longer two, but one flesh. What therefore God has joined together, let no man separate.”<br>– Matthew 19:6</p>
+      <p>“So they are no longer two, but one flesh. What therefore God has joined together, let no man separate.”
+        <br>– Matthew 19:6</p>
     </div>
   </section>
 
@@ -176,7 +203,7 @@
       </form>
       <p id="responseMsg"></p>
 
-      <h3 style="color:var(--mauve)">Guest Notes 💌</h3>
+      <h3 style="color:var(--sage-strong)">Guest Notes 💌</h3>
       <div id="notesContainer">Loading...</div>
       <div class="pagination">
         <button id="prevBtn" type="button">Prev</button>
@@ -186,34 +213,47 @@
   </section>
 </main>
 
-<!-- music -->
-<button id="music" title="Play/Pause">▶️</button>
+<footer>With love, Zen &amp; Yessica 💕</footer>
+
+<!-- === AIRA CHAT (UI) === -->
+<button id="aiFab" class="ai-fab" aria-label="Ask Aira">💬</button>
+
+<div id="aiPanel" class="ai-panel" aria-live="polite" aria-hidden="true">
+  <div class="ai-head">
+    <strong>Aira</strong>
+    <!-- CLOSE BUTTON -->
+    <button type="button" class="ai-close" id="aiClose" title="Close">✕</button>
+  </div>
+  <div id="aiBody" class="ai-body"></div>
+  <form id="aiForm" class="ai-form">
+    <input id="aiText" type="text" placeholder="Tanya tentang acara…" autocomplete="off" />
+    <button type="submit" class="btn">Send</button>
+  </form>
+</div>
+<!-- === /AIRA CHAT (UI) === -->
 
 <script>
+  /* ===== shared constants ===== */
+  const WEDDING_DATE = new Date("2026-01-17T09:00:00+07:00"); // WIB
   const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
-  document.getElementById("referer").value = location.hostname;
 
-  /* active nav pills on snap */
-  const snap = document.getElementById('snap');
-  const pills = [...document.querySelectorAll('.pill')];
-  const sections = pills.map(a => document.querySelector(a.getAttribute('href')));
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === '#'+e.target.id));
-      }
-    });
-  }, {root: snap, threshold: .6});
-  sections.forEach(s => io.observe(s));
+  /* ===== music ===== */
+  const audio = document.getElementById('bgm');
+  const musicBtn = document.getElementById('music');
+  musicBtn.addEventListener('click', ()=>{
+    if(audio.paused){ audio.play(); musicBtn.textContent='⏸️'; } else { audio.pause(); musicBtn.textContent='▶️'; }
+  });
+  document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ audio.pause(); musicBtn.textContent='▶️'; }});
 
-  /* countdown with pop */
+  /* ===== countdown with pop ===== */
   const dEl=document.getElementById('d'), hEl=document.getElementById('h'),
         mEl=document.getElementById('m'), sEl=document.getElementById('s');
   let prev={};
   const pop=(el,v,k)=>{ if(prev[k]!==v){ el.textContent=v; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); prev[k]=v; } };
   function tick(){
-    const t=new Date("Jan 17, 2026 09:00:00").getTime(), now=Date.now(), diff=t-now;
-    if(diff<=0){ document.getElementById('countdown').innerHTML="🎉 Today is the wedding day!"; return; }
+    const t=WEDDING_DATE.getTime(), now=Date.now(), diff=t-now;
+    const wrap=document.getElementById('countdown');
+    if(diff<=0){ wrap.innerHTML="🎉 Today is the wedding day!"; return; }
     pop(dEl, Math.floor(diff/86400000), 'd');
     pop(hEl, Math.floor((diff%86400000)/3600000), 'h');
     pop(mEl, Math.floor((diff%3600000)/60000), 'm');
@@ -221,22 +261,8 @@
   }
   setInterval(tick,1000); tick();
 
-  /* music */
-  const musicBtn = document.getElementById('music');
-  const audio = new Audio('music/Music-1.mp3'); audio.loop = true;
-  musicBtn.addEventListener('click', ()=>{ if(audio.paused){ audio.play(); musicBtn.textContent='⏸️'; } else { audio.pause(); musicBtn.textContent='▶️'; }});
-  document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ audio.pause(); musicBtn.textContent='▶️'; }});
-
-  /* RSVP + notes with time-ago (ID) */
-  function timeAgo(ts){
-    const now=new Date(), d=new Date(ts), s=(now-d)/1000;
-    if(s<60) return "baru saja";
-    const m=Math.floor(s/60); if(m<60) return `${m} menit lalu`;
-    const h=Math.floor(m/60); if(h<24) return `${h} jam lalu`;
-    const day=Math.floor(h/24); if(day<7) return `${day} hari lalu`;
-    const w=Math.floor(day/7); if(w<4) return `${w} minggu lalu`;
-    const mo=Math.floor(day/30); return `${mo} bulan lalu`;
-  }
+  /* ===== RSVP + notes ===== */
+  document.getElementById("referer").value = location.hostname;
 
   const form = document.getElementById('rsvpForm');
   const msg  = document.getElementById('responseMsg');
@@ -251,17 +277,31 @@
       const data=await r.json();
       if(data.status==="success"){ msg.textContent="✅ RSVP berhasil dikirim! Thank you 💕"; msg.style.color="green"; form.reset(); currentPage=1; loadNotes(); }
       else if(data.status==="duplicate"){ msg.textContent="⚠️ You already submitted recently."; msg.style.color="#bb8a4e"; }
+      else if(data.status==="unauthorized" || data.status==="forbidden"){ msg.textContent="❌ Access denied. Please open from official link."; msg.style.color="crimson"; }
       else{ msg.textContent="❌ Gagal mengirim RSVP."; msg.style.color="crimson"; }
     }catch(err){ msg.textContent="❌ Error: "+err; msg.style.color="crimson"; }
   });
 
+  function timeAgo(ts){
+    const now=new Date(), d=new Date(ts), s=(now-d)/1000;
+    if(s<60) return "baru saja";
+    const m=Math.floor(s/60); if(m<60) return `${m} menit lalu`;
+    const h=Math.floor(m/60); if(h<24) return `${h} jam lalu`;
+    const day=Math.floor(h/24); if(day<7) return `${day} hari lalu`;
+    const w=Math.floor(day/7); if(w<4) return `${w} minggu lalu`;
+    const mo=Math.floor(day/30); return `${mo} bulan lalu`;
+  }
+
   let notes=[], currentPage=1, perPage=5;
   async function loadNotes(){
     try{
-      const res=await fetch(scriptURL); notes=await res.json();
+      const res=await fetch(scriptURL);
+      notes=await res.json();
       notes.sort((a,b)=> new Date(b.timestamp)-new Date(a.timestamp));
       renderNotes();
-    }catch{ document.getElementById("notesContainer").innerHTML="<p>❌ Gagal load notes.</p>"; }
+    }catch{
+      document.getElementById("notesContainer").innerHTML="<p>❌ Gagal load notes.</p>";
+    }
   }
   function renderNotes(){
     const box=document.getElementById('notesContainer'); box.innerHTML="";
@@ -270,7 +310,7 @@
     page.forEach((n,i)=>{
       const el=document.createElement('div'); el.className='note'; el.style.transitionDelay=(i*80)+"ms";
       const icon = n.attendance==="Yes" ? "💖" : (n.attendance==="No" ? "🌸" : "");
-      el.innerHTML = `<strong style="color:var(--mauve)">${n.name||"Guest"}</strong> ${icon}<br>
+      el.innerHTML = `<strong style="color:var(--rose)">${n.name||"Guest"}</strong> ${icon}<br>
                       <em>${(n.notes||'').toString().replace(/</g,'&lt;')}</em><br>
                       <small>${timeAgo(n.timestamp)}</small>`;
       box.appendChild(el); requestAnimationFrame(()=> el.classList.add('show'));
@@ -282,159 +322,69 @@
   document.getElementById('nextBtn').addEventListener('click', ()=>{ if(currentPage*perPage<notes.length){ currentPage++; renderNotes(); }});
   loadNotes();
 
-  /* Optional: tampilkan "Dear <guest>" jika ada query */
+  /* ===== “Dear <guest>” (opsional) ===== */
   const to = new URLSearchParams(location.search).get('to');
   if(to){
-    const p = document.createElement('p');
-    p.className = 'quote'; p.textContent = `Dear ${to}`;
+    const p=document.createElement('p'); p.className='quote'; p.textContent=`Dear ${to}`;
     document.querySelector('#home .inner').insertBefore(p, document.getElementById('countdown'));
   }
-</script>
 
-<!-- ========== AI CHAT (Aira) ========== -->
-<style>
-  .ai-fab{
-    position:fixed; bottom:86px; right:18px; z-index:45;
-    width:56px; height:56px; border:none; border-radius:50%;
-    background:#b46b88; color:#fff; cursor:pointer;
-    box-shadow:0 10px 24px rgba(180,107,136,.35);
-    display:grid; place-items:center; transition:.25s;
-  }
-  .ai-fab:hover{ transform:translateY(-2px) }
-
-  .ai-panel{
-    position:fixed; bottom:86px; right:86px; z-index:50;
-    width:min(360px, 92vw); height:520px; border-radius:16px;
-    background:rgba(255,255,255,.92); backdrop-filter: blur(10px);
-    border:1px solid rgba(0,0,0,.08); box-shadow:0 20px 40px rgba(0,0,0,.18);
-    overflow:hidden; transform:translateY(12px) scale(.98); opacity:0; pointer-events:none;
-    transition:opacity .25s, transform .25s;
-  }
-  .ai-panel.open{ opacity:1; transform:none; pointer-events:auto; }
-
-  .ai-header{
-    display:flex; align-items:center; gap:10px; padding:12px 14px;
-    background:#b46b88; color:#fff; font-weight:700;
-  }
-  .ai-dot{ width:10px; height:10px; border-radius:50%; background:#7ef59d; box-shadow:0 0 10px #7ef59d }
-  .ai-body{ height: calc(520px - 56px - 58px); overflow-y:auto; padding:14px }
-  .ai-msg{ display:flex; margin:8px 0 }
-  .ai-msg.ai  { justify-content:flex-start }
-  .ai-msg.user{ justify-content:flex-end }
-
-  .ai-bubble{
-    max-width:78%; padding:10px 12px; border-radius:14px; line-height:1.45; font-size:.96rem;
-    box-shadow:0 6px 16px rgba(0,0,0,.08)
-  }
-  .ai .ai-bubble  { background:#f3e6ec; color:#3b1f2a; border-top-left-radius:6px }
-  .user .ai-bubble{ background:#e9f6ff; color:#143042; border-top-right-radius:6px }
-
-  .ai-input{
-    display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,.06);
-    background:rgba(255,255,255,.8); backdrop-filter: blur(8px);
-  }
-  .ai-input input{
-    flex:1; border:1px solid #d9d9d9; border-radius:12px; padding:10px 12px; font-size:.96rem;
-    background:#fff;
-  }
-  .ai-input button{
-    border:none; border-radius:12px; padding:10px 14px; background:#b46b88; color:#fff; font-weight:700; cursor:pointer;
-  }
-
-  /* kecilkan jarak dari tombol musik di layar kecil */
-  @media (max-width:520px){
-    .ai-panel{ bottom:76px; right:12px; height:62vh }
-    .ai-fab{ bottom:76px }
-  }
-</style>
-
-<!-- FAB (ikon chat) -->
-<button class="ai-fab" id="aiFab" title="Chat with our AI">
-  <!-- chat-bubble svg -->
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M3 12c0-4.418 4.03-8 9-8s9 3.582 9 8-4.03 8-9 8c-1.02 0-1.997-.14-2.905-.4L4 20l.93-3.26A7.9 7.9 0 0 1 3 12Z" stroke="white" stroke-width="2" />
-    <circle cx="9" cy="12" r="1.4" fill="white"/>
-    <circle cx="12" cy="12" r="1.4" fill="white"/>
-    <circle cx="15" cy="12" r="1.4" fill="white"/>
-  </svg>
-</button>
-
-<!-- Panel chat -->
-<div class="ai-panel" id="aiPanel" aria-live="polite">
-  <div class="ai-header">
-    <span class="ai-dot"></span> Aira — Wedding Assistant
-  </div>
-  <div class="ai-body" id="aiBody"></div>
-  <form class="ai-input" id="aiForm">
-    <input id="aiText" type="text" placeholder="Tanya apa saja tentang acara…" autocomplete="off" />
-    <button type="submit">Kirim</button>
-  </form>
-</div>
-
-<script>
-(() => {
-  // ====== KNOWLEDGE about the invitation ======
+  /* ===== Aira chat (simple local knowledge) ===== */
   const KNOWLEDGE = {
     couple: "Zen & Yessica",
-    date: new Date("Jan 17, 2026 09:00:00"),   // 09:00 WIB
-    locations: {
-      matrimony: "Gereja Santo Fransiskus Asisi, Cibinong",
-      reception: "Bagas Raya Cibinong"
-    },
-    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong",
+    date: new Date("2026-01-17T09:00:00+07:00"),
     maps: {
       matrimony: "https://www.google.com/maps/search/?api=1&query=Gereja+Santo+Fransiskus+Asisi,+Cibinong",
       reception: "https://www.google.com/maps/search/?api=1&query=Bagas+Raya+Cibinong"
-    }
+    },
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong"
   };
 
-  // ====== UI elements ======
   const fab   = document.getElementById('aiFab');
   const panel = document.getElementById('aiPanel');
-  const body  = document.getElementById('aiBody');
-  const form  = document.getElementById('aiForm');
-  const input = document.getElementById('aiText');
-
-  // greet using ?to=
+  const closeBtn = document.getElementById('aiClose');
+  const bodyChat  = document.getElementById('aiBody');
+  const formChat  = document.getElementById('aiForm');
+  const inputChat = document.getElementById('aiText');
   const guest = new URLSearchParams(location.search).get('to');
 
   function openPanel(){
-    panel.classList.add('open'); input.focus();
+    panel.classList.add('open'); inputChat.focus();
     if (!sessionStorage.getItem('aira_welcomed')) {
       botSay(`Halo${guest ? ' ' + guest : ''}! Aku <b>Aira</b> 👋. Aku bisa bantu info acara ${KNOWLEDGE.couple}: waktu, lokasi, RSVP, arah ke tempat, dan lainnya.`);
       sessionStorage.setItem('aira_welcomed','1');
     }
   }
   function closePanel(){ panel.classList.remove('open'); }
+
   fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
+  closeBtn.addEventListener('click', closePanel);
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closePanel(); });
 
-  // persist simple log
+  /* chat helpers */
   const LOG_KEY = 'aira_chat_log';
-  function loadLog(){
-    try{
-      const arr = JSON.parse(localStorage.getItem(LOG_KEY)||'[]');
-      arr.forEach(m => renderMsg(m.role, m.html));
-    }catch{}
-  }
-  function saveLog(role, html){
-    const arr = JSON.parse(localStorage.getItem(LOG_KEY)||'[]');
-    arr.push({role, html}); localStorage.setItem(LOG_KEY, JSON.stringify(arr.slice(-50)));
-  }
-
-  // render bubbles
   function renderMsg(role, html){
     const wrap = document.createElement('div');
     wrap.className = 'ai-msg ' + (role === 'user' ? 'user' : 'ai');
     const b = document.createElement('div');
     b.className = 'ai-bubble'; b.innerHTML = html;
-    wrap.appendChild(b); body.appendChild(wrap);
-    body.scrollTop = body.scrollHeight;
+    wrap.appendChild(b); bodyChat.appendChild(wrap);
+    bodyChat.scrollTop = bodyChat.scrollHeight;
   }
   function userSay(text){ renderMsg('user', escapeHtml(text)); saveLog('user', escapeHtml(text)); }
   function botSay(html){ renderMsg('ai', html); saveLog('ai', html); }
-
-  // small helpers
   function escapeHtml(s){ return s.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])) }
+  function saveLog(role, html){
+    const arr = JSON.parse(localStorage.getItem(LOG_KEY)||'[]');
+    arr.push({role, html}); localStorage.setItem(LOG_KEY, JSON.stringify(arr.slice(-50)));
+  }
+  (function loadLog(){
+    try{
+      const arr = JSON.parse(localStorage.getItem(LOG_KEY)||'[]');
+      arr.forEach(m => renderMsg(m.role, m.html));
+    }catch{}
+  })();
+
   const fmtDate = (d) => d.toLocaleString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Jakarta' });
   function daysLeft(){
     const ms = KNOWLEDGE.date.getTime() - Date.now();
@@ -444,72 +394,25 @@
   }
   function smoothJump(id){ const el = document.querySelector(id); if(el){ el.scrollIntoView({behavior:'smooth'}); } }
 
-  // intent matcher (sederhana, en & id)
   function reply(text){
     const q = text.toLowerCase();
-
-    // greeting
-    if (/\b(hai|halo|hello|hi)\b/.test(q)) {
-      return `Halo${guest ? ' ' + guest : ''}! Ada yang bisa Aira bantu?`;
-    }
-
-    // couple names
-    if (/siapa|pengantin|couple|bride|groom/.test(q)) {
-      return `Acara ini untuk <b>${KNOWLEDGE.couple}</b> 🥂.`;
-    }
-
-    // when / countdown
-    if (/kapan|tanggal|jam|time|when|countdown|berapa hari/.test(q)) {
-      return `Pemberkatan dimulai <b>${fmtDate(KNOWLEDGE.date)}</b> (WIB). Tersisa <b>${daysLeft()}</b>.`;
-    }
-
-    // where
-    if (/di mana|lokasi|alamat|where|maps|arah|route|direction/.test(q)) {
+    if (/\b(hai|halo|hello|hi)\b/.test(q)) return `Halo${guest ? ' ' + guest : ''}! Ada yang bisa Aira bantu?`;
+    if (/siapa|pengantin|couple|bride|groom/.test(q)) return `Acara ini untuk <b>${KNOWLEDGE.couple}</b> 🥂.`;
+    if (/kapan|tanggal|jam|time|when|countdown|berapa hari/.test(q)) return `Pemberkatan dimulai <b>${fmtDate(KNOWLEDGE.date)}</b> (WIB). Tersisa <b>${daysLeft()}</b>.`;
+    if (/di mana|lokasi|alamat|where|maps|arah|route|direction/.test(q))
       return `Lokasi: <br>• Pemberkatan: <a href="${KNOWLEDGE.maps.matrimony}" target="_blank">Gereja Santo Fransiskus Asisi, Cibinong</a><br>• Resepsi: <a href="${KNOWLEDGE.maps.reception}" target="_blank">Bagas Raya Cibinong</a>`;
-    }
-
-    // rsvp
-    if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)) {
-      setTimeout(()=> smoothJump('#rsvp'), 300);
-      return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b> pada halaman ini. Aku sudah menggulir ke sana 😉.`;
-    }
-
-    // calendar
-    if (/calendar|kalender|save the date|ingatkan/.test(q)) {
-      return `Klik <a href="${KNOWLEDGE.calendarLink}" target="_blank">Add to Google Calendar</a> untuk menyimpan tanggalnya.`;
-    }
-
-    // music
-    if (/musik|music|lagu|sound/.test(q)) {
-      return `Tombol musik ada di kanan bawah (ikon ▶️/⏸️).`;
-    }
-
-    // dress code (if not specified)
-    if (/dress|tema|baju|warna/.test(q)) {
-      return `Saat ini <i>dress code</i> belum ditentukan di undangan. Pilihan aman: <b>semi-formal</b> dengan warna lembut/pastel.`;
-    }
-
-    // generic fallback
-    return `Maaf aku belum paham. Kamu bisa tanya: <br>• “Lokasi di mana?”<br>• “Kapan dimulai?”<br>• “Berapa hari lagi?”<br>• “Cara RSVP gimana?”`;
+    if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)){ setTimeout(()=> smoothJump('#rsvp'), 300); return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b> pada halaman ini. Aku sudah menggulir ke sana 😉.`; }
+    if (/calendar|kalender|save the date|ingatkan/.test(q)) return `Klik <a href="${KNOWLEDGE.calendarLink}" target="_blank">Add to Google Calendar</a> untuk menyimpan tanggalnya.`;
+    if (/musik|music|lagu|sound/.test(q)) return `Tombol musik ada di kanan bawah (ikon ▶️/⏸️).`;
+    if (/dress|tema|baju|warna/.test(q)) return `Pilihan aman: <b>semi-formal</b> warna lembut/pastel.`;
+    return `Maaf aku belum paham. Coba: “Lokasi di mana?”, “Kapan dimulai?”, “Berapa hari lagi?”, atau “Cara RSVP gimana?”`;
   }
 
-  // handle submit
-  form.addEventListener('submit', (e)=>{
+  formChat.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const text = input.value.trim(); if(!text) return;
-    userSay(text);
-    const ans = reply(text);
-    botSay(ans);
-    input.value = '';
+    const text = inputChat.value.trim(); if(!text) return;
+    userSay(text); botSay(reply(text)); inputChat.value='';
   });
-
-  // load history after DOM ready
-  loadLog();
-
-  // auto-open hint (opsional)
-  // setTimeout(()=> fab.classList.add('hint'), 2000);
-})();
 </script>
-<!-- ========== /AI CHAT END ========== -->
 </body>
 </html>
