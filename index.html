@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Wedding Invitation - Zen & Yessica</title>
 
-<!-- Redirect to cover if not opened -->
+<!-- ALWAYS send to cover if ?opened=1 is absent -->
 <script>
 (function(){
-  const qpOpened = new URLSearchParams(location.search).get('opened') === '1';
-  let ssOpened = false; try{ ssOpened = sessionStorage.getItem('opened') === '1'; }catch(e){}
-  if(!qpOpened && !ssOpened){ location.replace('cover.html' + (location.search || '')); }
+  var qp = new URLSearchParams(location.search);
+  if (qp.get('opened') !== '1') {
+    location.replace('cover.html' + (location.search || ''));
+  }
 })();
 </script>
 
@@ -32,9 +33,10 @@
   } */
 
   :root{
-    --sage:#6f8b6a; --sage-strong:#5e7a5b;
-    --rose:#b36b85; --rose-2:#9a5673;
-    --forest:#26352b; --ivory:#fffdf5;
+    --accent:#6b8e72;      /* sage/moss */
+    --accent-2:#557a60;    /* darker sage */
+    --forest:#26352b;
+    --ivory:#fffdf5;
   }
 
   *{box-sizing:border-box}
@@ -49,10 +51,10 @@
   /* ===== Buttons / names ===== */
   .btn{
     display:inline-block; padding:12px 28px; border:none; border-radius:999px;
-    background:var(--rose); color:#fff; font-weight:700; cursor:pointer; text-decoration:none;
-    box-shadow:0 10px 24px rgba(179,107,133,.35); transition:.25s;
+    background:var(--accent); color:#fff; font-weight:700; cursor:pointer; text-decoration:none;
+    box-shadow:0 10px 24px rgba(86,122,96,.35); transition:.25s;
   }
-  .btn:hover{ background:var(--rose-2); transform:translateY(-2px) }
+  .btn:hover{ background:var(--accent-2); transform:translateY(-2px) }
   .names{
     font-family:"White Angelica", cursive;
     color:#fff; margin:8px 0 12px;
@@ -82,7 +84,7 @@
   .inner.transparent{ background:transparent; box-shadow:none }
   h1.title{ color:#fff; font-size:clamp(38px,7vw,86px); margin:0 0 8px; text-shadow:0 4px 22px rgba(0,0,0,.55) }
   .quote{ color:#f5f5f2; text-shadow:0 3px 14px rgba(0,0,0,.5); max-width:760px; margin:12px auto 22px; }
-  h2{ color:var(--sage-strong); margin:0 0 .4rem }
+  h2{ color:var(--accent-2); margin:0 0 .4rem }
 
   /* ===== Countdown chips ===== */
   #countdown{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap }
@@ -102,19 +104,19 @@
     width:56px; height:56px; border:none; border-radius:50%;
     display:grid; place-items:center; cursor:pointer;
     color:#fff;
-    background: linear-gradient(180deg, rgba(179,107,133,.92), rgba(179,107,133,.78));
+    background: linear-gradient(180deg, rgba(107,142,114,.95), rgba(86,122,96,.85));
     border:1px solid rgba(255,255,255,.55);
-    box-shadow: 0 12px 28px rgba(179,107,133,.35);
+    box-shadow: 0 12px 28px rgba(86,122,96,.35);
     backdrop-filter: blur(8px);
     transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
   }
   .round-fab:hover, .ai-fab:hover{
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 16px 36px rgba(179,107,133,.45);
+    box-shadow: 0 16px 36px rgba(86,122,96,.45);
   }
   .round-fab:focus-visible, .ai-fab:focus-visible{
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255,255,255,.65), 0 12px 28px rgba(179,107,133,.35);
+    box-shadow: 0 0 0 3px rgba(255,255,255,.65), 0 12px 28px rgba(86,122,96,.35);
   }
   #music{ bottom: 20px; right: 18px; }
   #aiFab{ bottom: 90px; right: 18px; }  /* above music */
@@ -125,7 +127,7 @@
   form input, form textarea, form select{ padding:12px; border:1px solid #ddd; border-radius:10px; font-size:1rem; background:#fff }
   form textarea{ min-height:110px; resize:vertical }
   .pagination{ display:flex; gap:10px; justify-content:center; margin-top:12px }
-  .pagination button{ padding:8px 14px; border:none; border-radius:8px; background:var(--rose); color:#fff; cursor:pointer }
+  .pagination button{ padding:8px 14px; border:none; border-radius:8px; background:var(--accent); color:#fff; cursor:pointer }
   .pagination button:disabled{ background:#cfcfcf; cursor:not-allowed }
   .note{ padding:12px; border-bottom:1px solid rgba(0,0,0,.1); opacity:0; transform:translateY(8px) }
   .note.show{ opacity:1; transform:none; transition:opacity .5s, transform .5s }
@@ -140,7 +142,7 @@
     opacity:0; transform:translateY(12px); pointer-events:none; transition:.25s;
   }
   .ai-panel.open{ opacity:1; transform:none; pointer-events:auto; }
-  .ai-head{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.08); color:var(--sage-strong) }
+  .ai-head{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.08); color:var(--accent-2) }
   .ai-close{ background:transparent; border:none; font-size:18px; cursor:pointer }
   .ai-body{ padding:12px; overflow:auto }
   .ai-msg{ display:flex; margin:10px 0 }
@@ -149,7 +151,7 @@
     max-width:78%; padding:10px 12px; border-radius:14px;
     background:#f3f6f2; border:1px solid rgba(0,0,0,.06); color:var(--forest);
   }
-  .ai-msg.user .ai-bubble{ background:var(--rose); color:#fff; border-color:transparent }
+  .ai-msg.user .ai-bubble{ background:var(--accent); color:#fff; border-color:transparent }
   .ai-form{ display:flex; gap:8px; padding:12px; border-top:1px solid rgba(0,0,0,.08) }
   .ai-form input{ flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:12px; font-size:1rem; background:#fff }
 </style>
@@ -236,7 +238,7 @@
       </form>
       <p id="responseMsg"></p>
 
-      <h3 style="color:var(--sage-strong)">Guest Notes 💌</h3>
+      <h3 style="color:var(--accent-2)">Guest Notes 💌</h3>
       <div id="notesContainer">Loading...</div>
       <div class="pagination">
         <button id="prevBtn" type="button">Prev</button>
@@ -367,7 +369,7 @@
     page.forEach((n,i)=>{
       const el=document.createElement('div'); el.className='note'; el.style.transitionDelay=(i*80)+"ms";
       const icon = n.attendance==="Yes" ? "💖" : (n.attendance==="No" ? "🌸" : "");
-      el.innerHTML = `<strong style="color:var(--rose)">${(n.name||"Guest").toString().replace(/</g,"&lt;")}</strong> ${icon}<br>
+      el.innerHTML = `<strong style="color:var(--accent)">${(n.name||"Guest").toString().replace(/</g,"&lt;")}</strong> ${icon}<br>
                       <em>${(n.notes||'').toString().replace(/</g,'&lt;')}</em><br>
                       <small>${timeAgo(n.timestamp)}</small>`;
       box.appendChild(el); requestAnimationFrame(()=> el.classList.add('show'));
