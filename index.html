@@ -111,6 +111,39 @@
       transition: background 0.3s;
     }
     form button:hover { background: #a44d6c; }
+    #responseMsg { text-align: center; margin-top: 15px; font-weight: 600; }
+
+    /* Guest Notes */
+    #notesContainer {
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    .note {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    .note strong { color: #bc6c89; }
+    .pagination {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .pagination button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #bc6c89;
+      color: white;
+      cursor: pointer;
+    }
+    .pagination button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -162,8 +195,7 @@
   <!-- RSVP -->
   <section>
     <h2>RSVP & Notes</h2>
-    <form method="POST" action="https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec">
-      <!-- Proteksi -->
+    <form id="rsvpForm">
       <input type="hidden" name="token" value="ZENYESSICA2026">
       <input type="hidden" id="referer" name="referer">
 
@@ -176,6 +208,15 @@
       </select>
       <button type="submit">Submit</button>
     </form>
+    <p id="responseMsg"></p>
+
+    <!-- Guest Notes -->
+    <h2>Guest Notes 💌</h2>
+    <div id="notesContainer">Loading...</div>
+    <div class="pagination">
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
+    </div>
   </section>
 
   <footer>
@@ -222,6 +263,96 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // RSVP submit with fetch
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
+    const form = document.getElementById("rsvpForm");
+    const msg = document.getElementById("responseMsg");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      msg.textContent = "⏳ Sending...";
+      msg.style.color = "gray";
+
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") {
+            msg.textContent = "✅ RSVP berhasil dikirim!";
+            msg.style.color = "green";
+            form.reset();
+            loadNotes(); // reload notes setelah submit
+          } else if (data.status === "duplicate") {
+            msg.textContent = "⚠️ Anda sudah mengirim RSVP baru-baru ini.";
+            msg.style.color = "orange";
+          } else {
+            msg.textContent = "❌ Gagal mengirim RSVP.";
+            msg.style.color = "red";
+          }
+        })
+        .catch(err => {
+          msg.textContent = "❌ Error: " + err;
+          msg.style.color = "red";
+        });
+    });
+
+    // Guest Notes Viewer
+    let notes = [];
+    let currentPage = 1;
+    const notesPerPage = 5;
+
+    async function loadNotes() {
+      try {
+        const res = await fetch(scriptURL);
+        notes = await res.json();
+        renderNotes();
+      } catch (err) {
+        document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
+      }
+    }
+
+    function renderNotes() {
+      const container = document.getElementById("notesContainer");
+      container.innerHTML = "";
+
+      if (!notes.length) {
+        container.innerHTML = "<p>No notes yet.</p>";
+        return;
+      }
+
+      const start = (currentPage - 1) * notesPerPage;
+      const end = start + notesPerPage;
+      const pageNotes = notes.slice(start, end);
+
+      pageNotes.forEach(n => {
+        container.innerHTML += `
+          <div class="note">
+            <strong>${n.name}</strong> (${n.attendance})<br>
+            <em>${n.notes}</em><br>
+            <small>${new Date(n.timestamp).toLocaleString()}</small>
+          </div>
+        `;
+      });
+
+      document.getElementById("prevBtn").disabled = currentPage === 1;
+      document.getElementById("nextBtn").disabled = end >= notes.length;
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderNotes();
+      }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if ((currentPage * notesPerPage) < notes.length) {
+        currentPage++;
+        renderNotes();
+      }
+    });
+
+    loadNotes();
   </script>
 </body>
 </html>
