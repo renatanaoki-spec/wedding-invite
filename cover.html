@@ -2,117 +2,151 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Zen & Yessica — Cover</title>
 
+<!-- Local fonts -->
 <style>
   @font-face{
     font-family:"White Angelica";
     src:url("font/WhiteAngelica.ttf") format("truetype");
     font-display:swap;
   }
+  /* If you have MrsEaves.ttf, uncomment below and add the file to /font
   @font-face{
     font-family:"Mrs Eaves";
     src:url("font/MrsEaves.ttf") format("truetype");
     font-display:swap;
-  }
+  } */
+
   :root{
-    --rose:#b36b85; --rose-2:#9a5673;
-    --forest:#26352b;
+    --sage:#6f8b6a;
+    --sage-strong:#5e7a5b;
+    --rose:#b36b85;
+    --ivory:#fffdf5;
   }
+
   *{box-sizing:border-box}
   html,body{height:100%;margin:0}
+
   body{
+    min-height:100dvh;
+    display:grid;
+    place-items:center;
+    color:#fff;
     background:url("image/BG3.jpeg") center/cover no-repeat fixed;
-    display:grid; place-items:center; overflow:hidden;
-    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
-    color:var(--forest);
+    overflow:hidden;
   }
 
-  /* stage */
-  .stage{ position:relative; text-align:center; padding:20px; }
-  .title{
-    font-family:"White Angelica", cursive;
-    font-size:clamp(48px, 10vw, 110px);
-    margin:0 0 6px;
-    color:#fff;
-    -webkit-text-stroke:.5px rgba(0,0,0,.15);
-    text-shadow:0 2px 10px rgba(0,0,0,.35), 0 0 22px rgba(255,255,255,.3);
-    animation:drop .9s cubic-bezier(.22,.61,.36,1) both;
+  /* Dark soft overlay for readability */
+  .overlay::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(120% 80% at 50% 35%, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.15) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.1) 60%, rgba(0,0,0,.35));
+    pointer-events:none;
+    z-index:0;
   }
-  @keyframes drop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
-  .dear{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.35);margin:6px 0 18px;font-weight:700}
+
+  .card{
+    position:relative; z-index:1;
+    text-align:center;
+    padding: clamp(24px, 5vw, 48px);
+    animation: fadeUp .9s ease both;
+  }
+
+  .pretitle{
+    font-family: "Mrs Eaves","Playfair Display",Georgia,serif;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    font-size: clamp(12px, 2.2vw, 14px);
+    opacity:.92;
+  }
+
+  .names{
+    font-family:"White Angelica", cursive;
+    font-size: clamp(38px, 9.5vw, 108px);
+    line-height:1.05;
+    margin:.25em 0 .2em;
+    color:var(--ivory);
+    -webkit-text-stroke:.6px rgba(0,0,0,.18);
+    text-shadow: 0 6px 30px rgba(0,0,0,.45), 0 0 28px rgba(255,255,255,.25);
+  }
+
+  .sub{
+    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
+    font-size: clamp(14px, 2.8vw, 18px);
+    opacity:.95;
+  }
+
+  .dear{
+    margin:.35rem 0 1.1rem;
+    font-size: clamp(13px, 2.6vw, 16px);
+    opacity:.9;
+  }
 
   .btn{
-    display:inline-block; padding:12px 28px; border:none; border-radius:999px;
-    background:var(--rose); color:#fff; font-weight:700; cursor:pointer;
-    box-shadow:0 10px 24px rgba(179,107,133,.35); position:relative; overflow:hidden;
-    transition:.25s;
+    display:inline-block;
+    margin-top: clamp(14px, 3.5vw, 22px);
+    padding: 12px 28px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.55);
+    background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+    color:#fff;
+    font-weight:700;
+    letter-spacing:.02em;
+    text-decoration:none;
+    cursor:pointer;
+    box-shadow: 0 14px 30px rgba(0,0,0,.35);
+    transition:.25s ease;
+    backdrop-filter: blur(4px);
   }
-  .btn:hover{ background:var(--rose-2); transform:translateY(-2px) }
-  .btn::after{
-    content:""; position:absolute; inset:0;
-    transform:translateX(-120%) skewX(-20deg);
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
-    transition:transform .65s cubic-bezier(.22,.61,.36,1);
-  }
-  .btn:hover::after{ transform:translateX(200%) skewX(-20deg) }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 18px 40px rgba(0,0,0,.45) }
+  .btn:active{ transform:translateY(0) }
 
-  /* letter overlay (simple open animation) */
-  .letter{ position:fixed; inset:0; pointer-events:none; z-index:5; perspective:1200px; }
-  .flap{
-    position:absolute; left:0; right:0; top:0; height:52%;
-    background:#fff; transform-origin:top center; box-shadow:0 12px 28px rgba(0,0,0,.18);
+  /* Small footer hint */
+  .hint{
+    margin-top:14px; font-size:12px; opacity:.8;
+    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
   }
-  .sheet{
-    position:absolute; left:0; right:0; bottom:0; height:50%;
-    background:#fff; box-shadow:0 -12px 28px rgba(0,0,0,.18);
-  }
-  .stamp{
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    font-family:"White Angelica",cursive; font-size:48px; color:#b36b85; opacity:.14;
-  }
-  body.opening .flap{ animation:flapOpen .8s ease forwards }
-  body.opening .sheet{ animation:sheetDown .8s ease forwards }
-  @keyframes flapOpen{ to{ transform:rotateX(-95deg) translateY(-6px); opacity:.9 } }
-  @keyframes sheetDown{ to{ transform:translateY(100%); opacity:0 } }
 
-  /* glow */
-  .stage::before{
-    content:""; position:absolute; width:56vmin; height:56vmin; border-radius:50%;
-    left:50%; bottom:48%; transform:translate(-50%,50%);
-    background:radial-gradient(closest-side, rgba(255,255,255,.55), rgba(255,255,255,0));
-    filter:blur(18px); opacity:.9; pointer-events:none;
-    animation:bloom 6s ease-in-out infinite alternate;
+  /* Animation */
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(14px) scale(.985)}
+    to  { opacity:1; transform:none }
   }
-  @keyframes bloom{ from{opacity:.55;transform:translate(-50%,50%) scale(.96)} to{opacity:.92;transform:translate(-50%,50%) scale(1.06)} }
 </style>
 </head>
 <body>
-  <div class="stage">
-    <h1 class="title">Zen &amp; Yessica</h1>
-    <p class="dear">Dear <span id="guest">Guest</span></p>
-    <button id="openBtn" class="btn">Open Invitation</button>
-  </div>
+<div class="overlay"></div>
 
-  <div class="letter" aria-hidden="true">
-    <div class="flap"></div>
-    <div class="sheet"><div class="stamp">Zen &amp; Yessica</div></div>
-  </div>
+<main class="card" aria-label="Wedding Cover">
+  <div class="pretitle">Wedding Invitation</div>
+  <h1 class="names">Zen &amp; Yessica</h1>
+  <div class="sub">17 January 2026 &mdash; Cibinong</div>
+  <div id="dear" class="dear" hidden>Dear Guest</div>
+
+  <button id="openBtn" class="btn" aria-label="Open Invitation">Open Invitation</button>
+  <div class="hint">Tap to open the full invitation</div>
+</main>
 
 <script>
-  // tampilkan nama tamu dari ?to=
-  const params = new URLSearchParams(location.search);
-  const to = params.get('to');
-  if (to) document.getElementById('guest').textContent = to;
+  // Show "Dear <name>" if ?to= is present
+  (function(){
+    const p = new URLSearchParams(location.search);
+    const to = p.get('to');
+    const el = document.getElementById('dear');
+    if (to) { el.textContent = "Dear " + to; el.hidden = false; }
+  })();
 
-  const btn = document.getElementById('openBtn');
-  btn.addEventListener('click', () => {
-    document.body.classList.add('opening');
+  // Open invitation: persist flag & keep params
+  document.getElementById('openBtn').addEventListener('click', () => {
+    const p = new URLSearchParams(location.search);
+    p.set('opened','1');
     try { sessionStorage.setItem('opened','1'); } catch(e){}
-    params.set('opened','1');
-    const url = 'index.html?' + params.toString();
-    setTimeout(()=> location.href = url, 780); // selaraskan dgn durasi anim
+    // Go to full invitation
+    location.href = "index.html?" + p.toString();
   });
 </script>
 </body>
