@@ -10,17 +10,63 @@
     body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
       font-family: 'Poppins', sans-serif;
       background: #fff;
       color: #333;
-      text-align: center;
+      height: 100%;
+      overflow-x: hidden;
     }
     h1, h2 {
       font-family: 'Great Vibes', cursive;
       color: #bc6c89;
     }
-    section { padding: 50px 20px; }
+
+    /* Cover */
+    .cover {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #fbd3e9, #91a1f0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .cover h1 {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+    }
+    .cover p {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 30px;
+    }
+    .cover button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #bc6c89;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .cover button:hover {
+      background: #bc6c89;
+      color: white;
+    }
+    .cover.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    section { padding: 50px 20px; text-align: center; }
     .date { font-size: 1.3rem; margin: 15px 0; }
     .venue { margin: 8px 0; font-style: italic; }
     .verse { font-style: italic; max-width: 600px; margin: auto; line-height: 1.5; color: #555; }
@@ -76,9 +122,10 @@
       font-size: 1.2rem;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: none;
     }
 
-    /* RSVP Form */
+    /* RSVP Form + Notes */
     form {
       max-width: 500px;
       margin: 0 auto;
@@ -87,17 +134,12 @@
       gap: 15px;
       text-align: left;
     }
-    form input, form textarea, form select {
+    form input, form textarea {
       padding: 12px;
       border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 1rem;
       font-family: 'Poppins', sans-serif;
-    }
-    form input:focus, form textarea:focus, form select:focus {
-      border-color: #bc6c89;
-      outline: none;
-      box-shadow: 0 0 6px rgba(188, 108, 137, 0.4);
     }
     form textarea { min-height: 100px; resize: vertical; }
     form button {
@@ -113,46 +155,52 @@
     form button:hover { background: #a44d6c; }
     #responseMsg { text-align: center; margin-top: 15px; font-weight: 600; }
 
-    /* Guest Notes */
-    #notesContainer {
-      margin-top: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-    }
-    .note {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-    .note strong { color: #bc6c89; }
-    .pagination {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .pagination button {
-      padding: 8px 15px;
+    .attendance-wrapper { margin-top: 15px; text-align: center; }
+    .attendance-label { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
+    .attendance-options { display: flex; justify-content: center; gap: 20px; margin-bottom: 8px; }
+    .attend-btn {
+      padding: 12px 25px;
+      font-size: 1rem;
       border: none;
-      border-radius: 6px;
-      background: #bc6c89;
-      color: white;
+      border-radius: 30px;
       cursor: pointer;
+      background: #f8e1ec;
+      color: #bc6c89;
+      transition: 0.3s;
     }
-    .pagination button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
+    .attend-btn:hover { background: #bc6c89; color: white; }
+    .attend-btn.active { background: #bc6c89; color: white; font-weight: 600; }
+
+    .error-msg {
+      color: #d46a6a;
+      font-size: 0.9rem;
+      display: none;
+      margin-top: 5px;
+      font-style: italic;
     }
+
+    #notesContainer { margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; text-align: left; }
+    .note { padding: 12px; border-bottom: 1px solid #ddd; }
+    .note strong { color: #bc6c89; }
+    .pagination { margin-top: 15px; display: flex; justify-content: center; gap: 10px; }
+    .pagination button { padding: 8px 15px; border: none; border-radius: 6px; background: #bc6c89; color: white; cursor: pointer; }
+    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
   </style>
 </head>
 <body>
 
   <!-- 🎶 Music -->
-  <audio id="bg-music" autoplay loop muted>
+  <audio id="bg-music" loop>
     <source src="music/Music-1.mp3" type="audio/mpeg">
   </audio>
   <button id="music-control">⏸️</button>
+
+  <!-- COVER PAGE -->
+  <div class="cover" id="coverPage">
+    <h1>Zen & Yessica</h1>
+    <p>Dear <span id="guestName">Guest</span></p>
+    <button id="openBtn">Open Invitation</button>
+  </div>
 
   <!-- Save the Date -->
   <section class="hero">
@@ -198,19 +246,26 @@
     <form id="rsvpForm">
       <input type="hidden" name="token" value="ZENYESSICA2026">
       <input type="hidden" id="referer" name="referer">
+      <input type="hidden" id="attendanceInput" name="Attendance" required>
 
-      <input name="Name" type="text" placeholder="Your Name" required>
-      <textarea name="Notes" placeholder="Write your notes..." required></textarea>
-      <select name="Attendance" required>
-        <option value="">-- Will you attend? --</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-      <button type="submit">Submit</button>
+      <input name="Name" id="nameInput" type="text" placeholder="Name" required>
+      <small id="nameError" class="error-msg">We’d love to know your name 💌</small>
+
+      <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
+
+      <div class="attendance-wrapper">
+        <p class="attendance-label">Attendance confirmation</p>
+        <div class="attendance-options">
+          <button type="button" class="attend-btn" data-value="Yes">💖 Yes</button>
+          <button type="button" class="attend-btn" data-value="No">🌸 No</button>
+        </div>
+        <small id="attendanceError" class="error-msg">Please let us know if you can join 🌷</small>
+      </div>
+
+      <button type="submit">SEND</button>
     </form>
     <p id="responseMsg"></p>
 
-    <!-- Guest Notes -->
     <h2>Guest Notes 💌</h2>
     <div id="notesContainer">Loading...</div>
     <div class="pagination">
@@ -224,20 +279,25 @@
   </footer>
 
   <script>
-    // Inject referer
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
     document.getElementById("referer").value = window.location.hostname;
 
-    // Music autoplay (aktif setelah klik pertama)
+    // Cover Page
+    const cover = document.getElementById("coverPage");
+    const openBtn = document.getElementById("openBtn");
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
-    window.addEventListener("load", () => {
-      const playMusic = () => {
-        music.muted = false;
-        music.play().catch(err => console.log("Autoplay blocked:", err));
-        document.removeEventListener("click", playMusic);
-      };
-      document.addEventListener("click", playMusic);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const guest = urlParams.get("to");
+    if (guest) document.getElementById("guestName").textContent = guest;
+
+    openBtn.addEventListener("click", () => {
+      cover.classList.add("hidden");
+      controlBtn.style.display = "block";
+      music.play().catch(err => console.log("Autoplay blocked:", err));
     });
+
     controlBtn.addEventListener("click", () => {
       if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
       else { music.pause(); controlBtn.textContent = "▶️"; }
@@ -264,12 +324,40 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // RSVP submit with fetch
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
+    // RSVP validation
     const form = document.getElementById("rsvpForm");
+    const nameInput = document.getElementById("nameInput");
+    const nameError = document.getElementById("nameError");
+    const attendanceBtns = document.querySelectorAll(".attend-btn");
+    const attendanceInput = document.getElementById("attendanceInput");
+    const attendanceError = document.getElementById("attendanceError");
     const msg = document.getElementById("responseMsg");
 
+    attendanceBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        attendanceBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        attendanceInput.value = btn.getAttribute("data-value");
+        attendanceError.style.display = "none";
+      });
+    });
+
     form.addEventListener("submit", e => {
+      let valid = true;
+      if (!nameInput.value.trim()) {
+        nameError.style.display = "block";
+        valid = false;
+      } else {
+        nameError.style.display = "none";
+      }
+      if (!attendanceInput.value) {
+        attendanceError.style.display = "block";
+        valid = false;
+      } else {
+        attendanceError.style.display = "none";
+      }
+      if (!valid) { e.preventDefault(); return; }
+
       e.preventDefault();
       msg.textContent = "⏳ Sending...";
       msg.style.color = "gray";
@@ -278,13 +366,12 @@
         .then(res => res.json())
         .then(data => {
           if (data.status === "success") {
-            msg.textContent = "✅ RSVP berhasil dikirim!";
+            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
             msg.style.color = "green";
             form.reset();
-            loadNotes(); // reload notes setelah submit
-          } else if (data.status === "duplicate") {
-            msg.textContent = "⚠️ Anda sudah mengirim RSVP baru-baru ini.";
-            msg.style.color = "orange";
+            attendanceBtns.forEach(b => b.classList.remove("active"));
+            attendanceInput.value = "";
+            loadNotes();
           } else {
             msg.textContent = "❌ Gagal mengirim RSVP.";
             msg.style.color = "red";
@@ -296,7 +383,7 @@
         });
     });
 
-    // Guest Notes Viewer
+    // Notes pagination
     let notes = [];
     let currentPage = 1;
     const notesPerPage = 5;
@@ -339,17 +426,10 @@
     }
 
     document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderNotes();
-      }
+      if (currentPage > 1) { currentPage--; renderNotes(); }
     });
-
     document.getElementById("nextBtn").addEventListener("click", () => {
-      if ((currentPage * notesPerPage) < notes.length) {
-        currentPage++;
-        renderNotes();
-      }
+      if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
     });
 
     loadNotes();
