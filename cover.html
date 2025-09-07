@@ -4,79 +4,80 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Zen & Yessica — Cover</title>
+
 <style>
   @font-face{
     font-family:"White Angelica";
     src:url("font/WhiteAngelica.ttf") format("truetype");
     font-display:swap;
   }
-  :root{ --mauve:#b46b88; --mauve-2:#9a5673; }
-
+  @font-face{
+    font-family:"Mrs Eaves";
+    src:url("font/MrsEaves.ttf") format("truetype");
+    font-display:swap;
+  }
+  :root{
+    --rose:#b36b85; --rose-2:#9a5673;
+    --forest:#26352b;
+  }
   *{box-sizing:border-box}
-  html,body{ height:100%; margin:0; overflow:hidden; }
+  html,body{height:100%;margin:0}
   body{
     background:url("image/BG3.jpeg") center/cover no-repeat fixed;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+    display:grid; place-items:center; overflow:hidden;
+    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
+    color:var(--forest);
   }
 
-  /* ===== stage ===== */
-  .stage{ position:relative; height:100%; display:grid; place-items:center; text-align:center; }
+  /* stage */
+  .stage{ position:relative; text-align:center; padding:20px; }
   .title{
     font-family:"White Angelica", cursive;
-    font-size:clamp(46px, 10vw, 100px);
-    color:#fff; line-height:1.04;
-    -webkit-text-stroke:1px rgba(0,0,0,.14);
-    text-shadow: 0 2px 10px rgba(0,0,0,.35), 0 0 22px rgba(255,255,255,.35);
-    margin:0 16px 6px;
-    animation: drop .9s cubic-bezier(.22,.61,.36,1) both;
+    font-size:clamp(48px, 10vw, 110px);
+    margin:0 0 6px;
+    color:#fff;
+    -webkit-text-stroke:.5px rgba(0,0,0,.15);
+    text-shadow:0 2px 10px rgba(0,0,0,.35), 0 0 22px rgba(255,255,255,.3);
+    animation:drop .9s cubic-bezier(.22,.61,.36,1) both;
   }
-  @keyframes drop{ from{opacity:0; transform:translateY(14px) scale(.98)} to{opacity:1; transform:none} }
-
-  .dear{ color:#fff; margin:4px 0 18px; text-shadow:0 1px 4px rgba(0,0,0,.35) }
+  @keyframes drop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  .dear{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.35);margin:6px 0 18px;font-weight:700}
 
   .btn{
     display:inline-block; padding:12px 28px; border:none; border-radius:999px;
-    background:var(--mauve); color:#fff; font-weight:700; cursor:pointer;
-    box-shadow:0 10px 24px rgba(180,107,136,.30);
-    position:relative; overflow:hidden; transition:transform .25s;
+    background:var(--rose); color:#fff; font-weight:700; cursor:pointer;
+    box-shadow:0 10px 24px rgba(179,107,133,.35); position:relative; overflow:hidden;
+    transition:.25s;
   }
-  .btn:hover{ transform:translateY(-2px) }
+  .btn:hover{ background:var(--rose-2); transform:translateY(-2px) }
   .btn::after{
-    content:""; position:absolute; inset:0; transform:translateX(-120%) skewX(-20deg);
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+    content:""; position:absolute; inset:0;
+    transform:translateX(-120%) skewX(-20deg);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
     transition:transform .65s cubic-bezier(.22,.61,.36,1);
   }
   .btn:hover::after{ transform:translateX(200%) skewX(-20deg) }
 
-  /* ===== letter open transition ===== */
-  .letter{
-    position:fixed; inset:0; pointer-events:none; z-index:5;
-    perspective:1200px;
-  }
-  /* top flap */
+  /* letter overlay (simple open animation) */
+  .letter{ position:fixed; inset:0; pointer-events:none; z-index:5; perspective:1200px; }
   .flap{
     position:absolute; left:0; right:0; top:0; height:52%;
-    background:#fff; transform-origin:top center;
-    box-shadow:0 12px 28px rgba(0,0,0,.18);
+    background:#fff; transform-origin:top center; box-shadow:0 12px 28px rgba(0,0,0,.18);
   }
-  /* bottom part */
   .sheet{
     position:absolute; left:0; right:0; bottom:0; height:50%;
     background:#fff; box-shadow:0 -12px 28px rgba(0,0,0,.18);
   }
-  /* faint logo on the letter */
   .stamp{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    font-family:"White Angelica", cursive; font-size:48px; color:#b46b88; opacity:.14;
+    font-family:"White Angelica",cursive; font-size:48px; color:#b36b85; opacity:.14;
   }
-
-  /* animate when opening */
   body.opening .flap{ animation:flapOpen .8s ease forwards }
   body.opening .sheet{ animation:sheetDown .8s ease forwards }
   @keyframes flapOpen{ to{ transform:rotateX(-95deg) translateY(-6px); opacity:.9 } }
   @keyframes sheetDown{ to{ transform:translateY(100%); opacity:0 } }
 
-  /* bloom behind title */
+  /* glow */
   .stage::before{
     content:""; position:absolute; width:56vmin; height:56vmin; border-radius:50%;
     left:50%; bottom:48%; transform:translate(-50%,50%);
@@ -84,35 +85,34 @@
     filter:blur(18px); opacity:.9; pointer-events:none;
     animation:bloom 6s ease-in-out infinite alternate;
   }
-  @keyframes bloom{ from{opacity:.55; transform:translate(-50%,50%) scale(.96)} to{opacity:.92; transform:translate(-50%,50%) scale(1.06)} }
+  @keyframes bloom{ from{opacity:.55;transform:translate(-50%,50%) scale(.96)} to{opacity:.92;transform:translate(-50%,50%) scale(1.06)} }
 </style>
 </head>
 <body>
   <div class="stage">
-    <main>
-      <h1 class="title">Zen &amp; Yessica</h1>
-      <p class="dear">Dear <span id="guest">Guest</span></p>
-      <button id="openBtn" class="btn">Open Invitation</button>
-    </main>
+    <h1 class="title">Zen &amp; Yessica</h1>
+    <p class="dear">Dear <span id="guest">Guest</span></p>
+    <button id="openBtn" class="btn">Open Invitation</button>
   </div>
 
-  <!-- letter overlay -->
   <div class="letter" aria-hidden="true">
     <div class="flap"></div>
     <div class="sheet"><div class="stamp">Zen &amp; Yessica</div></div>
   </div>
 
 <script>
-  // forward query ?to= to the next page
+  // tampilkan nama tamu dari ?to=
   const params = new URLSearchParams(location.search);
   const to = params.get('to');
   if (to) document.getElementById('guest').textContent = to;
 
-  document.getElementById('openBtn').addEventListener('click', () => {
-    // play letter animation then redirect
+  const btn = document.getElementById('openBtn');
+  btn.addEventListener('click', () => {
     document.body.classList.add('opening');
-    const url = 'invitation.html' + (to ? ('?to=' + encodeURIComponent(to)) : '');
-    setTimeout(()=> location.href = url, 780);
+    try { sessionStorage.setItem('opened','1'); } catch(e){}
+    params.set('opened','1');
+    const url = 'index.html?' + params.toString();
+    setTimeout(()=> location.href = url, 780); // selaraskan dgn durasi anim
   });
 </script>
 </body>
