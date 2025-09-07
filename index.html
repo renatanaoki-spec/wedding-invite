@@ -5,27 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation - Zen & Yessica</title>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
+    body, html {
       margin: 0;
       padding: 0;
-      background: #f7f4f2;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
       color: #333;
       text-align: center;
     }
-    header {
+
+    /* 🎉 Save the Date Hero */
+    .hero {
+      height: 100vh;
+      background: url("images/bg-photo.jpg") no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+    .hero .quote {
+      max-width: 600px;
+      font-size: 1.1rem;
+      margin: 20px auto 40px;
+      line-height: 1.5;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+    }
+    #countdown {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 20px 0 40px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    .time-box span {
+      display: block;
+      font-size: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid white;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: white;
+      color: #333;
+    }
+
+    /* 🎶 Music button */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
       background: #bc8887;
       color: white;
-      padding: 50px 20px;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    header p {
-      margin: 10px 0 0;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
+
     section {
       padding: 40px 20px;
     }
@@ -37,17 +97,6 @@
       margin: 10px 0;
       font-style: italic;
     }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
     footer {
       background: #333;
       color: white;
@@ -58,27 +107,45 @@
 </head>
 <body>
 
-  <header>
-    <h1>Zen & Yessica</h1>
-    <p>Invite you to celebrate our wedding</p>
-  </header>
+  <!-- 🎶 Background Music -->
+  <audio id="bg-music" loop>
+    <source src="music/Music-1.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-control">🔊</button>
 
+  <!-- 🎉 Save the Date Section -->
+  <section class="hero">
+    <h1>SAVE THE DATE</h1>
+    <p class="quote">
+      “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
+      It is only fitting that every effort to attain His love is pursued with joy.”
+    </p>
+
+    <!-- Countdown -->
+    <div id="countdown">
+      <div class="time-box"><span id="days">00</span>Days</div>
+      <div class="time-box"><span id="hours">00</span>Hours</div>
+      <div class="time-box"><span id="minutes">00</span>Minutes</div>
+      <div class="time-box"><span id="seconds">00</span>Seconds</div>
+    </div>
+
+    <!-- Save the Date button -->
+    <a class="btn" 
+       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
+       target="_blank">
+      SAVE THE DATE
+    </a>
+  </section>
+
+  <!-- 📅 Wedding Details -->
   <section>
     <h2>Wedding Day</h2>
     <p class="date">Saturday, 17 January 2026</p>
-    <p class="venue">Gereja Santo Fransiskus Asisi, Cibinong</p>
+    <p class="venue">Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
     <p class="venue">Reception: Bagas Raya Cibinong</p>
   </section>
 
-  <section>
-    <h2>Our Moments</h2>
-    <div class="gallery">
-      <img src="images/photo1.jpg" alt="Moment 1">
-      <img src="images/photo2.jpg" alt="Moment 2">
-      <img src="images/photo3.jpg" alt="Moment 3">
-    </div>
-  </section>
-
+  <!-- ✝️ Bible Verse -->
   <section>
     <h2>Bible Verse</h2>
     <p style="font-style:italic; max-width:600px; margin:auto;">
@@ -88,9 +155,49 @@
     </p>
   </section>
 
+  <!-- ❤️ Footer -->
   <footer>
     <p>With love, Zen & Yessica 💕</p>
   </footer>
+
+  <script>
+    // 🎶 Music toggle
+    const music = document.getElementById("bg-music");
+    const controlBtn = document.getElementById("music-control");
+    controlBtn.onclick = () => {
+      if (music.paused) {
+        music.play();
+        controlBtn.textContent = "🔊";
+      } else {
+        music.pause();
+        controlBtn.textContent = "🔇";
+      }
+    };
+
+    // ⏳ Countdown
+    function updateCountdown() {
+      const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
+      const now = new Date().getTime();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 
 </body>
 </html>
