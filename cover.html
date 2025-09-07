@@ -6,22 +6,14 @@
 <title>Zen & Yessica — Cover</title>
 
 <style>
-  /* Local fonts */
   @font-face{
     font-family:"White Angelica";
     src:url("font/WhiteAngelica.ttf") format("truetype");
     font-display:swap;
   }
-  /* If you add MrsEaves.ttf later, uncomment:
-  @font-face{
-    font-family:"Mrs Eaves";
-    src:url("font/MrsEaves.ttf") format("truetype");
-    font-display:swap;
-  } */
-
   :root{
-    --sage:#6f8b6a; --sage-strong:#5e7a5b;
-    --rose:#b36b85; --rose-2:#9a5673;
+    --accent:#6b8e72;      /* sage/moss */
+    --accent-2:#557a60;    /* darker sage */
     --ivory:#fffdf5;
   }
 
@@ -34,66 +26,77 @@
     overflow:hidden;
   }
 
-  /* Soft dark overlay for readability */
+  /* overlay gelap lembut agar teks jelas */
   .overlay{ position:fixed; inset:0; z-index:0; pointer-events:none; }
   .overlay::before{
     content:""; position:absolute; inset:0;
     background:
-      radial-gradient(120% 80% at 50% 35%, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.15) 100%),
-      linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.1) 60%, rgba(0,0,0,.35));
+      radial-gradient(115% 75% at 50% 42%, rgba(0,0,0,.52) 0%, rgba(0,0,0,.32) 58%, rgba(0,0,0,.14) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,.1) 60%, rgba(0,0,0,.32));
   }
 
   .card{
     position:relative; z-index:1; text-align:center;
-    padding: clamp(24px, 5vw, 48px);
+    padding: clamp(20px, 4.5vw, 44px);
+    display:flex; flex-direction:column; align-items:center;
+    /* sedikit ke atas agar proporsional di berbagai device */
+    transform: translateY(-3vh);
+    gap: clamp(8px, 2.2vh, 18px);
     animation: fadeUp .9s ease both;
   }
   .pretitle{
     font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
     letter-spacing:.22em; text-transform:uppercase;
-    font-size: clamp(12px, 2.2vw, 14px); opacity:.92;
+    font-size: clamp(12px, 2.2vw, 14px); opacity:.92; margin:0;
   }
   .names{
     font-family:"White Angelica", cursive;
-    font-size: clamp(38px, 9.5vw, 108px); line-height:1.05;
-    margin:.25em 0 .1em; color:var(--ivory);
+    font-size: clamp(42px, 9.2vw, 108px);
+    line-height: .92;            /* rapatkan sedikit */
+    letter-spacing: -.02em;      /* rapatkan huruf script */
+    margin:.15em 0 .05em;
+    color:var(--ivory);
     -webkit-text-stroke:.6px rgba(0,0,0,.18);
-    text-shadow: 0 6px 30px rgba(0,0,0,.45), 0 0 28px rgba(255,255,255,.25);
+    text-shadow: 0 6px 30px rgba(0,0,0,.45), 0 0 26px rgba(255,255,255,.25);
   }
   .sub{
     font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
-    font-size: clamp(14px, 2.8vw, 18px); opacity:.95;
+    font-size: clamp(14px, 2.8vw, 18px); opacity:.95; margin:0;
   }
-  .dear{ margin:.6rem 0 1.1rem; font-size: clamp(13px, 2.6vw, 16px); opacity:.9 }
+  .dear{ margin:.2rem 0 .8rem; font-size: clamp(13px, 2.6vw, 16px); opacity:.9 }
 
   .btn{
-    display:inline-block; margin-top: clamp(14px, 3.5vw, 22px);
+    display:inline-block;
     padding: 12px 28px; border-radius:999px; border:1px solid rgba(255,255,255,.55);
-    background: linear-gradient(180deg, rgba(179,107,133,.92), rgba(179,107,133,.78));
+    background: linear-gradient(180deg, rgba(107,142,114,.95), rgba(86,122,96,.85));
     color:#fff; font-weight:700; letter-spacing:.02em; text-decoration:none; cursor:pointer;
-    box-shadow: 0 14px 30px rgba(179,107,133,.35); transition:.25s ease; backdrop-filter: blur(6px);
+    box-shadow: 0 14px 30px rgba(86,122,96,.35); transition:.25s ease; backdrop-filter: blur(6px);
   }
-  .btn:hover{ transform:translateY(-2px); box-shadow:0 18px 40px rgba(179,107,133,.45) }
-  .hint{ margin-top:10px; font-size:12px; opacity:.8; font-family:"Mrs Eaves","Playfair Display",Georgia,serif }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 18px 40px rgba(86,122,96,.45) }
+  .hint{ margin-top:4px; font-size:12px; opacity:.85; font-family:"Mrs Eaves","Playfair Display",Georgia,serif }
 
-  @keyframes fadeUp{ from{opacity:0; transform:translateY(14px) scale(.985)} to{opacity:1; transform:none} }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(2vh)} to{opacity:1; transform:translateY(-3vh)} }
+
+  @media (max-height:680px){
+    .card{ transform: translateY(-1vh); gap: 10px; }
+  }
 </style>
 </head>
 <body>
 <div class="overlay"></div>
 
 <main class="card" aria-label="Wedding Cover">
-  <div class="pretitle">Wedding Invitation</div>
+  <p class="pretitle">WEDDING INVITATION</p>
   <h1 class="names">Zen &amp; Yessica</h1>
-  <div class="sub">17 January 2026 — Cibinong</div>
-  <div id="dear" class="dear" hidden>Dear Guest</div>
+  <p class="sub">17 January 2026 — Cibinong</p>
+  <p id="dear" class="dear" hidden>Dear Guest</p>
 
   <button id="openBtn" class="btn" aria-label="Open Invitation">Open Invitation</button>
   <div class="hint">Tap to open the full invitation</div>
 </main>
 
 <script>
-  // Dear ?to=
+  // Tampilkan "Dear <nama>" jika ?to=
   (function(){
     const p = new URLSearchParams(location.search);
     const to = p.get('to');
@@ -101,11 +104,14 @@
     if (to) { el.textContent = "Dear " + to; el.hidden = false; }
   })();
 
-  // Open invitation: persist & redirect, preserving query params
+  // Open -> simpan flag + redirect ke index.html
   document.getElementById('openBtn').addEventListener('click', () => {
     const p = new URLSearchParams(location.search);
     p.set('opened','1');
-    try{ sessionStorage.setItem('opened','1'); }catch(e){}
+    try{
+      sessionStorage.setItem('opened','1');
+      sessionStorage.setItem('autoplay','1'); // minta musik auto-play di index
+    }catch(e){}
     location.href = "index.html?" + p.toString();
   });
 </script>
