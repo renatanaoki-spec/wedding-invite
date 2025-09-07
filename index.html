@@ -6,7 +6,7 @@
   <title>Wedding Invitation - Zen & Yessica</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body, html {
@@ -15,19 +15,64 @@
       font-family: 'Poppins', sans-serif;
       background: url("BG2.jpeg") no-repeat center center fixed;
       background-size: cover;
-      color: #f5f5f0; /* ivory */
+      color: #f5f5f0;
       height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
       animation: fadeIn 1.5s ease-in;
     }
 
-    h1, h2 {
-      font-family: 'Playfair Display', serif;
-      color: #6b8f8e; /* misty aqua */
-      letter-spacing: 1px;
-      text-shadow: 0 0 8px rgba(219,230,228,0.6); /* pale mist glow */
+    /* Dark overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.35);
+      z-index: 1;
     }
+    section, .hero, .cover, footer, #smoke { position: relative; z-index: 2; }
+
+  h1, h2 {
+  font-family: 'Playfair Display', serif;
+  color: #ffffff; /* putih jelas */
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(79,182,182,0.8), 0 0 20px rgba(255,255,255,0.7);
+}
+
+.cover h1 {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(79,182,182,0.8), 0 0 25px rgba(255,255,255,0.9);
+}
+
+.cover p {
+  font-size: 1.2rem;
+  color: #e6fafa;
+}
+
+.cover button,
+.btn, form button {
+  padding: 12px 30px;
+  background: #4fb6b6;
+  color: #fff;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(79,182,182,0.7);
+  transition: all 0.3s ease;
+}
+.cover button:hover,
+.btn:hover, form button:hover {
+  background: #358080;
+  box-shadow: 0 0 20px rgba(79,182,182,1);
+}
+
+.time-box span {
+  display: block;
+  font-size: 2rem;
+  color: #4fb6b6;
+}
+
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -46,13 +91,20 @@
       align-items: center;
       text-align: center;
       z-index: 9999;
-      opacity: 1;
-      visibility: visible;
       transition: opacity 1.2s ease, visibility 1.2s ease;
-      backdrop-filter: blur(6px);
     }
     .cover.hidden { opacity: 0; visibility: hidden; }
-    .cover h1 { font-size: 3rem; color: #fff; margin-bottom: 10px; }
+    .cover h1 {
+      font-size: 3rem;
+      color: #6b8f8e;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(107,143,142,0.8), 0 0 20px rgba(219,230,228,0.6);
+      animation: coverGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes coverGlow {
+      from { text-shadow: 0 0 5px #a8c0b0, 0 0 10px #6b8f8e; }
+      to { text-shadow: 0 0 15px #dbe6e4, 0 0 25px #6b8f8e; }
+    }
     .cover p { font-size: 1.2rem; color: #fff; margin-bottom: 30px; }
     .cover button {
       padding: 12px 30px;
@@ -63,9 +115,15 @@
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 0 12px rgba(107,143,142,0.5);
+      animation: coverButtonGlow 3s ease-in-out infinite alternate;
       transition: all 0.3s ease;
     }
     .cover button:hover { background: #557877; }
+    @keyframes coverButtonGlow {
+      from { box-shadow: 0 0 8px rgba(107,143,142,0.4); }
+      to { box-shadow: 0 0 18px rgba(107,143,142,0.7); }
+    }
 
     /* Smoke */
     #smoke {
@@ -97,14 +155,6 @@
       100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
     }
 
-    /* Sections */
-    section {
-      padding: 60px 20px;
-      position: relative;
-      z-index: 3;
-      text-align: center;
-    }
-
     /* Hero */
     .hero {
       min-height: 100vh;
@@ -113,18 +163,14 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      text-align: center;
       background: rgba(0,0,0,0.4);
       border-radius: 12px;
       animation: zoomIn 2s ease;
-      z-index: 3;
-      position: relative;
     }
     @keyframes zoomIn {
       from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-
     .hero h1 {
       font-size: 4rem;
       margin-bottom: 15px;
@@ -154,7 +200,6 @@
     .time-box span { display: block; font-size: 2rem; color: #6b8f8e; }
 
     .btn, form button {
-      display: inline-block;
       padding: 12px 30px;
       background: #6b8f8e;
       border: none;
@@ -228,9 +273,7 @@
       transform: translateY(15px);
       animation: fadeNote 0.8s forwards;
     }
-    @keyframes fadeNote {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeNote { to { opacity: 1; transform: translateY(0); } }
     .note strong { color: #6b8f8e; }
 
     .pagination button {
@@ -242,15 +285,8 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .pagination button:hover {
-      background: #557877;
-      box-shadow: 0 0 10px rgba(107,143,142,0.5);
-    }
-    .pagination button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    .pagination button:hover { background: #557877; }
+    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
 
     footer {
       background: rgba(0,0,0,0.7);
@@ -262,13 +298,9 @@
   </style>
 </head>
 <body>
-
-  <!-- Smoke Effect -->
+  <!-- Smoke -->
   <div id="smoke">
-    <div class="smoke"></div>
-    <div class="smoke"></div>
-    <div class="smoke"></div>
-    <div class="smoke"></div>
+    <div class="smoke"></div><div class="smoke"></div><div class="smoke"></div><div class="smoke"></div>
   </div>
 
   <!-- 🎶 Music -->
@@ -277,7 +309,7 @@
   </audio>
   <button id="music-control"><i class="fa-solid fa-music"></i></button>
 
-  <!-- COVER PAGE -->
+  <!-- COVER -->
   <div class="cover" id="coverPage">
     <h1>Zen & Yessica</h1>
     <p>Dear <span id="guestName">Guest</span></p>
@@ -287,10 +319,8 @@
   <!-- Hero -->
   <section class="hero">
     <h1>SAVE THE DATE</h1>
-    <p class="quote">
-      “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
-      It is only fitting that every effort to attain His love is pursued with joy.”
-    </p>
+    <p class="quote">“Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
+      It is only fitting that every effort to attain His love is pursued with joy.”</p>
     <div id="countdown">
       <div class="time-box"><span id="days">00</span>Days</div>
       <div class="time-box"><span id="hours">00</span>Hours</div>
@@ -318,17 +348,11 @@
 
     <h2>Guest Notes 💌</h2>
     <div id="notesContainer">Loading...</div>
-    <div class="pagination">
-      <button id="prevBtn">Prev</button>
-      <button id="nextBtn">Next</button>
-    </div>
+    <div class="pagination"><button id="prevBtn">Prev</button><button id="nextBtn">Next</button></div>
   </section>
 
-  <footer>
-    <p>With love, Zen & Yessica 💕</p>
-  </footer>
+  <footer><p>With love, Zen & Yessica 💕</p></footer>
 
-  <!-- SCRIPT -->
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
     document.getElementById("referer").value = window.location.hostname;
@@ -342,21 +366,31 @@
     const guest = urlParams.get("to");
     if (guest) document.getElementById("guestName").textContent = guest;
 
-    // Open invitation with fade + music
+    // Fullscreen
+    function openFullscreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) elem.requestFullscreen();
+      else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    }
+
+    // Open Invitation
     openBtn.addEventListener("click", () => {
       cover.classList.add("hidden");
       controlBtn.style.display = "block";
       setTimeout(() => {
         music.play().catch(err => console.log("Autoplay blocked:", err));
       }, 1200);
+      openFullscreen();
     });
 
-    // Music button toggle
+    // Music toggle
     controlBtn.addEventListener("click", () => {
       const icon = controlBtn.querySelector("i");
       if (music.paused) {
         music.play();
-        icon.classList.remove("fa-play", "fa-music");
+        icon.classList.remove("fa-play","fa-music");
         icon.classList.add("fa-pause");
       } else {
         music.pause();
@@ -365,15 +399,23 @@
       }
     });
 
+    // Pause music on tab switch/minimize
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        music.pause();
+        const icon = controlBtn.querySelector("i");
+        icon.classList.remove("fa-pause");
+        icon.classList.add("fa-play");
+      }
+    });
+    window.addEventListener("beforeunload", () => { music.pause(); });
+
     // Countdown
     function updateCountdown() {
       const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
       const now = new Date().getTime();
       const diff = weddingDate - now;
-      if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
-        return;
-      }
+      if (diff <= 0) { document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!"; return; }
       const days = Math.floor(diff / (1000*60*60*24));
       const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
       const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
@@ -383,54 +425,34 @@
       document.getElementById("minutes").textContent = minutes;
       document.getElementById("seconds").textContent = seconds;
     }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    setInterval(updateCountdown, 1000); updateCountdown();
 
-    // RSVP form
+    // RSVP
     const form = document.getElementById("rsvpForm");
     const msg = document.getElementById("responseMsg");
-
     form.addEventListener("submit", e => {
       e.preventDefault();
-      
       if (!form.Name.value.trim() || !form.Attendance.value) {
         msg.textContent = "⚠️ Please fill out name and attendance 🌸";
-        msg.style.color = "#ffcccc";
-        return;
+        msg.style.color = "#ffcccc"; return;
       }
-
-      msg.textContent = "⏳ Sending...";
-      msg.style.color = "gray";
-
+      msg.textContent = "⏳ Sending..."; msg.style.color = "gray";
       fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(res => res.json())
-        .then(data => {
+        .then(res => res.json()).then(data => {
           if (data.status === "success") {
             msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
-            msg.style.color = "lightgreen";
-            form.reset();
-            loadNotes();
+            msg.style.color = "lightgreen"; form.reset(); loadNotes();
           } else if (data.status === "duplicate") {
-            msg.textContent = "⚠️ You already submitted recently.";
-            msg.style.color = "#ffcc66";
+            msg.textContent = "⚠️ You already submitted recently."; msg.style.color = "#ffcc66";
           } else if (data.status === "unauthorized" || data.status === "forbidden") {
-            msg.textContent = "❌ Access denied. Please open from official link.";
-            msg.style.color = "red";
-          } else {
-            msg.textContent = "❌ Gagal mengirim RSVP.";
-            msg.style.color = "red";
-          }
-        })
-        .catch(err => {
-          msg.textContent = "❌ Error: " + err;
-          msg.style.color = "red";
-        });
+            msg.textContent = "❌ Access denied. Please open from official link."; msg.style.color = "red";
+          } else { msg.textContent = "❌ Gagal mengirim RSVP."; msg.style.color = "red"; }
+        }).catch(err => { msg.textContent = "❌ Error: " + err; msg.style.color = "red"; });
     });
 
-    // Helper: waktu relatif
+    // Relative time
     function timeAgo(dateString) {
-      const now = new Date();
-      const date = new Date(dateString);
+      const now = new Date(), date = new Date(dateString);
       const diff = (now - date) / 1000;
       if (diff < 60) return "just now";
       const minutes = Math.floor(diff / 60);
@@ -446,59 +468,30 @@
     }
 
     // Notes
-    let notes = [];
-    let currentPage = 1;
-    const notesPerPage = 5;
-
+    let notes = []; let currentPage = 1; const notesPerPage = 5;
     async function loadNotes() {
       try {
-        const res = await fetch(scriptURL);
-        notes = await res.json();
-        notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        const res = await fetch(scriptURL); notes = await res.json();
+        notes.sort((a,b) => new Date(b.timestamp)-new Date(a.timestamp));
         renderNotes();
-      } catch (err) {
-        document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
-      }
+      } catch { document.getElementById("notesContainer").innerHTML="<p>❌ Gagal load notes.</p>"; }
     }
-
     function renderNotes() {
-      const container = document.getElementById("notesContainer");
-      container.innerHTML = "";
-      if (!notes.length) {
-        container.innerHTML = "<p>No notes yet.</p>";
-        return;
-      }
-      const start = (currentPage - 1) * notesPerPage;
-      const end = start + notesPerPage;
-      const pageNotes = notes.slice(start, end);
-
-      pageNotes.forEach((n, i) => {
-        let attendanceIcon = "";
-        if (n.attendance === "Yes") attendanceIcon = "💖";
-        if (n.attendance === "No") attendanceIcon = "🌸";
-
-        const noteDiv = document.createElement("div");
-        noteDiv.className = "note";
-        noteDiv.style.animationDelay = `${i * 0.2}s`;
-        noteDiv.innerHTML = `
-          <strong>${n.name}</strong> ${attendanceIcon}<br>
-          <em>${n.notes}</em><br>
-          <small>${timeAgo(n.timestamp)}</small>
-        `;
+      const container = document.getElementById("notesContainer"); container.innerHTML="";
+      if (!notes.length) { container.innerHTML="<p>No notes yet.</p>"; return; }
+      const start=(currentPage-1)*notesPerPage, end=start+notesPerPage;
+      const pageNotes=notes.slice(start,end);
+      pageNotes.forEach((n,i)=> {
+        let attendanceIcon=""; if(n.attendance==="Yes") attendanceIcon="💖"; if(n.attendance==="No") attendanceIcon="🌸";
+        const noteDiv=document.createElement("div"); noteDiv.className="note"; noteDiv.style.animationDelay=`${i*0.2}s`;
+        noteDiv.innerHTML=`<strong>${n.name}</strong> ${attendanceIcon}<br><em>${n.notes}</em><br><small>${timeAgo(n.timestamp)}</small>`;
         container.appendChild(noteDiv);
       });
-
-      document.getElementById("prevBtn").disabled = currentPage === 1;
-      document.getElementById("nextBtn").disabled = end >= notes.length;
+      document.getElementById("prevBtn").disabled=currentPage===1;
+      document.getElementById("nextBtn").disabled=end>=notes.length;
     }
-
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) { currentPage--; renderNotes(); }
-    });
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
-    });
-
+    document.getElementById("prevBtn").addEventListener("click",()=>{ if(currentPage>1){currentPage--;renderNotes();}});
+    document.getElementById("nextBtn").addEventListener("click",()=>{ if((currentPage*notesPerPage)<notes.length){currentPage++;renderNotes();}});
     loadNotes();
   </script>
 </body>
