@@ -6,40 +6,26 @@
   <title>Wedding Invitation - Zen & Yessica</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     html { scroll-behavior: smooth; }
+    .hidden { display: none; }
 
     body, html {
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: url('image/BG.jpeg') no-repeat center center fixed;
+      font-family: 'Nunito', sans-serif;
+      background: url('image/BG2.jpeg') no-repeat center center fixed;
       background-size: cover;
-      color: #fdfdf9;
+      color: #2f4f4f;
       height: 100%;
       overflow-x: hidden;
     }
 
     h1, h2 {
-      font-family: 'Cormorant Garamond', serif;
-      color: #f4d35e;
-    }
-
-    /* Overlay */
-    .cover, .hero, section {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-    .overlay {
-      background: rgba(0,0,0,0.55);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0; left: 0;
-      z-index: 0;
+      font-family: 'Marcellus', serif;
+      color: #2f4f4f;
     }
 
     /* Cover */
@@ -51,50 +37,44 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: rgba(0,0,0,0.65);
+      background: rgba(255,255,255,0.75);
       z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      text-align: center;
     }
-    .cover h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      color: #f4d35e;
-    }
-    .cover p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      color: #fdfdf9;
-    }
+    .cover h1 { font-size: 3rem; margin-bottom: 15px; }
+    .cover p { font-size: 1.2rem; margin-bottom: 30px; }
     .cover button {
       padding: 12px 30px;
       border: none;
       border-radius: 30px;
-      background: #f4d35e;
-      color: #0d1b2a;
+      background: #8AA899;
+      color: #fdfdf9;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s;
     }
-    .cover button:hover { background: #1b263b; color: #fdfdf9; }
-    .cover.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .cover button:hover { background: #2f4f4f; }
 
     /* Hero */
     .hero {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      text-align: center;
+      opacity: 0;
     }
-    .hero h1 { font-size: 3.5rem; margin-bottom: 15px; }
+    .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+    .hero h2 { font-size: 2rem; margin-bottom: 15px; }
     .hero .quote {
       max-width: 600px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin: 20px auto 40px;
       line-height: 1.6;
-      color: #fdfdf9;
+      font-style: italic;
     }
 
     #countdown {
@@ -105,15 +85,15 @@
       gap: 20px;
       justify-content: center;
     }
-    .time-box span { display: block; font-size: 2rem; color: #f4d35e; }
+    .time-box span { display: block; font-size: 2rem; color: #8AA899; }
 
     /* Buttons */
     .btn, form button {
       display: inline-block;
       padding: 12px 30px;
-      background: #f4d35e;
+      background: #8AA899;
       border: none;
-      color: #0d1b2a;
+      color: #fdfdf9;
       border-radius: 30px;
       font-size: 1rem;
       font-weight: 600;
@@ -122,8 +102,7 @@
       cursor: pointer;
     }
     .btn:hover, form button:hover {
-      background: #1b263b;
-      color: #fdfdf9;
+      background: #2f4f4f;
       transform: translateY(-2px);
     }
 
@@ -132,8 +111,8 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #f4d35e;
-      color: #0d1b2a;
+      background: #8AA899;
+      color: #fdfdf9;
       border: none;
       border-radius: 50%;
       width: 50px; height: 50px;
@@ -142,7 +121,17 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
       display: none;
     }
-    #music-control:hover { background: #1b263b; color: #fdfdf9; }
+    #music-control:hover { background: #2f4f4f; }
+
+    /* Section wrapper */
+    section {
+      background: rgba(255,255,255,0.55);
+      margin: 30px auto;
+      padding: 30px 20px;
+      border-radius: 12px;
+      max-width: 800px;
+      text-align: center;
+    }
 
     /* RSVP Form */
     form {
@@ -156,46 +145,77 @@
     form input, form textarea, form select {
       width: 100%;
       padding: 12px 15px;
-      border: 1px solid #ccc;
+      border: 1px solid #cfd8dc;
       border-radius: 10px;
       font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
       color: #333;
     }
-    form input:focus, form textarea:focus, form select:focus {
-      border: 1px solid #f4d35e;
-      box-shadow: 0 0 6px rgba(244, 211, 94, 0.5);
-      outline: none;
-    }
     form textarea { min-height: 100px; resize: vertical; }
-    .attendance-wrapper { display: flex; flex-direction: column; gap: 8px; }
-    .attendance-label { font-weight: 600; color: #f4d35e; margin-bottom: 5px; }
 
-    .error-msg { color: #ee964b; font-size: 0.9rem; display: none; font-style: italic; }
-    #responseMsg { text-align: center; margin-top: 10px; font-weight: 600; }
-
-    /* Notes */
-    #notesContainer { margin-top: 30px; max-width: 600px; margin: auto; text-align: left; }
-    .note { padding: 12px; border-bottom: 1px solid #ddd; }
-    .note strong { color: #f4d35e; }
-    .pagination { margin-top: 15px; display: flex; justify-content: center; gap: 10px; }
-    .pagination button {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 6px;
-      background: #f4d35e;
-      color: #0d1b2a;
-      cursor: pointer;
+    #notesContainer {
+      margin-top: 20px;
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 15px;
+      border-radius: 10px;
     }
-    .pagination button:hover { background: #1b263b; color: #fdfdf9; }
-    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
+    .note {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(47,79,79,0.2);
+    }
+    .note strong { color: #2f4f4f; }
+    .note em { display: block; margin-top: 5px; font-style: italic; color: #444; }
 
     footer {
-      background: rgba(0,0,0,0.7);
+      background: rgba(255,255,255,0.65);
       padding: 20px;
       text-align: center;
-      color: #fdfdf9;
-      margin-top: 40px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    /* Fade animation */
+    .fade-in {
+      animation: fadeInUp 1s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered text reveal */
+    .reveal span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .reveal.active span {
+      animation: fadeStagger 0.6s ease forwards;
+    }
+    .reveal.active span:nth-child(1) { animation-delay: 0.1s; }
+    .reveal.active span:nth-child(2) { animation-delay: 0.3s; }
+    .reveal.active span:nth-child(3) { animation-delay: 0.5s; }
+    .reveal.active span:nth-child(4) { animation-delay: 0.7s; }
+    .reveal.active span:nth-child(5) { animation-delay: 0.9s; }
+
+    @keyframes fadeStagger {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -214,21 +234,24 @@
     <button id="openBtn">Open Invitation</button>
   </div>
 
-  <!-- Save the Date -->
-  <section class="hero" id="heroSection">
+  <!-- HERO (hidden first) -->
+  <section class="hero hidden" id="heroSection">
     <h1>SAVE THE DATE</h1>
+    <h2>Zen & Yessica</h2>
     <p class="quote">“Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal.”</p>
+
     <div id="countdown">
       <div class="time-box"><span id="days">00</span>Days</div>
       <div class="time-box"><span id="hours">00</span>Hours</div>
       <div class="time-box"><span id="minutes">00</span>Minutes</div>
       <div class="time-box"><span id="seconds">00</span>Seconds</div>
     </div>
+
     <a class="btn" href="#rsvpSection">RSVP Now</a>
   </section>
 
   <!-- Details -->
-  <section>
+  <section class="reveal">
     <h2>Wedding Day</h2>
     <p>Saturday, 17 January 2026</p>
     <p>Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
@@ -236,62 +259,43 @@
   </section>
 
   <!-- RSVP -->
-  <section id="rsvpSection">
+  <section id="rsvpSection" class="reveal">
     <h2>RSVP & Notes</h2>
     <form id="rsvpForm">
-      <input type="hidden" name="token" value="ZENYESSICA2026">
-      <input type="hidden" id="referer" name="referer">
-
-      <input name="Name" id="nameInput" type="text" placeholder="We’d like to know you 💌" required>
-      <small id="nameError" class="error-msg">Oops, please tell us your name 🌷</small>
-
+      <input name="Name" type="text" placeholder="We’d like to know you 💌" required>
       <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
-
-      <div class="attendance-wrapper">
-        <p class="attendance-label">Attendance confirmation</p>
-        <select name="Attendance" id="attendanceInput" required>
-          <option value="">-- Select attendance --</option>
-          <option value="Yes">💖 Yes, I’ll be there</option>
-          <option value="No">🌸 Sorry, can’t attend</option>
-        </select>
-        <small id="attendanceError" class="error-msg">Please let us know if you can attend 💐</small>
-      </div>
-
+      <select name="Attendance" required>
+        <option value="">-- Select attendance --</option>
+        <option value="Yes">💖 Yes, I’ll be there</option>
+        <option value="No">🌸 Sorry, can’t attend</option>
+      </select>
       <button type="submit">SEND</button>
     </form>
     <p id="responseMsg"></p>
-
     <h2>Guest Notes 💌</h2>
     <div id="notesContainer">Loading...</div>
-    <div class="pagination">
-      <button id="prevBtn">Prev</button>
-      <button id="nextBtn">Next</button>
-    </div>
   </section>
 
-  <footer><p>With love, Zen & Yessica 💕</p></footer>
+  <footer class="reveal"><p>With love, Zen & Yessica 💕</p></footer>
 
   <!-- SCRIPT -->
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
-    document.getElementById("referer").value = window.location.hostname;
-
     const cover = document.getElementById("coverPage");
     const openBtn = document.getElementById("openBtn");
+    const hero = document.getElementById("heroSection");
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const guest = urlParams.get("to");
-    if (guest) document.getElementById("guestName").textContent = guest;
-
+    // Cover to Hero
     openBtn.addEventListener("click", () => {
       cover.classList.add("hidden");
+      hero.classList.remove("hidden");
+      hero.classList.add("fade-in");
       controlBtn.style.display = "block";
       music.play().catch(() => console.log("Autoplay blocked."));
-      document.getElementById("heroSection").scrollIntoView({ behavior: "smooth" });
     });
 
+    // Music toggle
     controlBtn.addEventListener("click", () => {
       if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
       else { music.pause(); controlBtn.textContent = "▶️"; }
@@ -300,8 +304,8 @@
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) { music.pause(); controlBtn.textContent = "▶️"; }
     });
-    window.addEventListener("beforeunload", () => { music.pause(); });
 
+    // Countdown
     function updateCountdown() {
       const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
       const now = new Date().getTime();
@@ -321,73 +325,26 @@
     }
     setInterval(updateCountdown, 1000); updateCountdown();
 
-    const form = document.getElementById("rsvpForm");
-    const nameInput = document.getElementById("nameInput");
-    const nameError = document.getElementById("nameError");
-    const attendanceInput = document.getElementById("attendanceInput");
-    const attendanceError = document.getElementById("attendanceError");
-    const msg = document.getElementById("responseMsg");
-
-    form.addEventListener("submit", e => {
-      let valid = true;
-      if (!nameInput.value.trim()) { nameError.style.display = "block"; valid = false; }
-      else nameError.style.display = "none";
-      if (!attendanceInput.value) { attendanceError.style.display = "block"; valid = false; }
-      else attendanceError.style.display = "none";
-      if (!valid) { e.preventDefault(); msg.textContent = "⚠️ Please check again 🌸"; msg.style.color = "#ee964b"; return; }
-
-      e.preventDefault();
-      msg.textContent = "⏳ Sending..."; msg.style.color = "gray";
-
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === "success") {
-            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕"; msg.style.color = "lightgreen";
-            form.reset(); loadNotes();
-          } else { msg.textContent = "❌ Gagal mengirim RSVP."; msg.style.color = "red"; }
-        })
-        .catch(err => { msg.textContent = "❌ Error: " + err; msg.style.color = "red"; });
+    // Wrap text inside reveal sections
+    document.querySelectorAll(".reveal h2, .reveal p").forEach(el => {
+      const text = el.innerHTML.trim().split(" ");
+      el.innerHTML = text.map(word => `<span>${word}</span>`).join(" ");
     });
 
-    function timeAgo(dateString) {
-      const now = new Date(); const date = new Date(dateString);
-      const diff = (now - date) / 1000;
-      if (diff < 60) return "baru saja";
-      const m = Math.floor(diff / 60); if (m < 60) return `${m} menit lalu`;
-      const h = Math.floor(m / 60); if (h < 24) return `${h} jam lalu`;
-      const d = Math.floor(h / 24); if (d < 7) return `${d} hari lalu`;
-      const w = Math.floor(d / 7); if (w < 4) return `${w} minggu lalu`;
-      const mo = Math.floor(d / 30); return `${mo} bulan lalu`;
+    // Scroll reveal
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll(".reveal");
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 120;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
     }
-
-    let notes = []; let currentPage = 1; const notesPerPage = 5;
-
-    async function loadNotes() {
-      try {
-        const res = await fetch(scriptURL); notes = await res.json();
-        notes.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
-        renderNotes();
-      } catch { document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>"; }
-    }
-
-    function renderNotes() {
-      const container = document.getElementById("notesContainer"); container.innerHTML = "";
-      if (!notes.length) { container.innerHTML = "<p>No notes yet.</p>"; return; }
-      const start = (currentPage-1)*notesPerPage, end = start+notesPerPage;
-      notes.slice(start,end).forEach(n=>{
-        let icon = n.attendance==="Yes"?"💖":"🌸";
-        container.innerHTML += `<div class="note"><strong>${n.name}</strong> ${icon}<br><em>${n.notes}</em><br><small>${timeAgo(n.timestamp)}</small></div>`;
-      });
-      document.getElementById("prevBtn").disabled=currentPage===1;
-      document.getElementById("nextBtn").disabled=end>=notes.length;
-    }
-
-    document.getElementById("prevBtn").addEventListener("click",()=>{ if(currentPage>1){currentPage--;renderNotes();} });
-    document.getElementById("nextBtn").addEventListener("click",()=>{ if((currentPage*notesPerPage)<notes.length){currentPage++;renderNotes();} });
-
-    loadNotes();
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll();
   </script>
 </body>
 </html>
-
