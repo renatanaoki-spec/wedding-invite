@@ -12,12 +12,13 @@
       font-family: 'Arial', sans-serif;
       color: #333;
       text-align: center;
+      background: #f7f4f2;
     }
 
     /* 🎉 Save the Date Hero */
     .hero {
       height: 100vh;
-      background: url("images/bg-photo.jpg") no-repeat center center/cover;
+      background: #bc8887; /* solid color instead of image */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -32,14 +33,12 @@
       margin-bottom: 20px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
     }
     .hero .quote {
       max-width: 600px;
       font-size: 1.1rem;
       margin: 20px auto 40px;
       line-height: 1.5;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
     }
     #countdown {
       font-size: 1.5rem;
@@ -111,7 +110,7 @@
   <audio id="bg-music" loop>
     <source src="music/Music-1.mp3" type="audio/mpeg">
   </audio>
-  <button id="music-control">🔊</button>
+  <button id="music-control">▶️</button>
 
   <!-- 🎉 Save the Date Section -->
   <section class="hero">
@@ -161,18 +160,19 @@
   </footer>
 
   <script>
-    // 🎶 Music toggle
+    // 🎶 Music toggle (fix autoplay issue)
     const music = document.getElementById("bg-music");
     const controlBtn = document.getElementById("music-control");
-    controlBtn.onclick = () => {
+
+    controlBtn.addEventListener("click", () => {
       if (music.paused) {
         music.play();
-        controlBtn.textContent = "🔊";
+        controlBtn.textContent = "⏸️";
       } else {
         music.pause();
-        controlBtn.textContent = "🔇";
+        controlBtn.textContent = "▶️";
       }
-    };
+    });
 
     // ⏳ Countdown
     function updateCountdown() {
@@ -201,3 +201,4 @@
 
 </body>
 </html>
+
