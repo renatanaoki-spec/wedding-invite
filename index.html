@@ -1,498 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wedding Invitation - Zen & Yessica</title>
-  <!-- Google Fonts -->
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: url("BG2.jpeg") no-repeat center center fixed;
-      background-size: cover;
-      color: #f5f5f0;
-      height: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-      animation: fadeIn 1.5s ease-in;
+    :root{
+      --sage:#6b8e72;
+      --sage-strong:#5f8066;
+      --terra:#c17c74;
+      --forest:#2f3e2c;
+      --ivory:#fffefa;
+      --ivory-80:rgba(255,254,250,.85);
+      --ivory-90:rgba(255,254,250,.92);
+      --white:#fff;
     }
 
-    /* Dark overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.35);
-      z-index: 1;
+    /* Base */
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      color:var(--forest);
+      background:url("image/BG3.JPEG") no-repeat center center fixed;
+      background-size:cover;
+      overflow-x:hidden;
     }
-    section, .hero, .cover, footer, #smoke { position: relative; z-index: 2; }
 
-  h1, h2 {
-  font-family: 'Playfair Display', serif;
-  color: #ffffff; /* putih jelas */
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(79,182,182,0.8), 0 0 20px rgba(255,255,255,0.7);
-}
+    h1,h2{
+      font-family:'Playfair Display',serif;
+      letter-spacing:.5px;
+      margin:0 0 .6rem 0;
+    }
 
-.cover h1 {
-  color: #ffffff;
-  text-shadow: 0 0 12px rgba(79,182,182,0.8), 0 0 25px rgba(255,255,255,0.9);
-}
-
-.cover p {
-  font-size: 1.2rem;
-  color: #e6fafa;
-}
-
-.cover button,
-.btn, form button {
-  padding: 12px 30px;
-  background: #4fb6b6;
-  color: #fff;
-  border-radius: 30px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(79,182,182,0.7);
-  transition: all 0.3s ease;
-}
-.cover button:hover,
-.btn:hover, form button:hover {
-  background: #358080;
-  box-shadow: 0 0 20px rgba(79,182,182,1);
-}
-
-.time-box span {
-  display: block;
-  font-size: 2rem;
-  color: #4fb6b6;
-}
-
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    a.btn, button.btn{
+      display:inline-block;
+      padding:12px 28px;
+      border:none;
+      border-radius:999px;
+      background:var(--sage);
+      color:var(--white);
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 0 14px rgba(107,142,114,.45);
+      transition:.25s ease;
+      text-decoration:none;
+    }
+    a.btn:hover, button.btn:hover{
+      background:var(--terra);
+      box-shadow:0 0 20px rgba(193,124,116,.55);
+      transform:translateY(-1px);
     }
 
     /* Cover */
-    .cover {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 9999;
-      transition: opacity 1.2s ease, visibility 1.2s ease;
+    .cover{
+      position:fixed; inset:0;
+      background:url("image/BG3.JPEG") center/cover no-repeat;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; z-index:9999;
+      transition:opacity .9s ease, visibility .9s ease;
     }
-    .cover.hidden { opacity: 0; visibility: hidden; }
-    .cover h1 {
-      font-size: 3rem;
-      color: #6b8f8e;
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px rgba(107,143,142,0.8), 0 0 20px rgba(219,230,228,0.6);
-      animation: coverGlow 3s ease-in-out infinite alternate;
+    .cover.hidden{opacity:0; visibility:hidden}
+    .cover h1{
+      font-size:3rem; color:var(--white);
+      text-shadow:0 0 12px rgba(107,142,114,.85),0 0 24px rgba(255,255,255,.9);
+      margin-bottom:.25rem;
+      animation:softGlow 3s ease-in-out infinite alternate;
     }
-    @keyframes coverGlow {
-      from { text-shadow: 0 0 5px #a8c0b0, 0 0 10px #6b8f8e; }
-      to { text-shadow: 0 0 15px #dbe6e4, 0 0 25px #6b8f8e; }
+    .cover p{
+      color:#f6fbf6; margin:.25rem 0 1.3rem 0; font-size:1.15rem;
+      text-shadow:0 1px 2px rgba(0,0,0,.25);
     }
-    .cover p { font-size: 1.2rem; color: #fff; margin-bottom: 30px; }
-    .cover button {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      background: #6b8f8e;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(107,143,142,0.5);
-      animation: coverButtonGlow 3s ease-in-out infinite alternate;
-      transition: all 0.3s ease;
-    }
-    .cover button:hover { background: #557877; }
-    @keyframes coverButtonGlow {
-      from { box-shadow: 0 0 8px rgba(107,143,142,0.4); }
-      to { box-shadow: 0 0 18px rgba(107,143,142,0.7); }
+    @keyframes softGlow{
+      from{ text-shadow:0 0 8px rgba(107,142,114,.6),0 0 16px rgba(255,255,255,.6) }
+      to  { text-shadow:0 0 18px rgba(107,142,114,1),0 0 30px rgba(255,255,255,1) }
     }
 
-    /* Smoke */
-    #smoke {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
+    /* Sections / boxes */
+    .section{
+      padding:64px 18px;
+      display:flex; justify-content:center;
     }
-    .smoke {
-      position: absolute;
-      bottom: -200px;
-      width: 300px;
-      height: 300px;
-      background: url('smoke.png') no-repeat center;
-      background-size: cover;
-      opacity: 0.25;
-      animation: rise 18s linear infinite;
+    .box{
+      width:min(960px, 92vw);
+      background:var(--ivory-80);
+      backdrop-filter:saturate(1.1) blur(1px);
+      border-radius:16px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
+      animation:fadeInUp .8s ease both;
     }
-    .smoke:nth-child(1) { left: 15%; animation-delay: 0s; }
-    .smoke:nth-child(2) { left: 35%; animation-delay: 6s; width: 350px; height: 350px; }
-    .smoke:nth-child(3) { left: 55%; animation-delay: 12s; width: 280px; height: 280px; }
-    .smoke:nth-child(4) { left: 75%; animation-delay: 3s; width: 320px; height: 320px; }
-
-    @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: 0.25; }
-      50% { opacity: 0.4; }
-      100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
+    .hero-title{
+      color:var(--sage);
+      text-shadow:0 0 10px rgba(107,142,114,.5);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      animation:heroGlow 3s ease-in-out infinite alternate;
+      text-align:center;
+    }
+    @keyframes heroGlow{
+      from{ text-shadow:0 0 8px rgba(107,142,114,.45),0 0 14px rgba(255,255,255,.5) }
+      to  { text-shadow:0 0 16px rgba(107,142,114,.85),0 0 26px rgba(255,255,255,.9) }
     }
 
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 12px;
-      animation: zoomIn 2s ease;
-    }
-    @keyframes zoomIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .hero h1 {
-      font-size: 4rem;
-      margin-bottom: 15px;
-      animation: aquaGlow 3s ease-in-out infinite alternate;
-    }
-    @keyframes aquaGlow {
-      from { text-shadow: 0 0 5px #a8c0b0, 0 0 10px #6b8f8e; }
-      to { text-shadow: 0 0 15px #dbe6e4, 0 0 30px #6b8f8e; }
+    .quote{
+      max-width:720px; margin:16px auto 28px; text-align:center; color:#41543a;
     }
 
-    .quote {
-      max-width: 600px;
-      font-size: 1.2rem;
-      margin: 20px auto 40px;
-      line-height: 1.6;
-      color: #eee;
+    /* Countdown */
+    #countdown{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+    .time-box{ min-width:90px; text-align:center; }
+    .time-box span{ display:block; font-size:2rem; color:var(--sage); font-weight:700 }
+    .time-box small{ display:block; opacity:.8; font-weight:600 }
+
+    /* Music & Fullscreen buttons */
+    .round-fab{
+      position:fixed; bottom:20px; z-index:10;
+      width:56px; height:56px; border-radius:50%;
+      display:grid; place-items:center; cursor:pointer;
+      border:2px solid var(--sage); background:rgba(255,255,255,.2); color:var(--sage);
+      box-shadow:0 0 12px rgba(107,142,114,.4); backdrop-filter:blur(6px);
+      transition:.25s ease; display:none;
+    }
+    .round-fab:hover{ transform:scale(1.06); background:rgba(255,255,255,.28) }
+    #music-control{ right:20px; }
+    #fs-control{ right:86px; }
+
+    /* Form */
+    form{
+      width:min(720px, 100%); margin:0 auto; display:grid; gap:14px;
+    }
+    form input, form textarea, form select{
+      padding:12px 14px; border-radius:10px; border:1px solid var(--sage);
+      background:var(--ivory-90); color:var(--forest); font-size:1rem;
+    }
+    form textarea{ min-height:110px; resize:vertical }
+    form input:focus, form textarea:focus, form select:focus{
+      outline:none; border-color:var(--terra); box-shadow:0 0 0 3px rgba(193,124,116,.2)
+    }
+    #responseMsg{ text-align:center; margin-top:6px; font-weight:600 }
+
+    /* Notes */
+    .notes-header{
+      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+      margin:12px 0 16px;
+    }
+    .notes-controls{ display:flex; gap:10px; align-items:center }
+    .notes-controls select{
+      padding:8px 10px; border-radius:10px; border:1px solid var(--sage);
+      background:var(--ivory-90); color:var(--forest);
+    }
+    #notesContainer{ width:min(720px, 100%); margin:0 auto }
+    .note{
+      padding:12px 0; border-bottom:1px solid rgba(47,62,44,.15);
+      opacity:0; transform:translateY(12px); animation:fadeNote .7s forwards;
+    }
+    @keyframes fadeNote{ to{ opacity:1; transform:translateY(0) } }
+
+    /* Reveal on scroll */
+    .reveal{ opacity:0; transform:translateY(20px) }
+    .reveal.show{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s ease }
+
+    /* Anim base */
+    @keyframes fadeInUp{ from{ opacity:0; transform:translateY(14px) } to{ opacity:1; transform:none } }
+
+    footer{
+      text-align:center; color:#4e6350; padding:28px 12px; font-weight:600;
+      text-shadow:0 1px 1px rgba(255,255,255,.6)
     }
 
-    #countdown {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin: 20px 0 40px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
-    .time-box span { display: block; font-size: 2rem; color: #6b8f8e; }
-
-    .btn, form button {
-      padding: 12px 30px;
-      background: #6b8f8e;
-      border: none;
-      color: #fff;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 12px rgba(107,143,142,0.3);
-    }
-    .btn:hover, form button:hover {
-      background: #557877;
-      box-shadow: 0 0 18px rgba(107,143,142,0.5);
-      transform: scale(1.05);
-    }
-
-    /* Music button */
-    #music-control {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid #6b8f8e;
-      color: #6b8f8e;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 1.4rem;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(107,143,142,0.3);
-      backdrop-filter: blur(6px);
-      display: none;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
-    #music-control:hover {
-      background: rgba(107,143,142,0.1);
-      box-shadow: 0 0 18px rgba(107,143,142,0.6);
-      transform: scale(1.08);
-    }
-
-    /* RSVP */
-    form {
-      max-width: 500px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      text-align: left;
-    }
-    form input, form textarea, form select {
-      padding: 12px;
-      border: 1px solid #a8c0b0;
-      border-radius: 8px;
-      font-size: 1rem;
-      background: rgba(255,255,255,0.85);
-      color: #333;
-    }
-    form textarea { min-height: 100px; resize: vertical; }
-    form input:focus, form textarea:focus, form select:focus {
-      outline: none;
-      border-color: #6b8f8e;
-      box-shadow: 0 0 8px rgba(107,143,142,0.4);
-    }
-
-    .note {
-      padding: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      opacity: 0;
-      transform: translateY(15px);
-      animation: fadeNote 0.8s forwards;
-    }
-    @keyframes fadeNote { to { opacity: 1; transform: translateY(0); } }
-    .note strong { color: #6b8f8e; }
-
-    .pagination button {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 6px;
-      background: #6b8f8e;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .pagination button:hover { background: #557877; }
-    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
-
-    footer {
-      background: rgba(0,0,0,0.7);
-      color: #a8c0b0;
-      padding: 20px;
-      text-align: center;
-      font-weight: 500;
+    /* Responsive */
+    @media (max-width:420px){
+      .cover h1{ font-size:2.2rem }
+      .time-box{ min-width:72px }
+      .round-fab{ width:52px; height:52px }
+      #fs-control{ right:82px }
     }
   </style>
 </head>
 <body>
-  <!-- Smoke -->
-  <div id="smoke">
-    <div class="smoke"></div><div class="smoke"></div><div class="smoke"></div><div class="smoke"></div>
-  </div>
-
-  <!-- 🎶 Music -->
+  <!-- Audio -->
   <audio id="bg-music" loop>
     <source src="music/Music-1.mp3" type="audio/mpeg">
   </audio>
-  <button id="music-control"><i class="fa-solid fa-music"></i></button>
+
+  <!-- Floating Controls -->
+  <button id="fs-control" class="round-fab" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+  <button id="music-control" class="round-fab" title="Play/Pause music"><i class="fa-solid fa-music"></i></button>
 
   <!-- COVER -->
   <div class="cover" id="coverPage">
     <h1>Zen & Yessica</h1>
     <p>Dear <span id="guestName">Guest</span></p>
-    <button id="openBtn">Open Invitation</button>
+    <button id="openBtn" class="btn">Open Invitation</button>
   </div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>SAVE THE DATE</h1>
-    <p class="quote">“Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
-      It is only fitting that every effort to attain His love is pursued with joy.”</p>
-    <div id="countdown">
-      <div class="time-box"><span id="days">00</span>Days</div>
-      <div class="time-box"><span id="hours">00</span>Hours</div>
-      <div class="time-box"><span id="minutes">00</span>Minutes</div>
-      <div class="time-box"><span id="seconds">00</span>Seconds</div>
+  <!-- HERO -->
+  <section class="section hero reveal">
+    <div class="box">
+      <h1 class="hero-title">SAVE THE DATE</h1>
+      <p class="quote">
+        “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal.
+        It is only fitting that every effort to attain His love is pursued with joy.”
+      </p>
+
+      <div id="countdown" aria-label="Countdown to wedding">
+        <div class="time-box"><span id="days">00</span><small>Days</small></div>
+        <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
+        <div class="time-box"><span id="minutes">00</span><small>Minutes</small></div>
+        <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
+      </div>
+
+      <div style="text-align:center; margin-top:24px;">
+        <a class="btn"
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong"
+           target="_blank" rel="noopener">
+          Add to Google Calendar
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- RSVP -->
-  <section>
-    <h2>RSVP & Notes</h2>
-    <form id="rsvpForm">
-      <input type="hidden" name="token" value="ZENYESSICA2026">
-      <input type="hidden" id="referer" name="referer">
-      <input name="Name" id="nameInput" type="text" placeholder="We’d like to know you 💌" required>
-      <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
-      <select name="Attendance" id="attendanceInput" required>
-        <option value="">-- Select attendance --</option>
-        <option value="Yes">💖 Yes, I’ll be there</option>
-        <option value="No">🌸 Sorry, can’t attend</option>
-      </select>
-      <button type="submit">SEND</button>
-    </form>
-    <p id="responseMsg"></p>
+  <!-- RSVP & NOTES -->
+  <section class="section reveal">
+    <div class="box">
+      <h2 style="text-align:center;color:var(--sage)">RSVP & Notes</h2>
 
-    <h2>Guest Notes 💌</h2>
-    <div id="notesContainer">Loading...</div>
-    <div class="pagination"><button id="prevBtn">Prev</button><button id="nextBtn">Next</button></div>
+      <form id="rsvpForm">
+        <input type="hidden" name="token" value="ZENYESSICA2026">
+        <input type="hidden" id="referer" name="referer">
+
+        <input name="Name" id="nameInput" type="text" placeholder="Your name 💌" required>
+        <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
+
+        <select name="Attendance" id="attendanceInput" required>
+          <option value="">-- Attendance --</option>
+          <option value="Yes">💖 Yes, I’ll be there</option>
+          <option value="No">🌸 Sorry, can’t attend</option>
+        </select>
+
+        <button type="submit" class="btn">Send</button>
+      </form>
+      <p id="responseMsg"></p>
+
+      <hr style="border:none;border-top:1px solid rgba(47,62,44,.18);margin:22px 0">
+
+      <div class="notes-header">
+        <h2 style="margin:0;color:var(--sage)">Guest Notes 💌</h2>
+        <div class="notes-controls">
+          <label for="sortSelect" style="font-weight:600;color:#4e6350;">Sort:</label>
+          <select id="sortSelect" aria-label="Sort notes">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="name">Name A–Z</option>
+            <option value="attendance">Attendance (Yes first)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="notesContainer">Loading...</div>
+
+      <div class="notes-controls" style="justify-content:center;margin-top:12px">
+        <button id="prevBtn" class="btn" type="button" style="padding:8px 16px">Prev</button>
+        <button id="nextBtn" class="btn" type="button" style="padding:8px 16px">Next</button>
+      </div>
+    </div>
   </section>
 
-  <footer><p>With love, Zen & Yessica 💕</p></footer>
+  <footer class="reveal">With love, Zen &amp; Yessica 💕</footer>
 
+  <!-- SCRIPTS -->
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
     document.getElementById("referer").value = window.location.hostname;
 
+    // Elements
     const cover = document.getElementById("coverPage");
     const openBtn = document.getElementById("openBtn");
     const music = document.getElementById("bg-music");
-    const controlBtn = document.getElementById("music-control");
+    const musicBtn = document.getElementById("music-control");
+    const fsBtn = document.getElementById("fs-control");
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const guest = urlParams.get("to");
+    // Guest name param
+    const params = new URLSearchParams(window.location.search);
+    const guest = params.get("to");
     if (guest) document.getElementById("guestName").textContent = guest;
 
-    // Fullscreen
-    function openFullscreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) elem.requestFullscreen();
-      else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
-      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    /* ---------- Fullscreen (manual toggle) ---------- */
+    function isFullscreen() {
+      return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
     }
+    function requestFS(el) {
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+    function exitFS() {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+    function syncFSIcon() {
+      const icon = fsBtn.querySelector("i");
+      if (isFullscreen()) { icon.classList.remove("fa-expand"); icon.classList.add("fa-compress"); }
+      else { icon.classList.remove("fa-compress"); icon.classList.add("fa-expand"); }
+    }
+    fsBtn.addEventListener("click", () => {
+      if (isFullscreen()) exitFS(); else requestFS(document.documentElement);
+    });
+    document.addEventListener("fullscreenchange", syncFSIcon);
+    document.addEventListener("webkitfullscreenchange", syncFSIcon);
 
-    // Open Invitation
+    /* ---------- Open Invitation ---------- */
     openBtn.addEventListener("click", () => {
       cover.classList.add("hidden");
-      controlBtn.style.display = "block";
+      // show floating buttons
+      musicBtn.style.display = "grid";
+      fsBtn.style.display = "grid";
+      // start music (user gesture present)
       setTimeout(() => {
-        music.play().catch(err => console.log("Autoplay blocked:", err));
-      }, 1200);
-      openFullscreen();
+        music.play().catch(()=>{});
+        const i = musicBtn.querySelector("i");
+        i.classList.remove("fa-play","fa-music"); i.classList.add("fa-pause");
+      }, 500);
+      // scroll to hero
+      document.querySelector(".hero").scrollIntoView({ behavior: "smooth" });
     });
 
-    // Music toggle
-    controlBtn.addEventListener("click", () => {
-      const icon = controlBtn.querySelector("i");
-      if (music.paused) {
-        music.play();
-        icon.classList.remove("fa-play","fa-music");
-        icon.classList.add("fa-pause");
-      } else {
-        music.pause();
-        icon.classList.remove("fa-pause");
-        icon.classList.add("fa-play");
-      }
+    /* ---------- Music Controls ---------- */
+    musicBtn.addEventListener("click", () => {
+      const i = musicBtn.querySelector("i");
+      if (music.paused) { music.play(); i.classList.remove("fa-play","fa-music"); i.classList.add("fa-pause"); }
+      else { music.pause(); i.classList.remove("fa-pause"); i.classList.add("fa-play"); }
     });
-
-    // Pause music on tab switch/minimize
+    // auto-pause when tab hidden / closing
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         music.pause();
-        const icon = controlBtn.querySelector("i");
-        icon.classList.remove("fa-pause");
-        icon.classList.add("fa-play");
+        const i = musicBtn.querySelector("i");
+        i.classList.remove("fa-pause"); i.classList.add("fa-play");
       }
     });
-    window.addEventListener("beforeunload", () => { music.pause(); });
+    window.addEventListener("beforeunload", () => music.pause());
 
-    // Countdown
+    /* ---------- Countdown ---------- */
     function updateCountdown() {
-      const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
-      if (diff <= 0) { document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!"; return; }
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-      const seconds = Math.floor((diff % (1000*60)) / 1000);
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
+      const target = new Date("Jan 17, 2026 09:00:00").getTime();
+      const now = Date.now();
+      const diff = target - now;
+      const el = document.getElementById("countdown");
+      if (diff <= 0) { el.innerHTML = "🎉 Today is the wedding day!"; return; }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const s = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById("days").textContent = d;
+      document.getElementById("hours").textContent = h;
+      document.getElementById("minutes").textContent = m;
+      document.getElementById("seconds").textContent = s;
     }
     setInterval(updateCountdown, 1000); updateCountdown();
 
-    // RSVP
+    /* ---------- RSVP Submit ---------- */
     const form = document.getElementById("rsvpForm");
     const msg = document.getElementById("responseMsg");
-    form.addEventListener("submit", e => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       if (!form.Name.value.trim() || !form.Attendance.value) {
-        msg.textContent = "⚠️ Please fill out name and attendance 🌸";
-        msg.style.color = "#ffcccc"; return;
+        msg.textContent = "⚠️ Please fill out name and attendance.";
+        msg.style.color = "#c17c74"; return;
       }
-      msg.textContent = "⏳ Sending..."; msg.style.color = "gray";
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(res => res.json()).then(data => {
+      msg.textContent = "⏳ Sending..."; msg.style.color = "#666";
+      fetch(scriptURL, { method:"POST", body:new FormData(form) })
+        .then(r => r.json())
+        .then(data => {
           if (data.status === "success") {
-            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
-            msg.style.color = "lightgreen"; form.reset(); loadNotes();
+            msg.textContent = "✅ RSVP terkirim. Thank you!"; msg.style.color = "green";
+            form.reset(); currentPage = 1; loadNotes();
           } else if (data.status === "duplicate") {
-            msg.textContent = "⚠️ You already submitted recently."; msg.style.color = "#ffcc66";
+            msg.textContent = "⚠️ You already submitted recently."; msg.style.color = "#c78966";
           } else if (data.status === "unauthorized" || data.status === "forbidden") {
-            msg.textContent = "❌ Access denied. Please open from official link."; msg.style.color = "red";
-          } else { msg.textContent = "❌ Gagal mengirim RSVP."; msg.style.color = "red"; }
-        }).catch(err => { msg.textContent = "❌ Error: " + err; msg.style.color = "red"; });
+            msg.textContent = "❌ Access denied. Please open from official link."; msg.style.color = "crimson";
+          } else {
+            msg.textContent = "❌ Gagal mengirim RSVP."; msg.style.color = "crimson";
+          }
+        })
+        .catch(err => { msg.textContent = "❌ Error: " + err; msg.style.color = "crimson"; });
     });
 
-    // Relative time
-    function timeAgo(dateString) {
-      const now = new Date(), date = new Date(dateString);
-      const diff = (now - date) / 1000;
+    /* ---------- Notes + Sorting ---------- */
+    function timeAgo(ts){
+      const now = new Date(), d = new Date(ts);
+      const diff = (now - d)/1000;
       if (diff < 60) return "just now";
-      const minutes = Math.floor(diff / 60);
-      if (minutes < 60) return `${minutes} minute${minutes>1?"s":""} ago`;
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours} hour${hours>1?"s":""} ago`;
-      const days = Math.floor(hours / 24);
-      if (days < 7) return `${days} day${days>1?"s":""} ago`;
-      const weeks = Math.floor(days / 7);
-      if (weeks < 4) return `${weeks} week${weeks>1?"s":""} ago`;
-      const months = Math.floor(days / 30);
-      return `${months} month${months>1?"s":""} ago`;
+      const min = Math.floor(diff/60); if (min < 60) return `${min} minute${min>1?"s":""} ago`;
+      const hr = Math.floor(min/60); if (hr < 24) return `${hr} hour${hr>1?"s":""} ago`;
+      const day = Math.floor(hr/24); if (day < 7) return `${day} day${day>1?"s":""} ago`;
+      const wk = Math.floor(day/7); if (wk < 4) return `${wk} week${wk>1?"s":""} ago`;
+      const mo = Math.floor(day/30); return `${mo} month${mo>1?"s":""} ago`;
     }
 
-    // Notes
-    let notes = []; let currentPage = 1; const notesPerPage = 5;
-    async function loadNotes() {
-      try {
-        const res = await fetch(scriptURL); notes = await res.json();
-        notes.sort((a,b) => new Date(b.timestamp)-new Date(a.timestamp));
+    let notes = [];
+    let currentPage = 1;
+    const perPage = 5;
+    const sortSelect = document.getElementById("sortSelect");
+
+    async function loadNotes(){
+      try{
+        const res = await fetch(scriptURL);
+        notes = await res.json();
         renderNotes();
-      } catch { document.getElementById("notesContainer").innerHTML="<p>❌ Gagal load notes.</p>"; }
+      }catch{
+        document.getElementById("notesContainer").innerHTML = "<p>❌ Failed to load notes.</p>";
+      }
     }
-    function renderNotes() {
-      const container = document.getElementById("notesContainer"); container.innerHTML="";
-      if (!notes.length) { container.innerHTML="<p>No notes yet.</p>"; return; }
-      const start=(currentPage-1)*notesPerPage, end=start+notesPerPage;
-      const pageNotes=notes.slice(start,end);
-      pageNotes.forEach((n,i)=> {
-        let attendanceIcon=""; if(n.attendance==="Yes") attendanceIcon="💖"; if(n.attendance==="No") attendanceIcon="🌸";
-        const noteDiv=document.createElement("div"); noteDiv.className="note"; noteDiv.style.animationDelay=`${i*0.2}s`;
-        noteDiv.innerHTML=`<strong>${n.name}</strong> ${attendanceIcon}<br><em>${n.notes}</em><br><small>${timeAgo(n.timestamp)}</small>`;
-        container.appendChild(noteDiv);
+
+    function getSortedNotes(){
+      const type = sortSelect.value || "newest";
+      const arr = [...notes];
+      if (type === "newest") arr.sort((a,b)=> new Date(b.timestamp)-new Date(a.timestamp));
+      if (type === "oldest") arr.sort((a,b)=> new Date(a.timestamp)-new Date(b.timestamp));
+      if (type === "name")   arr.sort((a,b)=> (a.name||"").localeCompare(b.name||""));
+      if (type === "attendance") arr.sort((a,b)=> (b.attendance==="Yes") - (a.attendance==="Yes") || (a.name||"").localeCompare(b.name||""));
+      return arr;
+    }
+
+    function renderNotes(){
+      const container = document.getElementById("notesContainer");
+      container.innerHTML = "";
+      if (!notes.length){ container.innerHTML = "<p>No notes yet.</p>"; return; }
+
+      const sorted = getSortedNotes();
+      const start = (currentPage-1)*perPage;
+      const page = sorted.slice(start, start+perPage);
+
+      page.forEach((n,i)=>{
+        let icon = n.attendance==="Yes" ? "💖" : (n.attendance==="No" ? "🌸" : "");
+        const el = document.createElement("div");
+        el.className = "note";
+        el.style.animationDelay = `${i*0.15}s`;
+        el.innerHTML = `
+          <strong style="color:var(--sage)">${n.name||"Guest"}</strong> ${icon}<br>
+          <em>${(n.notes||"").toString().replace(/</g,"&lt;")}</em><br>
+          <small style="opacity:.75">${timeAgo(n.timestamp)}</small>
+        `;
+        container.appendChild(el);
       });
-      document.getElementById("prevBtn").disabled=currentPage===1;
-      document.getElementById("nextBtn").disabled=end>=notes.length;
+
+      document.getElementById("prevBtn").disabled = start<=0;
+      document.getElementById("nextBtn").disabled = start+perPage >= sorted.length;
     }
-    document.getElementById("prevBtn").addEventListener("click",()=>{ if(currentPage>1){currentPage--;renderNotes();}});
-    document.getElementById("nextBtn").addEventListener("click",()=>{ if((currentPage*notesPerPage)<notes.length){currentPage++;renderNotes();}});
+
+    document.getElementById("prevBtn").addEventListener("click",()=>{ if(currentPage>1){ currentPage--; renderNotes(); } });
+    document.getElementById("nextBtn").addEventListener("click",()=>{ currentPage++; renderNotes(); });
+    sortSelect.addEventListener("change", ()=>{ currentPage=1; renderNotes(); });
+
     loadNotes();
+
+    /* ---------- Reveal on Scroll ---------- */
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+      });
+    }, {threshold: .15});
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
   </script>
 </body>
 </html>
