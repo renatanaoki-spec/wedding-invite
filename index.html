@@ -290,5 +290,226 @@
     document.querySelector('#home .inner').insertBefore(p, document.getElementById('countdown'));
   }
 </script>
+
+<!-- ========== AI CHAT (Aira) ========== -->
+<style>
+  .ai-fab{
+    position:fixed; bottom:86px; right:18px; z-index:45;
+    width:56px; height:56px; border:none; border-radius:50%;
+    background:#b46b88; color:#fff; cursor:pointer;
+    box-shadow:0 10px 24px rgba(180,107,136,.35);
+    display:grid; place-items:center; transition:.25s;
+  }
+  .ai-fab:hover{ transform:translateY(-2px) }
+
+  .ai-panel{
+    position:fixed; bottom:86px; right:86px; z-index:50;
+    width:min(360px, 92vw); height:520px; border-radius:16px;
+    background:rgba(255,255,255,.92); backdrop-filter: blur(10px);
+    border:1px solid rgba(0,0,0,.08); box-shadow:0 20px 40px rgba(0,0,0,.18);
+    overflow:hidden; transform:translateY(12px) scale(.98); opacity:0; pointer-events:none;
+    transition:opacity .25s, transform .25s;
+  }
+  .ai-panel.open{ opacity:1; transform:none; pointer-events:auto; }
+
+  .ai-header{
+    display:flex; align-items:center; gap:10px; padding:12px 14px;
+    background:#b46b88; color:#fff; font-weight:700;
+  }
+  .ai-dot{ width:10px; height:10px; border-radius:50%; background:#7ef59d; box-shadow:0 0 10px #7ef59d }
+  .ai-body{ height: calc(520px - 56px - 58px); overflow-y:auto; padding:14px }
+  .ai-msg{ display:flex; margin:8px 0 }
+  .ai-msg.ai  { justify-content:flex-start }
+  .ai-msg.user{ justify-content:flex-end }
+
+  .ai-bubble{
+    max-width:78%; padding:10px 12px; border-radius:14px; line-height:1.45; font-size:.96rem;
+    box-shadow:0 6px 16px rgba(0,0,0,.08)
+  }
+  .ai .ai-bubble  { background:#f3e6ec; color:#3b1f2a; border-top-left-radius:6px }
+  .user .ai-bubble{ background:#e9f6ff; color:#143042; border-top-right-radius:6px }
+
+  .ai-input{
+    display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,.06);
+    background:rgba(255,255,255,.8); backdrop-filter: blur(8px);
+  }
+  .ai-input input{
+    flex:1; border:1px solid #d9d9d9; border-radius:12px; padding:10px 12px; font-size:.96rem;
+    background:#fff;
+  }
+  .ai-input button{
+    border:none; border-radius:12px; padding:10px 14px; background:#b46b88; color:#fff; font-weight:700; cursor:pointer;
+  }
+
+  /* kecilkan jarak dari tombol musik di layar kecil */
+  @media (max-width:520px){
+    .ai-panel{ bottom:76px; right:12px; height:62vh }
+    .ai-fab{ bottom:76px }
+  }
+</style>
+
+<!-- FAB (ikon chat) -->
+<button class="ai-fab" id="aiFab" title="Chat with our AI">
+  <!-- chat-bubble svg -->
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 12c0-4.418 4.03-8 9-8s9 3.582 9 8-4.03 8-9 8c-1.02 0-1.997-.14-2.905-.4L4 20l.93-3.26A7.9 7.9 0 0 1 3 12Z" stroke="white" stroke-width="2" />
+    <circle cx="9" cy="12" r="1.4" fill="white"/>
+    <circle cx="12" cy="12" r="1.4" fill="white"/>
+    <circle cx="15" cy="12" r="1.4" fill="white"/>
+  </svg>
+</button>
+
+<!-- Panel chat -->
+<div class="ai-panel" id="aiPanel" aria-live="polite">
+  <div class="ai-header">
+    <span class="ai-dot"></span> Aira — Wedding Assistant
+  </div>
+  <div class="ai-body" id="aiBody"></div>
+  <form class="ai-input" id="aiForm">
+    <input id="aiText" type="text" placeholder="Tanya apa saja tentang acara…" autocomplete="off" />
+    <button type="submit">Kirim</button>
+  </form>
+</div>
+
+<script>
+(() => {
+  // ====== KNOWLEDGE about the invitation ======
+  const KNOWLEDGE = {
+    couple: "Zen & Yessica",
+    date: new Date("Jan 17, 2026 09:00:00"),   // 09:00 WIB
+    locations: {
+      matrimony: "Gereja Santo Fransiskus Asisi, Cibinong",
+      reception: "Bagas Raya Cibinong"
+    },
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong",
+    maps: {
+      matrimony: "https://www.google.com/maps/search/?api=1&query=Gereja+Santo+Fransiskus+Asisi,+Cibinong",
+      reception: "https://www.google.com/maps/search/?api=1&query=Bagas+Raya+Cibinong"
+    }
+  };
+
+  // ====== UI elements ======
+  const fab   = document.getElementById('aiFab');
+  const panel = document.getElementById('aiPanel');
+  const body  = document.getElementById('aiBody');
+  const form  = document.getElementById('aiForm');
+  const input = document.getElementById('aiText');
+
+  // greet using ?to=
+  const guest = new URLSearchParams(location.search).get('to');
+
+  function openPanel(){
+    panel.classList.add('open'); input.focus();
+    if (!sessionStorage.getItem('aira_welcomed')) {
+      botSay(`Halo${guest ? ' ' + guest : ''}! Aku <b>Aira</b> 👋. Aku bisa bantu info acara ${KNOWLEDGE.couple}: waktu, lokasi, RSVP, arah ke tempat, dan lainnya.`);
+      sessionStorage.setItem('aira_welcomed','1');
+    }
+  }
+  function closePanel(){ panel.classList.remove('open'); }
+  fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
+
+  // persist simple log
+  const LOG_KEY = 'aira_chat_log';
+  function loadLog(){
+    try{
+      const arr = JSON.parse(localStorage.getItem(LOG_KEY)||'[]');
+      arr.forEach(m => renderMsg(m.role, m.html));
+    }catch{}
+  }
+  function saveLog(role, html){
+    const arr = JSON.parse(localStorage.getItem(LOG_KEY)||'[]');
+    arr.push({role, html}); localStorage.setItem(LOG_KEY, JSON.stringify(arr.slice(-50)));
+  }
+
+  // render bubbles
+  function renderMsg(role, html){
+    const wrap = document.createElement('div');
+    wrap.className = 'ai-msg ' + (role === 'user' ? 'user' : 'ai');
+    const b = document.createElement('div');
+    b.className = 'ai-bubble'; b.innerHTML = html;
+    wrap.appendChild(b); body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+  function userSay(text){ renderMsg('user', escapeHtml(text)); saveLog('user', escapeHtml(text)); }
+  function botSay(html){ renderMsg('ai', html); saveLog('ai', html); }
+
+  // small helpers
+  function escapeHtml(s){ return s.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])) }
+  const fmtDate = (d) => d.toLocaleString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Jakarta' });
+  function daysLeft(){
+    const ms = KNOWLEDGE.date.getTime() - Date.now();
+    if (ms <= 0) return "Hari ini!";
+    const d = Math.floor(ms/86400000), h = Math.floor((ms%86400000)/3600000);
+    return `${d} hari ${h} jam lagi`;
+  }
+  function smoothJump(id){ const el = document.querySelector(id); if(el){ el.scrollIntoView({behavior:'smooth'}); } }
+
+  // intent matcher (sederhana, en & id)
+  function reply(text){
+    const q = text.toLowerCase();
+
+    // greeting
+    if (/\b(hai|halo|hello|hi)\b/.test(q)) {
+      return `Halo${guest ? ' ' + guest : ''}! Ada yang bisa Aira bantu?`;
+    }
+
+    // couple names
+    if (/siapa|pengantin|couple|bride|groom/.test(q)) {
+      return `Acara ini untuk <b>${KNOWLEDGE.couple}</b> 🥂.`;
+    }
+
+    // when / countdown
+    if (/kapan|tanggal|jam|time|when|countdown|berapa hari/.test(q)) {
+      return `Pemberkatan dimulai <b>${fmtDate(KNOWLEDGE.date)}</b> (WIB). Tersisa <b>${daysLeft()}</b>.`;
+    }
+
+    // where
+    if (/di mana|lokasi|alamat|where|maps|arah|route|direction/.test(q)) {
+      return `Lokasi: <br>• Pemberkatan: <a href="${KNOWLEDGE.maps.matrimony}" target="_blank">Gereja Santo Fransiskus Asisi, Cibinong</a><br>• Resepsi: <a href="${KNOWLEDGE.maps.reception}" target="_blank">Bagas Raya Cibinong</a>`;
+    }
+
+    // rsvp
+    if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)) {
+      setTimeout(()=> smoothJump('#rsvp'), 300);
+      return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b> pada halaman ini. Aku sudah menggulir ke sana 😉.`;
+    }
+
+    // calendar
+    if (/calendar|kalender|save the date|ingatkan/.test(q)) {
+      return `Klik <a href="${KNOWLEDGE.calendarLink}" target="_blank">Add to Google Calendar</a> untuk menyimpan tanggalnya.`;
+    }
+
+    // music
+    if (/musik|music|lagu|sound/.test(q)) {
+      return `Tombol musik ada di kanan bawah (ikon ▶️/⏸️).`;
+    }
+
+    // dress code (if not specified)
+    if (/dress|tema|baju|warna/.test(q)) {
+      return `Saat ini <i>dress code</i> belum ditentukan di undangan. Pilihan aman: <b>semi-formal</b> dengan warna lembut/pastel.`;
+    }
+
+    // generic fallback
+    return `Maaf aku belum paham. Kamu bisa tanya: <br>• “Lokasi di mana?”<br>• “Kapan dimulai?”<br>• “Berapa hari lagi?”<br>• “Cara RSVP gimana?”`;
+  }
+
+  // handle submit
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const text = input.value.trim(); if(!text) return;
+    userSay(text);
+    const ans = reply(text);
+    botSay(ans);
+    input.value = '';
+  });
+
+  // load history after DOM ready
+  loadLog();
+
+  // auto-open hint (opsional)
+  // setTimeout(()=> fab.classList.add('hint'), 2000);
+})();
+</script>
+<!-- ========== /AI CHAT END ========== -->
 </body>
 </html>
