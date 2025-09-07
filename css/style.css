@@ -1,23 +1,161 @@
-/* css/style.css */
-.container {
-  display: flex;
-  height: 100vh;
+/* General */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  text-align: center;
+  background: #f7f4f2;
 }
 
-.left {
-  flex: 0 0 65%;
-  background: url("../image/bg-photo.jpg") no-repeat center center/cover;
+section {
+  padding: 40px 20px;
 }
 
-.right {
-  flex: 0 0 35%;
-  background: rgba(0,0,0,0.6);
+.date {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+.venue {
+  margin: 10px 0;
+  font-style: italic;
+}
+footer {
+  background: #333;
   color: white;
-  padding: 60px 40px;
+  padding: 20px;
+  margin-top: 40px;
+}
+.verse {
+  font-style: italic;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* 🎉 Hero Save the Date */
+.hero {
+  height: 100vh;
+  background: #bc8887;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  overflow-y: auto;
+  padding: 20px;
+  color: white;
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero .quote {
+  max-width: 600px;
+  font-size: 1.1rem;
+  margin: 20px auto 40px;
+  line-height: 1.5;
+}
+#countdown {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 20px 0 40px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+.time-box span {
+  display: block;
+  font-size: 2rem;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: white;
+  color: #333;
+}
+
+/* 🎶 Music button */
+#music-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #bc8887;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* 📝 RSVP Form */
+#notesForm {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+#notesForm input,
+#notesForm textarea,
+#notesForm select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+#notesForm input:focus,
+#notesForm textarea:focus,
+#notesForm select:focus {
+  border-color: #bc8887;
+  outline: none;
+  box-shadow: 0 0 6px rgba(188, 136, 135, 0.4);
+}
+#notesForm textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+#notesForm button {
+  display: block;
+  width: 100%;
+  background: #bc8887;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#notesForm button:hover {
+  background: #a46b6a;
+}
+
+/* Notes list */
+#notesList div {
+  padding: 10px;
+  margin: 10px auto;
+  border-bottom: 1px solid #ccc;
+  max-width: 600px;
+  text-align: left;
+}
+.pagination {
+  margin-top: 10px;
 }
