@@ -15,17 +15,18 @@
       font-family: 'Poppins', sans-serif;
       background: url("BG2.jpeg") no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
+      color: #f5f5f0; /* ivory */
       height: 100%;
       overflow-x: hidden;
-      overflow-y: auto; /* allow scrolling */
+      overflow-y: auto;
       animation: fadeIn 1.5s ease-in;
     }
 
     h1, h2 {
       font-family: 'Playfair Display', serif;
-      color: #d4af37;
+      color: #6b8f8e; /* misty aqua */
       letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(219,230,228,0.6); /* pale mist glow */
     }
 
     @keyframes fadeIn {
@@ -57,14 +58,14 @@
       padding: 12px 30px;
       border: none;
       border-radius: 30px;
-      background: #d4af37;
+      background: #6b8f8e;
       color: #fff;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .cover button:hover { background: #b9972f; }
+    .cover button:hover { background: #557877; }
 
     /* Smoke */
     #smoke {
@@ -127,11 +128,11 @@
     .hero h1 {
       font-size: 4rem;
       margin-bottom: 15px;
-      animation: glow 3s ease-in-out infinite alternate;
+      animation: aquaGlow 3s ease-in-out infinite alternate;
     }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #d4af37, 0 0 10px #d4af37; }
-      to { text-shadow: 0 0 15px #fff176, 0 0 30px #d4af37; }
+    @keyframes aquaGlow {
+      from { text-shadow: 0 0 5px #a8c0b0, 0 0 10px #6b8f8e; }
+      to { text-shadow: 0 0 15px #dbe6e4, 0 0 30px #6b8f8e; }
     }
 
     .quote {
@@ -150,12 +151,12 @@
       gap: 20px;
       justify-content: center;
     }
-    .time-box span { display: block; font-size: 2rem; color: #d4af37; }
+    .time-box span { display: block; font-size: 2rem; color: #6b8f8e; }
 
     .btn, form button {
       display: inline-block;
       padding: 12px 30px;
-      background: #d4af37;
+      background: #6b8f8e;
       border: none;
       color: #fff;
       border-radius: 30px;
@@ -163,11 +164,11 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 12px rgba(212,175,55,0.3);
+      box-shadow: 0 0 12px rgba(107,143,142,0.3);
     }
     .btn:hover, form button:hover {
-      background: #b9972f;
-      box-shadow: 0 0 18px rgba(212,175,55,0.6);
+      background: #557877;
+      box-shadow: 0 0 18px rgba(107,143,142,0.5);
       transform: scale(1.05);
     }
 
@@ -177,22 +178,22 @@
       bottom: 20px;
       right: 20px;
       background: rgba(255,255,255,0.15);
-      border: 2px solid #d4af37;
-      color: #d4af37;
+      border: 2px solid #6b8f8e;
+      color: #6b8f8e;
       border-radius: 50%;
       width: 60px;
       height: 60px;
       font-size: 1.4rem;
       cursor: pointer;
-      box-shadow: 0 0 12px rgba(212,175,55,0.3);
+      box-shadow: 0 0 12px rgba(107,143,142,0.3);
       backdrop-filter: blur(6px);
       display: none;
       transition: all 0.3s ease;
       z-index: 10;
     }
     #music-control:hover {
-      background: rgba(212,175,55,0.1);
-      box-shadow: 0 0 18px rgba(212,175,55,0.6);
+      background: rgba(107,143,142,0.1);
+      box-shadow: 0 0 18px rgba(107,143,142,0.6);
       transform: scale(1.08);
     }
 
@@ -207,7 +208,7 @@
     }
     form input, form textarea, form select {
       padding: 12px;
-      border: 1px solid #d4af37;
+      border: 1px solid #a8c0b0;
       border-radius: 8px;
       font-size: 1rem;
       background: rgba(255,255,255,0.85);
@@ -216,24 +217,34 @@
     form textarea { min-height: 100px; resize: vertical; }
     form input:focus, form textarea:focus, form select:focus {
       outline: none;
-      border-color: #b9972f;
-      box-shadow: 0 0 8px rgba(212,175,55,0.4);
+      border-color: #6b8f8e;
+      box-shadow: 0 0 8px rgba(107,143,142,0.4);
     }
 
-    .note strong { color: #d4af37; }
+    .note {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      opacity: 0;
+      transform: translateY(15px);
+      animation: fadeNote 0.8s forwards;
+    }
+    @keyframes fadeNote {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .note strong { color: #6b8f8e; }
 
     .pagination button {
       padding: 8px 15px;
       border: none;
       border-radius: 6px;
-      background: #d4af37;
+      background: #6b8f8e;
       color: white;
       cursor: pointer;
       transition: all 0.3s ease;
     }
     .pagination button:hover {
-      background: #b9972f;
-      box-shadow: 0 0 10px rgba(212,175,55,0.5);
+      background: #557877;
+      box-shadow: 0 0 10px rgba(107,143,142,0.5);
     }
     .pagination button:disabled {
       background: #ccc;
@@ -243,7 +254,7 @@
 
     footer {
       background: rgba(0,0,0,0.7);
-      color: #d4af37;
+      color: #a8c0b0;
       padding: 20px;
       text-align: center;
       font-weight: 500;
@@ -286,11 +297,6 @@
       <div class="time-box"><span id="minutes">00</span>Minutes</div>
       <div class="time-box"><span id="seconds">00</span>Seconds</div>
     </div>
-    <a class="btn" 
-       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
-       target="_blank">
-      SAVE THE DATE
-    </a>
   </section>
 
   <!-- RSVP -->
@@ -421,6 +427,24 @@
         });
     });
 
+    // Helper: waktu relatif
+    function timeAgo(dateString) {
+      const now = new Date();
+      const date = new Date(dateString);
+      const diff = (now - date) / 1000;
+      if (diff < 60) return "just now";
+      const minutes = Math.floor(diff / 60);
+      if (minutes < 60) return `${minutes} minute${minutes>1?"s":""} ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} hour${hours>1?"s":""} ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 7) return `${days} day${days>1?"s":""} ago`;
+      const weeks = Math.floor(days / 7);
+      if (weeks < 4) return `${weeks} week${weeks>1?"s":""} ago`;
+      const months = Math.floor(days / 30);
+      return `${months} month${months>1?"s":""} ago`;
+    }
+
     // Notes
     let notes = [];
     let currentPage = 1;
@@ -447,18 +471,23 @@
       const start = (currentPage - 1) * notesPerPage;
       const end = start + notesPerPage;
       const pageNotes = notes.slice(start, end);
-      pageNotes.forEach(n => {
+
+      pageNotes.forEach((n, i) => {
         let attendanceIcon = "";
         if (n.attendance === "Yes") attendanceIcon = "💖";
         if (n.attendance === "No") attendanceIcon = "🌸";
-        container.innerHTML += `
-          <div class="note">
-            <strong>${n.name}</strong> ${attendanceIcon}<br>
-            <em>${n.notes}</em><br>
-            <small>${new Date(n.timestamp).toLocaleString()}</small>
-          </div>
+
+        const noteDiv = document.createElement("div");
+        noteDiv.className = "note";
+        noteDiv.style.animationDelay = `${i * 0.2}s`;
+        noteDiv.innerHTML = `
+          <strong>${n.name}</strong> ${attendanceIcon}<br>
+          <em>${n.notes}</em><br>
+          <small>${timeAgo(n.timestamp)}</small>
         `;
+        container.appendChild(noteDiv);
       });
+
       document.getElementById("prevBtn").disabled = currentPage === 1;
       document.getElementById("nextBtn").disabled = end >= notes.length;
     }
@@ -474,4 +503,3 @@
   </script>
 </body>
 </html>
-
