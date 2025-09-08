@@ -385,16 +385,27 @@
         .open-btn { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.15s both; }
         .hint { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s both; }
 
-        /* Responsive design improvements */
+        /* Mobile specific improvements */
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 10px;
+                background-attachment: scroll;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                min-height: 100vh;
             }
             
             .cover {
                 padding: clamp(25px, 5vw, 45px);
                 border-radius: 25px;
                 max-width: 95vw;
+                background: linear-gradient(135deg, 
+                    rgba(245, 240, 232, 0.18) 0%, 
+                    rgba(212, 165, 116, 0.12) 30%,
+                    rgba(200, 149, 109, 0.08) 70%,
+                    rgba(245, 240, 232, 0.15) 100%);
+                backdrop-filter: blur(20px);
             }
 
             .interactive-line {
@@ -402,8 +413,10 @@
             }
 
             .decorative-element {
-                font-size: 1.1em;
-                padding: 6px;
+                font-size: 1.2em;
+                padding: 8px;
+                min-width: 40px;
+                min-height: 40px;
             }
         }
 
