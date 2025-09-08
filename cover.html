@@ -1,119 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Zen & Yessica — Cover</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Zen & Yessica — Wedding Invitation</title>
 
-<style>
-  @font-face{
-    font-family:"White Angelica";
-    src:url("font/WhiteAngelica.ttf") format("truetype");
-    font-display:swap;
-  }
-  :root{
-    --accent:#6b8e72;      /* sage/moss */
-    --accent-2:#557a60;    /* darker sage */
-    --ivory:#fffdf5;
-  }
+  <style>
+    @font-face{
+      font-family:"White Angelica";
+      src:url("data:font/truetype;base64,") format("truetype");
+      font-display:swap;
+    }
+    
+    @font-face{
+      font-family:"Mrs Eaves";
+      src:url("data:font/truetype;base64,") format("truetype");
+      font-display:swap;
+    }
+    
+    :root{
+      --accent:#6b8e72;      /* sage/moss */
+      --accent-2:#557a60;    /* darker sage */
+      --ivory:#fffdf5;
+    }
 
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0}
-  body{
-    min-height:100dvh; display:grid; place-items:center;
-    color:#fff;
-    background:url("image/BG3.jpeg") center/cover no-repeat fixed;
-    overflow:hidden;
-  }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;overflow:hidden}
+    
+    body{
+      min-height:100dvh; 
+      display:grid; 
+      place-items:center;
+      color:#fff;
+      background: linear-gradient(135deg, #1a202c 0%, #2d3748 30%, #4a5568 70%, #718096 100%);
+      font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
+      position:relative;
+    }
 
-  /* overlay gelap lembut agar teks jelas */
-  .overlay{ position:fixed; inset:0; z-index:0; pointer-events:none; }
-  .overlay::before{
-    content:""; position:absolute; inset:0;
-    background:
-      radial-gradient(115% 75% at 50% 42%, rgba(0,0,0,.52) 0%, rgba(0,0,0,.32) 58%, rgba(0,0,0,.14) 100%),
-      linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,.1) 60%, rgba(0,0,0,.32));
-  }
+    /* Animated background particles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.4), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: sparkle 20s linear infinite;
+      pointer-events: none;
+      opacity: 0.6;
+    }
 
-  .card{
-    position:relative; z-index:1; text-align:center;
-    padding: clamp(20px, 4.5vw, 44px);
-    display:flex; flex-direction:column; align-items:center;
-    /* sedikit ke atas agar proporsional di berbagai device */
-    transform: translateY(-3vh);
-    gap: clamp(8px, 2.2vh, 18px);
-    animation: fadeUp .9s ease both;
-  }
-  .pretitle{
-    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
-    letter-spacing:.22em; text-transform:uppercase;
-    font-size: clamp(12px, 2.2vw, 14px); opacity:.92; margin:0;
-  }
-  .names{
-    font-family:"White Angelica", cursive;
-    font-size: clamp(42px, 9.2vw, 108px);
-    line-height: .92;            /* rapatkan sedikit */
-    letter-spacing: -.02em;      /* rapatkan huruf script */
-    margin:.15em 0 .05em;
-    color:var(--ivory);
-    -webkit-text-stroke:.6px rgba(0,0,0,.18);
-    text-shadow: 0 6px 30px rgba(0,0,0,.45), 0 0 26px rgba(255,255,255,.25);
-  }
-  .sub{
-    font-family:"Mrs Eaves","Playfair Display",Georgia,serif;
-    font-size: clamp(14px, 2.8vw, 18px); opacity:.95; margin:0;
-  }
-  .dear{ margin:.2rem 0 .8rem; font-size: clamp(13px, 2.6vw, 16px); opacity:.9 }
+    @keyframes sparkle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+      50% { transform: translateY(-10px) rotate(180deg); opacity: 0.8; }
+    }
 
-  .btn{
-    display:inline-block;
-    padding: 12px 28px; border-radius:999px; border:1px solid rgba(255,255,255,.55);
-    background: linear-gradient(180deg, rgba(107,142,114,.95), rgba(86,122,96,.85));
-    color:#fff; font-weight:700; letter-spacing:.02em; text-decoration:none; cursor:pointer;
-    box-shadow: 0 14px 30px rgba(86,122,96,.35); transition:.25s ease; backdrop-filter: blur(6px);
-  }
-  .btn:hover{ transform:translateY(-2px); box-shadow:0 18px 40px rgba(86,122,96,.45) }
-  .hint{ margin-top:4px; font-size:12px; opacity:.85; font-family:"Mrs Eaves","Playfair Display",Georgia,serif }
+    /* Overlay for text readability */
+    .overlay{ 
+      position: fixed; 
+      inset: 0; 
+      z-index: 0; 
+      pointer-events: none;
+      background: 
+        radial-gradient(115% 75% at 50% 42%, rgba(0,0,0,.42) 0%, rgba(0,0,0,.25) 58%, rgba(0,0,0,.10) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,.28), rgba(0,0,0,.08) 60%, rgba(0,0,0,.22));
+    }
 
-  @keyframes fadeUp{ from{opacity:0; transform:translateY(2vh)} to{opacity:1; transform:translateY(-3vh)} }
+    .card{
+      position: relative; 
+      z-index: 1; 
+      text-align: center;
+      padding: clamp(20px, 4.5vw, 44px);
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      transform: translateY(-3vh);
+      gap: clamp(8px, 2.2vh, 18px);
+      animation: fadeUp 1.2s ease both;
+      max-width: 90vw;
+    }
+    
+    .pretitle{
+      font-family: "Mrs Eaves","Playfair Display",Georgia,serif;
+      letter-spacing: .22em; 
+      text-transform: uppercase;
+      font-size: clamp(12px, 2.2vw, 14px); 
+      opacity: .92; 
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .names{
+      font-family: "White Angelica", cursive;
+      font-size: clamp(42px, 9.2vw, 108px);
+      line-height: .92;
+      letter-spacing: -.02em;
+      margin: .15em 0 .05em;
+      color: var(--ivory);
+      -webkit-text-stroke: .6px rgba(0,0,0,.18);
+      text-shadow: 
+        0 6px 30px rgba(0,0,0,.45), 
+        0 0 26px rgba(255,255,255,.25),
+        0 2px 10px rgba(0,0,0,.3);
+    }
+    
+    .sub{
+      font-family: "Mrs Eaves","Playfair Display",Georgia,serif;
+      font-size: clamp(14px, 2.8vw, 18px); 
+      opacity: .95; 
+      margin: 0;
+      font-weight: 500;
+    }
+    
+    .dear{ 
+      margin: .2rem 0 .8rem; 
+      font-size: clamp(13px, 2.6vw, 16px); 
+      opacity: .9;
+      font-style: italic;
+    }
 
-  @media (max-height:680px){
-    .card{ transform: translateY(-1vh); gap: 10px; }
-  }
-</style>
+    .btn{
+      display: inline-block;
+      padding: 14px 32px; 
+      border-radius: 999px; 
+      border: 1px solid rgba(255,255,255,.45);
+      background: linear-gradient(180deg, rgba(107,142,114,.95), rgba(86,122,96,.85));
+      color: #fff; 
+      font-weight: 700; 
+      letter-spacing: .02em; 
+      text-decoration: none; 
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(86,122,96,.35); 
+      transition: .3s ease;
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(86,122,96,.45);
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .hint{ 
+      margin-top: 8px; 
+      font-size: 12px; 
+      opacity: .85; 
+      font-family: "Mrs Eaves","Playfair Display",Georgia,serif;
+      font-style: italic;
+    }
+
+    @keyframes fadeUp{ 
+      from{
+        opacity: 0; 
+        transform: translateY(2vh);
+      } 
+      to{
+        opacity: 1; 
+        transform: translateY(-3vh);
+      } 
+    }
+
+    /* Loading state */
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .loading .btn {
+      background: linear-gradient(180deg, rgba(107,142,114,.6), rgba(86,122,96,.5));
+      cursor: wait;
+    }
+
+    /* Error state */
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: rgba(255,107,107,0.1);
+      border-radius: 8px;
+      border: 1px solid rgba(255,107,107,0.3);
+      display: none;
+    }
+
+    /* Success state */
+    .success-msg {
+      color: #51cf66;
+      font-size: 14px;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: rgba(81,207,102,0.1);
+      border-radius: 8px;
+      border: 1px solid rgba(81,207,102,0.3);
+      display: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-height: 680px) {
+      .card { 
+        transform: translateY(-1vh); 
+        gap: 10px; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 16px;
+      }
+      
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus styles for accessibility */
+    .btn:focus {
+      outline: 2px solid rgba(255,255,255,0.7);
+      outline-offset: 2px;
+    }
+
+    /* Hidden initially */
+    #dear {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-<div class="overlay"></div>
+  <div class="overlay" aria-hidden="true"></div>
 
-<main class="card" aria-label="Wedding Cover">
-  <p class="pretitle">WEDDING INVITATION</p>
-  <h1 class="names">Zen &amp; Yessica</h1>
-  <p class="sub">17 January 2026 — Cibinong</p>
-  <p id="dear" class="dear" hidden>Dear Guest</p>
+  <main class="card" role="main" aria-label="Wedding Cover">
+    <p class="pretitle">WEDDING INVITATION</p>
+    <h1 class="names">Zen &amp; Yessica</h1>
+    <p class="sub">17 January 2026 — Cibinong</p>
+    <p id="dear" class="dear" role="text"></p>
 
-  <button id="openBtn" class="btn" aria-label="Open Invitation">Open Invitation</button>
-  <div class="hint">Tap to open the full invitation</div>
-</main>
+    <button id="openBtn" class="btn" aria-label="Open Wedding Invitation" type="button">
+      Open Invitation
+    </button>
+    <div class="hint">Tap to open the full invitation</div>
+    
+    <div id="errorMsg" class="error-msg" role="alert"></div>
+    <div id="successMsg" class="success-msg" role="status"></div>
+  </main>
 
-<script>
-  // Tampilkan "Dear <nama>" jika ?to=
-  (function(){
-    const p = new URLSearchParams(location.search);
-    const to = p.get('to');
-    const el = document.getElementById('dear');
-    if (to) { el.textContent = "Dear " + to; el.hidden = false; }
-  })();
+  <script>
+    // Show personalized greeting if ?to= parameter exists
+    (function() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        const dearElement = document.getElementById('dear');
+        
+        if (guestName && dearElement) {
+          dearElement.textContent = `Dear ${decodeURIComponent(guestName)},`;
+          dearElement.style.display = 'block';
+        }
+      } catch (error) {
+        console.warn('Error processing guest name:', error);
+      }
+    })();
 
-  // Open -> simpan flag + redirect ke index.html
-  document.getElementById('openBtn').addEventListener('click', () => {
-    const p = new URLSearchParams(location.search);
-    p.set('opened','1');
-    try{
-      sessionStorage.setItem('opened','1');
-      sessionStorage.setItem('autoplay','1'); // minta musik auto-play di index
-    }catch(e){}
-    location.href = "index.html?" + p.toString();
-  });
-</script>
+    // Handle invitation opening
+    document.getElementById('openBtn').addEventListener('click', function() {
+      const btn = this;
+      const card = document.querySelector('.card');
+      const errorMsg = document.getElementById('errorMsg');
+      const successMsg = document.getElementById('successMsg');
+      
+      // Reset messages
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+      
+      // Show loading state
+      card.classList.add('loading');
+      btn.textContent = 'Opening...';
+      
+      try {
+        // Get current URL parameters
+        const currentParams = new URLSearchParams(window.location.search);
+        currentParams.set('opened', '1');
+        
+        // Store opened state (fallback if sessionStorage fails)
+        try {
+          sessionStorage.setItem('opened', '1');
+          sessionStorage.setItem('autoplay', '1'); // Request music autoplay
+        } catch (storageError) {
+          console.warn('SessionStorage not available:', storageError);
+        }
+        
+        // Show success message briefly
+        successMsg.textContent = '✨ Opening invitation...';
+        successMsg.style.display = 'block';
+        
+        // Redirect to main invitation
+        setTimeout(() => {
+          window.location.href = "index.html?" + currentParams.toString();
+        }, 800);
+        
+      } catch (error) {
+        console.error('Error opening invitation:', error);
+        
+        // Show error state
+        card.classList.remove('loading');
+        btn.textContent = 'Open Invitation';
+        errorMsg.textContent = 'Failed to open invitation. Please try again.';
+        errorMsg.style.display = 'block';
+        
+        // Fallback: try direct navigation
+        setTimeout(() => {
+          try {
+            window.location.href = 'index.html?opened=1';
+          } catch (fallbackError) {
+            console.error('Fallback navigation failed:', fallbackError);
+          }
+        }, 2000);
+      }
+    });
+
+    // Handle keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const openBtn = document.getElementById('openBtn');
+        if (document.activeElement === openBtn || !document.activeElement || document.activeElement === document.body) {
+          e.preventDefault();
+          openBtn.click();
+        }
+      }
+    });
+
+    // Focus management for accessibility
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ensure the open button can be focused
+      const openBtn = document.getElementById('openBtn');
+      openBtn.setAttribute('tabindex', '0');
+      
+      // Log successful load
+      console.log('Wedding cover page loaded successfully!');
+      
+      // Simple performance check
+      const loadTime = performance.now();
+      if (loadTime > 3000) {
+        console.warn('Page took longer than expected to load:', loadTime + 'ms');
+      }
+    });
+
+    // Handle visibility changes (user switched tabs)
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        // User switched away, could pause animations if needed
+        console.log('Page hidden');
+      } else {
+        // User returned
+        console.log('Page visible');
+      }
+    });
+
+    // Error boundary for uncaught errors
+    window.addEventListener('error', function(e) {
+      console.error('Uncaught error on cover page:', e.error);
+      
+      const errorMsg = document.getElementById('errorMsg');
+      if (errorMsg) {
+        errorMsg.textContent = 'An error occurred. Please refresh the page.';
+        errorMsg.style.display = 'block';
+      }
+    });
+
+    // Handle unhandled promise rejections
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled promise rejection:', e.reason);
+      e.preventDefault(); // Prevent default console error
+    });
+  </script>
 </body>
 </html>
