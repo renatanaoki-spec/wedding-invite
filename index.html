@@ -9,15 +9,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* Custom fonts to match the theme */
+        @font-face {
+            font-family: "White Angelica";
+            src: url("font/WhiteAngelica.ttf") format("truetype");
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: "Mrs Eaves";
+            src: url("font/MrsEaves.ttf") format("truetype");
+            font-display: swap;
+        }
+
         :root {
-            --sage-green: #8BA888;
-            --deep-sage: #6B7B6E;
-            --forest-green: #5A6B5D;
-            --soft-ivory: #FAF8F3;
-            --warm-cream: #F5F2E8;
-            --dusty-rose: #E8D5D0;
-            --shadow-green: rgba(90, 107, 93, 0.3);
-            --text-shadow: rgba(45, 55, 48, 0.4);
+            --accent: #6b8e72;
+            --accent-2: #557a60;
+            --forest: #26352b;
+            --ivory: #fffdf5;
+            --warm-gold: #d4a574;
+            --sunset-orange: #c8956d;
+            --deep-burgundy: #6b4a3e;
+            --soft-cream: #f5f0e8;
+            --mountain-mist: rgba(139, 108, 91, 0.3);
+            --text-glow: rgba(212, 165, 116, 0.6);
         }
 
         * {
@@ -28,224 +43,276 @@
 
         html, body {
             height: 100%;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Mrs Eaves", "Playfair Display", Georgia, serif;
         }
 
         body {
-            min-height: 100dvh;
-            display: grid;
-            place-items: center;
-            color: var(--soft-ivory);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ivory);
             background: url("image/BG1.png") center/cover no-repeat fixed;
-            background-attachment: fixed;
             overflow: hidden;
+            position: relative;
+            padding: 20px;
         }
 
-        /* Enhanced overlay for botanical feel */
+        /* Elegant overlay matching the warm mountain landscape */
         .overlay {
             position: fixed;
             inset: 0;
-            z-index: 0;
+            z-index: 1;
             pointer-events: none;
-        }
-
-        .overlay::before {
-            content: "";
-            position: absolute;
-            inset: 0;
             background:
-                radial-gradient(ellipse 120% 80% at 50% 45%, 
-                    rgba(45, 55, 48, 0.65) 0%, 
-                    rgba(90, 107, 93, 0.5) 35%, 
-                    rgba(139, 168, 136, 0.3) 70%, 
-                    rgba(245, 242, 232, 0.15) 100%),
+                radial-gradient(ellipse 120% 80% at 50% 30%, 
+                    rgba(107, 74, 62, 0.45) 0%, 
+                    rgba(139, 108, 91, 0.25) 40%, 
+                    rgba(212, 165, 116, 0.15) 70%, 
+                    rgba(107, 74, 62, 0.35) 100%),
                 linear-gradient(to bottom, 
-                    rgba(45, 55, 48, 0.55) 0%, 
-                    rgba(90, 107, 93, 0.25) 40%, 
-                    rgba(139, 168, 136, 0.2) 70%, 
-                    rgba(45, 55, 48, 0.45) 100%);
+                    rgba(107, 74, 62, 0.3) 0%, 
+                    rgba(200, 149, 109, 0.15) 30%, 
+                    rgba(212, 165, 116, 0.1) 60%, 
+                    rgba(107, 74, 62, 0.4) 100%);
         }
 
-        /* Floating botanical elements */
-        .botanical-elements {
+        /* Floating warm particles */
+        .particles {
             position: fixed;
             inset: 0;
-            z-index: 0;
+            z-index: 2;
             pointer-events: none;
-            opacity: 0.12;
         }
 
-        .botanical-elements::before,
-        .botanical-elements::after {
-            content: '';
+        .particle {
             position: absolute;
-            background: var(--sage-green);
+            width: 2px;
+            height: 2px;
+            background: var(--warm-gold);
             border-radius: 50%;
+            opacity: 0.6;
+            animation: warmFloat 8s linear infinite;
         }
 
-        .botanical-elements::before {
-            width: 120px;
-            height: 120px;
-            top: 18%;
-            left: 12%;
-            animation: float 7s ease-in-out infinite;
-        }
-
-        .botanical-elements::after {
-            width: 80px;
-            height: 80px;
-            bottom: 25%;
-            right: 18%;
-            animation: float 9s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-25px) rotate(8deg); }
+        @keyframes warmFloat {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100vh) scale(0); 
+            }
+            10% { 
+                opacity: 0.6; 
+                transform: translateY(90vh) scale(1); 
+            }
+            90% { 
+                opacity: 0.3; 
+                transform: translateY(-10vh) scale(0.5); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-20vh) scale(0); 
+            }
         }
 
         .cover {
             position: relative;
-            z-index: 2;
+            z-index: 10;
             text-align: center;
             padding: clamp(30px, 6vw, 60px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            transform: translateY(-3vh);
-            gap: clamp(15px, 3vh, 25px);
-            animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+            gap: clamp(16px, 3vh, 30px);
+            animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
             
-            /* Enhanced glass morphism */
+            /* Glass morphism inspired by mountain mist */
             background: linear-gradient(135deg, 
-                rgba(139, 168, 136, 0.18) 0%, 
-                rgba(90, 107, 93, 0.12) 100%);
-            backdrop-filter: blur(12px);
-            border: 1.5px solid rgba(255, 255, 255, 0.25);
-            border-radius: 28px;
+                rgba(245, 240, 232, 0.15) 0%, 
+                rgba(212, 165, 116, 0.08) 30%,
+                rgba(200, 149, 109, 0.05) 70%,
+                rgba(245, 240, 232, 0.12) 100%);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(212, 165, 116, 0.25);
+            border-radius: 30px;
             box-shadow: 
-                0 25px 60px rgba(45, 55, 48, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+                0 30px 70px rgba(107, 74, 62, 0.4),
+                inset 0 1px 0 rgba(245, 240, 232, 0.3),
+                0 0 100px rgba(212, 165, 116, 0.15);
+            max-width: 550px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, 
+                rgba(212, 165, 116, 0.4), 
+                transparent 30%, 
+                transparent 70%, 
+                rgba(200, 149, 109, 0.3));
+            z-index: -1;
+            opacity: 0.7;
         }
 
         .pretitle {
             font-family: 'Playfair Display', serif;
             font-weight: 400;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.5em;
             text-transform: uppercase;
             font-size: clamp(11px, 2.2vw, 14px);
-            opacity: 0.88;
+            opacity: 0.9;
             margin: 0;
-            color: var(--dusty-rose);
-            text-shadow: 0 2px 10px var(--text-shadow);
+            color: var(--warm-gold);
+            text-shadow: 0 3px 15px var(--text-glow);
+            position: relative;
+        }
+
+        .pretitle::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--warm-gold), transparent);
+            opacity: 0.7;
         }
 
         .cover h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 12vw, 8rem);
+            font-family: "White Angelica", 'Great Vibes', cursive;
+            font-size: clamp(3.2rem, 12vw, 7rem);
             font-weight: 400;
             line-height: 0.9;
-            margin: 0.1em 0 0.1em;
-            color: var(--soft-ivory);
+            margin: 0.1em 0;
+            color: var(--soft-cream);
             text-shadow: 
-                0 10px 40px rgba(45, 55, 48, 0.7),
-                0 3px 12px rgba(139, 168, 136, 0.5),
-                0 0 25px rgba(255, 255, 255, 0.25);
-            filter: drop-shadow(0 5px 10px rgba(45, 55, 48, 0.4));
+                0 12px 40px rgba(107, 74, 62, 0.8),
+                0 4px 16px rgba(212, 165, 116, 0.6),
+                0 0 30px rgba(245, 240, 232, 0.4);
+            filter: drop-shadow(0 6px 12px rgba(107, 74, 62, 0.5));
+            -webkit-text-stroke: 0.5px rgba(107, 74, 62, 0.15);
+        }
+
+        .names-separator {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--sunset-orange);
+            margin: -0.2em 0.3em;
+            opacity: 0.85;
+            text-shadow: 0 2px 8px var(--text-glow);
         }
 
         .date-location {
-            font-family: 'Playfair Display', serif;
+            font-family: "Mrs Eaves", 'Playfair Display', serif;
             font-weight: 400;
             font-size: clamp(16px, 3.2vw, 20px);
-            opacity: 0.9;
-            margin: 0.5rem 0;
-            color: var(--warm-cream);
-            text-shadow: 0 2px 12px var(--text-shadow);
+            opacity: 0.95;
+            margin: 0.6rem 0;
+            color: var(--soft-cream);
+            text-shadow: 0 3px 12px rgba(107, 74, 62, 0.6);
+            line-height: 1.4;
         }
 
         .dear {
-            font-family: 'Poppins', sans-serif;
+            font-family: "Mrs Eaves", 'Poppins', sans-serif;
             font-weight: 300;
             font-style: italic;
             margin: 0.8rem 0 1.2rem;
             font-size: clamp(15px, 2.8vw, 18px);
-            opacity: 0.85;
-            color: var(--dusty-rose);
-            text-shadow: 0 2px 8px var(--text-shadow);
+            opacity: 0.88;
+            color: var(--warm-gold);
+            text-shadow: 0 2px 8px var(--text-glow);
         }
 
-        /* Subtle interactive elements */
+        /* Enhanced interactive elements with warm theme */
         .interactive-line {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 18px;
             margin: 20px 0;
-            opacity: 0.6;
+            opacity: 0.8;
         }
 
         .decorative-element {
-            font-size: 1.2em;
+            font-size: 1.3em;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--dusty-rose);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            color: var(--warm-gold);
             position: relative;
+            padding: 8px;
+            border-radius: 50%;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .decorative-element:hover {
             opacity: 1;
-            transform: scale(1.1);
-            color: var(--soft-ivory);
+            transform: scale(1.15) translateY(-3px);
+            color: var(--soft-cream);
+            background: rgba(200, 149, 109, 0.25);
+            border-color: rgba(212, 165, 116, 0.4);
+            box-shadow: 0 8px 20px rgba(200, 149, 109, 0.4);
+            text-shadow: 0 2px 8px var(--text-glow);
         }
 
         .decorative-line {
-            width: 30px;
+            width: 35px;
             height: 1px;
-            background: linear-gradient(to right, transparent, var(--dusty-rose), transparent);
+            background: linear-gradient(to right, transparent, var(--sunset-orange), transparent);
             opacity: 0.5;
         }
 
-        /* Subtle fact display */
+        /* Enhanced fact display */
         .fact-display {
-            font-family: 'Playfair Display', serif;
+            font-family: "Mrs Eaves", 'Playfair Display', serif;
             font-style: italic;
-            font-size: clamp(13px, 2.5vw, 15px);
-            opacity: 0.7;
-            margin: 15px 0;
-            min-height: 20px;
-            transition: all 0.4s ease;
-            color: var(--warm-cream);
-            text-shadow: 0 1px 6px var(--text-shadow);
+            font-size: clamp(13px, 2.6vw, 16px);
+            opacity: 0.8;
+            margin: 18px 0;
+            min-height: 25px;
+            transition: all 0.6s ease;
+            color: var(--soft-cream);
+            text-shadow: 0 2px 8px rgba(107, 74, 62, 0.6);
+            line-height: 1.5;
+            max-width: 380px;
+            text-align: center;
         }
 
         .fact-display.show {
-            opacity: 0.85;
+            opacity: 0.95;
+            transform: translateY(-2px);
         }
 
+        /* Elegant button design with warm mountain theme */
         .open-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 16px 36px;
+            padding: 16px 40px;
             border-radius: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(212, 165, 116, 0.3);
             background: linear-gradient(135deg, 
-                rgba(139, 168, 136, 0.92) 0%, 
-                rgba(90, 107, 93, 0.88) 100%);
-            color: var(--soft-ivory);
-            font-family: 'Playfair Display', serif;
+                var(--accent) 0%, 
+                var(--sunset-orange) 100%);
+            color: var(--ivory);
+            font-family: "Mrs Eaves", 'Playfair Display', serif;
             font-weight: 500;
             font-size: 16px;
             letter-spacing: 0.05em;
             text-decoration: none;
             cursor: pointer;
             box-shadow: 
-                0 18px 35px rgba(90, 107, 93, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-            backdrop-filter: blur(10px);
+                0 18px 35px rgba(200, 149, 109, 0.4),
+                inset 0 1px 0 rgba(245, 240, 232, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(15px);
             position: relative;
             overflow: hidden;
         }
@@ -255,45 +322,52 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.15) 0%, 
-                transparent 60%);
+                rgba(245, 240, 232, 0.2) 0%, 
+                transparent 50%);
             opacity: 0;
-            transition: opacity 0.35s ease;
+            transition: opacity 0.4s ease;
         }
 
         .open-btn:hover {
-            transform: translateY(-4px) scale(1.03);
+            transform: translateY(-5px) scale(1.03);
             box-shadow: 
-                0 22px 45px rgba(90, 107, 93, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.35);
-            border-color: rgba(255, 255, 255, 0.5);
+                0 22px 45px rgba(200, 149, 109, 0.5),
+                inset 0 1px 0 rgba(245, 240, 232, 0.4);
+            border-color: rgba(212, 165, 116, 0.5);
+            background: linear-gradient(135deg, 
+                var(--accent-2) 0%, 
+                var(--deep-burgundy) 100%);
         }
 
         .open-btn:hover::before {
             opacity: 1;
         }
 
+        .open-btn:active {
+            transform: translateY(-3px) scale(1.01);
+        }
+
         .hint {
             margin-top: 12px;
             font-size: 13px;
             opacity: 0.7;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Mrs Eaves", 'Poppins', sans-serif;
             font-weight: 300;
             font-style: italic;
-            color: var(--dusty-gold);
-            text-shadow: 0 1px 6px var(--text-shadow);
+            color: var(--warm-gold);
+            text-shadow: 0 1px 6px var(--text-glow);
         }
 
-        /* Staggered animations */
-        @keyframes fadeUp {
+        /* Mountain-inspired animations */
+        @keyframes mountainRise {
             from {
                 opacity: 0;
-                transform: translateY(50px) scale(0.92);
-                filter: blur(6px);
+                transform: translateY(50px) scale(0.95);
+                filter: blur(8px);
             }
             to {
                 opacity: 1;
-                transform: translateY(-3vh) scale(1);
+                transform: translateY(0) scale(1);
                 filter: blur(0px);
             }
         }
@@ -302,58 +376,90 @@
             animation-fill-mode: both;
         }
 
-        .pretitle { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.1s both; }
-        .cover h1 { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.25s both; }
-        .date-location { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both; }
-        .dear { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.55s both; }
-        .interactive-line { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.65s both; }
-        .fact-display { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.7s both; }
-        .open-btn { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.8s both; }
-        .hint { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.9s both; }
+        .pretitle { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both; }
+        .cover h1 { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both; }
+        .date-location { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both; }
+        .dear { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both; }
+        .interactive-line { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.85s both; }
+        .fact-display { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both; }
+        .open-btn { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.15s both; }
+        .hint { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s both; }
 
-        /* Responsive design */
-        @media (max-height: 750px) {
+        /* Responsive design improvements */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
             .cover {
-                transform: translateY(-2vh);
-                gap: 12px;
-                padding: clamp(20px, 4vw, 40px);
+                padding: clamp(25px, 5vw, 45px);
+                border-radius: 25px;
+                max-width: 95vw;
+            }
+
+            .interactive-line {
+                gap: 15px;
+            }
+
+            .decorative-element {
+                font-size: 1.1em;
+                padding: 6px;
             }
         }
 
         @media (max-width: 480px) {
             .cover {
-                margin: 20px;
                 border-radius: 20px;
+                gap: 12px;
             }
 
             .open-btn {
-                padding: 14px 30px;
+                padding: 14px 32px;
                 font-size: 15px;
             }
+        }
 
-            .interactive-line {
-                gap: 10px;
+        /* Reduced motion accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+            
+            .cover {
+                animation: none;
+                opacity: 1;
+            }
+            
+            .particle {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="overlay"></div>
-    <div class="botanical-elements"></div>
+    <div class="particles" id="particles"></div>
 
     <div class="cover">
         <p class="pretitle">Wedding Invitation</p>
-        <h1>Zen & Yessica</h1>
-        <p class="date-location">17 January 2026 — Cibinong</p>
-        <p id="dearGuest" class="dear">Dear Mr./Mrs. <span id="guestName">(Guest Name)</span></p>
+        <h1>Zen<span class="names-separator">&</span>Yessica</h1>
+        <p class="date-location">17 January 2026<br>Cibinong</p>
+        <p id="dearGuest" class="dear">Dear <span id="guestName">Beloved Guest</span></p>
 
         <div class="interactive-line">
             <div class="decorative-line"></div>
-            <span class="decorative-element" data-fact="love">♡</span>
+            <span class="decorative-element" data-fact="love" title="Love">
+                ♡
+            </span>
             <div class="decorative-line"></div>
-            <span class="decorative-element" data-fact="nature">🌿</span>
+            <span class="decorative-element" data-fact="nature" title="Nature">
+                🌿
+            </span>
             <div class="decorative-line"></div>
-            <span class="decorative-element" data-fact="home">🏡</span>
+            <span class="decorative-element" data-fact="home" title="Home">
+                🏡
+            </span>
             <div class="decorative-line"></div>
         </div>
 
@@ -361,37 +467,58 @@
             Touch the symbols above to discover gentle thoughts about love
         </div>
 
-        <a href="home.html" class="open-btn">
-            <span>🤍</span>
+        <a href="home.html?opened=1" class="open-btn" onclick="setAutoplay()">
+            <span>💝</span>
             <span>Open Invitation</span>
         </a>
         <div class="hint">Tap to open the full invitation</div>
     </div>
 
     <script>
-        // Subtle fun facts
+        // Enhanced facts with more poetic content
         const subtleFacts = {
             love: [
                 "Love grows more beautiful with time, like a garden tended with care",
                 "The best love stories are written by two hearts beating in harmony",
-                "True love is not about finding the perfect person, but seeing an imperfect person perfectly"
+                "True love is not about finding the perfect person, but seeing an imperfect person perfectly",
+                "In the arithmetic of love, one plus one equals everything, and two minus one equals nothing",
+                "Love is composed of a single soul inhabiting two bodies"
             ],
             nature: [
                 "Like trees that grow stronger together, love flourishes when two souls are rooted in trust",
                 "Every flower blooms in its own time, just as every love story unfolds uniquely",
-                "Nature teaches us that the most beautiful things grow slowly and with patience"
+                "Nature teaches us that the most beautiful things grow slowly and with patience",
+                "As the forest thrives in harmony, so do hearts that beat as one",
+                "The most beautiful gardens are grown by two hands working together"
             ],
             home: [
                 "Home is not a place, but a feeling you create with the one you love",
                 "The sweetest moments happen when two hearts make a house into a home",
-                "A happy marriage is the union of two good forgivers building their nest together"
+                "A happy marriage is the union of two good forgivers building their nest together",
+                "Home is where love resides, memories are created, and laughter never ends",
+                "Together we will build a home filled with love, laughter, and beautiful memories"
             ]
         };
+
+        // Create floating warm particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
 
         // Get guest name from URL parameter
         function getGuestName() {
             const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name') || urlParams.get('to');
+            const name = urlParams.get('to') || urlParams.get('name');
             if (name) {
                 document.getElementById('guestName').textContent = decodeURIComponent(name);
             }
@@ -404,7 +531,7 @@
             return facts[randomIndex];
         }
 
-        // Show fact with subtle animation
+        // Show fact with elegant animation
         function showFact(fact) {
             const factElement = document.getElementById('factDisplay');
             factElement.classList.remove('show');
@@ -412,7 +539,12 @@
             setTimeout(() => {
                 factElement.textContent = fact;
                 factElement.classList.add('show');
-            }, 200);
+            }, 300);
+        }
+
+        // Set autoplay for music when opening invitation
+        function setAutoplay() {
+            sessionStorage.setItem('autoplay', '1');
         }
 
         // Initialize interactive elements
@@ -420,37 +552,53 @@
             const decorativeElements = document.querySelectorAll('.decorative-element');
             
             decorativeElements.forEach(element => {
-                element.addEventListener('click', function() {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
                     const category = this.dataset.fact;
                     const fact = getRandomFact(category);
                     showFact(fact);
                     
-                    // Subtle click feedback
-                    this.style.transform = 'scale(0.95)';
+                    // Enhanced click feedback
+                    this.style.transform = 'scale(0.9) translateY(-2px)';
                     setTimeout(() => {
                         this.style.transform = '';
-                    }, 150);
+                    }, 200);
                 });
             });
 
             // Show initial fact after a delay
             setTimeout(() => {
                 document.getElementById('factDisplay').classList.add('show');
-            }, 2000);
+            }, 3500);
+
+            // Create particles
+            createParticles();
         });
 
         // Initialize guest name
         getGuestName();
 
         // Add subtle mouse parallax for desktop
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            let mouseX = 0, mouseY = 0;
+            let currentX = 0, currentY = 0;
+
             document.addEventListener('mousemove', function(e) {
-                const x = (e.clientX / window.innerWidth - 0.5) * 1.5;
-                const y = (e.clientY / window.innerHeight - 0.5) * 1.5;
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 1;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 1;
+            });
+
+            function updateParallax() {
+                currentX += (mouseX - currentX) * 0.08;
+                currentY += (mouseY - currentY) * 0.08;
                 
                 document.body.style.backgroundPosition = 
-                    `${50 + x}% ${50 + y}%`;
-            });
+                    `${50 + currentX}% ${50 + currentY}%`;
+                
+                requestAnimationFrame(updateParallax);
+            }
+            
+            updateParallax();
         }
     </script>
 </body>
