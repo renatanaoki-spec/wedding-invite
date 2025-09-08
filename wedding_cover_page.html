@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Zen & Yessica — Wedding Invitation</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Botanical color palette to match BG3.jpeg */
+    --sage-green: #8BA888;
+    --deep-sage: #6B7B6E;
+    --forest-green: #5A6B5D;
+    --soft-ivory: #FAF8F3;
+    --warm-cream: #F5F2E8;
+    --dusty-rose: #E8D5D0;
+    --shadow-green: rgba(90, 107, 93, 0.3);
+    --text-shadow: rgba(45, 55, 48, 0.4);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    color: var(--soft-ivory);
+    background: url("image/BG3.jpeg") center/cover no-repeat fixed;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+
+  /* Enhanced overlay for botanical feel */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 120% 80% at 50% 45%, 
+        rgba(45, 55, 48, 0.65) 0%, 
+        rgba(90, 107, 93, 0.5) 35%, 
+        rgba(139, 168, 136, 0.3) 70%, 
+        rgba(245, 242, 232, 0.15) 100%),
+      linear-gradient(to bottom, 
+        rgba(45, 55, 48, 0.55) 0%, 
+        rgba(90, 107, 93, 0.25) 40%, 
+        rgba(139, 168, 136, 0.2) 70%, 
+        rgba(45, 55, 48, 0.45) 100%);
+  }
+
+  /* Floating botanical elements */
+  .botanical-elements {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.12;
+  }
+
+  .botanical-elements::before,
+  .botanical-elements::after {
+    content: '';
+    position: absolute;
+    background: var(--sage-green);
+    border-radius: 50%;
+  }
+
+  .botanical-elements::before {
+    width: 120px;
+    height: 120px;
+    top: 18%;
+    left: 12%;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .botanical-elements::after {
+    width: 80px;
+    height: 80px;
+    bottom: 25%;
+    right: 18%;
+    animation: float 9s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(8deg); }
+  }
+
+  .cover {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: clamp(30px, 6vw, 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-3vh);
+    gap: clamp(15px, 3vh, 25px);
+    animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+    
+    /* Enhanced glass morphism */
+    background: linear-gradient(135deg, 
+      rgba(139, 168, 136, 0.18) 0%, 
+      rgba(90, 107, 93, 0.12) 100%);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 28px;
+    box-shadow: 
+      0 25px 60px rgba(45, 55, 48, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .pretitle {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-size: clamp(11px, 2.2vw, 14px);
+    opacity: 0.88;
+    margin: 0;
+    color: var(--dusty-rose);
+    text-shadow: 0 2px 10px var(--text-shadow);
+  }
+
+  .cover h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    font-weight: 400;
+    line-height: 0.9;
+    margin: 0.1em 0 0.1em;
+    color: var(--soft-ivory);
+    text-shadow: 
+      0 10px 40px rgba(45, 55, 48, 0.7),
+      0 3px 12px rgba(139, 168, 136, 0.5),
+      0 0 25px rgba(255, 255, 255, 0.25);
+    filter: drop-shadow(0 5px 10px rgba(45, 55, 48, 0.4));
+  }
+
+  .date-location {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 3.2vw, 20px);
+    opacity: 0.9;
+    margin: 0.5rem 0;
+    color: var(--warm-cream);
+    text-shadow: 0 2px 12px var(--text-shadow);
+  }
+
+  .dear {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    margin: 0.8rem 0 1.2rem;
+    font-size: clamp(15px, 2.8vw, 18px);
+    opacity: 0.85;
+    color: var(--dusty-rose);
+    text-shadow: 0 2px 8px var(--text-shadow);
+  }
+
+  .open-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 36px;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, 
+      rgba(139, 168, 136, 0.92) 0%, 
+      rgba(90, 107, 93, 0.88) 100%);
+    color: var(--soft-ivory);
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 
+      0 18px 35px rgba(90, 107, 93, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .open-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.15) 0%, 
+      transparent 60%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .open-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 
+      0 22px 45px rgba(90, 107, 93, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .open-btn:hover::before {
+    opacity: 1;
+  }
+
+  .open-btn:active {
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  .hint {
+    margin-top: 12px;
+    font-size: 13px;
+    opacity: 0.7;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--dusty-rose);
+    text-shadow: 0 1px 6px var(--text-shadow);
+  }
+
+  /* Staggered animations */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px) scale(0.92);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(-3vh) scale(1);
+      filter: blur(0px);
+    }
+  }
+
+  .cover * {
+    animation-fill-mode: both;
+  }
+
+  .pretitle { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.1s both; }
+  .cover h1 { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.25s both; }
+  .date-location { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both; }
+  .dear { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.55s both; }
+  .open-btn { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.7s both; }
+  .hint { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.85s both; }
+
+  /* Responsive design */
+  @media (max-height: 750px) {
+    .cover {
+      transform: translateY(-2vh);
+      gap: 12px;
+      padding: clamp(20px, 4vw, 40px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cover {
+      margin: 20px;
+      border-radius: 20px;
+    }
+
+    .open-btn {
+      padding: 14px 30px;
+      font-size: 15px;
+    }
+  }
+
+  /* Loading state */
+  .open-btn.loading {
+    pointer-events: none;
+    background: linear-gradient(135deg, 
+      rgba(139, 168, 136, 0.6) 0%, 
+      rgba(90, 107, 93, 0.6) 100%);
+  }
+
+  .open-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+<div class="overlay"></div>
+<div class="botanical-elements"></div>
+
+<div class="cover">
+  <p class="pretitle">Wedding Invitation</p>
+  <h1>Zen & Yessica</h1>
+  <p class="date-location">17 January 2026 — Cibinong</p>
+  <p id="dearGuest" class="dear" style="display: none;">Dear Guest</p>
+
+  <button id="openBtn" class="open-btn">
+    <span>🤍</span>
+    <span id="btnText">Open Invitation</span>
+  </button>
+  <div class="hint">Tap to open the full invitation</div>
+</div>
+
+<script>
+  // Display personalized greeting
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    const guestName = params.get('to');
+    const dearElement = document.getElementById('dearGuest');
+    
+    if (guestName && guestName.trim()) { 
+      dearElement.textContent = `Dear ${decodeURIComponent(guestName.trim())}`; 
+      dearElement.style.display = 'block';
+    }
+  })();
+
+  // Enhanced open button with loading state
+  document.getElementById('openBtn').addEventListener('click', function() {
+    const button = this;
+    const btnText = document.getElementById('btnText');
+    
+    // Add loading state
+    button.classList.add('loading');
+    button.style.transform = 'scale(0.96)';
+    btnText.textContent = 'Opening...';
+    
+    // Prepare URL parameters
+    const params = new URLSearchParams(window.location.search);
+    params.set('opened', '1');
+    
+    // Store session data for smooth transition
+    try {
+      sessionStorage.setItem('opened', '1');
+      sessionStorage.setItem('autoplay', '1');
+      sessionStorage.setItem('coverOpenedAt', Date.now().toString());
+      if (params.get('to')) {
+        sessionStorage.setItem('guestName', params.get('to'));
+      }
+    } catch(e) {
+      console.warn('Session storage not available:', e);
+    }
+    
+    // Smooth transition to main invitation
+    setTimeout(() => {
+      window.location.href = "index.html?" + params.toString();
+    }, 400);
+  });
+
+  // Add subtle mouse parallax for desktop
+  if (window.innerWidth > 768) {
+    document.addEventListener('mousemove', function(e) {
+      const x = (e.clientX / window.innerWidth - 0.5) * 1.5;
+      const y = (e.clientY / window.innerHeight - 0.5) * 1.5;
+      
+      document.body.style.backgroundPosition = 
+        `${50 + x}% ${50 + y}%`;
+    });
+  }
+
+  // Preload main page resources for faster loading
+  const preloadLink = document.createElement('link');
+  preloadLink.rel = 'prefetch';
+  preloadLink.href = 'index.html';
+  document.head.appendChild(preloadLink);
+
+  // Prevent back button from showing this page after opening
+  window.history.pushState(null, null, window.location.href);
+  window.addEventListener('popstate', function(event) {
+    const params = new URLSearchParams(window.location.search);
+    if (sessionStorage.getItem('opened') === '1') {
+      params.set('opened', '1');
+      window.location.href = 'index.html?' + params.toString();
+    }
+  });
+</script>
+</body>
+</html>
