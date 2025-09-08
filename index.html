@@ -829,4 +829,97 @@
       if (!notes.length) {
         container.innerHTML = `
           <div style="text-align: center; padding: 40px;">
-            <p style="color: var(--
+            <p style="color: var(--deep-sage); font-style: italic;">Be the first to share your wishes! 🌸</p>
+          </div>
+        `;
+        document.getElementById("prevBtn").disabled = true;
+        document.getElementById("nextBtn").disabled = true;
+        return;
+      }
+      
+      const start = (currentPage - 1) * notesPerPage;
+      const end = start + notesPerPage;
+      const pageNotes = notes.slice(start, end);
+      
+      pageNotes.forEach(note => {
+        let attendanceIcon = "";
+        if (note.attendance === "Yes") attendanceIcon = "💖";
+        if (note.attendance === "No") attendanceIcon = "🌸";
+        
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'note';
+        noteDiv.innerHTML = `
+          <strong>${note.name}</strong> ${attendanceIcon}
+          <em>${note.notes || 'Sent love and prayers 💕'}</em>
+          <small>${timeAgo(note.timestamp)}</small>
+        `;
+        container.appendChild(noteDiv);
+      });
+      
+      // Update pagination buttons
+      document.getElementById("prevBtn").disabled = currentPage === 1;
+      document.getElementById("nextBtn").disabled = end >= notes.length;
+    }
+
+    // Pagination event listeners
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderNotes();
+        document.getElementById("notesContainer").scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if ((currentPage * notesPerPage) < notes.length) {
+        currentPage++;
+        renderNotes();
+        document.getElementById("notesContainer").scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // Load notes when page loads
+    loadNotes();
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add floating animation to time boxes
+    const timeBoxes = document.querySelectorAll('.time-box');
+    timeBoxes.forEach((box, index) => {
+      box.style.animationDelay = `${index * 0.1}s`;
+      box.style.animation = `float 3s ease-in-out infinite`;
+    });
+
+    // CSS for floating animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Handle URL parameters for guest personalization
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+    if (guestName) {
+      // You could add personalized greeting here if needed
+      console.log('Welcome, ' + decodeURIComponent(guestName));
+    }
+
+    // Prevent going back to cover page after invitation is opened
+    if (urlParams.get('opened') === '1') {
+      window.history.replaceState(null, null, window.location.pathname + window.location.search);
+    }
+  </script>
+</body>
+</html>
