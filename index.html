@@ -1,925 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation - Zen & Yessica</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      /* Botanical color palette to match BG3.jpeg */
-      --sage-green: #8BA888;
-      --deep-sage: #6B7B6E;
-      --forest-green: #5A6B5D;
-      --soft-ivory: #FAF8F3;
-      --warm-cream: #F5F2E8;
-      --dusty-rose: #E8D5D0;
-      --shadow-green: rgba(90, 107, 93, 0.3);
-      --text-shadow: rgba(45, 55, 48, 0.4);
-      --light-botanical: rgba(139, 168, 136, 0.1);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Zen & Yessica</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sage-green: #8BA888;
+            --deep-sage: #6B7B6E;
+            --forest-green: #5A6B5D;
+            --soft-ivory: #FAF8F3;
+            --warm-cream: #F5F2E8;
+            --dusty-rose: #E8D5D0;
+            --shadow-green: rgba(90, 107, 93, 0.3);
+            --text-shadow: rgba(45, 55, 48, 0.4);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body, html {
-      font-family: 'Poppins', sans-serif;
-      background: var(--soft-ivory);
-      color: var(--forest-green);
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    /* Background overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url("image/BG3.jpeg") center/cover no-repeat fixed;
-      z-index: -2;
-    }
+        body {
+            min-height: 100dvh;
+            display: grid;
+            place-items: center;
+            color: var(--soft-ivory);
+            background: url("BG1.png") center/cover no-repeat fixed;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
 
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        to bottom,
-        rgba(250, 248, 243, 0.85) 0%,
-        rgba(245, 242, 232, 0.75) 50%,
-        rgba(250, 248, 243, 0.85) 100%
-      );
-      z-index: -1;
-    }
+        /* Enhanced overlay for botanical feel */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    h1, h2 {
-      font-family: 'Great Vibes', cursive;
-      color: var(--deep-sage);
-    }
+        .overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 120% 80% at 50% 45%, 
+                    rgba(45, 55, 48, 0.65) 0%, 
+                    rgba(90, 107, 93, 0.5) 35%, 
+                    rgba(139, 168, 136, 0.3) 70%, 
+                    rgba(245, 242, 232, 0.15) 100%),
+                linear-gradient(to bottom, 
+                    rgba(45, 55, 48, 0.55) 0%, 
+                    rgba(90, 107, 93, 0.25) 40%, 
+                    rgba(139, 168, 136, 0.2) 70%, 
+                    rgba(45, 55, 48, 0.45) 100%);
+        }
 
-    /* Music Control Button */
-    #music-control {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: linear-gradient(135deg, var(--sage-green), var(--deep-sage));
-      color: var(--soft-ivory);
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 1.4rem;
-      cursor: pointer;
-      box-shadow: 0 8px 25px var(--shadow-green);
-      transition: all 0.3s ease;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-    }
+        /* Floating botanical elements */
+        .botanical-elements {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.12;
+        }
 
-    #music-control:hover {
-      transform: scale(1.1) translateY(-2px);
-      box-shadow: 0 12px 35px var(--shadow-green);
-    }
+        .botanical-elements::before,
+        .botanical-elements::after {
+            content: '';
+            position: absolute;
+            background: var(--sage-green);
+            border-radius: 50%;
+        }
 
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px 20px;
-      position: relative;
-      background: linear-gradient(
-        135deg,
-        rgba(139, 168, 136, 0.1) 0%,
-        rgba(245, 242, 232, 0.2) 50%,
-        rgba(232, 213, 208, 0.15) 100%
-      );
-    }
+        .botanical-elements::before {
+            width: 120px;
+            height: 120px;
+            top: 18%;
+            left: 12%;
+            animation: float 7s ease-in-out infinite;
+        }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 255, 255, 0.1) 0%,
-        transparent 70%
-      );
-      pointer-events: none;
-    }
+        .botanical-elements::after {
+            width: 80px;
+            height: 80px;
+            bottom: 25%;
+            right: 18%;
+            animation: float 9s ease-in-out infinite reverse;
+        }
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      backdrop-filter: blur(5px);
-      background: rgba(255, 255, 255, 0.1);
-      padding: 60px 40px;
-      border-radius: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 20px 60px rgba(90, 107, 93, 0.15);
-    }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(8deg); }
+        }
 
-    .hero h1 {
-      font-size: clamp(3.5rem, 10vw, 6rem);
-      margin-bottom: 20px;
-      text-shadow: 0 4px 20px var(--text-shadow);
-      line-height: 1.1;
-    }
+        .cover {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: clamp(30px, 6vw, 60px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateY(-3vh);
+            gap: clamp(15px, 3vh, 25px);
+            animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+            
+            /* Enhanced glass morphism */
+            background: linear-gradient(135deg, 
+                rgba(139, 168, 136, 0.18) 0%, 
+                rgba(90, 107, 93, 0.12) 100%);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 28px;
+            box-shadow: 
+                0 25px 60px rgba(45, 55, 48, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
 
-    .hero .quote {
-      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-      line-height: 1.8;
-      margin: 30px 0 40px;
-      font-style: italic;
-      color: var(--deep-sage);
-      opacity: 0.9;
-    }
+        .pretitle {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            font-size: clamp(11px, 2.2vw, 14px);
+            opacity: 0.88;
+            margin: 0;
+            color: var(--dusty-rose);
+            text-shadow: 0 2px 10px var(--text-shadow);
+        }
 
-    /* Countdown */
-    #countdown {
-      display: flex;
-      gap: clamp(15px, 4vw, 30px);
-      justify-content: center;
-      margin: 40px 0;
-      flex-wrap: wrap;
-    }
+        .cover h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 12vw, 8rem);
+            font-weight: 400;
+            line-height: 0.9;
+            margin: 0.1em 0 0.1em;
+            color: var(--soft-ivory);
+            text-shadow: 
+                0 10px 40px rgba(45, 55, 48, 0.7),
+                0 3px 12px rgba(139, 168, 136, 0.5),
+                0 0 25px rgba(255, 255, 255, 0.25);
+            filter: drop-shadow(0 5px 10px rgba(45, 55, 48, 0.4));
+        }
 
-    .time-box {
-      background: rgba(139, 168, 136, 0.2);
-      border: 1px solid rgba(139, 168, 136, 0.3);
-      border-radius: 15px;
-      padding: 20px 15px;
-      min-width: 80px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 25px rgba(90, 107, 93, 0.1);
-    }
+        .date-location {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(16px, 3.2vw, 20px);
+            opacity: 0.9;
+            margin: 0.5rem 0;
+            color: var(--warm-cream);
+            text-shadow: 0 2px 12px var(--text-shadow);
+        }
 
-    .time-box span {
-      display: block;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 600;
-      color: var(--deep-sage);
-      margin-bottom: 8px;
-    }
+        .dear {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-style: italic;
+            margin: 0.8rem 0 1.2rem;
+            font-size: clamp(15px, 2.8vw, 18px);
+            opacity: 0.85;
+            color: var(--dusty-rose);
+            text-shadow: 0 2px 8px var(--text-shadow);
+        }
 
-    .time-box small {
-      font-size: 0.9rem;
-      color: var(--forest-green);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+        /* Subtle interactive elements */
+        .interactive-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            opacity: 0.6;
+        }
 
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      padding: 16px 40px;
-      background: linear-gradient(135deg, var(--sage-green), var(--deep-sage));
-      color: var(--soft-ivory);
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 25px var(--shadow-green);
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.5px;
-    }
+        .decorative-element {
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dusty-rose);
+            position: relative;
+        }
 
-    .btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 15px 40px var(--shadow-green);
-      border-color: rgba(255, 255, 255, 0.4);
-    }
+        .decorative-element:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            color: var(--soft-ivory);
+        }
 
-    /* Sections */
-    section {
-      padding: 80px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-    }
+        .decorative-line {
+            width: 30px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--dusty-rose), transparent);
+            opacity: 0.5;
+        }
 
-    section:nth-child(even) {
-      background: var(--light-botanical);
-      border-radius: 50px;
-      margin: 40px 20px;
-      backdrop-filter: blur(5px);
-    }
+        /* Subtle fact display */
+        .fact-display {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(13px, 2.5vw, 15px);
+            opacity: 0.7;
+            margin: 15px 0;
+            min-height: 20px;
+            transition: all 0.4s ease;
+            color: var(--warm-cream);
+            text-shadow: 0 1px 6px var(--text-shadow);
+        }
 
-    section h2 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      text-align: center;
-      margin-bottom: 30px;
-      text-shadow: 0 2px 10px var(--text-shadow);
-    }
+        .fact-display.show {
+            opacity: 0.85;
+        }
 
-    .date {
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
-      text-align: center;
-      margin: 20px 0;
-      font-weight: 500;
-      color: var(--deep-sage);
-    }
+        .open-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, 
+                rgba(139, 168, 136, 0.92) 0%, 
+                rgba(90, 107, 93, 0.88) 100%);
+            color: var(--soft-ivory);
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 
+                0 18px 35px rgba(90, 107, 93, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .venue {
-      text-align: center;
-      margin: 15px 0;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: var(--forest-green);
-      opacity: 0.9;
-    }
+        .open-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                transparent 60%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
 
-    .verse {
-      font-style: italic;
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.8;
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      text-align: center;
-      color: var(--deep-sage);
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 25px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
+        .open-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 
+                0 22px 45px rgba(90, 107, 93, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
 
-    /* RSVP Form */
-    .rsvp-section {
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 30px;
-      padding: 60px 40px;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 20px 60px rgba(90, 107, 93, 0.1);
-    }
+        .open-btn:hover::before {
+            opacity: 1;
+        }
 
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+        .hint {
+            margin-top: 12px;
+            font-size: 13px;
+            opacity: 0.7;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--dusty-gold);
+            text-shadow: 0 1px 6px var(--text-shadow);
+        }
 
-    form input, form textarea, form select {
-      padding: 16px 20px;
-      border: 2px solid rgba(139, 168, 136, 0.3);
-      border-radius: 15px;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-      background: rgba(255, 255, 255, 0.8);
-      color: var(--forest-green);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
+        /* Staggered animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.92);
+                filter: blur(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-3vh) scale(1);
+                filter: blur(0px);
+            }
+        }
 
-    form input:focus, form textarea:focus, form select:focus {
-      outline: none;
-      border-color: var(--sage-green);
-      box-shadow: 0 0 20px rgba(139, 168, 136, 0.3);
-      transform: translateY(-2px);
-    }
+        .cover * {
+            animation-fill-mode: both;
+        }
 
-    form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
+        .pretitle { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.1s both; }
+        .cover h1 { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.25s both; }
+        .date-location { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both; }
+        .dear { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.55s both; }
+        .interactive-line { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.65s both; }
+        .fact-display { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.7s both; }
+        .open-btn { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.8s both; }
+        .hint { animation: fadeUp 1.4s cubic-bezier(0.23, 1, 0.32, 1) 0.9s both; }
 
-    form button {
-      background: linear-gradient(135deg, var(--sage-green), var(--deep-sage));
-      color: var(--soft-ivory);
-      padding: 18px 30px;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 25px var(--shadow-green);
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.5px;
-    }
+        /* Responsive design */
+        @media (max-height: 750px) {
+            .cover {
+                transform: translateY(-2vh);
+                gap: 12px;
+                padding: clamp(20px, 4vw, 40px);
+            }
+        }
 
-    form button:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 40px var(--shadow-green);
-    }
+        @media (max-width: 480px) {
+            .cover {
+                margin: 20px;
+                border-radius: 20px;
+            }
 
-    #responseMsg {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
+            .open-btn {
+                padding: 14px 30px;
+                font-size: 15px;
+            }
 
-    .attendance-wrapper {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .attendance-label {
-      font-size: 1rem;
-      color: var(--deep-sage);
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .error-msg {
-      color: #c66;
-      font-size: 0.9rem;
-      display: none;
-      margin-top: 8px;
-      font-style: italic;
-    }
-
-    /* Notes Section */
-    #notesContainer {
-      margin-top: 40px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .note {
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(139, 168, 136, 0.2);
-      border-radius: 20px;
-      margin-bottom: 15px;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-
-    .note:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(90, 107, 93, 0.15);
-    }
-
-    .note strong {
-      color: var(--deep-sage);
-      font-size: 1.1rem;
-    }
-
-    .note em {
-      color: var(--forest-green);
-      line-height: 1.6;
-      margin: 10px 0;
-      display: block;
-    }
-
-    .note small {
-      color: var(--sage-green);
-      font-size: 0.9rem;
-    }
-
-    .pagination {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .pagination button {
-      padding: 12px 25px;
-      border: none;
-      border-radius: 25px;
-      background: linear-gradient(135deg, var(--sage-green), var(--deep-sage));
-      color: var(--soft-ivory);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-    }
-
-    .pagination button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px var(--shadow-green);
-    }
-
-    .pagination button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    /* Footer */
-    footer {
-      background: linear-gradient(135deg, var(--deep-sage), var(--forest-green));
-      color: var(--soft-ivory);
-      padding: 50px 20px;
-      text-align: center;
-      margin-top: 60px;
-      font-size: 1.2rem;
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* Loading Animation */
-    .loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--soft-ivory);
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .hero-content {
-        padding: 40px 20px;
-        margin: 20px;
-      }
-
-      #countdown {
-        gap: 10px;
-      }
-
-      .time-box {
-        padding: 15px 10px;
-        min-width: 70px;
-      }
-
-      section {
-        padding: 60px 15px;
-      }
-
-      .rsvp-section {
-        margin: 20px 10px;
-        padding: 40px 20px;
-      }
-    }
-
-    /* Fade in animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Stagger animation delays */
-    .hero-content { animation-delay: 0.2s; }
-    section:nth-child(2) { animation-delay: 0.4s; }
-    section:nth-child(3) { animation-delay: 0.6s; }
-    section:nth-child(4) { animation-delay: 0.8s; }
-  </style>
+            .interactive-line {
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="overlay"></div>
+    <div class="botanical-elements"></div>
 
-  <!-- Background Music -->
-  <audio id="bg-music" loop>
-    <source src="music/Music-1.mp3" type="audio/mpeg">
-  </audio>
-  <button id="music-control">⏸️</button>
+    <div class="cover">
+        <p class="pretitle">Wedding Invitation</p>
+        <h1>Zen & Yessica</h1>
+        <p class="date-location">17 January 2026 — Cibinong</p>
+        <p id="dearGuest" class="dear">Dear Mr./Mrs. <span id="guestName">(Guest Name)</span></p>
 
-  <!-- Hero Section -->
-  <section class="hero fade-in">
-    <div class="hero-content">
-      <h1>Zen & Yessica</h1>
-      <p class="quote">
-        "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
-        It is only fitting that every effort to attain His love is pursued with joy."
-      </p>
-      <div id="countdown">
-        <div class="time-box">
-          <span id="days">00</span>
-          <small>Days</small>
+        <div class="interactive-line">
+            <div class="decorative-line"></div>
+            <span class="decorative-element" data-fact="love">♡</span>
+            <div class="decorative-line"></div>
+            <span class="decorative-element" data-fact="nature">🌿</span>
+            <div class="decorative-line"></div>
+            <span class="decorative-element" data-fact="home">🏡</span>
+            <div class="decorative-line"></div>
         </div>
-        <div class="time-box">
-          <span id="hours">00</span>
-          <small>Hours</small>
+
+        <div class="fact-display" id="factDisplay">
+            Touch the symbols above to discover gentle thoughts about love
         </div>
-        <div class="time-box">
-          <span id="minutes">00</span>
-          <small>Minutes</small>
-        </div>
-        <div class="time-box">
-          <span id="seconds">00</span>
-          <small>Seconds</small>
-        </div>
-      </div>
-      <a class="btn" 
-         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
-         target="_blank">
-        🌿 Save The Date 🌿
-      </a>
+
+        <a href="home.html" class="open-btn">
+            <span>🤍</span>
+            <span>Open Invitation</span>
+        </a>
+        <div class="hint">Tap to open the full invitation</div>
     </div>
-  </section>
 
-  <!-- Wedding Details -->
-  <section class="fade-in">
-    <h2>Our Wedding Day</h2>
-    <p class="date">Saturday, 17 January 2026</p>
-    <p class="venue">🕊️ Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
-    <p class="venue">🌸 Reception: Bagas Raya Cibinong</p>
-  </section>
+    <script>
+        // Subtle fun facts
+        const subtleFacts = {
+            love: [
+                "Love grows more beautiful with time, like a garden tended with care",
+                "The best love stories are written by two hearts beating in harmony",
+                "True love is not about finding the perfect person, but seeing an imperfect person perfectly"
+            ],
+            nature: [
+                "Like trees that grow stronger together, love flourishes when two souls are rooted in trust",
+                "Every flower blooms in its own time, just as every love story unfolds uniquely",
+                "Nature teaches us that the most beautiful things grow slowly and with patience"
+            ],
+            home: [
+                "Home is not a place, but a feeling you create with the one you love",
+                "The sweetest moments happen when two hearts make a house into a home",
+                "A happy marriage is the union of two good forgivers building their nest together"
+            ]
+        };
 
-  <!-- Bible Verse -->
-  <section class="fade-in">
-    <h2>Sacred Words</h2>
-    <p class="verse">
-      "So they are no longer two, but one flesh. What therefore God has joined together, let no man separate."
-      <br><br>— Matthew 19:6
-    </p>
-  </section>
+        // Get guest name from URL parameter
+        function getGuestName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name') || urlParams.get('to');
+            if (name) {
+                document.getElementById('guestName').textContent = decodeURIComponent(name);
+            }
+        }
 
-  <!-- RSVP Section -->
-  <section class="fade-in">
-    <div class="rsvp-section">
-      <h2>RSVP & Wishes</h2>
-      <form id="rsvpForm">
-        <input type="hidden" name="token" value="ZENYESSICA2026">
-        <input type="hidden" id="referer" name="referer">
+        // Get random fact from category
+        function getRandomFact(category) {
+            const facts = subtleFacts[category] || subtleFacts.love;
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            return facts[randomIndex];
+        }
 
-        <!-- Name -->
-        <input name="Name" id="nameInput" type="text" placeholder="Your beautiful name 💌" required>
-        <small id="nameError" class="error-msg">Please share your name with us 🌷</small>
+        // Show fact with subtle animation
+        function showFact(fact) {
+            const factElement = document.getElementById('factDisplay');
+            factElement.classList.remove('show');
+            
+            setTimeout(() => {
+                factElement.textContent = fact;
+                factElement.classList.add('show');
+            }, 200);
+        }
 
-        <!-- Notes -->
-        <textarea name="Notes" placeholder="Share your wishes, prayers, and blessings for our journey together 🕊️"></textarea>
+        // Initialize interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const decorativeElements = document.querySelectorAll('.decorative-element');
+            
+            decorativeElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    const category = this.dataset.fact;
+                    const fact = getRandomFact(category);
+                    showFact(fact);
+                    
+                    // Subtle click feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
 
-        <!-- Attendance -->
-        <div class="attendance-wrapper">
-          <p class="attendance-label">Will you join our celebration?</p>
-          <select name="Attendance" id="attendanceInput" required>
-            <option value="">-- Please let us know --</option>
-            <option value="Yes">💖 Yes, I'll be there with joy!</option>
-            <option value="No">🌸 Sorry, can't attend but sending love</option>
-          </select>
-          <small id="attendanceError" class="error-msg">Please let us know about your attendance 💐</small>
-        </div>
-
-        <button type="submit">Send Our Love 💕</button>
-      </form>
-      <p id="responseMsg"></p>
-
-      <h2 style="margin-top: 60px;">Messages from Our Loved Ones 💌</h2>
-      <div id="notesContainer">
-        <div class="loading"></div>
-        <p style="text-align: center; margin-left: 30px;">Loading beautiful messages...</p>
-      </div>
-      <div class="pagination">
-        <button id="prevBtn">Previous</button>
-        <button id="nextBtn">Next</button>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>With endless love and gratitude 🌿 Zen & Yessica 💕</p>
-  </footer>
-
-  <script>
-    // Google Apps Script URL
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
-    document.getElementById("referer").value = window.location.hostname;
-
-    // Initialize page
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if coming from cover page
-      const urlParams = new URLSearchParams(window.location.search);
-      const opened = urlParams.get("opened");
-      
-      // Auto-play music if opened from cover
-      if (opened === "1" || sessionStorage.getItem('opened') === '1') {
-        const music = document.getElementById("bg-music");
-        const controlBtn = document.getElementById("music-control");
-        
-        // Attempt autoplay
-        music.play().then(() => {
-          controlBtn.textContent = "⏸️";
-        }).catch(err => {
-          console.log("Autoplay blocked:", err);
-          controlBtn.textContent = "▶️";
+            // Show initial fact after a delay
+            setTimeout(() => {
+                document.getElementById('factDisplay').classList.add('show');
+            }, 2000);
         });
-        
-        // Clean up session storage
-        try {
-          sessionStorage.removeItem('opened');
-          sessionStorage.removeItem('autoplay');
-        } catch(e) {}
-      }
 
-      // Add fade-in animations
-      const fadeElements = document.querySelectorAll('.fade-in');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = 'running';
-          }
-        });
-      });
-      
-      fadeElements.forEach(el => {
-        observer.observe(el);
-      });
-    });
+        // Initialize guest name
+        getGuestName();
 
-    // Music Controls
-    const music = document.getElementById("bg-music");
-    const controlBtn = document.getElementById("music-control");
-
-    controlBtn.addEventListener("click", () => {
-      if (music.paused) {
-        music.play().then(() => {
-          controlBtn.textContent = "⏸️";
-        }).catch(err => {
-          console.log("Play failed:", err);
-        });
-      } else {
-        music.pause();
-        controlBtn.textContent = "▶️";
-      }
-    });
-
-    // Pause music when page is hidden
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        music.pause();
-        controlBtn.textContent = "▶️";
-      }
-    });
-
-    // Pause music before page unload
-    window.addEventListener("beforeunload", () => {
-      music.pause();
-    });
-
-    // Countdown Timer
-    function updateCountdown() {
-      const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
-      
-      if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = `
-          <div style="text-align: center; font-size: 2rem; color: var(--deep-sage);">
-            🎉 Today is our wedding day! 🎉
-          </div>
-        `;
-        return;
-      }
-      
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      document.getElementById("days").textContent = String(days).padStart(2, '0');
-      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
-      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
-      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
-    }
-
-    // Update countdown every second
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // RSVP Form Handling
-    const form = document.getElementById("rsvpForm");
-    const nameInput = document.getElementById("nameInput");
-    const nameError = document.getElementById("nameError");
-    const attendanceInput = document.getElementById("attendanceInput");
-    const attendanceError = document.getElementById("attendanceError");
-    const msg = document.getElementById("responseMsg");
-
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      
-      let valid = true;
-
-      // Validate name
-      if (!nameInput.value.trim()) {
-        nameError.style.display = "block";
-        nameInput.style.borderColor = "#c66";
-        valid = false;
-      } else {
-        nameError.style.display = "none";
-        nameInput.style.borderColor = "rgba(139, 168, 136, 0.3)";
-      }
-
-      // Validate attendance
-      if (!attendanceInput.value) {
-        attendanceError.style.display = "block";
-        attendanceInput.style.borderColor = "#c66";
-        valid = false;
-      } else {
-        attendanceError.style.display = "none";
-        attendanceInput.style.borderColor = "rgba(139, 168, 136, 0.3)";
-      }
-
-      if (!valid) {
-        msg.innerHTML = "⚠️ Please fill in all required fields 🌸";
-        msg.style.color = "#c66";
-        return;
-      }
-
-      // Show loading state
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.innerHTML = '<span class="loading"></span> Sending...';
-      submitBtn.disabled = true;
-
-      msg.innerHTML = "⏳ Sending your beautiful message...";
-      msg.style.color = "#8BA888";
-
-      // Submit form
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === "success") {
-            msg.innerHTML = "✅ Your RSVP has been sent! Thank you so much 💕";
-            msg.style.color = "#6B7B6E";
-            form.reset();
-            setTimeout(() => loadNotes(), 1000);
-          } else {
-            throw new Error("Submission failed");
-          }
-        })
-        .catch(err => {
-          console.error('Error:', err);
-          msg.innerHTML = "❌ Something went wrong. Please try again.";
-          msg.style.color = "#c66";
-        })
-        .finally(() => {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
-        });
-    });
-
-    // Helper function for relative time
-    function timeAgo(dateString) {
-      const now = new Date();
-      const date = new Date(dateString);
-      const diff = (now - date) / 1000;
-      
-      if (diff < 60) return "just now";
-      const minutes = Math.floor(diff / 60);
-      if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-      const days = Math.floor(hours / 24);
-      if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
-      const weeks = Math.floor(days / 7);
-      if (weeks < 4) return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-      const months = Math.floor(days / 30);
-      return `${months} month${months > 1 ? 's' : ''} ago`;
-    }
-
-    // Notes Management
-    let notes = [];
-    let currentPage = 1;
-    const notesPerPage = 5;
-
-    async function loadNotes() {
-      const container = document.getElementById("notesContainer");
-      container.innerHTML = '<div class="loading"></div><p style="text-align: center; margin-left: 30px;">Loading messages...</p>';
-      
-      try {
-        const res = await fetch(scriptURL);
-        notes = await res.json();
-        notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        renderNotes();
-      } catch (err) {
-        console.error('Error loading notes:', err);
-        container.innerHTML = "<p style='text-align: center; color: #c66;'>❌ Unable to load messages. Please refresh the page.</p>";
-      }
-    }
-
-    function renderNotes() {
-      const container = document.getElementById("notesContainer");
-      container.innerHTML = "";
-      
-      if (!notes.length) {
-        container.innerHTML = `
-          <div style="text-align: center; padding: 40px;">
-            <p style="color: var(--deep-sage); font-style: italic;">Be the first to share your wishes! 🌸</p>
-          </div>
-        `;
-        document.getElementById("prevBtn").disabled = true;
-        document.getElementById("nextBtn").disabled = true;
-        return;
-      }
-      
-      const start = (currentPage - 1) * notesPerPage;
-      const end = start + notesPerPage;
-      const pageNotes = notes.slice(start, end);
-      
-      pageNotes.forEach(note => {
-        let attendanceIcon = "";
-        if (note.attendance === "Yes") attendanceIcon = "💖";
-        if (note.attendance === "No") attendanceIcon = "🌸";
-        
-        const noteDiv = document.createElement('div');
-        noteDiv.className = 'note';
-        noteDiv.innerHTML = `
-          <strong>${note.name}</strong> ${attendanceIcon}
-          <em>${note.notes || 'Sent love and prayers 💕'}</em>
-          <small>${timeAgo(note.timestamp)}</small>
-        `;
-        container.appendChild(noteDiv);
-      });
-      
-      // Update pagination buttons
-      document.getElementById("prevBtn").disabled = currentPage === 1;
-      document.getElementById("nextBtn").disabled = end >= notes.length;
-    }
-
-    // Pagination event listeners
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderNotes();
-        document.getElementById("notesContainer").scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      if ((currentPage * notesPerPage) < notes.length) {
-        currentPage++;
-        renderNotes();
-        document.getElementById("notesContainer").scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-
-    // Load notes when page loads
-    loadNotes();
-
-    // Smooth scroll for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    // Add floating animation to time boxes
-    const timeBoxes = document.querySelectorAll('.time-box');
-    timeBoxes.forEach((box, index) => {
-      box.style.animationDelay = `${index * 0.1}s`;
-      box.style.animation = `float 3s ease-in-out infinite`;
-    });
-
-    // CSS for floating animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Handle URL parameters for guest personalization
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestName = urlParams.get('to');
-    if (guestName) {
-      // You could add personalized greeting here if needed
-      console.log('Welcome, ' + decodeURIComponent(guestName));
-    }
-
-    // Prevent going back to cover page after invitation is opened
-    if (urlParams.get('opened') === '1') {
-      window.history.replaceState(null, null, window.location.pathname + window.location.search);
-    }
-  </script>
+        // Add subtle mouse parallax for desktop
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', function(e) {
+                const x = (e.clientX / window.innerWidth - 0.5) * 1.5;
+                const y = (e.clientY / window.innerHeight - 0.5) * 1.5;
+                
+                document.body.style.backgroundPosition = 
+                    `${50 + x}% ${50 + y}%`;
+            });
+        }
+    </script>
 </body>
 </html>
