@@ -546,11 +546,11 @@
             </span>
             <div class="decorative-line"></div>
             <span class="decorative-element circle-shape" data-fact="nature" title="Nature">
-                ●
+                ✿
             </span>
             <div class="decorative-line"></div>
             <span class="decorative-element triangle-shape" data-fact="home" title="Home">
-                ▲
+                ⌂ 
             </span>
             <div class="decorative-line"></div>
         </div>
@@ -638,7 +638,7 @@
             sessionStorage.setItem('autoplay', '1');
         }
 
-        // Initialize interactive elements
+        // Initialize interactive elements with shine effect
         document.addEventListener('DOMContentLoaded', function() {
             const decorativeElements = document.querySelectorAll('.decorative-element');
             
@@ -648,6 +648,14 @@
                     const category = this.dataset.fact;
                     const fact = getRandomFact(category);
                     showFact(fact);
+                    
+                    // Add shine effect
+                    this.classList.add('shine');
+                    
+                    // Remove shine effect after animation
+                    setTimeout(() => {
+                        this.classList.remove('shine');
+                    }, 600);
                     
                     // Enhanced click feedback
                     this.style.transform = 'scale(0.9) translateY(-2px)';
