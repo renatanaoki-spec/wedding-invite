@@ -543,6 +543,26 @@
       }
     });
 
+    // Autoplay if coming from cover page
+    function tryAutoplay() {
+      audio.volume = 0.3; // Set comfortable volume
+      audio.play()
+        .then(() => setPlayUI(true))
+        .catch(() => setPlayUI(false));
+    }
+
+    // Check for autoplay flag from cover page
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        if (sessionStorage.getItem("autoplay") === "1") {
+          setTimeout(tryAutoplay, 500);
+          sessionStorage.removeItem("autoplay");
+        }
+      } catch (e) {
+        console.log("SessionStorage not available");
+      }
+    });
+
     // ===== COUNTDOWN =====
     const dEl = document.getElementById("d");
     const hEl = document.getElementById("h");
@@ -784,3 +804,185 @@
     const aiBody = document.getElementById("aiBody");
     const aiForm = document.getElementById("aiForm");
     const aiText = document.getElementById("aiText");
+    const guestName = new URLSearchParams(window.location.search).get("to");
+
+    let aiWelcomed = false;
+
+    function openAI() {
+      aiPanel.classList.add("open");
+      aiText.focus();
+      
+      if (!aiWelcomed) {
+        const welcomeMsg = guestName 
+          ? `Hello ${guestName}! I'm <b>Aira</b> 👋. I can help you with information about ${KNOWLEDGE.couple}'s wedding: time, location, RSVP, directions, and more!`
+          : `Hello! I'm <b>Aira</b> 👋. I can help you with information about ${KNOWLEDGE.couple}'s wedding: time, location, RSVP, directions, and more!`;
+        
+        botSay(welcomeMsg);
+        aiWelcomed = true;
+      }
+    }
+
+    function closeAI() {
+      aiPanel.classList.remove("open");
+    }
+
+    aiFab.addEventListener("click", () => {
+      aiPanel.classList.contains("open") ? closeAI() : openAI();
+    });
+
+    aiClose.addEventListener("click", closeAI);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAI();
+    });
+
+    function renderMessage(role, html) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "ai-msg " + (role === "user" ? "user" : "ai");
+      
+      const bubble = document.createElement("div");
+      bubble.className = "ai-bubble";
+      bubble.innerHTML = html;
+      
+      wrapper.appendChild(bubble);
+      aiBody.appendChild(wrapper);
+      aiBody.scrollTop = aiBody.scrollHeight;
+    }
+
+    function userSay(text) {
+      const safeText = text.replace(/[<>&"']/g, (char) => {
+        const entities = {'<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'};
+        return entities[char];
+      });
+      renderMessage("user", safeText);
+    }
+
+    function botSay(html) {
+      renderMessage("ai", html);
+    }
+
+    const formatDate = (date) => {
+      return date.toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric", 
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Asia/Jakarta"
+      });
+    };
+
+    const formatDateShort = (date) => {
+      return date.toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "long", 
+        year: "numeric",
+        timeZone: "Asia/Jakarta"
+      });
+    };
+
+    const daysUntilWedding = (date) => {
+      const now = Date.now();
+      const weddingTime = date.getTime();
+      const timeDiff = weddingTime - now;
+      
+      if (timeDiff <= 0) return "It's the wedding day!";
+      
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      
+      return `${days} days and ${hours} hours to go`;
+    };
+
+    function getAIResponse(text) {
+      const query = text.toLowerCase().trim();
+      
+      // Greetings
+      if (/\b(hi|hello|hey|halo|hai)\b/.test(query)) {
+        return guestName 
+          ? `Hello ${guestName}! How can Aira help you with the wedding?`
+          : `Hello! How can Aira help you with the wedding?`;
+      }
+      
+      // Couple information
+      if (/\b(who|couple|bride|groom|pengantin)\b/.test(query)) {
+        return `This wedding is for <b>${KNOWLEDGE.couple}</b> 🥂`;
+      }
+      
+      // Date and time
+      if (/\b(when|date|time|kapan|tanggal|jam|countdown)\b/.test(query)) {
+        return `The wedding ceremony starts on <b>${formatDate(KNOWLEDGE.date)}</b> (WIB). <b>${daysUntilWedding(KNOWLEDGE.date)}</b>!`;
+      }
+      
+      // Anniversary
+      if (/\b(anniversary|dating|relationship|jadian|anniv)\b/.test(query)) {
+        return `They've been together since <b>${formatDateShort(KNOWLEDGE.datingAnniversary)}</b> 💞`;
+      }
+      
+      // Favorite colors
+      if (/\b(color|favourite|favorite|warna)\b/.test(query)) {
+        const isGroom = /(zen|groom|him|his)/.test(query);
+        const isBride = /(yessica|bride|her|hers)/.test(query);
+        
+        if (isGroom) return `Zen's favorite color: <b>${KNOWLEDGE.favorites.groomColor}</b> 💙`;
+        if (isBride) return `Yessica's favorite color: <b>${KNOWLEDGE.favorites.brideColor}</b> 💛`;
+        
+        return `Favorite colors: Zen loves <b>${KNOWLEDGE.favorites.groomColor}</b> 💙 and Yessica loves <b>${KNOWLEDGE.favorites.brideColor}</b> 💛`;
+      }
+      
+      // Dreams and goals
+      if (/\b(dream|goal|future|impian|cita)\b/.test(query)) {
+        return `Zen's dream: <b>${KNOWLEDGE.dreams.groom}</b> 🏔️<br>Their shared dream: <b>${KNOWLEDGE.dreams.couple}</b> 🫶`;
+      }
+      
+      // Location
+      if (/\b(where|location|place|address|maps|lokasi|alamat|arah)\b/.test(query)) {
+        return `Wedding locations:<br>• Ceremony: <a href="${KNOWLEDGE.maps.matrimony}" target="_blank">Gereja Santo Fransiskus Asisi, Cibinong</a><br>• Reception: <a href="${KNOWLEDGE.maps.reception}" target="_blank">Bagas Raya Cibinong</a>`;
+      }
+      
+      // RSVP
+      if (/\b(rsvp|attend|confirmation|hadir|konfirmasi)\b/.test(query)) {
+        setTimeout(() => {
+          document.querySelector('#rsvp')?.scrollIntoView({behavior: 'smooth'});
+        }, 300);
+        return `You can RSVP in the <b>RSVP & Notes</b> section. I've scrolled there for you! 😉`;
+      }
+      
+      // Calendar
+      if (/\b(calendar|save|reminder|kalender)\b/.test(query)) {
+        return `Click <a href="${KNOWLEDGE.calendarLink}" target="_blank">Add to Google Calendar</a> to save the date!`;
+      }
+      
+      // Music
+      if (/\b(music|song|sound|musik|lagu)\b/.test(query)) {
+        return `The music control button is at the bottom right (▶️/⏸️ icon).`;
+      }
+      
+      // Dress code
+      if (/\b(dress|attire|wear|outfit|baju|pakaian)\b/.test(query)) {
+        return `Dress code: <b>Semi-formal</b> in soft/pastel colors would be perfect! 👗👔`;
+      }
+      
+      // Default response
+      return `I can help you with: "When is the wedding?", "Where is it?", "How to RSVP?", "Favorite colors?", "Dreams and goals?", "Dress code?"`;
+    }
+
+    aiForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const userInput = aiText.value.trim();
+      if (!userInput) return;
+      
+      userSay(userInput);
+      botSay(getAIResponse(userInput));
+      aiText.value = "";
+    });
+
+    // Initialize page
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("Wedding invitation loaded successfully!");
+    });
+  </script>
+</body>
+</html>
