@@ -328,7 +328,8 @@
         
         // Redirect to main invitation
         setTimeout(() => {
-          window.location.href = "index.html?" + currentParams.toString();
+          const newUrl = 'index.html?' + currentParams.toString();
+          window.location.href = newUrl;
         }, 800);
         
       } catch (error) {
