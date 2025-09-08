@@ -53,12 +53,12 @@
             justify-content: center;
             color: var(--ivory);
             background: url("image/BG1.png") center/cover no-repeat fixed;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             padding: 20px;
         }
 
-        /* Elegant overlay matching the warm mountain landscape */
+        /* Improved overlay for better text contrast */
         .overlay {
             position: fixed;
             inset: 0;
@@ -66,15 +66,15 @@
             pointer-events: none;
             background:
                 radial-gradient(ellipse 120% 80% at 50% 30%, 
-                    rgba(107, 74, 62, 0.45) 0%, 
-                    rgba(139, 108, 91, 0.25) 40%, 
-                    rgba(212, 165, 116, 0.15) 70%, 
-                    rgba(107, 74, 62, 0.35) 100%),
+                    rgba(26, 35, 43, 0.6) 0%, 
+                    rgba(107, 74, 62, 0.4) 40%, 
+                    rgba(212, 165, 116, 0.2) 70%, 
+                    rgba(26, 35, 43, 0.7) 100%),
                 linear-gradient(to bottom, 
-                    rgba(107, 74, 62, 0.3) 0%, 
-                    rgba(200, 149, 109, 0.15) 30%, 
-                    rgba(212, 165, 116, 0.1) 60%, 
-                    rgba(107, 74, 62, 0.4) 100%);
+                    rgba(26, 35, 43, 0.5) 0%, 
+                    rgba(200, 149, 109, 0.2) 30%, 
+                    rgba(212, 165, 116, 0.15) 60%, 
+                    rgba(26, 35, 43, 0.6) 100%);
         }
 
         /* Floating warm particles */
@@ -123,21 +123,21 @@
             flex-direction: column;
             align-items: center;
             gap: clamp(16px, 3vh, 30px);
-            animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation: mountainRise 1.2s ease-out both;
             
-            /* Glass morphism inspired by mountain mist */
+            /* Enhanced glass morphism for better readability */
             background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.15) 0%, 
-                rgba(212, 165, 116, 0.08) 30%,
-                rgba(200, 149, 109, 0.05) 70%,
-                rgba(245, 240, 232, 0.12) 100%);
-            backdrop-filter: blur(25px);
-            border: 2px solid rgba(212, 165, 116, 0.25);
+                rgba(245, 240, 232, 0.25) 0%, 
+                rgba(212, 165, 116, 0.15) 30%,
+                rgba(200, 149, 109, 0.1) 70%,
+                rgba(245, 240, 232, 0.2) 100%);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(245, 240, 232, 0.4);
             border-radius: 30px;
             box-shadow: 
-                0 30px 70px rgba(107, 74, 62, 0.4),
-                inset 0 1px 0 rgba(245, 240, 232, 0.3),
-                0 0 100px rgba(212, 165, 116, 0.15);
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(245, 240, 232, 0.5),
+                0 0 80px rgba(212, 165, 116, 0.2);
             max-width: 550px;
             width: 100%;
             margin: 0 auto;
@@ -149,37 +149,40 @@
             inset: -2px;
             border-radius: 32px;
             background: linear-gradient(135deg, 
-                rgba(212, 165, 116, 0.4), 
+                rgba(212, 165, 116, 0.5), 
                 transparent 30%, 
                 transparent 70%, 
-                rgba(200, 149, 109, 0.3));
+                rgba(200, 149, 109, 0.4));
             z-index: -1;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .pretitle {
             font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            letter-spacing: 0.5em;
+            font-weight: 500;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
-            font-size: clamp(11px, 2.2vw, 14px);
-            opacity: 0.9;
+            font-size: clamp(12px, 2.4vw, 16px);
+            opacity: 1;
             margin: 0;
-            color: var(--warm-gold);
-            text-shadow: 0 3px 15px var(--text-glow);
+            color: var(--ivory);
+            text-shadow: 
+                2px 2px 8px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 165, 116, 0.6);
             position: relative;
+            font-weight: 600;
         }
 
         .pretitle::after {
             content: '';
             position: absolute;
-            bottom: -6px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
-            height: 1px;
+            width: 60px;
+            height: 2px;
             background: linear-gradient(to right, transparent, var(--warm-gold), transparent);
-            opacity: 0.7;
+            opacity: 0.9;
         }
 
         .cover h1 {
@@ -188,13 +191,13 @@
             font-weight: 400;
             line-height: 0.9;
             margin: 0.1em 0;
-            color: var(--soft-cream);
+            color: var(--ivory);
             text-shadow: 
-                0 12px 40px rgba(107, 74, 62, 0.8),
-                0 4px 16px rgba(212, 165, 116, 0.6),
-                0 0 30px rgba(245, 240, 232, 0.4);
-            filter: drop-shadow(0 6px 12px rgba(107, 74, 62, 0.5));
-            -webkit-text-stroke: 0.5px rgba(107, 74, 62, 0.15);
+                3px 3px 15px rgba(0, 0, 0, 0.9),
+                0 0 30px rgba(212, 165, 116, 0.8),
+                0 0 50px rgba(245, 240, 232, 0.5);
+            filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.7));
+            -webkit-text-stroke: 0.5px rgba(107, 74, 62, 0.3);
         }
 
         .names-separator {
@@ -202,94 +205,103 @@
             font-size: clamp(1.2rem, 3vw, 2rem);
             color: var(--sunset-orange);
             margin: -0.2em 0.3em;
-            opacity: 0.85;
-            text-shadow: 0 2px 8px var(--text-glow);
+            opacity: 1;
+            text-shadow: 
+                2px 2px 8px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(200, 149, 109, 0.8);
         }
 
         .date-location {
             font-family: "Mrs Eaves", 'Playfair Display', serif;
-            font-weight: 400;
-            font-size: clamp(16px, 3.2vw, 20px);
-            opacity: 0.95;
+            font-weight: 500;
+            font-size: clamp(17px, 3.4vw, 22px);
+            opacity: 1;
             margin: 0.6rem 0;
-            color: var(--soft-cream);
-            text-shadow: 0 3px 12px rgba(107, 74, 62, 0.6);
+            color: var(--ivory);
+            text-shadow: 
+                2px 2px 10px rgba(0, 0, 0, 0.9),
+                0 0 20px rgba(212, 165, 116, 0.6);
             line-height: 1.4;
         }
 
         .dear {
             font-family: "Mrs Eaves", 'Poppins', sans-serif;
-            font-weight: 300;
+            font-weight: 400;
             font-style: italic;
             margin: 0.8rem 0 1.2rem;
-            font-size: clamp(15px, 2.8vw, 18px);
-            opacity: 0.88;
-            color: var(--warm-gold);
-            text-shadow: 0 2px 8px var(--text-glow);
+            font-size: clamp(16px, 3vw, 20px);
+            opacity: 1;
+            color: var(--ivory);
+            text-shadow: 
+                2px 2px 8px rgba(0, 0, 0, 0.9),
+                0 0 15px rgba(212, 165, 116, 0.6);
         }
 
-        /* Enhanced interactive elements with warm theme */
+        /* Smoother interactive elements */
         .interactive-line {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 18px;
             margin: 20px 0;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .decorative-element {
-            font-size: 1.3em;
+            font-size: 1.4em;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.2s ease;
             color: var(--warm-gold);
             position: relative;
-            padding: 8px;
+            padding: 10px;
             border-radius: 50%;
-            background: rgba(212, 165, 116, 0.1);
-            border: 1px solid rgba(212, 165, 116, 0.2);
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .decorative-element:hover {
             opacity: 1;
-            transform: scale(1.15) translateY(-3px);
-            color: var(--soft-cream);
-            background: rgba(200, 149, 109, 0.25);
-            border-color: rgba(212, 165, 116, 0.4);
-            box-shadow: 0 8px 20px rgba(200, 149, 109, 0.4);
-            text-shadow: 0 2px 8px var(--text-glow);
+            transform: scale(1.1) translateY(-2px);
+            color: var(--ivory);
+            background: rgba(200, 149, 109, 0.3);
+            border-color: rgba(212, 165, 116, 0.6);
+            box-shadow: 0 8px 20px rgba(200, 149, 109, 0.5);
+            text-shadow: 0 2px 8px rgba(212, 165, 116, 0.8);
         }
 
         .decorative-line {
             width: 35px;
-            height: 1px;
+            height: 2px;
             background: linear-gradient(to right, transparent, var(--sunset-orange), transparent);
-            opacity: 0.5;
+            opacity: 0.7;
         }
 
-        /* Enhanced fact display */
+        /* Enhanced fact display with better contrast */
         .fact-display {
             font-family: "Mrs Eaves", 'Playfair Display', serif;
             font-style: italic;
-            font-size: clamp(13px, 2.6vw, 16px);
-            opacity: 0.8;
+            font-size: clamp(14px, 2.8vw, 18px);
+            opacity: 0.9;
             margin: 18px 0;
-            min-height: 25px;
-            transition: all 0.6s ease;
-            color: var(--soft-cream);
-            text-shadow: 0 2px 8px rgba(107, 74, 62, 0.6);
+            min-height: 30px;
+            transition: all 0.3s ease;
+            color: var(--ivory);
+            text-shadow: 
+                2px 2px 8px rgba(0, 0, 0, 0.9),
+                0 0 15px rgba(212, 165, 116, 0.5);
             line-height: 1.5;
             max-width: 380px;
             text-align: center;
         }
 
         .fact-display.show {
-            opacity: 0.95;
+            opacity: 1;
             transform: translateY(-2px);
         }
 
-        /* Elegant button design with warm mountain theme */
+        /* Smoother button transitions */
         .open-btn {
             display: inline-flex;
             align-items: center;
@@ -297,21 +309,21 @@
             gap: 10px;
             padding: 16px 40px;
             border-radius: 50px;
-            border: 2px solid rgba(212, 165, 116, 0.3);
+            border: 2px solid rgba(212, 165, 116, 0.4);
             background: linear-gradient(135deg, 
                 var(--accent) 0%, 
                 var(--sunset-orange) 100%);
             color: var(--ivory);
             font-family: "Mrs Eaves", 'Playfair Display', serif;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 16px;
             letter-spacing: 0.05em;
             text-decoration: none;
             cursor: pointer;
             box-shadow: 
-                0 18px 35px rgba(200, 149, 109, 0.4),
-                inset 0 1px 0 rgba(245, 240, 232, 0.3);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                0 15px 30px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(245, 240, 232, 0.4);
+            transition: all 0.2s ease;
             backdrop-filter: blur(15px);
             position: relative;
             overflow: hidden;
@@ -322,18 +334,18 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.2) 0%, 
+                rgba(245, 240, 232, 0.3) 0%, 
                 transparent 50%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.2s ease;
         }
 
         .open-btn:hover {
-            transform: translateY(-5px) scale(1.03);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 
-                0 22px 45px rgba(200, 149, 109, 0.5),
-                inset 0 1px 0 rgba(245, 240, 232, 0.4);
-            border-color: rgba(212, 165, 116, 0.5);
+                0 18px 35px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(245, 240, 232, 0.5);
+            border-color: rgba(212, 165, 116, 0.6);
             background: linear-gradient(135deg, 
                 var(--accent-2) 0%, 
                 var(--deep-burgundy) 100%);
@@ -344,26 +356,27 @@
         }
 
         .open-btn:active {
-            transform: translateY(-3px) scale(1.01);
+            transform: translateY(-2px) scale(1.01);
+            transition: all 0.1s ease;
         }
 
         .hint {
             margin-top: 12px;
-            font-size: 13px;
-            opacity: 0.6;
+            font-size: 14px;
+            opacity: 0.8;
             font-family: "Mrs Eaves", 'Poppins', sans-serif;
-            font-weight: 300;
+            font-weight: 400;
             font-style: italic;
-            color: #e6d5c3;
-            text-shadow: 0 1px 4px rgba(139, 108, 91, 0.4);
+            color: var(--ivory);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
         }
 
-        /* Mountain-inspired animations */
+        /* Faster, smoother animations */
         @keyframes mountainRise {
             from {
                 opacity: 0;
-                transform: translateY(50px) scale(0.95);
-                filter: blur(8px);
+                transform: translateY(30px) scale(0.98);
+                filter: blur(4px);
             }
             to {
                 opacity: 1;
@@ -376,25 +389,41 @@
             animation-fill-mode: both;
         }
 
-        .pretitle { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both; }
-        .cover h1 { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both; }
-        .date-location { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both; }
-        .dear { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both; }
-        .interactive-line { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.85s both; }
-        .fact-display { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both; }
-        .open-btn { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.15s both; }
-        .hint { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s both; }
+        .pretitle { animation: mountainRise 1.2s ease-out 0.05s both; }
+        .cover h1 { animation: mountainRise 1.2s ease-out 0.15s both; }
+        .date-location { animation: mountainRise 1.2s ease-out 0.25s both; }
+        .dear { animation: mountainRise 1.2s ease-out 0.35s both; }
+        .interactive-line { animation: mountainRise 1.2s ease-out 0.45s both; }
+        .fact-display { animation: mountainRise 1.2s ease-out 0.55s both; }
+        .open-btn { animation: mountainRise 1.2s ease-out 0.65s both; }
+        .hint { animation: mountainRise 1.2s ease-out 0.75s both; }
 
-        /* Mobile specific improvements */
+        /* Enhanced mobile optimization */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
-                background-attachment: scroll !important;
-                background-size: cover !important;
-                background-position: center !important;
-                background-repeat: no-repeat !important;
-                min-height: 100vh !important;
+                padding: 15px;
+                background-attachment: scroll;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                min-height: 100vh;
                 height: auto;
+                overflow-y: auto;
+            }
+            
+            /* Stronger overlay for mobile to ensure text readability */
+            .overlay {
+                background:
+                    radial-gradient(ellipse 120% 80% at 50% 30%, 
+                        rgba(26, 35, 43, 0.75) 0%, 
+                        rgba(107, 74, 62, 0.6) 40%, 
+                        rgba(212, 165, 116, 0.3) 70%, 
+                        rgba(26, 35, 43, 0.8) 100%),
+                    linear-gradient(to bottom, 
+                        rgba(26, 35, 43, 0.7) 0%, 
+                        rgba(200, 149, 109, 0.3) 30%, 
+                        rgba(212, 165, 116, 0.2) 60%, 
+                        rgba(26, 35, 43, 0.75) 100%);
             }
             
             .cover {
@@ -402,12 +431,47 @@
                 border-radius: 25px;
                 max-width: 95vw;
                 background: linear-gradient(135deg, 
-                    rgba(245, 240, 232, 0.25) 0%, 
-                    rgba(212, 165, 116, 0.18) 30%,
-                    rgba(200, 149, 109, 0.12) 70%,
-                    rgba(245, 240, 232, 0.22) 100%);
+                    rgba(245, 240, 232, 0.35) 0%, 
+                    rgba(212, 165, 116, 0.25) 30%,
+                    rgba(200, 149, 109, 0.2) 70%,
+                    rgba(245, 240, 232, 0.3) 100%);
                 backdrop-filter: blur(25px);
-                border: 2px solid rgba(245, 230, 211, 0.3);
+                border: 2px solid rgba(245, 240, 232, 0.5);
+                box-shadow: 
+                    0 20px 50px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(245, 240, 232, 0.6);
+            }
+
+            .pretitle {
+                font-size: clamp(13px, 2.6vw, 17px);
+                font-weight: 700;
+                text-shadow: 
+                    3px 3px 10px rgba(0, 0, 0, 0.9),
+                    0 0 25px rgba(212, 165, 116, 0.8);
+            }
+
+            .dear {
+                font-size: clamp(17px, 3.2vw, 21px);
+                font-weight: 500;
+                text-shadow: 
+                    3px 3px 10px rgba(0, 0, 0, 0.9),
+                    0 0 20px rgba(212, 165, 116, 0.7);
+            }
+
+            .date-location {
+                font-size: clamp(18px, 3.6vw, 24px);
+                font-weight: 600;
+                text-shadow: 
+                    3px 3px 12px rgba(0, 0, 0, 0.9),
+                    0 0 25px rgba(212, 165, 116, 0.7);
+            }
+
+            .fact-display {
+                font-size: clamp(15px, 3vw, 19px);
+                font-weight: 500;
+                text-shadow: 
+                    2px 2px 10px rgba(0, 0, 0, 0.9),
+                    0 0 20px rgba(212, 165, 116, 0.6);
             }
 
             .interactive-line {
@@ -415,44 +479,50 @@
             }
 
             .decorative-element {
-                font-size: 1.2em;
-                padding: 8px;
-                min-width: 40px;
-                min-height: 40px;
+                font-size: 1.3em;
+                padding: 12px;
+                min-width: 45px;
+                min-height: 45px;
+                background: rgba(212, 165, 116, 0.25);
+                border: 2px solid rgba(212, 165, 116, 0.4);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
             }
 
-            .overlay {
-                background:
-                    radial-gradient(ellipse 120% 80% at 50% 30%, 
-                        rgba(107, 74, 62, 0.25) 0%, 
-                        rgba(139, 108, 91, 0.15) 40%, 
-                        rgba(212, 165, 116, 0.08) 70%, 
-                        rgba(107, 74, 62, 0.25) 100%);
+            .open-btn {
+                padding: 16px 36px;
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            .hint {
+                font-size: 15px;
+                opacity: 0.9;
+                font-weight: 500;
             }
         }
 
         @media (max-width: 480px) {
             .cover {
                 border-radius: 20px;
-                gap: 12px;
+                gap: 14px;
+                padding: clamp(20px, 4vw, 35px);
             }
 
             .open-btn {
-                padding: 14px 32px;
+                padding: 15px 30px;
                 font-size: 15px;
+            }
+
+            .pretitle {
+                font-size: clamp(14px, 2.8vw, 18px);
             }
         }
 
         /* Reduced motion accessibility */
         @media (prefers-reduced-motion: reduce) {
             * {
-                animation: none !important;
-                transition: none !important;
-            }
-            
-            .cover {
-                animation: none;
-                opacity: 1;
+                animation-duration: 0.3s !important;
+                transition-duration: 0.1s !important;
             }
             
             .particle {
@@ -527,7 +597,7 @@
         // Create floating warm particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 15;
+            const particleCount = window.innerWidth > 768 ? 15 : 8;
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -555,7 +625,7 @@
             return facts[randomIndex];
         }
 
-        // Show fact with elegant animation
+        // Show fact with smoother animation
         function showFact(fact) {
             const factElement = document.getElementById('factDisplay');
             factElement.classList.remove('show');
@@ -563,7 +633,7 @@
             setTimeout(() => {
                 factElement.textContent = fact;
                 factElement.classList.add('show');
-            }, 300);
+            }, 150);
         }
 
         // Set autoplay for music when opening invitation
@@ -582,18 +652,18 @@
                     const fact = getRandomFact(category);
                     showFact(fact);
                     
-                    // Enhanced click feedback
-                    this.style.transform = 'scale(0.9) translateY(-2px)';
+                    // Smoother click feedback
+                    this.style.transform = 'scale(0.95) translateY(-1px)';
                     setTimeout(() => {
                         this.style.transform = '';
-                    }, 200);
+                    }, 100);
                 });
             });
 
             // Show initial fact after a delay
             setTimeout(() => {
                 document.getElementById('factDisplay').classList.add('show');
-            }, 3500);
+            }, 2000);
 
             // Create particles
             createParticles();
@@ -602,19 +672,19 @@
         // Initialize guest name
         getGuestName();
 
-        // Add subtle mouse parallax for desktop
+        // Add subtle mouse parallax for desktop only
         if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             let mouseX = 0, mouseY = 0;
             let currentX = 0, currentY = 0;
 
             document.addEventListener('mousemove', function(e) {
-                mouseX = (e.clientX / window.innerWidth - 0.5) * 1;
-                mouseY = (e.clientY / window.innerHeight - 0.5) * 1;
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
             });
 
             function updateParallax() {
-                currentX += (mouseX - currentX) * 0.08;
-                currentY += (mouseY - currentY) * 0.08;
+                currentX += (mouseX - currentX) * 0.05;
+                currentY += (mouseY - currentY) * 0.05;
                 
                 document.body.style.backgroundPosition = 
                     `${50 + currentX}% ${50 + currentY}%`;
