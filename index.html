@@ -389,11 +389,12 @@
         @media (max-width: 768px) {
             body {
                 padding: 10px;
-                background-attachment: scroll;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                min-height: 100vh;
+                background-attachment: scroll !important;
+                background-size: cover !important;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
+                min-height: 100vh !important;
+                height: auto;
             }
             
             .cover {
@@ -401,11 +402,12 @@
                 border-radius: 25px;
                 max-width: 95vw;
                 background: linear-gradient(135deg, 
-                    rgba(245, 240, 232, 0.18) 0%, 
-                    rgba(212, 165, 116, 0.12) 30%,
-                    rgba(200, 149, 109, 0.08) 70%,
-                    rgba(245, 240, 232, 0.15) 100%);
-                backdrop-filter: blur(20px);
+                    rgba(245, 240, 232, 0.25) 0%, 
+                    rgba(212, 165, 116, 0.18) 30%,
+                    rgba(200, 149, 109, 0.12) 70%,
+                    rgba(245, 240, 232, 0.22) 100%);
+                backdrop-filter: blur(25px);
+                border: 2px solid rgba(245, 230, 211, 0.3);
             }
 
             .interactive-line {
@@ -417,6 +419,15 @@
                 padding: 8px;
                 min-width: 40px;
                 min-height: 40px;
+            }
+
+            .overlay {
+                background:
+                    radial-gradient(ellipse 120% 80% at 50% 30%, 
+                        rgba(107, 74, 62, 0.25) 0%, 
+                        rgba(139, 108, 91, 0.15) 40%, 
+                        rgba(212, 165, 116, 0.08) 70%, 
+                        rgba(107, 74, 62, 0.25) 100%);
             }
         }
 
@@ -467,11 +478,11 @@
             </span>
             <div class="decorative-line"></div>
             <span class="decorative-element" data-fact="nature" title="Nature">
-                🌿
+                ☘
             </span>
             <div class="decorative-line"></div>
             <span class="decorative-element" data-fact="home" title="Home">
-                🏡
+                ⌂ 
             </span>
             <div class="decorative-line"></div>
         </div>
@@ -481,7 +492,7 @@
         </div>
 
         <a href="home.html?opened=1" class="open-btn" onclick="setAutoplay()">
-            <span>💝</span>
+            <span>✧</span>
             <span>Open Invitation</span>
         </a>
         <div class="hint">Tap to open the full invitation</div>
