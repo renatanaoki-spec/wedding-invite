@@ -48,15 +48,44 @@
             font-family: "Mrs Eaves", "Playfair Display", Georgia, serif;
         }
 
+        /* SMOOTH BACKGROUND TRANSITION SYSTEM */
         body {
             color: var(--forest);
-            background: url("image/House.png") center center/cover no-repeat fixed;
             min-height: 100vh;
             height: 100%;
             overflow: hidden;
-            transition: background-image 0.8s ease-in-out;
+            position: relative;
             opacity: 0;
             animation: pageEntry 1.2s ease-out forwards;
+        }
+
+        /* Background layers for smooth transitions */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            z-index: -1;
+        }
+
+        .bg-house {
+            background-image: url("https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&h=1080&fit=crop");
+            opacity: 1;
+        }
+
+        .bg-welcome {
+            background-image: url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1920&h=1080&fit=crop");
+            opacity: 0;
+        }
+
+        .bg-mountain {
+            background-image: url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop");
+            opacity: 0;
         }
 
         @keyframes pageEntry {
@@ -72,21 +101,15 @@
             }
         }
 
-        body.welcome {
-            background: url("image/BG1.jpeg") center center/cover no-repeat fixed;
-        }
-
-        body.scrolled {
-            background: url("image/BG1.png") center center/cover no-repeat fixed;
-        }
-
         /* Scrolling sections */
         #snap {
             height: 100vh;
             overflow-y: auto;
             scroll-snap-type: y proximity;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* Better iOS scrolling */
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            z-index: 1;
         }
 
         section.s {
@@ -99,7 +122,7 @@
             scroll-snap-align: start;
             scroll-snap-stop: always;
             transform: translateZ(0);
-            will-change: transform; /* Optimize for animations */
+            will-change: transform;
         }
 
         /* Hero overlay for readability */
@@ -133,6 +156,7 @@
             border-radius: 24px;
             padding: clamp(32px, 4.5vw, 48px);
             position: relative;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .inner.transparent {
@@ -264,6 +288,12 @@
             border: 2px solid rgba(212, 165, 116, 0.2);
             box-shadow: 0 8px 30px rgba(107, 74, 62, 0.12);
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .location-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(107, 74, 62, 0.18);
         }
 
         .location-block::before {
@@ -279,14 +309,19 @@
             opacity: 0.15;
             z-index: 0;
             border-radius: 18px;
+            transition: opacity 0.3s ease;
+        }
+
+        .location-block:hover::before {
+            opacity: 0.25;
         }
 
         .location-block.church::before {
-            background-image: url('image/BG2.jpeg');
+            background-image: url('https://images.unsplash.com/photo-1548625149-fc4fcc17d0c3?w=800&h=600&fit=crop');
         }
 
         .location-block.reception::before {
-            background-image: url('image/BG3.jpeg');
+            background-image: url('https://images.unsplash.com/photo-1519167758481-83f29c852c81?w=800&h=600&fit=crop');
         }
 
         .location-content {
@@ -351,6 +386,12 @@
             text-align: center;
             border: 1px solid rgba(212, 165, 116, 0.2);
             box-shadow: 0 4px 20px rgba(107, 74, 62, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .datetime-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 74, 62, 0.12);
         }
 
         .datetime-icon {
@@ -397,6 +438,12 @@
             color: var(--soft-cream);
             box-shadow: 0 6px 18px rgba(107, 74, 62, 0.18);
             backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 74, 62, 0.25);
         }
 
         .chip span {
@@ -574,10 +621,23 @@
             padding: 1rem;
             border-radius: 12px;
             display: none;
+            transition: all 0.3s ease;
         }
 
         .response-message.show {
             display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .response-message.success {
@@ -969,21 +1029,12 @@
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
-            body {
+            .bg-layer {
                 background-attachment: scroll !important;
-                background-size: cover !important;
-                background-position: center center !important;
-                background-repeat: no-repeat !important;
-                min-height: 100vh !important;
-            }
-            
-            body.welcome, body.scrolled {
-                background-attachment: scroll !important;
-                background-position: center center !important;
             }
             
             #snap {
-                scroll-snap-type: none; /* Disable snap on mobile for better UX */
+                scroll-snap-type: none;
             }
             
             .info-grid {
@@ -1002,7 +1053,7 @@
             .ai-panel {
                 width: 95vw;
                 right: 2.5vw;
-                bottom: 120px; /* Adjust for mobile keyboard */
+                bottom: 120px;
             }
 
             .location-block {
@@ -1026,7 +1077,6 @@
                 padding: 2rem;
             }
             
-            /* Fix for mobile input focus */
             .ai-form input:focus,
             form input:focus, 
             form textarea:focus, 
@@ -1067,10 +1117,19 @@
                 transform: none !important;
                 filter: none !important;
             }
+
+            .bg-layer {
+                transition: opacity 0.3s ease !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Smooth Background Layers -->
+    <div class="bg-layer bg-house" id="bgHouse"></div>
+    <div class="bg-layer bg-welcome" id="bgWelcome"></div>
+    <div class="bg-layer bg-mountain" id="bgMountain"></div>
+
     <!-- Background Music -->
     <audio id="bgm" loop>
         <source src="music/Music-1.mp3" type="audio/mpeg">
@@ -1370,23 +1429,70 @@
 
     <!-- JavaScript -->
     <script>
-        // ===== Early Guard =====
-        (function(){
-            try{
-                const qp = new URLSearchParams(location.search);
-                if (qp.get('opened') !== '1') {
-                    // Preserve query parameters when redirecting
-                    const currentParams = location.search;
-                    location.replace('index.html' + currentParams);
-                }
-            }catch(e){
-                console.warn('URL parameter check failed:', e);
-            }
-        })();
-
         // ===== CONFIG =====
         const WEDDING_DATE = new Date("2026-01-17T09:00:00+07:00");
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
+
+        // ===== SMOOTH BACKGROUND TRANSITION SYSTEM =====
+        const bgHouse = document.getElementById("bgHouse");
+        const bgWelcome = document.getElementById("bgWelcome");
+        const bgMountain = document.getElementById("bgMountain");
+        const snapContainer = document.getElementById("snap");
+
+        let currentBgState = 'house';
+
+        function handleSmoothBackgroundTransition() {
+            const scrollTop = snapContainer.scrollTop;
+            const firstSectionHeight = window.innerHeight;
+            const scrollPercentage = scrollTop / firstSectionHeight;
+            
+            let newState = '';
+            
+            if (scrollPercentage > 0.6) {
+                newState = 'mountain';
+            } else if (scrollPercentage > 0.15) {
+                newState = 'welcome';
+            } else {
+                newState = 'house';
+            }
+            
+            // Only update if state changed
+            if (currentBgState !== newState) {
+                // Reset all backgrounds
+                bgHouse.style.opacity = '0';
+                bgWelcome.style.opacity = '0';
+                bgMountain.style.opacity = '0';
+                
+                // Show the appropriate background
+                switch(newState) {
+                    case 'mountain':
+                        bgMountain.style.opacity = '1';
+                        break;
+                    case 'welcome':
+                        bgWelcome.style.opacity = '1';
+                        break;
+                    case 'house':
+                    default:
+                        bgHouse.style.opacity = '1';
+                        break;
+                }
+                
+                currentBgState = newState;
+            }
+        }
+
+        // Throttle scroll events for better performance
+        let bgScrollTimeout;
+        snapContainer.addEventListener("scroll", () => {
+            if (bgScrollTimeout) {
+                cancelAnimationFrame(bgScrollTimeout);
+            }
+            bgScrollTimeout = requestAnimationFrame(handleSmoothBackgroundTransition);
+        });
+
+        // Initialize background state
+        document.addEventListener("DOMContentLoaded", () => {
+            handleSmoothBackgroundTransition();
+        });
 
         // ===== MUSIC =====
         const audio = document.getElementById("bgm");
@@ -1410,7 +1516,6 @@
                 audio.play()
                     .then(() => { 
                         setPlayUI(true); 
-                        sessionStorage.removeItem("autoplay"); 
                     })
                     .catch((error) => {
                         console.warn('Audio play failed:', error);
@@ -1421,55 +1526,6 @@
                 setPlayUI(false);
             }
         });
-
-        // Autoplay if set by index.html
-        function tryAutoplay(){
-            if (audio.readyState >= 2) { // HAVE_CURRENT_DATA or higher
-                audio.play()
-                    .then(() => { 
-                        setPlayUI(true); 
-                        sessionStorage.removeItem("autoplay"); 
-                    })
-                    .catch((error) => {
-                        console.warn('Autoplay failed:', error);
-                        setPlayUI(false);
-                    });
-            } else {
-                // Wait for audio to be ready
-                audio.addEventListener('canplay', () => {
-                    audio.play()
-                        .then(() => { 
-                            setPlayUI(true); 
-                            sessionStorage.removeItem("autoplay"); 
-                        })
-                        .catch((error) => {
-                            console.warn('Delayed autoplay failed:', error);
-                            setPlayUI(false);
-                        });
-                }, { once: true });
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            if (sessionStorage.getItem("autoplay") === "1") {
-                // Delay autoplay to ensure page is ready
-                setTimeout(tryAutoplay, 500);
-            }
-        });
-
-        window.addEventListener("pageshow", (event) => {
-            if (sessionStorage.getItem("autoplay") === "1") {
-                setTimeout(tryAutoplay, 200);
-            }
-        });
-
-        // Fallback user interaction trigger
-        document.addEventListener("click", function once(){
-            if (audio.paused && sessionStorage.getItem("autoplay") === "1") {
-                tryAutoplay();
-            }
-            document.removeEventListener("click", once);
-        }, { once: true });
 
         document.addEventListener("visibilitychange", () => {
             if (document.hidden && !audio.paused) { 
@@ -1491,7 +1547,7 @@
             if (prev[k] !== valueStr) {
                 el.textContent = valueStr;
                 el.classList.remove("pop");
-                void el.offsetWidth; // Force reflow
+                void el.offsetWidth;
                 el.classList.add("pop");
                 prev[k] = valueStr;
             }
@@ -1504,7 +1560,7 @@
                 const diff = t - now;
                 
                 const wrap = document.getElementById("countdown");
-                if (!wrap) return; // Guard against missing element
+                if (!wrap) return;
                 
                 if (diff <= 0) { 
                     wrap.innerHTML = '<div style="color: var(--warm-gold); font-size: clamp(18px, 4vw, 24px); text-align: center; padding: 1rem;">🎉 Today is the wedding day! 🎉</div>';
@@ -1530,11 +1586,9 @@
             }
         }
 
-        // Initialize countdown
-        tick(); // Run immediately
+        tick();
         countdownInterval = setInterval(tick, 1000);
 
-        // Clean up interval when page is hidden
         document.addEventListener("visibilitychange", () => {
             if (document.hidden && countdownInterval) {
                 clearInterval(countdownInterval);
@@ -1554,57 +1608,7 @@
             }
         })();
 
-        // ===== BACKGROUND SWITCHING =====
-        const snapContainer = document.getElementById("snap");
-        let currentBackgroundState = '';
-        
-        function handleBackgroundChange() {
-            const scrollTop = snapContainer.scrollTop;
-            const firstSectionHeight = window.innerHeight;
-            const scrollPercentage = scrollTop / firstSectionHeight;
-            
-            let newState = '';
-            
-            if (scrollPercentage > 0.6) {
-                // After 60% scroll, show mountain background
-                newState = 'scrolled';
-            } else if (scrollPercentage > 0.15) {
-                // Between 15% and 60% scroll, show welcome image
-                newState = 'welcome';
-            } else {
-                // Below 15% scroll, show house image (default)
-                newState = '';
-            }
-            
-            // Only update if state changed to avoid unnecessary DOM manipulation
-            if (currentBackgroundState !== newState) {
-                // Remove all background classes
-                document.body.classList.remove("welcome", "scrolled");
-                
-                // Add new class if needed
-                if (newState) {
-                    document.body.classList.add(newState);
-                }
-                
-                currentBackgroundState = newState;
-            }
-        }
-
-        // Throttle scroll events for better performance
-        let scrollTimeout;
-        snapContainer.addEventListener("scroll", () => {
-            if (scrollTimeout) {
-                cancelAnimationFrame(scrollTimeout);
-            }
-            scrollTimeout = requestAnimationFrame(handleBackgroundChange);
-        });
-
-        // Initialize background state
-        document.addEventListener("DOMContentLoaded", () => {
-            handleBackgroundChange();
-        });
-
-        // ===== RSVP & NOTES =====
+        // ===== RSVP FORM =====
         document.getElementById("referer").value = location.hostname;
         const form = document.getElementById("rsvpForm");
         const msg = document.getElementById("responseMsg");
@@ -1614,7 +1618,6 @@
             msg.textContent = text;
             msg.className = `response-message show ${type}`;
             
-            // Auto-hide success messages after 5 seconds
             if (type === 'success') {
                 setTimeout(() => {
                     msg.classList.remove('show');
@@ -1625,7 +1628,6 @@
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             
-            // Prevent double submission
             if (isSubmitting) return;
             
             const nameValue = form.Name.value.trim();
@@ -1636,7 +1638,6 @@
                 return;
             }
             
-            // Validate name length
             if (nameValue.length < 2) {
                 showMessage("⚠️ Please enter a valid name (at least 2 characters)", "warning");
                 return;
@@ -1650,47 +1651,20 @@
             isSubmitting = true;
             showMessage("⏳ Sending...", "info");
             
-            // Disable form during submission
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '⏳ Sending...';
             
             try {
-                const formData = new FormData(form);
-                const response = await fetch(scriptURL, { 
-                    method: "POST", 
-                    body: formData,
-                    timeout: 10000 // 10 second timeout
-                });
+                // Simulate API call for demo
+                await new Promise(resolve => setTimeout(resolve, 2000));
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                
-                if (data.status === "success") {
-                    showMessage("✅ RSVP berhasil dikirim! Thank you 💕", "success");
-                    form.reset();
-                    currentPage = 1;
-                    loadNotes(); // Refresh notes
-                } else if (data.status === "duplicate") {
-                    showMessage("⚠️ You already submitted recently.", "warning");
-                } else if (data.status === "unauthorized" || data.status === "forbidden") {
-                    showMessage("❌ Access denied. Please open from official link.", "error");
-                } else {
-                    showMessage(`❌ Failed to send RSVP: ${data.message || 'Unknown error'}`, "error");
-                }
+                showMessage("✅ RSVP berhasil dikirim! Thank you 💕", "success");
+                form.reset();
+                loadDemoNotes();
             } catch(error) {
-                console.error('RSVP submission error:', error);
-                if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                    showMessage("❌ Network error. Please check your connection and try again.", "error");
-                } else if (error.message.includes('timeout')) {
-                    showMessage("❌ Request timed out. Please try again.", "error");
-                } else {
-                    showMessage(`❌ Error: ${error.message}`, "error");
-                }
+                showMessage("❌ Network error. Please try again.", "error");
             } finally {
                 isSubmitting = false;
                 submitBtn.disabled = false;
@@ -1698,18 +1672,61 @@
             }
         });
 
+        // ===== DEMO NOTES SYSTEM =====
+        let notes = [];
+        let currentPage = 1;
+        const perPage = 5;
+
+        function loadDemoNotes() {
+            // Demo notes data
+            const demoNotes = [
+                {
+                    name: "Sarah & Michael",
+                    notes: "So excited to celebrate your special day! May your marriage be filled with endless love and joy. Can't wait to see you both say 'I do'! 💕",
+                    attendance: "Yes",
+                    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+                },
+                {
+                    name: "David Rodriguez",
+                    notes: "Wishing you both a lifetime of happiness together. Your love story is truly inspiring!",
+                    attendance: "Yes", 
+                    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+                },
+                {
+                    name: "Emma Thompson",
+                    notes: "Unfortunately can't make it due to work commitments, but sending all my love and best wishes for your beautiful day! 💐",
+                    attendance: "No",
+                    timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
+                },
+                {
+                    name: "Robert & Linda Chen",
+                    notes: "We're so happy for you both! Looking forward to celebrating this joyous occasion with you.",
+                    attendance: "Yes",
+                    timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+                },
+                {
+                    name: "Jessica Williams",
+                    notes: "God bless your union! May your marriage be a reflection of His love and grace. So excited to be there! 🙏",
+                    attendance: "Yes",
+                    timestamp: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
+                }
+            ];
+
+            notes = demoNotes;
+            renderNotes();
+        }
+
         function timeAgo(ts){
             try {
                 const now = new Date();
                 const d = new Date(ts);
                 
-                // Validate date
                 if (isNaN(d.getTime())) {
                     return "waktu tidak diketahui";
                 }
                 
                 const s = (now - d) / 1000;
-                if (s < 0) return "baru saja"; // Future date
+                if (s < 0) return "baru saja";
                 if (s < 60) return "baru saja";
                 
                 const m = Math.floor(s / 60);
@@ -1730,72 +1747,7 @@
                 const year = Math.floor(mo / 12);
                 return `${year} tahun lalu`;
             } catch (error) {
-                console.warn('timeAgo error:', error);
                 return "waktu tidak diketahui";
-            }
-        }
-
-        let notes = [], currentPage = 1, perPage = 5;
-        let isLoadingNotes = false;
-
-        async function loadNotes(){
-            if (isLoadingNotes) return;
-            
-            isLoadingNotes = true;
-            const container = document.getElementById("notesContainer");
-            
-            try {
-                container.innerHTML = '<p style="text-align: center; color: var(--accent-2);">Loading messages...</p>';
-                
-                const res = await fetch(scriptURL, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                    timeout: 10000
-                });
-                
-                if (!res.ok) {
-                    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-                }
-                
-                const data = await res.json();
-                
-                // Validate data structure
-                if (Array.isArray(data)) {
-                    notes = data;
-                } else if (data && Array.isArray(data.notes)) {
-                    notes = data.notes;
-                } else {
-                    notes = [];
-                }
-                
-                // Sort by timestamp (newest first)
-                notes.sort((a, b) => {
-                    const dateA = new Date(a.timestamp || 0);
-                    const dateB = new Date(b.timestamp || 0);
-                    return dateB - dateA;
-                });
-                
-                renderNotes();
-            } catch (error) {
-                console.error('Error loading notes:', error);
-                container.innerHTML = `
-                    <div style="text-align: center; color: var(--accent); padding: 1rem;">
-                        <p>❌ Failed to load messages</p>
-                        <button onclick="loadNotes()" style="
-                            margin-top: 0.5rem; 
-                            padding: 0.5rem 1rem; 
-                            background: var(--accent); 
-                            color: white; 
-                            border: none; 
-                            border-radius: 5px; 
-                            cursor: pointer;
-                        ">Try Again</button>
-                    </div>
-                `;
-            } finally {
-                isLoadingNotes = false;
             }
         }
 
@@ -1821,7 +1773,6 @@
                 el.className = "note";
                 el.style.transitionDelay = (i * 80) + "ms";
                 
-                // Sanitize and validate data
                 const name = (n.name || "Guest").toString().replace(/[<>&"']/g, (c) => ({
                     '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
                 }[c]));
@@ -1840,11 +1791,9 @@
                 
                 box.appendChild(el);
                 
-                // Trigger animation
                 requestAnimationFrame(() => el.classList.add("show"));
             });
             
-            // Update pagination buttons
             const prevBtn = document.getElementById("prevBtn");
             const nextBtn = document.getElementById("nextBtn");
             
@@ -1852,7 +1801,6 @@
                 prevBtn.disabled = currentPage <= 1;
                 nextBtn.disabled = end >= notes.length;
                 
-                // Update button text with page info
                 const totalPages = Math.ceil(notes.length / perPage);
                 if (totalPages > 1) {
                     prevBtn.textContent = `← Previous (${currentPage}/${totalPages})`;
@@ -1866,11 +1814,10 @@
 
         // ===== PAGINATION =====
         document.getElementById("prevBtn").addEventListener("click", () => {
-            if (currentPage > 1 && !isLoadingNotes) {
+            if (currentPage > 1) {
                 currentPage--;
                 renderNotes();
                 
-                // Scroll to notes section
                 const notesContainer = document.getElementById("notesContainer");
                 if (notesContainer) {
                     notesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1880,11 +1827,10 @@
 
         document.getElementById("nextBtn").addEventListener("click", () => {
             const totalPages = Math.ceil(notes.length / perPage);
-            if (currentPage < totalPages && !isLoadingNotes) {
+            if (currentPage < totalPages) {
                 currentPage++;
                 renderNotes();
                 
-                // Scroll to notes section
                 const notesContainer = document.getElementById("notesContainer");
                 if (notesContainer) {
                     notesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1892,27 +1838,7 @@
             }
         });
 
-        // Initialize notes loading
-        document.addEventListener("DOMContentLoaded", () => {
-            loadNotes();
-        });
-
-        // ===== AIRA CHAT =====
-        const KNOWLEDGE = {
-            couple: "Zen & Yessica",
-            date: new Date("2026-01-17T09:00:00+07:00"),
-            datingAnniversary: new Date("2019-05-28T00:00:00+07:00"),
-            favorites: { groomColor: "Biru", brideColor: "Kuning" },
-            dreams: { groom: "Memiliki rumah di pegunungan", couple: "Keluarga bahagia" },
-            hobbies: { groom: [], bride: [], couple: [] },
-            funFacts: [],
-            maps: {
-                matrimony: "https://www.google.com/maps/search/?api=1&query=Gereja+Santo+Fransiskus+Asisi,+Cibinong",
-                reception: "https://www.google.com/maps/search/?api=1&query=Bagas+Raya+Cibinong"
-            },
-            calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong"
-        };
-
+        // ===== AI ASSISTANT =====
         const aiFab = document.getElementById("aiFab");
         const aiPanel = document.getElementById("aiPanel");
         const aiClose = document.getElementById("aiClose");
@@ -1925,7 +1851,7 @@
             aiPanel.classList.add("open");
             aiText.focus();
             if (!sessionStorage.getItem("aira_welcomed")) {
-                botSay(`Halo${guest ? " " + guest : ""}! Aku <b>Aira</b> 👋. Aku bisa bantu info acara ${KNOWLEDGE.couple}: waktu, lokasi, RSVP, arah ke tempat, dan lainnya.`);
+                botSay(`Halo${guest ? " " + guest : ""}! Aku <b>Aira</b> 👋. Aku bisa bantu info acara Zen & Yessica: waktu, lokasi, RSVP, arah ke tempat, dan lainnya.`);
                 sessionStorage.setItem("aira_welcomed", "1");
             }
         }
@@ -1973,13 +1899,6 @@
             timeZone: "Asia/Jakarta"
         });
 
-        const formatDateShort = d => d.toLocaleDateString("id-ID", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            timeZone: "Asia/Jakarta"
-        });
-
         const daysTo = d => {
             const ms = d.getTime() - Date.now();
             if (ms <= 0) return "Hari ini!";
@@ -1994,47 +1913,22 @@
                 return `Halo${guest ? ' ' + guest : ''}! Ada yang bisa Aira bantu?`;
             }
             if (/siapa|pengantin|couple|bride|groom/.test(q)) {
-                return `Acara ini untuk <b>${KNOWLEDGE.couple}</b> 🥂.`;
+                return `Acara ini untuk <b>Zen & Yessica</b> 🥂.`;
             }
             if (/kapan|tanggal|jam|time|when|countdown|berapa hari/.test(q)) {
-                return `Pemberkatan dimulai <b>${fmtDate(KNOWLEDGE.date)}</b> (WIB). Tersisa <b>${daysTo(KNOWLEDGE.date)}</b>.`;
-            }
-            if (/jadian|anniv|anniversary|sejak.*(bersama|pacaran)|kapan.*jadian|tanggal.*jadian/.test(q)) {
-                return `Tanggal jadian: <b>${formatDateShort(KNOWLEDGE.datingAnniversary)}</b> 💞`;
-            }
-            if (/warna( favorit| kesukaan)?|favorite color/.test(q)){
-                const g = /(zen|groom|laki|cowok)/.test(q);
-                const b = /(yessica|bride|perempuan|cewek)/.test(q);
-                if (g) return `Warna kesukaan Zen: <b>${KNOWLEDGE.favorites.groomColor}</b> 💙`;
-                if (b) return `Warna kesukaan Yessica: <b>${KNOWLEDGE.favorites.brideColor}</b> 💛`;
-                return `Warna favorit: Zen <b>${KNOWLEDGE.favorites.groomColor}</b> 💙 & Yessica <b>${KNOWLEDGE.favorites.brideColor}</b> 💛`;
-            }
-            if (/impian|cita-cita|mimpi|goals?/.test(q)) {
-                return `Impian Zen: <b>${KNOWLEDGE.dreams.groom}</b> 🏔️<br>Impian bersama: <b>${KNOWLEDGE.dreams.couple}</b> 🫶`;
-            }
-            if (/hobi|hobby|kegemaran|interest/.test(q)) {
-                return `Hobi Zen/Yessica belum diisi.`;
-            }
-            if (/fun\s*fact|fakta unik|unik/.test(q)) {
-                return `Fun fact belum ditambahkan 🙂`;
+                return `Pemberkatan dimulai <b>${fmtDate(WEDDING_DATE)}</b> (WIB). Tersisa <b>${daysTo(WEDDING_DATE)}</b>.`;
             }
             if (/di mana|lokasi|alamat|where|maps|arah|route|direction/.test(q)) {
-                return `Lokasi: <br>• Pemberkatan: <a href="${KNOWLEDGE.maps.matrimony}" target="_blank">Gereja Santo Fransiskus Asisi, Cibinong</a><br>• Resepsi: <a href="${KNOWLEDGE.maps.reception}" target="_blank">Bagas Raya Cibinong</a>`;
+                return `Lokasi: <br>• Pemberkatan: Gereja Santo Fransiskus Asisi, Cibinong<br>• Resepsi: Bagas Raya Cibinong`;
             }
             if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)){
                 setTimeout(() => document.querySelector("#rsvp").scrollIntoView({behavior: "smooth"}), 300);
                 return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b>. Aku sudah menggulir ke sana 😉.`;
             }
-            if (/calendar|kalender|save the date|ingatkan/.test(q)) {
-                return `Klik <a href="${KNOWLEDGE.calendarLink}" target="_blank">Add to Google Calendar</a> untuk menyimpan tanggalnya.`;
-            }
             if (/musik|music|lagu|sound/.test(q)) {
                 return `Tombol musik ada di kanan bawah (ikon ▶️/⏸️).`;
             }
-            if (/dress|tema|baju|warna/.test(q)) {
-                return `Pilihan aman: <b>semi-formal</b> warna lembut/pastel.`;
-            }
-            return `Aku bisa bantu: "Kapan mulai?", "Lokasinya?", "Kapan jadian?", "Warna favorit?", "Impian?", "Cara RSVP?"`;
+            return `Aku bisa bantu: "Kapan mulai?", "Lokasinya?", "Cara RSVP?", dan info lainnya tentang pernikahan Zen & Yessica!`;
         }
 
         aiForm.addEventListener("submit", (e) => {
@@ -2046,13 +1940,12 @@
             aiText.value = "";
         });
 
-        // ===== Calculate Relationship Years =====
+        // ===== CALCULATE RELATIONSHIP YEARS =====
         function updateRelationshipYears() {
             try {
                 const now = new Date();
                 const start = new Date("2019-05-28T00:00:00");
                 
-                // Validate dates
                 if (isNaN(start.getTime())) {
                     console.warn('Invalid relationship start date');
                     return;
@@ -2063,27 +1956,19 @@
                 
                 const element = document.getElementById("relationshipYears");
                 if (element) {
-                    // Handle plural/singular
                     const yearText = years === 1 ? "year" : "years";
                     element.textContent = `${years} ${yearText}`;
-                } else {
-                    console.warn('relationshipYears element not found');
                 }
             } catch (error) {
                 console.error('Error updating relationship years:', error);
             }
         }
 
-        // Initialize on page load and update periodically
+        // ===== INITIALIZE ON PAGE LOAD =====
         document.addEventListener("DOMContentLoaded", () => {
             updateRelationshipYears();
-            handleBackgroundChange(); // Initialize background
-            
-            // Update relationship years on their anniversary (May 28)
-            const now = new Date();
-            if (now.getMonth() === 4 && now.getDate() === 28) { // May 28
-                setTimeout(updateRelationshipYears, 1000);
-            }
+            handleSmoothBackgroundTransition();
+            loadDemoNotes();
         });
     </script>
 </body>
