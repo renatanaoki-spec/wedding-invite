@@ -50,13 +50,34 @@
 
         body {
             color: var(--forest);
-            background: url("image/House.png") center bottom/cover no-repeat fixed;
+            background: url("image/House.png") center center/cover no-repeat fixed;
+            min-height: 100vh;
+            height: 100%;
             overflow: hidden;
             transition: background-image 0.8s ease-in-out;
+            opacity: 0;
+            animation: pageEntry 1.2s ease-out forwards;
+        }
+
+        @keyframes pageEntry {
+            0% {
+                opacity: 0;
+                transform: scale(1.02);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        body.welcome {
+            background: url("image/BG2.jpeg") center center/cover no-repeat fixed;
         }
 
         body.scrolled {
-            background: url("image/BG1.png") center/cover no-repeat fixed;
+            background: url("image/BG1.png") center center/cover no-repeat fixed;
         }
 
         /* Scrolling sections */
@@ -65,6 +86,7 @@
             overflow-y: auto;
             scroll-snap-type: y proximity;
             scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* Better iOS scrolling */
         }
 
         section.s {
@@ -77,6 +99,7 @@
             scroll-snap-align: start;
             scroll-snap-stop: always;
             transform: translateZ(0);
+            will-change: transform; /* Optimize for animations */
         }
 
         /* Hero overlay for readability */
@@ -946,6 +969,23 @@
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
+            body {
+                background-attachment: scroll !important;
+                background-size: cover !important;
+                background-position: center center !important;
+                background-repeat: no-repeat !important;
+                min-height: 100vh !important;
+            }
+            
+            body.welcome, body.scrolled {
+                background-attachment: scroll !important;
+                background-position: center center !important;
+            }
+            
+            #snap {
+                scroll-snap-type: none; /* Disable snap on mobile for better UX */
+            }
+            
             .info-grid {
                 grid-template-columns: 1fr;
             }
@@ -962,6 +1002,7 @@
             .ai-panel {
                 width: 95vw;
                 right: 2.5vw;
+                bottom: 120px; /* Adjust for mobile keyboard */
             }
 
             .location-block {
@@ -983,6 +1024,15 @@
 
             .thank-you-content {
                 padding: 2rem;
+            }
+            
+            /* Fix for mobile input focus */
+            .ai-form input:focus,
+            form input:focus, 
+            form textarea:focus, 
+            form select:focus {
+                transform: none !important;
+                zoom: 1 !important;
             }
         }
 
@@ -1010,6 +1060,12 @@
                 animation: none !important;
                 transition: none !important;
                 scroll-behavior: auto !important;
+            }
+            
+            body {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
             }
         }
     </style>
@@ -1319,9 +1375,13 @@
             try{
                 const qp = new URLSearchParams(location.search);
                 if (qp.get('opened') !== '1') {
-                    location.replace('index.html' + (location.search || ''));
+                    // Preserve query parameters when redirecting
+                    const currentParams = location.search;
+                    location.replace('index.html' + currentParams);
                 }
-            }catch(e){}
+            }catch(e){
+                console.warn('URL parameter check failed:', e);
+            }
         })();
 
         // ===== CONFIG =====
@@ -1347,37 +1407,75 @@
 
         musicBtn.addEventListener("click", () => {
             if (audio.paused) {
-                audio.play().then(() => { setPlayUI(true); sessionStorage.removeItem("autoplay"); })
-                            .catch(() => setPlayUI(false));
+                audio.play()
+                    .then(() => { 
+                        setPlayUI(true); 
+                        sessionStorage.removeItem("autoplay"); 
+                    })
+                    .catch((error) => {
+                        console.warn('Audio play failed:', error);
+                        setPlayUI(false);
+                    });
             } else {
-                audio.pause(); setPlayUI(false);
+                audio.pause(); 
+                setPlayUI(false);
             }
         });
 
         // Autoplay if set by index.html
         function tryAutoplay(){
-            audio.play().then(() => { setPlayUI(true); sessionStorage.removeItem("autoplay"); })
-                        .catch(() => setPlayUI(false));
+            if (audio.readyState >= 2) { // HAVE_CURRENT_DATA or higher
+                audio.play()
+                    .then(() => { 
+                        setPlayUI(true); 
+                        sessionStorage.removeItem("autoplay"); 
+                    })
+                    .catch((error) => {
+                        console.warn('Autoplay failed:', error);
+                        setPlayUI(false);
+                    });
+            } else {
+                // Wait for audio to be ready
+                audio.addEventListener('canplay', () => {
+                    audio.play()
+                        .then(() => { 
+                            setPlayUI(true); 
+                            sessionStorage.removeItem("autoplay"); 
+                        })
+                        .catch((error) => {
+                            console.warn('Delayed autoplay failed:', error);
+                            setPlayUI(false);
+                        });
+                }, { once: true });
+            }
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             if (sessionStorage.getItem("autoplay") === "1") {
-                requestAnimationFrame(tryAutoplay);
-                setTimeout(tryAutoplay, 150);
+                // Delay autoplay to ensure page is ready
+                setTimeout(tryAutoplay, 500);
             }
         });
 
-        window.addEventListener("pageshow", () => {
-            if (sessionStorage.getItem("autoplay") === "1") tryAutoplay();
+        window.addEventListener("pageshow", (event) => {
+            if (sessionStorage.getItem("autoplay") === "1") {
+                setTimeout(tryAutoplay, 200);
+            }
         });
 
+        // Fallback user interaction trigger
         document.addEventListener("click", function once(){
-            if (audio.paused) tryAutoplay();
+            if (audio.paused && sessionStorage.getItem("autoplay") === "1") {
+                tryAutoplay();
+            }
             document.removeEventListener("click", once);
-        }, { once:true });
+        }, { once: true });
 
         document.addEventListener("visibilitychange", () => {
-            if (document.hidden) { audio.pause(); setPlayUI(false); }
+            if (document.hidden && !audio.paused) { 
+                audio.pause(); 
+                setPlayUI(false); 
+            }
         });
 
         // ===== COUNTDOWN =====
@@ -1386,32 +1484,65 @@
               mEl = document.getElementById("m"),
               sEl = document.getElementById("s");
         let prev = {};
+        let countdownInterval;
 
         const pop = (el, v, k) => {
-            if (prev[k] !== v) {
-                el.textContent = v;
+            const valueStr = String(v).padStart(2, '0');
+            if (prev[k] !== valueStr) {
+                el.textContent = valueStr;
                 el.classList.remove("pop");
-                void el.offsetWidth;
+                void el.offsetWidth; // Force reflow
                 el.classList.add("pop");
-                prev[k] = v;
+                prev[k] = valueStr;
             }
         };
 
         function tick(){
-            const t = WEDDING_DATE.getTime(), now = Date.now(), diff = t - now;
-            const wrap = document.getElementById("countdown");
-            if (diff <= 0) { 
-                wrap.innerHTML = "🎉 Today is the wedding day!"; 
-                return; 
+            try {
+                const t = WEDDING_DATE.getTime();
+                const now = Date.now();
+                const diff = t - now;
+                
+                const wrap = document.getElementById("countdown");
+                if (!wrap) return; // Guard against missing element
+                
+                if (diff <= 0) { 
+                    wrap.innerHTML = '<div style="color: var(--warm-gold); font-size: clamp(18px, 4vw, 24px); text-align: center; padding: 1rem;">🎉 Today is the wedding day! 🎉</div>';
+                    if (countdownInterval) {
+                        clearInterval(countdownInterval);
+                    }
+                    return; 
+                }
+                
+                const days = Math.floor(diff / 86400000);
+                const hours = Math.floor((diff % 86400000) / 3600000);
+                const minutes = Math.floor((diff % 3600000) / 60000);
+                const seconds = Math.floor((diff % 60000) / 1000);
+                
+                if (dEl && hEl && mEl && sEl) {
+                    pop(dEl, days, "d");
+                    pop(hEl, hours, "h");
+                    pop(mEl, minutes, "m");
+                    pop(sEl, seconds, "s");
+                }
+            } catch (error) {
+                console.warn('Countdown error:', error);
             }
-            pop(dEl, Math.floor(diff/86400000), "d");
-            pop(hEl, Math.floor((diff%86400000)/3600000), "h");
-            pop(mEl, Math.floor((diff%3600000)/60000), "m");
-            pop(sEl, Math.floor((diff%60000)/1000), "s");
         }
 
-        setInterval(tick, 1000);
-        tick();
+        // Initialize countdown
+        tick(); // Run immediately
+        countdownInterval = setInterval(tick, 1000);
+
+        // Clean up interval when page is hidden
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && countdownInterval) {
+                clearInterval(countdownInterval);
+            } else if (!document.hidden && !countdownInterval) {
+                tick();
+                countdownInterval = setInterval(tick, 1000);
+            }
+        });
 
         // ===== Dear Guest =====
         (function(){
@@ -1425,136 +1556,346 @@
 
         // ===== BACKGROUND SWITCHING =====
         const snapContainer = document.getElementById("snap");
+        let currentBackgroundState = '';
         
         function handleBackgroundChange() {
             const scrollTop = snapContainer.scrollTop;
             const firstSectionHeight = window.innerHeight;
             const scrollPercentage = scrollTop / firstSectionHeight;
             
-            // Remove all background classes first
-            document.body.classList.remove("welcome", "scrolled");
+            let newState = '';
             
             if (scrollPercentage > 0.6) {
                 // After 60% scroll, show mountain background
-                document.body.classList.add("scrolled");
+                newState = 'scrolled';
             } else if (scrollPercentage > 0.15) {
                 // Between 15% and 60% scroll, show welcome image
-                document.body.classList.add("welcome");
+                newState = 'welcome';
+            } else {
+                // Below 15% scroll, show house image (default)
+                newState = '';
             }
-            // Below 15% scroll, show house image (default)
+            
+            // Only update if state changed to avoid unnecessary DOM manipulation
+            if (currentBackgroundState !== newState) {
+                // Remove all background classes
+                document.body.classList.remove("welcome", "scrolled");
+                
+                // Add new class if needed
+                if (newState) {
+                    document.body.classList.add(newState);
+                }
+                
+                currentBackgroundState = newState;
+            }
         }
 
-        snapContainer.addEventListener("scroll", handleBackgroundChange);
+        // Throttle scroll events for better performance
+        let scrollTimeout;
+        snapContainer.addEventListener("scroll", () => {
+            if (scrollTimeout) {
+                cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = requestAnimationFrame(handleBackgroundChange);
+        });
+
+        // Initialize background state
+        document.addEventListener("DOMContentLoaded", () => {
+            handleBackgroundChange();
+        });
 
         // ===== RSVP & NOTES =====
         document.getElementById("referer").value = location.hostname;
         const form = document.getElementById("rsvpForm");
         const msg = document.getElementById("responseMsg");
+        let isSubmitting = false;
+
+        function showMessage(text, type = 'info') {
+            msg.textContent = text;
+            msg.className = `response-message show ${type}`;
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    msg.classList.remove('show');
+                }, 5000);
+            }
+        }
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
-            if (!form.Name.value.trim() || !form.Attendance.value) {
-                msg.textContent = "⚠️ Please fill out name and attendance 🌸";
-                msg.className = "response-message show warning";
+            
+            // Prevent double submission
+            if (isSubmitting) return;
+            
+            const nameValue = form.Name.value.trim();
+            const attendanceValue = form.Attendance.value;
+            
+            if (!nameValue || !attendanceValue) {
+                showMessage("⚠️ Please fill out name and attendance 🌸", "warning");
                 return;
             }
-            msg.textContent = "⏳ Sending...";
-            msg.className = "response-message show";
-            msg.style.background = "rgba(158, 158, 158, 0.1)";
-            msg.style.color = "#666";
-            msg.style.border = "1px solid rgba(158, 158, 158, 0.3)";
+            
+            // Validate name length
+            if (nameValue.length < 2) {
+                showMessage("⚠️ Please enter a valid name (at least 2 characters)", "warning");
+                return;
+            }
+            
+            if (nameValue.length > 100) {
+                showMessage("⚠️ Name is too long (maximum 100 characters)", "warning");
+                return;
+            }
+            
+            isSubmitting = true;
+            showMessage("⏳ Sending...", "info");
+            
+            // Disable form during submission
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Sending...';
+            
             try {
-                const r = await fetch(scriptURL, { method: "POST", body: new FormData(form) });
-                const data = await r.json();
+                const formData = new FormData(form);
+                const response = await fetch(scriptURL, { 
+                    method: "POST", 
+                    body: formData,
+                    timeout: 10000 // 10 second timeout
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
                 if (data.status === "success") {
-                    msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
-                    msg.className = "response-message show success";
+                    showMessage("✅ RSVP berhasil dikirim! Thank you 💕", "success");
                     form.reset();
                     currentPage = 1;
-                    loadNotes();
+                    loadNotes(); // Refresh notes
                 } else if (data.status === "duplicate") {
-                    msg.textContent = "⚠️ You already submitted recently.";
-                    msg.className = "response-message show warning";
+                    showMessage("⚠️ You already submitted recently.", "warning");
                 } else if (data.status === "unauthorized" || data.status === "forbidden") {
-                    msg.textContent = "❌ Access denied. Please open from official link.";
-                    msg.className = "response-message show error";
+                    showMessage("❌ Access denied. Please open from official link.", "error");
                 } else {
-                    msg.textContent = "❌ Gagal mengirim RSVP.";
-                    msg.className = "response-message show error";
+                    showMessage(`❌ Failed to send RSVP: ${data.message || 'Unknown error'}`, "error");
                 }
-            } catch(err) {
-                msg.textContent = "❌ Error: " + err;
-                msg.className = "response-message show error";
+            } catch(error) {
+                console.error('RSVP submission error:', error);
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    showMessage("❌ Network error. Please check your connection and try again.", "error");
+                } else if (error.message.includes('timeout')) {
+                    showMessage("❌ Request timed out. Please try again.", "error");
+                } else {
+                    showMessage(`❌ Error: ${error.message}`, "error");
+                }
+            } finally {
+                isSubmitting = false;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
             }
         });
 
         function timeAgo(ts){
-            const now = new Date(), d = new Date(ts), s = (now - d) / 1000;
-            if (s < 60) return "baru saja";
-            const m = Math.floor(s / 60);
-            if (m < 60) return `${m} menit lalu`;
-            const h = Math.floor(m / 60);
-            if (h < 24) return `${h} jam lalu`;
-            const day = Math.floor(h / 24);
-            if (day < 7) return `${day} hari lalu`;
-            const w = Math.floor(day / 7);
-            if (w < 4) return `${w} minggu lalu`;
-            const mo = Math.floor(day / 30);
-            return `${mo} bulan lalu`;
+            try {
+                const now = new Date();
+                const d = new Date(ts);
+                
+                // Validate date
+                if (isNaN(d.getTime())) {
+                    return "waktu tidak diketahui";
+                }
+                
+                const s = (now - d) / 1000;
+                if (s < 0) return "baru saja"; // Future date
+                if (s < 60) return "baru saja";
+                
+                const m = Math.floor(s / 60);
+                if (m < 60) return `${m} menit lalu`;
+                
+                const h = Math.floor(m / 60);
+                if (h < 24) return `${h} jam lalu`;
+                
+                const day = Math.floor(h / 24);
+                if (day < 7) return `${day} hari lalu`;
+                
+                const w = Math.floor(day / 7);
+                if (w < 4) return `${w} minggu lalu`;
+                
+                const mo = Math.floor(day / 30);
+                if (mo < 12) return `${mo} bulan lalu`;
+                
+                const year = Math.floor(mo / 12);
+                return `${year} tahun lalu`;
+            } catch (error) {
+                console.warn('timeAgo error:', error);
+                return "waktu tidak diketahui";
+            }
         }
 
         let notes = [], currentPage = 1, perPage = 5;
+        let isLoadingNotes = false;
 
         async function loadNotes(){
+            if (isLoadingNotes) return;
+            
+            isLoadingNotes = true;
+            const container = document.getElementById("notesContainer");
+            
             try {
-                const res = await fetch(scriptURL);
-                notes = await res.json();
-                notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                container.innerHTML = '<p style="text-align: center; color: var(--accent-2);">Loading messages...</p>';
+                
+                const res = await fetch(scriptURL, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    timeout: 10000
+                });
+                
+                if (!res.ok) {
+                    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                }
+                
+                const data = await res.json();
+                
+                // Validate data structure
+                if (Array.isArray(data)) {
+                    notes = data;
+                } else if (data && Array.isArray(data.notes)) {
+                    notes = data.notes;
+                } else {
+                    notes = [];
+                }
+                
+                // Sort by timestamp (newest first)
+                notes.sort((a, b) => {
+                    const dateA = new Date(a.timestamp || 0);
+                    const dateB = new Date(b.timestamp || 0);
+                    return dateB - dateA;
+                });
+                
                 renderNotes();
-            } catch {
-                document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
+            } catch (error) {
+                console.error('Error loading notes:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; color: var(--accent); padding: 1rem;">
+                        <p>❌ Failed to load messages</p>
+                        <button onclick="loadNotes()" style="
+                            margin-top: 0.5rem; 
+                            padding: 0.5rem 1rem; 
+                            background: var(--accent); 
+                            color: white; 
+                            border: none; 
+                            border-radius: 5px; 
+                            cursor: pointer;
+                        ">Try Again</button>
+                    </div>
+                `;
+            } finally {
+                isLoadingNotes = false;
             }
         }
 
         function renderNotes(){
             const box = document.getElementById("notesContainer");
+            if (!box) return;
+            
             box.innerHTML = "";
+            
             if (!notes.length) {
-                box.innerHTML = "<p>No notes yet.</p>";
+                box.innerHTML = '<p style="text-align: center; color: var(--accent-2); font-style: italic;">No messages yet. Be the first to share your wishes! 💝</p>';
+                document.getElementById("prevBtn").disabled = true;
+                document.getElementById("nextBtn").disabled = true;
                 return;
             }
+            
             const start = (currentPage - 1) * perPage;
-            const page = notes.slice(start, start + perPage);
+            const end = Math.min(start + perPage, notes.length);
+            const page = notes.slice(start, end);
+            
             page.forEach((n, i) => {
                 const el = document.createElement("div");
                 el.className = "note";
                 el.style.transitionDelay = (i * 80) + "ms";
-                const icon = n.attendance === "Yes" ? "💖" : (n.attendance === "No" ? "🌸" : "");
-                el.innerHTML = `<strong style="color:var(--accent)">${(n.name || "Guest").toString().replace(/</g, "&lt;")}</strong> ${icon}<br>
-                                <em>${(n.notes || '').toString().replace(/</g, '&lt;')}</em><br>
-                                <small>${timeAgo(n.timestamp)}</small>`;
+                
+                // Sanitize and validate data
+                const name = (n.name || "Guest").toString().replace(/[<>&"']/g, (c) => ({
+                    '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
+                }[c]));
+                
+                const notesText = (n.notes || '').toString().replace(/[<>&"']/g, (c) => ({
+                    '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
+                }[c]));
+                
+                const icon = n.attendance === "Yes" ? "💖" : (n.attendance === "No" ? "🌸" : "💌");
+                
+                el.innerHTML = `
+                    <strong style="color:var(--accent-2)">${name}</strong> ${icon}<br>
+                    ${notesText ? `<em style="margin: 0.5rem 0; display: block; line-height: 1.6;">${notesText}</em>` : ''}
+                    <small style="color: var(--accent); opacity: 0.8;">${timeAgo(n.timestamp)}</small>
+                `;
+                
                 box.appendChild(el);
+                
+                // Trigger animation
                 requestAnimationFrame(() => el.classList.add("show"));
             });
-            document.getElementById("prevBtn").disabled = start <= 0;
-            document.getElementById("nextBtn").disabled = start + perPage >= notes.length;
+            
+            // Update pagination buttons
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            
+            if (prevBtn && nextBtn) {
+                prevBtn.disabled = currentPage <= 1;
+                nextBtn.disabled = end >= notes.length;
+                
+                // Update button text with page info
+                const totalPages = Math.ceil(notes.length / perPage);
+                if (totalPages > 1) {
+                    prevBtn.textContent = `← Previous (${currentPage}/${totalPages})`;
+                    nextBtn.textContent = `Next (${currentPage}/${totalPages}) →`;
+                } else {
+                    prevBtn.textContent = "← Previous";
+                    nextBtn.textContent = "Next →";
+                }
+            }
         }
 
+        // ===== PAGINATION =====
         document.getElementById("prevBtn").addEventListener("click", () => {
-            if (currentPage > 1) {
+            if (currentPage > 1 && !isLoadingNotes) {
                 currentPage--;
                 renderNotes();
+                
+                // Scroll to notes section
+                const notesContainer = document.getElementById("notesContainer");
+                if (notesContainer) {
+                    notesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
             }
         });
 
         document.getElementById("nextBtn").addEventListener("click", () => {
-            if (currentPage * perPage < notes.length) {
+            const totalPages = Math.ceil(notes.length / perPage);
+            if (currentPage < totalPages && !isLoadingNotes) {
                 currentPage++;
                 renderNotes();
+                
+                // Scroll to notes section
+                const notesContainer = document.getElementById("notesContainer");
+                if (notesContainer) {
+                    notesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
             }
         });
 
-        loadNotes();
+        // Initialize notes loading
+        document.addEventListener("DOMContentLoaded", () => {
+            loadNotes();
+        });
 
         // ===== AIRA CHAT =====
         const KNOWLEDGE = {
@@ -1707,18 +2048,42 @@
 
         // ===== Calculate Relationship Years =====
         function updateRelationshipYears() {
-            const now = new Date();
-            const start = new Date("2019-05-28");
-            const years = Math.floor((now - start) / (1000 * 60 * 60 * 24 * 365.25));
-            const element = document.getElementById("relationshipYears");
-            if (element) {
-                element.textContent = `${years} years`;
+            try {
+                const now = new Date();
+                const start = new Date("2019-05-28T00:00:00");
+                
+                // Validate dates
+                if (isNaN(start.getTime())) {
+                    console.warn('Invalid relationship start date');
+                    return;
+                }
+                
+                const diffTime = now - start;
+                const years = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365.25));
+                
+                const element = document.getElementById("relationshipYears");
+                if (element) {
+                    // Handle plural/singular
+                    const yearText = years === 1 ? "year" : "years";
+                    element.textContent = `${years} ${yearText}`;
+                } else {
+                    console.warn('relationshipYears element not found');
+                }
+            } catch (error) {
+                console.error('Error updating relationship years:', error);
             }
         }
 
-        // Initialize on page load
+        // Initialize on page load and update periodically
         document.addEventListener("DOMContentLoaded", () => {
             updateRelationshipYears();
+            handleBackgroundChange(); // Initialize background
+            
+            // Update relationship years on their anniversary (May 28)
+            const now = new Date();
+            if (now.getMonth() === 4 && now.getDate() === 28) { // May 28
+                setTimeout(updateRelationshipYears, 1000);
+            }
         });
     </script>
 </body>
