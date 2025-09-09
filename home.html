@@ -473,11 +473,30 @@
             text-align: center;
             padding: 3rem 2rem;
             background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.1) 0%, 
-                rgba(212, 165, 116, 0.05) 100%);
+                rgba(107, 142, 114, 0.08) 0%,
+                rgba(245, 240, 232, 0.6) 25%,
+                rgba(255, 253, 245, 0.8) 75%,
+                rgba(212, 165, 116, 0.1) 100%);
             border-radius: 20px;
             margin: 2rem 0;
-            border: 1px solid rgba(212, 165, 116, 0.1);
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verse-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, 
+                rgba(212, 165, 116, 0.05) 0%,
+                transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .verse-section:hover::before {
+            opacity: 1;
         }
 
         .verse-text {
@@ -487,23 +506,48 @@
             color: var(--forest);
             margin-bottom: 1.5rem;
             font-family: "Mrs Eaves", serif;
+            position: relative;
+            z-index: 1;
         }
 
         .verse-reference {
             font-weight: 600;
             color: var(--accent);
             font-size: clamp(16px, 2.5vw, 18px);
+            position: relative;
+            z-index: 1;
         }
 
         .highlight-box {
             margin: 2rem 0;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             background: linear-gradient(135deg, 
-                rgba(212, 165, 116, 0.1) 0%, 
-                rgba(245, 240, 232, 0.15) 100%);
-            border-radius: 16px;
-            border: 2px solid rgba(212, 165, 116, 0.2);
+                rgba(212, 165, 116, 0.15) 0%, 
+                rgba(245, 240, 232, 0.8) 25%,
+                rgba(255, 253, 245, 0.9) 75%,
+                rgba(107, 142, 114, 0.12) 100%);
+            border-radius: 18px;
+            border: 2px solid rgba(212, 165, 116, 0.25);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                transparent 0%,
+                rgba(212, 165, 116, 0.08) 50%,
+                transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .highlight-box:hover::before {
+            transform: translateX(100%);
         }
 
         .highlight-box p {
@@ -512,6 +556,8 @@
             color: var(--accent-2);
             font-size: clamp(16px, 2.8vw, 18px);
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         /* Mobile Responsiveness */
