@@ -4,71 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation - Zen & Yessica</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* 🎨 Custom Fonts & Design Tokens */
+        /* Custom fonts to match the theme */
         @font-face {
             font-family: "White Angelica";
             src: url("font/WhiteAngelica.ttf") format("truetype");
             font-display: swap;
         }
-
-        :root {
-            /* Colors extracted from the sunset and nature palette of the background image */
-            --bg-dark-red: #6A2D3C; 
-            --sunset-gold: #D4A574;
-            --soft-orange: #C8956D;
-            --deep-forest: #26352B;
-            --misty-grey: #B7ACA4;
-            --cream-text: #F8F4EE;
-
-            --text-shadow-light: rgba(0, 0, 0, 0.4);
-            --text-shadow-deep: rgba(0, 0, 0, 0.7);
-
-            --shadow-subtle: 0 2px 5px rgba(0, 0, 0, 0.15);
-            --shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.3);
-            --shadow-elevated: 0 25px 60px rgba(0, 0, 0, 0.5);
+        
+        @font-face {
+            font-family: "Mrs Eaves";
+            src: url("font/MrsEaves.ttf") format("truetype");
+            font-display: swap;
         }
 
-        /* 🖼️ General & Layout */
-        *, *::before, *::after {
+        :root {
+            --accent: #6b8e72;
+            --accent-2: #557a60;
+            --forest: #26352b;
+            --ivory: #fffdf5;
+            --warm-gold: #d4a574;
+            --sunset-orange: #c8956d;
+            --deep-burgundy: #6b4a3e;
+            --soft-cream: #f5f0e8;
+            --mountain-mist: rgba(139, 108, 91, 0.3);
+            --text-glow: rgba(212, 165, 116, 0.6);
+        }
+
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         html, body {
+            height: 100%;
+            font-family: "Mrs Eaves", "Playfair Display", Georgia, serif;
+        }
+
+        body {
             min-height: 100vh;
-            font-family: "Cormorant Garamond", 'Playfair Display', Georgia, serif;
-            color: var(--cream-text);
-            /* Using a placeholder URL for your uploaded image. Please replace with your actual image URL. */
-            background: url("BG1.jpg") center center / cover no-repeat fixed;
-            overflow-x: hidden;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--ivory);
+            background: url("image/BG1.png") center/cover no-repeat fixed;
+            overflow: hidden;
+            position: relative;
             padding: 20px;
         }
 
-        /* ✨ Enhanced Visuals */
+        /* Elegant overlay matching the warm mountain landscape */
         .overlay {
             position: fixed;
             inset: 0;
             z-index: 1;
             pointer-events: none;
-            /* A more harmonious gradient inspired by the background colors */
-            background: linear-gradient(180deg, 
-                rgba(38, 53, 43, 0.8) 0%,
-                rgba(212, 165, 116, 0.3) 50%,
-                rgba(106, 45, 60, 0.7) 100%
-            );
+            background:
+                radial-gradient(ellipse 120% 80% at 50% 30%, 
+                    rgba(107, 74, 62, 0.45) 0%, 
+                    rgba(139, 108, 91, 0.25) 40%, 
+                    rgba(212, 165, 116, 0.15) 70%, 
+                    rgba(107, 74, 62, 0.35) 100%),
+                linear-gradient(to bottom, 
+                    rgba(107, 74, 62, 0.3) 0%, 
+                    rgba(200, 149, 109, 0.15) 30%, 
+                    rgba(212, 165, 116, 0.1) 60%, 
+                    rgba(107, 74, 62, 0.4) 100%);
         }
 
+        /* Floating warm particles */
         .particles {
             position: fixed;
             inset: 0;
@@ -80,17 +89,29 @@
             position: absolute;
             width: 2px;
             height: 2px;
-            background: var(--sunset-gold);
+            background: var(--warm-gold);
             border-radius: 50%;
             opacity: 0.6;
-            animation: warmFloat var(--duration) linear infinite;
+            animation: warmFloat 8s linear infinite;
         }
 
         @keyframes warmFloat {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            10% { opacity: 0.6; transform: translateY(90vh) scale(1); }
-            90% { opacity: 0.3; transform: translateY(-10vh) scale(0.5); }
-            100% { opacity: 0; transform: translateY(-20vh) scale(0); }
+            0% { 
+                opacity: 0; 
+                transform: translateY(100vh) scale(0); 
+            }
+            10% { 
+                opacity: 0.6; 
+                transform: translateY(90vh) scale(1); 
+            }
+            90% { 
+                opacity: 0.3; 
+                transform: translateY(-10vh) scale(0.5); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-20vh) scale(0); 
+            }
         }
 
         .cover {
@@ -102,333 +123,439 @@
             flex-direction: column;
             align-items: center;
             gap: clamp(16px, 3vh, 30px);
-            animation: mountainRise 1.2s ease-out both;
+            animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            
+            /* Glass morphism inspired by mountain mist */
+            background: linear-gradient(135deg, 
+                rgba(245, 240, 232, 0.15) 0%, 
+                rgba(212, 165, 116, 0.08) 30%,
+                rgba(200, 149, 109, 0.05) 70%,
+                rgba(245, 240, 232, 0.12) 100%);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(212, 165, 116, 0.25);
+            border-radius: 30px;
+            box-shadow: 
+                0 30px 70px rgba(107, 74, 62, 0.4),
+                inset 0 1px 0 rgba(245, 240, 232, 0.3),
+                0 0 100px rgba(212, 165, 116, 0.15);
             max-width: 550px;
             width: 100%;
-
-            /* Glassmorphism Effect with a warmer tint */
-            background: rgba(248, 244, 238, 0.15);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(248, 244, 238, 0.3);
-            border-radius: 25px;
-            box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(248, 244, 238, 0.4);
+            margin: 0 auto;
         }
 
         .cover::before {
             content: '';
             position: absolute;
-            inset: -1px;
-            border-radius: 27px;
-            background: linear-gradient(135deg, var(--sunset-gold), transparent 30%, transparent 70%, var(--soft-orange));
-            opacity: 0.5;
+            inset: -2px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, 
+                rgba(212, 165, 116, 0.4), 
+                transparent 30%, 
+                transparent 70%, 
+                rgba(200, 149, 109, 0.3));
             z-index: -1;
-        }
-
-        /* ✍️ Typography & Content */
-        .pretitle, .date-location, .dear, .fact-display, .hint {
-            text-shadow: 1px 1px 5px var(--text-shadow-light);
-            color: var(--cream-text);
+            opacity: 0.7;
         }
 
         .pretitle {
             font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            letter-spacing: 0.3em;
+            font-weight: 400;
+            letter-spacing: 0.5em;
             text-transform: uppercase;
-            font-size: clamp(13px, 2.5vw, 17px);
+            font-size: clamp(11px, 2.2vw, 14px);
+            opacity: 0.9;
+            margin: 0;
+            color: var(--warm-gold);
+            text-shadow: 0 3px 15px var(--text-glow);
             position: relative;
-            color: var(--misty-grey);
         }
+
         .pretitle::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
             width: 50px;
-            height: 1.5px;
-            background: linear-gradient(to right, transparent, var(--sunset-gold), transparent);
-            opacity: 0.8;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--warm-gold), transparent);
+            opacity: 0.7;
         }
 
         .cover h1 {
             font-family: "White Angelica", 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 13vw, 7.5rem);
+            font-size: clamp(3.2rem, 12vw, 7rem);
             font-weight: 400;
             line-height: 0.9;
             margin: 0.1em 0;
-            color: var(--cream-text);
-            text-shadow: 2px 2px 10px var(--text-shadow-deep), 0 0 25px var(--sunset-gold);
-            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.6));
-            -webkit-text-stroke: 0.5px rgba(106, 45, 60, 0.2);
+            color: var(--soft-cream);
+            text-shadow: 
+                0 12px 40px rgba(107, 74, 62, 0.8),
+                0 4px 16px rgba(212, 165, 116, 0.6),
+                0 0 30px rgba(245, 240, 232, 0.4);
+            filter: drop-shadow(0 6px 12px rgba(107, 74, 62, 0.5));
+            -webkit-text-stroke: 0.5px rgba(107, 74, 62, 0.15);
         }
 
         .names-separator {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.3rem, 3.2vw, 2.2rem);
-            color: var(--soft-orange);
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--sunset-orange);
             margin: -0.2em 0.3em;
-            text-shadow: 1px 1px 6px var(--text-shadow-deep), 0 0 10px var(--soft-orange);
+            opacity: 0.85;
+            text-shadow: 0 2px 8px var(--text-glow);
         }
 
         .date-location {
-            font-weight: 500;
-            font-size: clamp(18px, 3.6vw, 24px);
+            font-family: "Mrs Eaves", 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(16px, 3.2vw, 20px);
+            opacity: 0.95;
+            margin: 0.6rem 0;
+            color: var(--soft-cream);
+            text-shadow: 0 3px 12px rgba(107, 74, 62, 0.6);
             line-height: 1.4;
-            color: var(--misty-grey);
         }
 
         .dear {
-            font-family: "Cormorant Garamond", 'Playfair Display', serif;
-            font-weight: 400;
+            font-family: "Mrs Eaves", 'Poppins', sans-serif;
+            font-weight: 300;
             font-style: italic;
             margin: 0.8rem 0 1.2rem;
-            font-size: clamp(17px, 3.2vw, 21px);
+            font-size: clamp(15px, 2.8vw, 18px);
+            opacity: 0.88;
+            color: var(--warm-gold);
+            text-shadow: 0 2px 8px var(--text-glow);
         }
 
-        .fact-display {
-            font-family: "Cormorant Garamond", 'Playfair Display', serif;
-            font-style: italic;
-            font-size: clamp(15px, 3vw, 19px);
-            opacity: 0;
-            min-height: 30px;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            line-height: 1.5;
-            max-width: 380px;
-            text-align: center;
-        }
-        .fact-display.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ⚙️ Interactive Elements */
+        /* Enhanced interactive elements with warm theme */
         .interactive-line {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 18px;
             margin: 20px 0;
-            opacity: 0.9;
+            opacity: 0.8;
         }
 
         .decorative-element {
-            font-size: 1.5em;
+            font-size: 1.3em;
             cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--sunset-gold);
-            padding: 12px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            color: var(--warm-gold);
+            position: relative;
+            padding: 8px;
             border-radius: 50%;
             background: rgba(212, 165, 116, 0.1);
             border: 1px solid rgba(212, 165, 116, 0.2);
-            backdrop-filter: blur(8px);
-            box-shadow: var(--shadow-subtle);
+            backdrop-filter: blur(10px);
         }
+
         .decorative-element:hover {
+            opacity: 1;
             transform: scale(1.15) translateY(-3px);
-            color: var(--cream-text);
-            background: rgba(200, 149, 109, 0.2);
+            color: var(--soft-cream);
+            background: rgba(200, 149, 109, 0.25);
             border-color: rgba(212, 165, 116, 0.4);
-            box-shadow: var(--shadow-medium);
-            text-shadow: 0 1px 5px var(--sunset-gold);
+            box-shadow: 0 8px 20px rgba(200, 149, 109, 0.4);
+            text-shadow: 0 2px 8px var(--text-glow);
         }
 
         .decorative-line {
             width: 35px;
-            height: 1.5px;
-            background: linear-gradient(to right, transparent, var(--soft-orange), transparent);
-            opacity: 0.7;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--sunset-orange), transparent);
+            opacity: 0.5;
         }
 
+        /* Enhanced fact display */
+        .fact-display {
+            font-family: "Mrs Eaves", 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(13px, 2.6vw, 16px);
+            opacity: 0.8;
+            margin: 18px 0;
+            min-height: 25px;
+            transition: all 0.6s ease;
+            color: var(--soft-cream);
+            text-shadow: 0 2px 8px rgba(107, 74, 62, 0.6);
+            line-height: 1.5;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        .fact-display.show {
+            opacity: 0.95;
+            transform: translateY(-2px);
+        }
+
+        /* Elegant button design with warm mountain theme */
         .open-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 18px 45px;
+            padding: 16px 40px;
             border-radius: 50px;
-            border: 1px solid rgba(212, 165, 116, 0.3);
-            background: linear-gradient(135deg, var(--bg-dark-red) 0%, var(--soft-orange) 100%);
-            color: var(--cream-text);
-            font-family: "Cormorant Garamond", 'Playfair Display', serif;
-            font-weight: 600;
-            font-size: 17px;
-            letter-spacing: 0.08em;
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            background: linear-gradient(135deg, 
+                var(--accent) 0%, 
+                var(--sunset-orange) 100%);
+            color: var(--ivory);
+            font-family: "Mrs Eaves", 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.05em;
             text-decoration: none;
             cursor: pointer;
-            box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(248, 244, 238, 0.4);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(12px);
+            box-shadow: 
+                0 18px 35px rgba(200, 149, 109, 0.4),
+                inset 0 1px 0 rgba(245, 240, 232, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(15px);
             position: relative;
             overflow: hidden;
         }
+
         .open-btn::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(248, 244, 238, 0.2) 0%, transparent 50%);
+            background: linear-gradient(135deg, 
+                rgba(245, 240, 232, 0.2) 0%, 
+                transparent 50%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
+
         .open-btn:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(248, 244, 238, 0.6);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 
+                0 22px 45px rgba(200, 149, 109, 0.5),
+                inset 0 1px 0 rgba(245, 240, 232, 0.4);
             border-color: rgba(212, 165, 116, 0.5);
-            background: linear-gradient(135deg, var(--bg-dark-red) 0%, var(--sunset-gold) 100%);
+            background: linear-gradient(135deg, 
+                var(--accent-2) 0%, 
+                var(--deep-burgundy) 100%);
         }
-        .open-btn:hover::before { opacity: 1; }
-        .open-btn:active { transform: translateY(-3px) scale(1.02); transition: all 0.1s ease; }
+
+        .open-btn:hover::before {
+            opacity: 1;
+        }
+
+        .open-btn:active {
+            transform: translateY(-3px) scale(1.01);
+        }
 
         .hint {
-            margin-top: 15px;
-            font-size: 15px;
-            opacity: 0.85;
-            font-family: "Cormorant Garamond", 'Playfair Display', serif;
+            margin-top: 12px;
+            font-size: 13px;
+            opacity: 0.6;
+            font-family: "Mrs Eaves", 'Poppins', sans-serif;
+            font-weight: 300;
             font-style: italic;
+            color: #e6d5c3;
+            text-shadow: 0 1px 4px rgba(139, 108, 91, 0.4);
         }
 
-        /* 🔄 Animations */
+        /* Mountain-inspired animations */
         @keyframes mountainRise {
-            from { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
         }
 
-        .cover * { animation-fill-mode: both; }
-        .pretitle { animation: mountainRise 1.2s ease-out 0.05s both; }
-        .cover h1 { animation: mountainRise 1.2s ease-out 0.15s both; }
-        .date-location { animation: mountainRise 1.2s ease-out 0.25s both; }
-        .dear { animation: mountainRise 1.2s ease-out 0.35s both; }
-        .interactive-line { animation: mountainRise 1.2s ease-out 0.45s both; }
-        .fact-display { animation: mountainRise 1.2s ease-out 0.55s both; }
-        .open-btn { animation: mountainRise 1.2s ease-out 0.65s both; }
-        .hint { animation: mountainRise 1.2s ease-out 0.75s both; }
-        
-        /* 📱 Mobile Optimization */
+        .cover * {
+            animation-fill-mode: both;
+        }
+
+        .pretitle { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both; }
+        .cover h1 { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both; }
+        .date-location { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both; }
+        .dear { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both; }
+        .interactive-line { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.85s both; }
+        .fact-display { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both; }
+        .open-btn { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.15s both; }
+        .hint { animation: mountainRise 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s both; }
+
+        /* Mobile specific improvements */
         @media (max-width: 768px) {
             body {
-                background-attachment: scroll;
-                padding: 15px;
-                background-size: cover;
-                background-position: center top;
+                padding: 10px;
+                background-attachment: scroll !important;
+                background-size: cover !important;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
+                min-height: 100vh !important;
+                height: auto;
             }
-            .overlay { 
-                background: linear-gradient(180deg, 
-                    rgba(38, 53, 43, 0.85) 0%, 
-                    rgba(212, 165, 116, 0.4) 50%, 
-                    rgba(106, 45, 60, 0.8) 100%
-                );
-            }
+            
             .cover {
                 padding: clamp(25px, 5vw, 45px);
-                border-radius: 20px;
+                border-radius: 25px;
                 max-width: 95vw;
-                background: rgba(248, 244, 238, 0.2);
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(248, 244, 238, 0.4);
-                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(248, 244, 238, 0.5);
+                background: linear-gradient(135deg, 
+                    rgba(245, 240, 232, 0.25) 0%, 
+                    rgba(212, 165, 116, 0.18) 30%,
+                    rgba(200, 149, 109, 0.12) 70%,
+                    rgba(245, 240, 232, 0.22) 100%);
+                backdrop-filter: blur(25px);
+                border: 2px solid rgba(245, 230, 211, 0.3);
             }
-            .pretitle, .date-location, .dear, .fact-display, .hint {
-                text-shadow: 1px 1px 6px var(--text-shadow-deep);
+
+            .interactive-line {
+                gap: 15px;
             }
-        }
-        @media (max-width: 480px) {
-            .cover {
-                border-radius: 18px;
-                gap: 12px;
-                padding: clamp(18px, 4vw, 30px);
+
+            .decorative-element {
+                font-size: 1.2em;
+                padding: 8px;
+                min-width: 40px;
+                min-height: 40px;
             }
-            .open-btn {
-                padding: 16px 35px;
-                font-size: 16px;
+
+            .overlay {
+                background:
+                    radial-gradient(ellipse 120% 80% at 50% 30%, 
+                        rgba(107, 74, 62, 0.25) 0%, 
+                        rgba(139, 108, 91, 0.15) 40%, 
+                        rgba(212, 165, 116, 0.08) 70%, 
+                        rgba(107, 74, 62, 0.25) 100%);
             }
         }
 
-        /* ♿ Accessibility: Reduced Motion */
+        @media (max-width: 480px) {
+            .cover {
+                border-radius: 20px;
+                gap: 12px;
+            }
+
+            .open-btn {
+                padding: 14px 32px;
+                font-size: 15px;
+            }
+        }
+
+        /* Reduced motion accessibility */
         @media (prefers-reduced-motion: reduce) {
             * {
-                animation-duration: 0.3s !important;
-                transition-duration: 0.1s !important;
+                animation: none !important;
+                transition: none !important;
             }
-            .particle { display: none; }
+            
+            .cover {
+                animation: none;
+                opacity: 1;
+            }
+            
+            .particle {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="overlay" aria-hidden="true"></div>
-    <div class="particles" id="particles" aria-hidden="true"></div>
+    <div class="overlay"></div>
+    <div class="particles" id="particles"></div>
 
-    <div class="cover" role="main">
+    <div class="cover">
         <p class="pretitle">Wedding Invitation</p>
-        <h1>Zen<span class="names-separator" aria-hidden="true">&</span>Yessica</h1>
+        <h1>Zen<span class="names-separator">&</span>Yessica</h1>
         <p class="date-location">17 January 2026<br>Cibinong</p>
         <p id="dearGuest" class="dear">Dear <span id="guestName">Beloved Guest</span></p>
 
         <div class="interactive-line">
             <div class="decorative-line"></div>
-            <button class="decorative-element" data-fact="love" aria-label="Discover a thought about Love">
-                💚
-            </button>
+            <span class="decorative-element" data-fact="love" title="Love">
+                ♡
+            </span>
             <div class="decorative-line"></div>
-            <button class="decorative-element" data-fact="nature" aria-label="Discover a thought about Nature">
+            <span class="decorative-element" data-fact="nature" title="Nature">
                 🌿
-            </button>
+            </span>
             <div class="decorative-line"></div>
-            <button class="decorative-element" data-fact="home" aria-label="Discover a thought about Home">
+            <span class="decorative-element" data-fact="home" title="Home">
                 🏡
-            </button>
+            </span>
             <div class="decorative-line"></div>
         </div>
 
-        <div class="fact-display" id="factDisplay" role="status" aria-live="polite">
-            Tap the symbols above to discover a beautiful thought about love
+        <div class="fact-display" id="factDisplay">
+            Touch the symbols above to discover gentle thoughts about love
         </div>
 
-        <a href="home.html?opened=1" class="open-btn" onclick="setAutoplay()" role="button">
-            <span>✧</span>
+        <a href="home.html?opened=1" class="open-btn" onclick="setAutoplay()">
+            <span>💝</span>
             <span>Open Invitation</span>
         </a>
         <div class="hint">Tap to open the full invitation</div>
     </div>
 
     <script>
+        // Enhanced facts with more poetic content
         const subtleFacts = {
             love: [
-                "Love grows more beautiful with time, like a garden tended with care.",
-                "The best love stories are written by two hearts beating in harmony.",
-                "True love is not about finding the perfect person, but seeing an imperfect person perfectly.",
-                "In the arithmetic of love, one plus one equals everything, and two minus one equals nothing.",
-                "Love is composed of a single soul inhabiting two bodies."
+                "Love grows more beautiful with time, like a garden tended with care",
+                "The best love stories are written by two hearts beating in harmony",
+                "True love is not about finding the perfect person, but seeing an imperfect person perfectly",
+                "In the arithmetic of love, one plus one equals everything, and two minus one equals nothing",
+                "Love is composed of a single soul inhabiting two bodies"
             ],
             nature: [
-                "Like trees that grow stronger together, love flourishes when two souls are rooted in trust.",
-                "Every flower blooms in its own time, just as every love story unfolds uniquely.",
-                "Nature teaches us that the most beautiful things grow slowly and with patience.",
-                "As the forest thrives in harmony, so do hearts that beat as one.",
-                "The most beautiful gardens are grown by two hands working together."
+                "Like trees that grow stronger together, love flourishes when two souls are rooted in trust",
+                "Every flower blooms in its own time, just as every love story unfolds uniquely",
+                "Nature teaches us that the most beautiful things grow slowly and with patience",
+                "As the forest thrives in harmony, so do hearts that beat as one",
+                "The most beautiful gardens are grown by two hands working together"
             ],
             home: [
-                "Home is not a place, but a feeling you create with the one you love.",
-                "The sweetest moments happen when two hearts make a house into a home.",
-                "A happy marriage is the union of two good forgivers building their nest together.",
-                "Home is where love resides, memories are created, and laughter never ends.",
-                "Together we will build a home filled with love, laughter, and beautiful memories."
+                "Home is not a place, but a feeling you create with the one you love",
+                "The sweetest moments happen when two hearts make a house into a home",
+                "A happy marriage is the union of two good forgivers building their nest together",
+                "Home is where love resides, memories are created, and laughter never ends",
+                "Together we will build a home filled with love, laughter, and beautiful memories"
             ]
         };
 
+        // Create floating warm particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Get guest name from URL parameter
         function getGuestName() {
             const urlParams = new URLSearchParams(window.location.search);
             const name = urlParams.get('to') || urlParams.get('name');
             if (name) {
-                document.getElementById('guestName').textContent = decodeURIComponent(name.replace(/\+/g, ' '));
+                document.getElementById('guestName').textContent = decodeURIComponent(name);
             }
         }
 
+        // Get random fact from category
         function getRandomFact(category) {
             const facts = subtleFacts[category] || subtleFacts.love;
             const randomIndex = Math.floor(Math.random() * facts.length);
             return facts[randomIndex];
         }
 
+        // Show fact with elegant animation
         function showFact(fact) {
             const factElement = document.getElementById('factDisplay');
             factElement.classList.remove('show');
@@ -436,63 +563,65 @@
             setTimeout(() => {
                 factElement.textContent = fact;
                 factElement.classList.add('show');
-            }, 150);
+            }, 300);
         }
 
+        // Set autoplay for music when opening invitation
         function setAutoplay() {
             sessionStorage.setItem('autoplay', '1');
         }
 
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth > 768 ? 15 : 8;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                const duration = 8 + Math.random() * 4;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * duration + 's';
-                particle.style.setProperty('--duration', duration + 's');
-                particlesContainer.appendChild(particle);
-            }
-        }
-
+        // Initialize interactive elements
         document.addEventListener('DOMContentLoaded', function() {
             const decorativeElements = document.querySelectorAll('.decorative-element');
+            
             decorativeElements.forEach(element => {
                 element.addEventListener('click', function(e) {
                     e.preventDefault();
                     const category = this.dataset.fact;
                     const fact = getRandomFact(category);
                     showFact(fact);
+                    
+                    // Enhanced click feedback
+                    this.style.transform = 'scale(0.9) translateY(-2px)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
                 });
             });
 
+            // Show initial fact after a delay
             setTimeout(() => {
                 document.getElementById('factDisplay').classList.add('show');
-            }, 2000);
+            }, 3500);
 
-            getGuestName();
+            // Create particles
             createParticles();
         });
 
+        // Initialize guest name
+        getGuestName();
+
+        // Add subtle mouse parallax for desktop
         if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             let mouseX = 0, mouseY = 0;
             let currentX = 0, currentY = 0;
-            const body = document.body;
 
             document.addEventListener('mousemove', function(e) {
-                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
-                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 1;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 1;
             });
 
             function updateParallax() {
-                currentX += (mouseX - currentX) * 0.05;
-                currentY += (mouseY - currentY) * 0.05;
-                body.style.backgroundPosition = `${50 + currentX}% ${50 + currentY}%`;
+                currentX += (mouseX - currentX) * 0.08;
+                currentY += (mouseY - currentY) * 0.08;
+                
+                document.body.style.backgroundPosition = 
+                    `${50 + currentX}% ${50 + currentY}%`;
+                
                 requestAnimationFrame(updateParallax);
             }
+            
             updateParallax();
         }
     </script>
