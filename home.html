@@ -50,8 +50,13 @@
 
         body {
             color: var(--forest);
-            background: url("image/House.png") center/cover no-repeat fixed;
+            background: url("image/House.png") center bottom/cover no-repeat fixed;
             overflow: hidden;
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        body.scrolled {
+            background: url("image/BG1.png") center/cover no-repeat fixed;
         }
 
         /* Scrolling sections */
@@ -1417,6 +1422,22 @@
                 el.style.display = "block";
             }
         })();
+
+        // ===== BACKGROUND SWITCHING =====
+        const snapContainer = document.getElementById("snap");
+        
+        function handleBackgroundChange() {
+            const scrollTop = snapContainer.scrollTop;
+            const firstSectionHeight = window.innerHeight;
+            
+            if (scrollTop > firstSectionHeight * 0.3) {
+                document.body.classList.add("scrolled");
+            } else {
+                document.body.classList.remove("scrolled");
+            }
+        }
+
+        snapContainer.addEventListener("scroll", handleBackgroundChange);
 
         // ===== RSVP & NOTES =====
         document.getElementById("referer").value = location.hostname;
