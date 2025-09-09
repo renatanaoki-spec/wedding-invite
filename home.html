@@ -1587,4 +1587,111 @@
         }
 
         function userSay(t){
-            renderMsg("user", t.replace(/[<>&"]/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"':
+            renderMsg("user", t.replace(/[<>&"]/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c])));
+        }
+
+        function botSay(h){
+            renderMsg("ai", h);
+        }
+
+        const fmtDate = d => d.toLocaleString("id-ID", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZone: "Asia/Jakarta"
+        });
+
+        const formatDateShort = d => d.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            timeZone: "Asia/Jakarta"
+        });
+
+        const daysTo = d => {
+            const ms = d.getTime() - Date.now();
+            if (ms <= 0) return "Hari ini!";
+            const DD = Math.floor(ms / 86400000);
+            const HH = Math.floor((ms % 86400000) / 3600000);
+            return `${DD} hari ${HH} jam lagi`;
+        };
+
+        function reply(text){
+            const q = text.toLowerCase();
+            if (/\b(hai|halo|hello|hi)\b/.test(q)) {
+                return `Halo${guest ? ' ' + guest : ''}! Ada yang bisa Aira bantu?`;
+            }
+            if (/siapa|pengantin|couple|bride|groom/.test(q)) {
+                return `Acara ini untuk <b>${KNOWLEDGE.couple}</b> 🥂.`;
+            }
+            if (/kapan|tanggal|jam|time|when|countdown|berapa hari/.test(q)) {
+                return `Pemberkatan dimulai <b>${fmtDate(KNOWLEDGE.date)}</b> (WIB). Tersisa <b>${daysTo(KNOWLEDGE.date)}</b>.`;
+            }
+            if (/jadian|anniv|anniversary|sejak.*(bersama|pacaran)|kapan.*jadian|tanggal.*jadian/.test(q)) {
+                return `Tanggal jadian: <b>${formatDateShort(KNOWLEDGE.datingAnniversary)}</b> 💞`;
+            }
+            if (/warna( favorit| kesukaan)?|favorite color/.test(q)){
+                const g = /(zen|groom|laki|cowok)/.test(q);
+                const b = /(yessica|bride|perempuan|cewek)/.test(q);
+                if (g) return `Warna kesukaan Zen: <b>${KNOWLEDGE.favorites.groomColor}</b> 💙`;
+                if (b) return `Warna kesukaan Yessica: <b>${KNOWLEDGE.favorites.brideColor}</b> 💛`;
+                return `Warna favorit: Zen <b>${KNOWLEDGE.favorites.groomColor}</b> 💙 & Yessica <b>${KNOWLEDGE.favorites.brideColor}</b> 💛`;
+            }
+            if (/impian|cita-cita|mimpi|goals?/.test(q)) {
+                return `Impian Zen: <b>${KNOWLEDGE.dreams.groom}</b> 🏔️<br>Impian bersama: <b>${KNOWLEDGE.dreams.couple}</b> 🫶`;
+            }
+            if (/hobi|hobby|kegemaran|interest/.test(q)) {
+                return `Hobi Zen/Yessica belum diisi.`;
+            }
+            if (/fun\s*fact|fakta unik|unik/.test(q)) {
+                return `Fun fact belum ditambahkan 🙂`;
+            }
+            if (/di mana|lokasi|alamat|where|maps|arah|route|direction/.test(q)) {
+                return `Lokasi: <br>• Pemberkatan: <a href="${KNOWLEDGE.maps.matrimony}" target="_blank">Gereja Santo Fransiskus Asisi, Cibinong</a><br>• Resepsi: <a href="${KNOWLEDGE.maps.reception}" target="_blank">Bagas Raya Cibinong</a>`;
+            }
+            if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)){
+                setTimeout(() => document.querySelector("#rsvp").scrollIntoView({behavior: "smooth"}), 300);
+                return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b>. Aku sudah menggulir ke sana 😉.`;
+            }
+            if (/calendar|kalender|save the date|ingatkan/.test(q)) {
+                return `Klik <a href="${KNOWLEDGE.calendarLink}" target="_blank">Add to Google Calendar</a> untuk menyimpan tanggalnya.`;
+            }
+            if (/musik|music|lagu|sound/.test(q)) {
+                return `Tombol musik ada di kanan bawah (ikon ▶️/⏸️).`;
+            }
+            if (/dress|tema|baju|warna/.test(q)) {
+                return `Pilihan aman: <b>semi-formal</b> warna lembut/pastel.`;
+            }
+            return `Aku bisa bantu: "Kapan mulai?", "Lokasinya?", "Kapan jadian?", "Warna favorit?", "Impian?", "Cara RSVP?"`;
+        }
+
+        aiForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const t = aiText.value.trim();
+            if (!t) return;
+            userSay(t);
+            botSay(reply(t));
+            aiText.value = "";
+        });
+
+        // ===== Calculate Relationship Years =====
+        function updateRelationshipYears() {
+            const now = new Date();
+            const start = new Date("2019-05-28");
+            const years = Math.floor((now - start) / (1000 * 60 * 60 * 24 * 365.25));
+            const element = document.getElementById("relationshipYears");
+            if (element) {
+                element.textContent = `${years} years`;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            updateRelationshipYears();
+        });
+    </script>
+</body>
+</html>
