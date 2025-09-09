@@ -1429,12 +1429,19 @@
         function handleBackgroundChange() {
             const scrollTop = snapContainer.scrollTop;
             const firstSectionHeight = window.innerHeight;
+            const scrollPercentage = scrollTop / firstSectionHeight;
             
-            if (scrollTop > firstSectionHeight * 0.3) {
+            // Remove all background classes first
+            document.body.classList.remove("welcome", "scrolled");
+            
+            if (scrollPercentage > 0.6) {
+                // After 60% scroll, show mountain background
                 document.body.classList.add("scrolled");
-            } else {
-                document.body.classList.remove("scrolled");
+            } else if (scrollPercentage > 0.15) {
+                // Between 15% and 60% scroll, show welcome image
+                document.body.classList.add("welcome");
             }
+            // Below 15% scroll, show house image (default)
         }
 
         snapContainer.addEventListener("scroll", handleBackgroundChange);
