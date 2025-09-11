@@ -48,7 +48,7 @@
             font-family: "Mrs Eaves", "Playfair Display", Georgia, serif;
         }
 
-        /* SMOOTH BACKGROUND TRANSITION SYSTEM */
+        /* PAGE TRANSITION SYSTEM */
         body {
             color: var(--forest);
             min-height: 100vh;
@@ -56,12 +56,75 @@
             overflow: hidden;
             position: relative;
             opacity: 0;
-            animation: pageEntry 1.2s ease-out forwards;
+            transform: scale(1.02);
+            filter: blur(2px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Background layers for smooth transitions */
-        .bg-layer {
+        body.loaded {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0px);
+        }
+
+        /* PAGE LOADER */
+        .page-loader {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(245, 240, 232, 0.98) 0%, 
+                rgba(255, 253, 245, 0.96) 50%,
+                rgba(245, 240, 232, 0.98) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: var(--forest);
+        }
+
+        .loader-hearts {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .loader-text {
+            font-family: "White Angelica", 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--accent-2);
+        }
+
+        /* SECTION-BASED BACKGROUND SYSTEM */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .bg-layer {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -69,37 +132,26 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            z-index: -1;
+            background-attachment: fixed;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1.05);
         }
 
-        .bg-house {
-            background-image: url("https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&h=1080&fit=crop");
+        .bg-layer.active {
             opacity: 1;
+            transform: scale(1);
         }
 
-        .bg-welcome {
-            background-image: url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1920&h=1080&fit=crop");
-            opacity: 0;
-        }
-
-        .bg-mountain {
-            background-image: url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop");
-            opacity: 0;
-        }
-
-        @keyframes pageEntry {
-            0% {
-                opacity: 0;
-                transform: scale(1.02);
-                filter: blur(2px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0px);
-            }
-        }
+        /* Background images for each section */
+        .bg-hero { background-image: url("image/House.png"); }
+        .bg-details { background-image: url("image/BG1.jpeg"); }
+        .bg-verse { background-image: url("image/BG2.jpeg"); }
+        .bg-story { background-image: url("image/BG3.jpeg"); }
+        .bg-rsvp { background-image: url("image/BG1.png"); }
+        .bg-notes { background-image: url("image/House.png"); }
+        .bg-thankyou { background-image: url("image/BG1.jpeg"); }
 
         /* Scrolling sections */
         #snap {
@@ -125,29 +177,49 @@
             will-change: transform;
         }
 
-        /* Hero overlay for readability */
-        .hero::before {
-            content: "";
+        /* Section-specific overlays for better readability */
+        .section-overlay {
             position: absolute;
             inset: 0;
             z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .section-overlay.active {
+            opacity: 1;
+        }
+
+        /* Different overlays for different sections */
+        .overlay-hero {
             background:
                 radial-gradient(ellipse 120% 80% at 50% 30%, 
                     rgba(107, 74, 62, 0.45) 0%, 
                     rgba(139, 108, 91, 0.25) 40%, 
                     rgba(212, 165, 116, 0.15) 70%, 
-                    rgba(107, 74, 62, 0.35) 100%),
-                linear-gradient(to bottom, 
-                    rgba(107, 74, 62, 0.3) 0%, 
-                    rgba(200, 149, 109, 0.15) 30%, 
-                    rgba(212, 165, 116, 0.1) 60%, 
-                    rgba(107, 74, 62, 0.4) 100%);
-            pointer-events: none;
+                    rgba(107, 74, 62, 0.35) 100%);
         }
 
-        .hero > .inner {
-            position: relative;
-            z-index: 1;
+        .overlay-light {
+            background: linear-gradient(to bottom, 
+                rgba(245, 240, 232, 0.1) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(245, 240, 232, 0.1) 100%);
+        }
+
+        .overlay-warm {
+            background: linear-gradient(135deg, 
+                rgba(212, 165, 116, 0.15) 0%, 
+                rgba(200, 149, 109, 0.1) 50%, 
+                rgba(107, 74, 62, 0.2) 100%);
+        }
+
+        .overlay-soft {
+            background: radial-gradient(circle at center, 
+                rgba(255, 253, 245, 0.3) 0%, 
+                rgba(245, 240, 232, 0.2) 50%, 
+                transparent 100%);
         }
 
         /* Cards */
@@ -156,6 +228,7 @@
             border-radius: 24px;
             padding: clamp(32px, 4.5vw, 48px);
             position: relative;
+            z-index: 2;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
@@ -166,15 +239,15 @@
 
         .card {
             background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.98) 0%, 
-                rgba(255, 253, 245, 0.96) 50%,
-                rgba(245, 240, 232, 0.98) 100%);
+                rgba(245, 240, 232, 0.95) 0%, 
+                rgba(255, 253, 245, 0.93) 50%,
+                rgba(245, 240, 232, 0.95) 100%);
             border: 2px solid rgba(212, 165, 116, 0.25);
             box-shadow: 
                 0 25px 50px rgba(107, 74, 62, 0.2),
                 0 8px 25px rgba(200, 149, 109, 0.15),
                 inset 0 1px 0 rgba(245, 240, 232, 0.8);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
         }
@@ -294,34 +367,6 @@
         .location-block:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 40px rgba(107, 74, 62, 0.18);
-        }
-
-        .location-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: 0;
-            border-radius: 18px;
-            transition: opacity 0.3s ease;
-        }
-
-        .location-block:hover::before {
-            opacity: 0.25;
-        }
-
-        .location-block.church::before {
-            background-image: url('image/BG2.jpeg');
-        }
-
-        .location-block.reception::before {
-            background-image: url('image/BG3.jpeg');
         }
 
         .location-content {
@@ -1108,7 +1153,7 @@
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation: none !important;
-                transition: none !important;
+                transition: opacity 0.3s ease !important;
                 scroll-behavior: auto !important;
             }
             
@@ -1120,15 +1165,30 @@
 
             .bg-layer {
                 transition: opacity 0.3s ease !important;
+                transform: none !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Smooth Background Layers -->
-    <div class="bg-layer bg-house" id="bgHouse"></div>
-    <div class="bg-layer bg-welcome" id="bgWelcome"></div>
-    <div class="bg-layer bg-mountain" id="bgMountain"></div>
+    <!-- Page Loader -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-content">
+            <div class="loader-hearts">💕 💍 💕</div>
+            <div class="loader-text">Welcome to our love story...</div>
+        </div>
+    </div>
+
+    <!-- Dynamic Background Container -->
+    <div class="bg-container">
+        <div class="bg-layer bg-hero" data-section="hero"></div>
+        <div class="bg-layer bg-details" data-section="details"></div>
+        <div class="bg-layer bg-verse" data-section="verse"></div>
+        <div class="bg-layer bg-story" data-section="story"></div>
+        <div class="bg-layer bg-rsvp" data-section="rsvp"></div>
+        <div class="bg-layer bg-notes" data-section="notes"></div>
+        <div class="bg-layer bg-thankyou" data-section="thankyou"></div>
+    </div>
 
     <!-- Background Music -->
     <audio id="bgm" loop>
@@ -1164,7 +1224,8 @@
     <!-- Main Content with Scroll Snap -->
     <div id="snap">
         <!-- Hero Section -->
-        <section class="s hero">
+        <section class="s" data-section="hero">
+            <div class="section-overlay overlay-hero" data-section="hero"></div>
             <div class="inner transparent">
                 <p id="dearLine" class="subtle" style="display:none;">Dear Guest</p>
                 <h1 class="title">SAVE THE DATE</h1>
@@ -1204,7 +1265,8 @@
         </section>
 
         <!-- Wedding Details -->
-        <section class="s">
+        <section class="s" data-section="details">
+            <div class="section-overlay overlay-light" data-section="details"></div>
             <div class="inner card">
                 <h2>🌄 Wedding Day Details</h2>
                 <div class="section-content">
@@ -1259,7 +1321,8 @@
         </section>
 
         <!-- Bible Verse -->
-        <section class="s">
+        <section class="s" data-section="verse">
+            <div class="section-overlay overlay-warm" data-section="verse"></div>
             <div class="inner card">
                 <h2>✨ God's Word for Us</h2>
                 <div class="section-content">
@@ -1283,7 +1346,8 @@
         </section>
 
         <!-- Our Story -->
-        <section class="s">
+        <section class="s" data-section="story">
+            <div class="section-overlay overlay-soft" data-section="story"></div>
             <div class="inner card">
                 <h2>💕 Our Love Story</h2>
                 <div class="section-content">
@@ -1337,7 +1401,8 @@
         </section>
 
         <!-- RSVP Section -->
-        <section class="s" id="rsvp">
+        <section class="s" id="rsvp" data-section="rsvp">
+            <div class="section-overlay overlay-light" data-section="rsvp"></div>
             <div class="inner card">
                 <h2>💌 RSVP & Wedding Notes</h2>
                 <div class="section-content">
@@ -1381,7 +1446,8 @@
         </section>
 
         <!-- Guest Notes -->
-        <section class="s">
+        <section class="s" data-section="notes">
+            <div class="section-overlay overlay-warm" data-section="notes"></div>
             <div class="inner card">
                 <h2>💕 Messages from Our Loved Ones</h2>
                 <div class="section-content">
@@ -1400,7 +1466,8 @@
         </section>
 
         <!-- Thank You -->
-        <section class="s">
+        <section class="s" data-section="thankyou">
+            <div class="section-overlay overlay-soft" data-section="thankyou"></div>
             <div class="inner card">
                 <h2>🙏 Thank You</h2>
                 <div class="section-content">
@@ -1432,74 +1499,140 @@
         // ===== CONFIG =====
         const WEDDING_DATE = new Date("2026-01-17T09:00:00+07:00");
 
-        // ===== SMOOTH BACKGROUND TRANSITION SYSTEM =====
-        const bgHouse = document.getElementById("bgHouse");
-        const bgWelcome = document.getElementById("bgWelcome");
-        const bgMountain = document.getElementById("bgMountain");
-        const snapContainer = document.getElementById("snap");
-
-        let currentBgState = 'house';
-
-        function handleSmoothBackgroundTransition() {
-            const scrollTop = snapContainer.scrollTop;
-            const firstSectionHeight = window.innerHeight;
-            const scrollPercentage = scrollTop / firstSectionHeight;
+        // ===== SMOOTH PAGE TRANSITION FROM INDEX.HTML =====
+        function initializePage() {
+            const loader = document.getElementById("pageLoader");
+            const body = document.body;
             
-            let newState = '';
+            // Check if coming from index.html or autoplay is set
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromIndex = urlParams.get('opened') === '1';
+            const autoplay = sessionStorage.getItem("autoplay") === "1";
             
-            if (scrollPercentage > 0.6) {
-                newState = 'mountain';
-            } else if (scrollPercentage > 0.15) {
-                newState = 'welcome';
-            } else {
-                newState = 'house';
-            }
+            // Smooth page entry
+            let loadTime = fromIndex ? 1500 : 800; // Longer delay if coming from index
             
-            // Only update if state changed
-            if (currentBgState !== newState) {
-                // Reset all backgrounds
-                bgHouse.style.opacity = '0';
-                bgWelcome.style.opacity = '0';
-                bgMountain.style.opacity = '0';
+            setTimeout(() => {
+                loader.classList.add("hidden");
+                body.classList.add("loaded");
                 
-                // Show the appropriate background
-                switch(newState) {
-                    case 'mountain':
-                        bgMountain.style.opacity = '1';
-                        break;
-                    case 'welcome':
-                        bgWelcome.style.opacity = '1';
-                        break;
-                    case 'house':
-                    default:
-                        bgHouse.style.opacity = '1';
-                        break;
+                // Auto-play music if coming from index
+                if (autoplay) {
+                    setTimeout(tryAutoplay, 300);
                 }
                 
-                currentBgState = newState;
-            }
+                // Initialize other systems after page is loaded
+                setTimeout(() => {
+                    initializeBackgroundSystem();
+                    initializeScrollDetection();
+                }, 100);
+            }, loadTime);
         }
 
-        // Throttle scroll events for better performance
-        let bgScrollTimeout;
-        snapContainer.addEventListener("scroll", () => {
-            if (bgScrollTimeout) {
-                cancelAnimationFrame(bgScrollTimeout);
+        // ===== SECTION-BASED DYNAMIC BACKGROUND SYSTEM =====
+        const backgroundLayers = document.querySelectorAll('.bg-layer');
+        const sectionOverlays = document.querySelectorAll('.section-overlay');
+        const sections = document.querySelectorAll('section[data-section]');
+        const snapContainer = document.getElementById("snap");
+        
+        let currentActiveSection = 'hero';
+        let isTransitioning = false;
+
+        function initializeBackgroundSystem() {
+            // Set initial background
+            activateBackground('hero');
+        }
+
+        function activateBackground(sectionName) {
+            if (currentActiveSection === sectionName || isTransitioning) return;
+            
+            isTransitioning = true;
+            
+            // Deactivate all backgrounds and overlays
+            backgroundLayers.forEach(layer => {
+                layer.classList.remove('active');
+            });
+            
+            sectionOverlays.forEach(overlay => {
+                overlay.classList.remove('active');
+            });
+            
+            // Activate target background and overlay
+            const targetBackground = document.querySelector(`.bg-layer[data-section="${sectionName}"]`);
+            const targetOverlay = document.querySelector(`.section-overlay[data-section="${sectionName}"]`);
+            
+            if (targetBackground) {
+                setTimeout(() => {
+                    targetBackground.classList.add('active');
+                }, 50);
             }
-            bgScrollTimeout = requestAnimationFrame(handleSmoothBackgroundTransition);
-        });
+            
+            if (targetOverlay) {
+                setTimeout(() => {
+                    targetOverlay.classList.add('active');
+                }, 100);
+            }
+            
+            currentActiveSection = sectionName;
+            
+            // Reset transition lock
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 600);
+        }
 
-        // Initialize background state
-        document.addEventListener("DOMContentLoaded", () => {
-            handleSmoothBackgroundTransition();
-        });
+        function initializeScrollDetection() {
+            let scrollTimeout;
+            
+            function handleScroll() {
+                if (scrollTimeout) {
+                    cancelAnimationFrame(scrollTimeout);
+                }
+                
+                scrollTimeout = requestAnimationFrame(() => {
+                    const scrollTop = snapContainer.scrollTop;
+                    const windowHeight = window.innerHeight;
+                    
+                    // Find which section is most visible
+                    let mostVisibleSection = 'hero';
+                    let maxVisibility = 0;
+                    
+                    sections.forEach(section => {
+                        const rect = section.getBoundingClientRect();
+                        const sectionTop = rect.top;
+                        const sectionBottom = rect.bottom;
+                        
+                        // Calculate how much of the section is visible
+                        const visibleTop = Math.max(0, -sectionTop);
+                        const visibleBottom = Math.min(windowHeight, windowHeight + Math.min(0, windowHeight - sectionBottom));
+                        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                        const visibility = visibleHeight / windowHeight;
+                        
+                        if (visibility > maxVisibility) {
+                            maxVisibility = visibility;
+                            mostVisibleSection = section.getAttribute('data-section');
+                        }
+                    });
+                    
+                    // Only change background if section changed and has significant visibility
+                    if (maxVisibility > 0.3) {
+                        activateBackground(mostVisibleSection);
+                    }
+                });
+            }
+            
+            snapContainer.addEventListener("scroll", handleScroll, { passive: true });
+            
+            // Initial check
+            handleScroll();
+        }
 
-        // ===== MUSIC =====
+        // ===== MUSIC SYSTEM =====
         const audio = document.getElementById("bgm");
         const musicBtn = document.getElementById("music");
         const musicIcon = musicBtn.querySelector("i");
 
-        // Set comfortable volume level (0.0 = mute, 1.0 = max)
+        // Set comfortable volume level
         audio.volume = 0.3; // 30% volume for gentle background music
 
         function setPlayUI(playing) {
@@ -1511,6 +1644,32 @@
                 musicIcon.classList.remove("fa-pause");
                 musicIcon.classList.add("fa-play");
                 musicBtn.setAttribute("aria-label", "Play music");
+            }
+        }
+
+        function tryAutoplay() {
+            if (audio.readyState >= 2) {
+                audio.play()
+                    .then(() => { 
+                        setPlayUI(true); 
+                        sessionStorage.removeItem("autoplay"); 
+                    })
+                    .catch((error) => {
+                        console.warn('Autoplay failed:', error);
+                        setPlayUI(false);
+                    });
+            } else {
+                audio.addEventListener('canplay', () => {
+                    audio.play()
+                        .then(() => { 
+                            setPlayUI(true); 
+                            sessionStorage.removeItem("autoplay"); 
+                        })
+                        .catch((error) => {
+                            console.warn('Delayed autoplay failed:', error);
+                            setPlayUI(false);
+                        });
+                }, { once: true });
             }
         }
 
@@ -1537,7 +1696,7 @@
             }
         });
 
-        // ===== COUNTDOWN =====
+        // ===== COUNTDOWN TIMER =====
         const dEl = document.getElementById("d"),
               hEl = document.getElementById("h"),
               mEl = document.getElementById("m"),
@@ -1606,8 +1765,10 @@
             const to = new URLSearchParams(location.search).get("to");
             if (to) {
                 const el = document.getElementById("dearLine");
-                el.textContent = `Dear ${to}`;
-                el.style.display = "block";
+                if (el) {
+                    el.textContent = `Dear ${to}`;
+                    el.style.display = "block";
+                }
             }
         })();
 
@@ -1681,7 +1842,6 @@
         const perPage = 5;
 
         function loadDemoNotes() {
-            // Demo notes data
             const demoNotes = [
                 {
                     name: "Sarah & Michael",
@@ -1925,7 +2085,12 @@
                 return `Lokasi: <br>• Pemberkatan: Gereja Santo Fransiskus Asisi, Cibinong<br>• Resepsi: Bagas Raya Cibinong`;
             }
             if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)){
-                setTimeout(() => document.querySelector("#rsvp").scrollIntoView({behavior: "smooth"}), 300);
+                setTimeout(() => {
+                    const rsvpSection = document.querySelector("#rsvp");
+                    if (rsvpSection) {
+                        rsvpSection.scrollIntoView({behavior: "smooth"});
+                    }
+                }, 300);
                 return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b>. Aku sudah menggulir ke sana 😉.`;
             }
             if (/musik|music|lagu|sound/.test(q)) {
@@ -1967,11 +2132,29 @@
             }
         }
 
-        // ===== INITIALIZE ON PAGE LOAD =====
+        // ===== INITIALIZE EVERYTHING =====
         document.addEventListener("DOMContentLoaded", () => {
             updateRelationshipYears();
-            handleSmoothBackgroundTransition();
             loadDemoNotes();
+            initializePage();
+        });
+
+        // Handle page navigation
+        window.addEventListener("pageshow", (event) => {
+            if (sessionStorage.getItem("autoplay") === "1") {
+                setTimeout(tryAutoplay, 200);
+            }
+        });
+
+        // Clean up intervals when page is hidden
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            } else if (!document.hidden && !countdownInterval) {
+                tick();
+                countdownInterval = setInterval(tick, 1000);
+            }
         });
     </script>
 </body>
