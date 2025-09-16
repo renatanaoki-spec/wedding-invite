@@ -715,18 +715,234 @@
   </audio>
   <button id="music-control" title="Music Control">⏸️</button>
 
-  <!-- Chatbot -->
-  <button id="chatbot-btn" title="Ask me about the wedding!">💬</button>
-  <div id="chat-window">
-    <div id="chat-header">
-      Wedding Assistant 💒
-    </div>
-    <div id="chat-box"></div>
-    <div id="chat-input-area">
-      <input type="text" id="chat-input" placeholder="Ask me about the wedding..."/>
-      <button id="send-btn">Send</button>
-    </div>
+<!-- REPLACE your existing chatbot HTML section with this enhanced version -->
+
+<!-- Chatbot -->
+<button id="chatbot-btn" title="Ask me about the wedding!">💬</button>
+<div id="chat-window">
+  <div id="chat-header">
+    <h3>Wedding Assistant 💒</h3>
+    <button id="chat-close-btn" title="Close chat">×</button>
   </div>
+  <div id="chat-box"></div>
+  <div id="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask me about the wedding..."/>
+    <button id="send-btn">Send</button>
+  </div>
+</div>
+
+<!-- ADD these CSS styles to your existing <style> section -->
+<style>
+/* Enhanced Chatbot Styles - ADD to your existing CSS */
+
+/* Chat header with close button */
+#chat-header {
+  background: linear-gradient(135deg, var(--primary-green), #557a60);
+  color: white;
+  padding: 16px 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#chat-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+#chat-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chat-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Typing indicator */
+.msg.typing {
+  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+  padding: 16px 20px;
+}
+
+.typing-dots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.typing-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: 0s; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* Question Helper */
+.question-helper {
+  background: linear-gradient(135deg, #fff8e1, #f3e5f5);
+  border-radius: 15px;
+  padding: 16px;
+  margin: 10px 0;
+  border: 2px dashed rgba(107, 142, 114, 0.3);
+  animation: fadeIn 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.helper-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-green);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.helper-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.helper-question {
+  background: rgba(107, 142, 114, 0.1);
+  border: 1px solid rgba(107, 142, 114, 0.3);
+  color: #4a5f4f;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+}
+
+.helper-question:hover {
+  background: rgba(107, 142, 114, 0.2);
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(107, 142, 114, 0.2);
+}
+
+.show-more-btn {
+  background: none;
+  border: 1px solid rgba(107, 142, 114, 0.5);
+  color: var(--primary-green);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+}
+
+.show-more-btn:hover {
+  background: rgba(107, 142, 114, 0.1);
+}
+
+.more-questions {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Enhanced animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#chat-window {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msg {
+  animation: messageSlide 0.3s ease-out;
+}
+
+/* Mobile responsive updates */
+@media (max-width: 768px) {
+  .helper-question {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+  
+  .helper-title {
+    font-size: 0.85rem;
+  }
+}
+</style>
+
+<!-- REPLACE your chatbot JavaScript with this enhanced version -->
+<!-- Change this line in your script tags: -->
+<!-- FROM: <script src="js/chatbot-original.js"></script> -->
+<!-- TO: <script src="js/chatbot-enhanced.js"></script> -->
 
   <!-- COVER PAGE -->
   <div class="cover" id="coverPage">
