@@ -258,17 +258,25 @@
     }
 
     /* Enhanced Countdown */
-    #countdown {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 40px 0 50px;
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
+   .countdown-container {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 40px 0 50px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.time-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
     .time-box {
       background: rgba(255, 255, 255, 0.15);
@@ -734,12 +742,24 @@
       "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
       It is only fitting that every effort to attain His love is pursued with joy."
     </p>
-    <div id="countdown">
-      <div class="time-box"><span id="days">00</span>Days</div>
-      <div class="time-box"><span id="hours">00</span>Hours</div>
-      <div class="time-box"><span id="minutes">00</span>Minutes</div>
-      <div class="time-box"><span id="seconds">00</span>Seconds</div>
-    </div>
+    <div id="countdown" class="countdown-container">
+  <div class="time-box">
+    <span id="days">00</span>
+    <div class="time-label">Days</div>
+  </div>
+  <div class="time-box">
+    <span id="hours">00</span>
+    <div class="time-label">Hours</div>
+  </div>
+  <div class="time-box">
+    <span id="minutes">00</span>
+    <div class="time-label">Minutes</div>
+  </div>
+  <div class="time-box">
+    <span id="seconds">00</span>
+    <div class="time-label">Seconds</div>
+  </div>
+</div>
     <a class="btn" 
        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
        target="_blank">
@@ -813,8 +833,9 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   
   <!-- External JavaScript Files -->
-  <script src="js/main.js"></script>
-  <script src="js/chatbot-original.js"></script>
+<script src="js/countdown.js"></script>        <!-- ADD THIS LINE -->
+<script src="js/main.js"></script>
+<script src="js/chatbot-original.js"></script>
 
   <!-- Particle Animation Script -->
   <script>
