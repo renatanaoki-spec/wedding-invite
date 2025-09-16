@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer Examples</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fbd3e9, #bbd2c5, #91a1f0);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .example {
+            background: rgba(255, 255, 255, 0.9);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1, h2 {
+            color: #bc6c89;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Basic countdown styles */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .time-box {
+            background: rgba(188, 108, 137, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 100px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #bc6c89;
+            margin-bottom: 5px;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Compact style */
+        .compact {
+            background: linear-gradient(135deg, #6b8e72, #557a60);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px;
+        }
+
+        /* Control buttons */
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #bc6c89, #a44d6c);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .highlight {
+            color: #66d9ef;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-container {
+                gap: 15px;
+            }
+            
+            .time-box {
+                padding: 15px;
+                min-width: 80px;
+            }
+            
+            .time-box span {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Wedding Countdown Examples</h1>
+        
+        <!-- Example 1: Basic Wedding Countdown -->
+        <div class="example">
+            <h2>1. Basic Wedding Countdown</h2>
+            <div id="countdown"></div>
+            <div class="controls">
+                <button class="btn" onclick="weddingCountdown.stop()">Stop</button>
+                <button class="btn" onclick="weddingCountdown.start()">Start</button>
+                <button class="btn" onclick="weddingCountdown.restart()">Restart</button>
+            </div>
+        </div>
+
+        <!-- Example 2: Compact Style -->
+        <div class="example">
+            <h2>2. Compact Display</h2>
+            <div id="compact-display" class="compact">Loading...</div>
+        </div>
+
+        <!-- Example 3: Custom Date -->
+        <div class="example">
+            <h2>3. Custom Target Date</h2>
+            <div id="custom-countdown"></div>
+            <div class="controls">
+                <input type="datetime-local" id="date-input" style="padding: 8px; margin-right: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <button class="btn" onclick="updateCustomDate()">Update Date</button>
+            </div>
+        </div>
+
+        <!-- Example 4: Multiple Languages -->
+        <div class="example">
+            <h2>4. Indonesian Language</h2>
+            <div id="indo-countdown"></div>
+            <div class="controls">
+                <button class="btn" onclick="switchLanguage('en')">English</button>
+                <button class="btn" onclick="switchLanguage('id')">Indonesian</button>
+            </div>
+        </div>
+
+        <!-- Usage Examples -->
+        <div class="example">
+            <h2>📝 Usage Examples</h2>
+            
+            <h3>Basic Usage:</h3>
+            <div class="code">
+<span class="highlight">// Simple initialization</span>
+const countdown = new WeddingCountdown({
+    targetDate: "Jan 17, 2026 09:00:00",
+    containerId: "countdown"
+});
+
+<span class="highlight">// Or use the simple function</span>
+const countdown = createSimpleCountdown("Jan 17, 2026 09:00:00", "countdown");
+            </div>
+
+            <h3>Advanced Configuration:</h3>
+            <div class="code">
+const countdown = new WeddingCountdown({
+    targetDate: "Jan 17, 2026 09:00:00",
+    containerId: "countdown",
+    language: "id", // Indonesian
+    animate: true,
+    completedMessage: "🎊 Hari pernikahan telah tiba!",
+    onUpdate: (timeLeft) => {
+        console.log("Time left:", timeLeft);
+    },
+    onComplete: () => {
+        alert("Wedding day is here!");
+    }
+});
+            </div>
+
+            <h3>HTML Structure:</h3>
+            <div class="code">
+&lt;div id="countdown"&gt;
+    &lt;div class="time-box"&gt;
+        &lt;span id="days"&gt;00&lt;/span&gt;
+        &lt;div class="time-label"&gt;Days&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="time-box"&gt;
+        &lt;span id="hours"&gt;00&lt;/span&gt;
+        &lt;div class="time-label"&gt;Hours&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="time-box"&gt;
+        &lt;span id="minutes"&gt;00&lt;/span&gt;
+        &lt;div class="time-label"&gt;Minutes&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="time-box"&gt;
+        &lt;span id="seconds"&gt;00&lt;/span&gt;
+        &lt;div class="time-label"&gt;Seconds&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+    </div>
+
+    <script src="js/countdown.js"></script>
+    <script>
+        // Example 1: Basic wedding countdown
+        const weddingCountdown = new WeddingCountdown({
+            targetDate: "Jan 17, 2026 09:00:00",
+            containerId: "countdown",
+            animate: true,
+            onComplete: () => {
+                alert("🎉 Wedding day has arrived!");
+            }
+        });
+
+        // Example 2: Compact display
+        const compactCountdown = new WeddingCountdown({
+            targetDate: "Jan 17, 2026 09:00:00",
+            containerId: "compact-display",
+            onUpdate: (timeLeft) => {
+                const container = document.getElementById('compact-display');
+                if (!timeLeft.isCompleted) {
+                    container.innerHTML = `${timeLeft.days}d ${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s`;
+                }
+            }
+        });
+
+        // Example 3: Custom date countdown
+        let customCountdown = new WeddingCountdown({
+            targetDate: "Dec 31, 2024 23:59:59",
+            containerId: "custom-countdown"
+        });
+
+        // Example 4: Indonesian language
+        let indoCountdown = new WeddingCountdown({
+            targetDate: "Jan 17, 2026 09:00:00",
+            containerId: "indo-countdown",
+            language: "id"
+        });
+
+        function updateCustomDate() {
+            const dateInput = document.getElementById('date-input');
+            const newDate = dateInput.value;
+            
+            if (newDate) {
+                customCountdown.setTargetDate(newDate);
+                alert('Date updated successfully!');
+            } else {
+                alert('Please select a valid date and time.');
+            }
+        }
+
+        function switchLanguage(lang) {
+            indoCountdown.destroy();
+            indoCountdown = new WeddingCountdown({
+                targetDate: "Jan 17, 2026 09:00:00",
+                containerId: "indo-countdown",
+                language: lang
+            });
+        }
+
+        // Set default date input to tomorrow
+        document.addEventListener('DOMContentLoaded', () => {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(12, 0, 0, 0);
+            
+            const dateInput = document.getElementById('date-input');
+            dateInput.value = tomorrow.toISOString().slice(0, 16);
+        });
+    </script>
+</body>
+</html>
