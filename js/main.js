@@ -134,6 +134,18 @@ function initializeCountdown() {
     }
 
     weddingCountdown = new WeddingCountdown({
+        // ... rest of the code stays the same
+    });
+}
+
+    // Check if WeddingCountdown is available
+    if (typeof WeddingCountdown === 'undefined') {
+        console.warn("WeddingCountdown not loaded. Loading fallback countdown...");
+        loadFallbackCountdown();
+        return;
+    }
+
+    weddingCountdown = new WeddingCountdown({
         targetDate: CONFIG.weddingDate,
         containerId: "countdown",
         daysId: "days",
