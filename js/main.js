@@ -134,23 +134,11 @@ function initializeCountdown() {
     }
 
     weddingCountdown = new WeddingCountdown({
-        // ... rest of the code stays the same
-    });
-}
-
-    // Check if WeddingCountdown is available
-    if (typeof WeddingCountdown === 'undefined') {
-        console.warn("WeddingCountdown not loaded. Loading fallback countdown...");
-        loadFallbackCountdown();
-        return;
-    }
-
-    weddingCountdown = new WeddingCountdown({
         targetDate: CONFIG.weddingDate,
         containerId: "countdown",
         daysId: "days",
         hoursId: "hours",
-        minutesId: "minutes", 
+        minutesId: "minutes",
         secondsId: "seconds",
         completedMessage: "🎉 Today is the wedding day!",
         animate: true,
@@ -161,7 +149,7 @@ function initializeCountdown() {
                     box.style.animation = 'pulse 2s infinite';
                     box.style.background = 'rgba(188, 108, 137, 0.2)';
                 });
-                
+
                 // Add pulse animation if not already defined
                 if (!document.querySelector('#pulse-animation-style')) {
                     const style = document.createElement('style');
@@ -179,12 +167,12 @@ function initializeCountdown() {
         },
         onComplete: () => {
             console.log("Wedding day has arrived! 🎉");
-            
+
             // Trigger confetti effect if available
             if (typeof triggerWeddingCelebration === 'function') {
                 triggerWeddingCelebration();
             }
-            
+
             // Show special celebration message
             showCelebrationMessage();
         }
