@@ -1,2161 +1,795 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - Zen & Yessica</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation - Zen & Yessica</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #333;
+      height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+      color: #bc6c89;
+    }
+
+    /* Cover */
+    .cover {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #fbd3e9 0%, #d4a5c7 50%, #91a1f0 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 9999;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.1"/><circle cx="40" cy="70" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="80" r="1.2" fill="white" opacity="0.1"/></svg>');
+      animation: sparkle 3s infinite;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+    .cover h1 {
+      font-size: 3.5rem;
+      color: white;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+    .cover p {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 40px;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    .cover button {
+      padding: 15px 40px;
+      border: 2px solid white;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease-out 0.6s both;
+      backdrop-filter: blur(10px);
+    }
+    .cover button:hover {
+      background: white;
+      color: #bc6c89;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .cover.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #fbd3e9 0%, #bbd2c5 50%, #91a1f0 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 Q30,10 40,20 T60,20" stroke="white" stroke-width="0.5" fill="none" opacity="0.1"/><path d="M10,40 Q20,30 30,40 T50,40" stroke="white" stroke-width="0.5" fill="none" opacity="0.1"/></svg>');
+      animation: float 20s infinite linear;
+    }
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-50px, -50px) rotate(360deg); }
+    }
     
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Custom fonts to match the theme */
-        @font-face {
-            font-family: "White Angelica";
-            src: url("font/WhiteAngelica.ttf") format("truetype");
-            font-display: swap;
-        }
-        
-        @font-face {
-            font-family: "Mrs Eaves";
-            src: url("font/MrsEaves.ttf") format("truetype");
-            font-display: swap;
-        }
-
-        :root {
-            --accent: #6b8e72;
-            --accent-2: #557a60;
-            --forest: #26352b;
-            --ivory: #fffdf5;
-            --warm-gold: #d4a574;
-            --sunset-orange: #c8956d;
-            --deep-burgundy: #6b4a3e;
-            --soft-cream: #f5f0e8;
-            --mountain-mist: rgba(139, 108, 91, 0.3);
-            --text-glow: rgba(212, 165, 116, 0.6);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: "Mrs Eaves", "Playfair Display", Georgia, serif;
-        }
-
-        /* PAGE TRANSITION SYSTEM */
-        body {
-            color: var(--forest);
-            min-height: 100vh;
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-            opacity: 0;
-            transform: scale(1.02);
-            filter: blur(2px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        body.loaded {
-            opacity: 1;
-            transform: scale(1);
-            filter: blur(0px);
-        }
-
-        /* PAGE LOADER */
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.98) 0%, 
-                rgba(255, 253, 245, 0.96) 50%,
-                rgba(245, 240, 232, 0.98) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.6s ease-out;
-        }
-
-        .page-loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-content {
-            text-align: center;
-            color: var(--forest);
-        }
-
-        .loader-hearts {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-
-        .loader-text {
-            font-family: "White Angelica", 'Great Vibes', cursive;
-            font-size: 1.5rem;
-            color: var(--accent-2);
-        }
-
-        /* SECTION-BASED BACKGROUND SYSTEM */
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
-        .bg-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            opacity: 0;
-            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: scale(1.05);
-        }
-
-        .bg-layer.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Background images for each section */
-        .bg-hero { background-image: url("image/House.png"); }
-        .bg-details { background-image: url("image/BG1.jpeg"); }
-        .bg-verse { background-image: url("image/BG2.jpeg"); }
-        .bg-story { background-image: url("image/BG3.jpeg"); }
-        .bg-rsvp { background-image: url("image/BG1.png"); }
-        .bg-notes { background-image: url("image/House.png"); }
-        .bg-thankyou { background-image: url("image/BG1.jpeg"); }
-
-        /* Scrolling sections */
-        #snap {
-            height: 100vh;
-            overflow-y: auto;
-            scroll-snap-type: y proximity;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            position: relative;
-            z-index: 1;
-        }
-
-        section.s {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: clamp(24px, 5vh, 48px) 18px;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-
-        /* Section-specific overlays for better readability */
-        .section-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .section-overlay.active {
-            opacity: 1;
-        }
-
-        /* Different overlays for different sections */
-        .overlay-hero {
-            background:
-                radial-gradient(ellipse 120% 80% at 50% 30%, 
-                    rgba(107, 74, 62, 0.45) 0%, 
-                    rgba(139, 108, 91, 0.25) 40%, 
-                    rgba(212, 165, 116, 0.15) 70%, 
-                    rgba(107, 74, 62, 0.35) 100%);
-        }
-
-        .overlay-light {
-            background: linear-gradient(to bottom, 
-                rgba(245, 240, 232, 0.1) 0%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                rgba(245, 240, 232, 0.1) 100%);
-        }
-
-        .overlay-warm {
-            background: linear-gradient(135deg, 
-                rgba(212, 165, 116, 0.15) 0%, 
-                rgba(200, 149, 109, 0.1) 50%, 
-                rgba(107, 74, 62, 0.2) 100%);
-        }
-
-        .overlay-soft {
-            background: radial-gradient(circle at center, 
-                rgba(255, 253, 245, 0.3) 0%, 
-                rgba(245, 240, 232, 0.2) 50%, 
-                transparent 100%);
-        }
-
-        /* Cards */
-        .inner {
-            width: min(1000px, 94vw);
-            border-radius: 24px;
-            padding: clamp(32px, 4.5vw, 48px);
-            position: relative;
-            z-index: 2;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .inner.transparent {
-            background: transparent;
-            box-shadow: none;
-        }
-
-        .card {
-            background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.95) 0%, 
-                rgba(255, 253, 245, 0.93) 50%,
-                rgba(245, 240, 232, 0.95) 100%);
-            border: 2px solid rgba(212, 165, 116, 0.25);
-            box-shadow: 
-                0 25px 50px rgba(107, 74, 62, 0.2),
-                0 8px 25px rgba(200, 149, 109, 0.15),
-                inset 0 1px 0 rgba(245, 240, 232, 0.8);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                var(--warm-gold) 20%, 
-                var(--sunset-orange) 50%, 
-                var(--warm-gold) 80%, 
-                transparent 100%);
-            opacity: 0.6;
-        }
-
-        /* Typography */
-        h1.title {
-            color: var(--soft-cream);
-            font-size: clamp(38px, 7vw, 86px);
-            margin: 0 0 8px;
-            text-shadow: 
-                0 12px 40px rgba(107, 74, 62, 0.8),
-                0 4px 16px rgba(212, 165, 116, 0.6),
-                0 0 30px rgba(245, 240, 232, 0.4);
-        }
-
-        .names {
-            font-family: "White Angelica", 'Great Vibes', cursive;
-            color: var(--soft-cream);
-            margin: 8px 0 12px;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            -webkit-text-stroke: 0.5px rgba(107, 74, 62, 0.15);
-            text-shadow: 
-                0 2px 10px rgba(107, 74, 62, 0.35),
-                0 0 22px rgba(245, 240, 232, 0.3);
-        }
-
-        .quote {
-            color: var(--soft-cream);
-            text-shadow: 0 3px 14px rgba(107, 74, 62, 0.5);
-            max-width: 760px;
-            margin: 12px auto 22px;
-            font-size: clamp(16px, 3vw, 18px);
-            line-height: 1.6;
-        }
-
-        h2 {
-            color: var(--forest);
-            margin: 0 0 1.5rem;
-            font-size: clamp(28px, 5vw, 36px);
-            font-weight: 600;
-            text-align: center;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--sunset-orange), var(--accent));
-            border-radius: 2px;
-        }
-
-        h3 {
-            color: var(--accent-2);
-            margin: 0 0 0.8rem;
-            font-size: clamp(20px, 4vw, 24px);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .section-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-top: 0.5rem;
-        }
-
-        .content-block {
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid rgba(212, 165, 116, 0.15);
-            box-shadow: 0 4px 15px rgba(107, 74, 62, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .content-block:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 74, 62, 0.12);
-            border-color: rgba(212, 165, 116, 0.25);
-        }
-
-        .location-block {
-            position: relative;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 2px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 8px 30px rgba(107, 74, 62, 0.12);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .location-block:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(107, 74, 62, 0.18);
-        }
-
-        .location-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .location-title {
-            color: var(--forest);
-            font-size: clamp(22px, 4vw, 26px);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .location-name {
-            color: var(--accent-2);
-            font-size: clamp(18px, 3.5vw, 22px);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .location-address {
-            color: var(--forest);
-            font-size: clamp(16px, 3vw, 18px);
-            margin-bottom: 1.5rem;
-            opacity: 0.8;
-        }
-
-        .location-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--accent), var(--sunset-orange));
-            color: var(--ivory);
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(200, 149, 109, 0.3);
-        }
-
-        .location-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(200, 149, 109, 0.4);
-            background: linear-gradient(135deg, var(--accent-2), var(--deep-burgundy));
-        }
-
-        .date-time-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .datetime-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(245, 240, 232, 0.6));
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 4px 20px rgba(107, 74, 62, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .datetime-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 74, 62, 0.12);
-        }
-
-        .datetime-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .datetime-label {
-            color: var(--accent-2);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .datetime-value {
-            color: var(--forest);
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .subtle {
-            color: var(--warm-gold);
-            margin-top: 1rem;
-            text-shadow: 0 2px 8px var(--text-glow);
-        }
-
-        /* Countdown */
-        #countdown {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-
-        .chip {
-            min-width: 110px;
-            text-align: center;
-            padding: 12px 16px;
-            border-radius: 14px;
-            background: rgba(245, 240, 232, 0.25);
-            border: 1px solid rgba(212, 165, 116, 0.4);
-            color: var(--soft-cream);
-            box-shadow: 0 6px 18px rgba(107, 74, 62, 0.18);
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-
-        .chip:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 74, 62, 0.25);
-        }
-
-        .chip span {
-            display: block;
-            font-size: clamp(22px, 4.6vw, 32px);
-            font-weight: 600;
-            color: var(--warm-gold);
-        }
-
-        .chip span.pop {
-            animation: pop 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            60% { transform: scale(1.08); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        .cta {
-            text-align: center;
-            margin-top: 16px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            border: none;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--sunset-orange) 100%);
-            color: var(--ivory);
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 10px 24px rgba(200, 149, 109, 0.35);
-            transition: all 0.25s ease;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .btn:hover {
-            background: linear-gradient(135deg, var(--accent-2) 0%, var(--deep-burgundy) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(200, 149, 109, 0.45);
-        }
-
-        /* FABs */
-        .round-fab, .ai-fab {
-            position: fixed;
-            z-index: 60;
-            width: 56px;
-            height: 56px;
-            border: none;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            color: var(--ivory);
-            background: linear-gradient(180deg, var(--accent) 0.95, var(--accent-2) 0.85);
-            border: 1px solid rgba(212, 165, 116, 0.55);
-            box-shadow: 0 12px 28px rgba(200, 149, 109, 0.35);
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-
-        .round-fab:hover, .ai-fab:hover {
-            transform: translateY(-2px) scale(1.04);
-            box-shadow: 0 16px 36px rgba(200, 149, 109, 0.45);
-        }
-
-        #music {
-            bottom: 20px;
-            right: 18px;
-        }
-
-        #aiFab {
-            bottom: 90px;
-            right: 18px;
-        }
-
-        #music i, #aiFab i {
-            font-size: 20px;
-            line-height: 1;
-            filter: drop-shadow(0 1px 1px rgba(107, 74, 62, 0.25));
-        }
-
-        /* Form & Notes */
-        .rsvp-intro {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .rsvp-intro p {
-            font-size: clamp(16px, 3vw, 18px);
-            color: var(--accent-2);
-            font-weight: 500;
-        }
-
-        .form-container {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 8px 30px rgba(107, 74, 62, 0.1);
-        }
-
-        form {
-            max-width: 100%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            color: var(--forest);
-            font-size: clamp(14px, 3vw, 16px);
-        }
-
-        form input, form textarea, form select {
-            padding: 12px 16px;
-            border: 2px solid rgba(212, 165, 116, 0.2);
-            border-radius: 12px;
-            font-size: clamp(14px, 3vw, 16px);
-            background: rgba(255, 255, 255, 0.9);
-            font-family: "Mrs Eaves", serif;
-            transition: all 0.3s ease;
-            color: var(--forest);
-        }
-
-        form input:focus, form textarea:focus, form select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(107, 142, 114, 0.1);
-            background: rgba(255, 255, 255, 1);
-        }
-
-        form textarea {
-            min-height: 120px;
-            resize: vertical;
-            line-height: 1.5;
-        }
-
-        .rsvp-submit-btn {
-            padding: 16px 32px;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--sunset-orange) 100%);
-            color: var(--ivory);
-            font-family: "Mrs Eaves", 'Playfair Display', serif;
-            font-weight: 600;
-            font-size: clamp(16px, 3vw, 18px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(200, 149, 109, 0.3);
-            margin-top: 1rem;
-        }
-
-        .rsvp-submit-btn:hover {
-            background: linear-gradient(135deg, var(--accent-2) 0%, var(--deep-burgundy) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(200, 149, 109, 0.4);
-        }
-
-        .response-message {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-weight: 600;
-            font-size: clamp(14px, 3vw, 16px);
-            padding: 1rem;
-            border-radius: 12px;
-            display: none;
-            transition: all 0.3s ease;
-        }
-
-        .response-message.show {
-            display: block;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .response-message.success {
-            background: rgba(76, 175, 80, 0.1);
-            color: #2e7d32;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-
-        .response-message.error {
-            background: rgba(244, 67, 54, 0.1);
-            color: #c62828;
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
-        .response-message.warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: #f57c00;
-            border: 1px solid rgba(255, 152, 0, 0.3);
-        }
-
-        .notes-container {
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 8px 30px rgba(107, 74, 62, 0.1);
-        }
-
-        .pagination {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        .pagination-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--accent);
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--accent);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Mrs Eaves", serif;
-            font-weight: 500;
-            font-size: clamp(14px, 3vw, 16px);
-        }
-
-        .pagination-btn:hover:not(:disabled) {
-            background: var(--accent);
-            color: var(--ivory);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(107, 142, 114, 0.3);
-        }
-
-        .pagination-btn:disabled {
-            background: rgba(200, 200, 200, 0.5);
-            color: #999;
-            cursor: not-allowed;
-            border-color: #ccc;
-        }
-
-        .note {
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(245, 240, 232, 0.6));
-            border-radius: 16px;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 4px 15px rgba(107, 74, 62, 0.08);
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.5s ease;
-        }
-
-        .note:last-child {
-            margin-bottom: 0;
-        }
-
-        .note.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .note strong {
-            color: var(--accent-2);
-            font-size: clamp(16px, 3vw, 18px);
-            font-weight: 600;
-        }
-
-        .note em {
-            color: var(--forest);
-            font-style: italic;
-            line-height: 1.6;
-            display: block;
-            margin: 0.8rem 0;
-            font-size: clamp(14px, 3vw, 16px);
-        }
-
-        .note small {
-            color: var(--accent);
-            font-size: clamp(12px, 2.5vw, 14px);
-            opacity: 0.8;
-        }
-
-        /* AI Panel */
-        .ai-panel {
-            position: fixed;
-            right: 18px;
-            bottom: 150px;
-            z-index: 60;
-            width: min(92vw, 380px);
-            max-height: 70vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(135deg, 
-                rgba(245, 240, 232, 0.96) 0%, 
-                rgba(255, 253, 245, 0.94) 100%);
-            border-radius: 16px;
-            box-shadow: 0 18px 40px rgba(107, 74, 62, 0.22);
-            border: 1px solid rgba(212, 165, 116, 0.3);
-            opacity: 0;
-            transform: translateY(12px);
-            pointer-events: none;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .ai-panel.open {
-            opacity: 1;
-            transform: none;
-            pointer-events: auto;
-        }
-
-        .ai-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 14px;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
-            color: var(--accent-2);
-            font-weight: 600;
-        }
-
-        .ai-close {
-            background: transparent;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--accent);
-            padding: 4px;
-            border-radius: 4px;
-            transition: background 0.2s ease;
-        }
-
-        .ai-close:hover {
-            background: rgba(212, 165, 116, 0.1);
-        }
-
-        .ai-body {
-            padding: 12px;
-            overflow-y: auto;
-            flex: 1;
-            max-height: 300px;
-        }
-
-        .ai-msg {
-            display: flex;
-            margin: 10px 0;
-        }
-
-        .ai-msg.user {
-            justify-content: flex-end;
-        }
-
-        .ai-bubble {
-            max-width: 78%;
-            padding: 10px 12px;
-            border-radius: 14px;
-            background: rgba(245, 240, 232, 0.8);
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            color: var(--forest);
-            line-height: 1.4;
-        }
-
-        .ai-msg.user .ai-bubble {
-            background: var(--accent);
-            color: var(--ivory);
-            border-color: transparent;
-        }
-
-        .ai-form {
-            display: flex;
-            gap: 8px;
-            padding: 12px;
-            border-top: 1px solid rgba(212, 165, 116, 0.2);
-        }
-
-        .ai-form input {
-            flex: 1;
-            padding: 10px 12px;
-            border: 1px solid rgba(212, 165, 116, 0.3);
-            border-radius: 12px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .ai-form button {
-            padding: 10px 12px;
-            border: none;
-            border-radius: 12px;
-            background: var(--accent);
-            color: var(--ivory);
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .ai-form button:hover {
-            background: var(--accent-2);
-        }
-
-        /* Grid layouts */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .info-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 240, 232, 0.7));
-            border-radius: 16px;
-            border: 2px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 6px 20px rgba(107, 74, 62, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(107, 74, 62, 0.15);
-            border-color: rgba(212, 165, 116, 0.3);
-        }
-
-        .zen-card {
-            border-top: 4px solid #4a90e2;
-        }
-
-        .yessica-card {
-            border-top: 4px solid #f1c40f;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(200, 149, 109, 0.05));
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .info-card h4 {
-            color: var(--forest);
-            margin: 0;
-            font-size: clamp(18px, 4vw, 22px);
-            font-weight: 600;
-        }
-
-        .card-content {
-            padding: 1.2rem;
-        }
-
-        .info-card p {
-            font-size: clamp(14px, 3vw, 16px);
-            margin: 0.6rem 0;
-            line-height: 1.5;
-            color: var(--forest);
-        }
-
-        .info-label {
-            color: var(--accent-2);
-            font-weight: 500;
-        }
-
-        .journey-info {
-            background: rgba(255, 255, 255, 0.5);
-            padding: 1.2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(212, 165, 116, 0.15);
-        }
-
-        .journey-date {
-            font-size: clamp(16px, 3vw, 18px);
-            margin-bottom: 0.8rem;
-        }
-
-        /* Special sections */
-        .verse-section {
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(245, 240, 232, 0.4));
-            border-radius: 20px;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 4px 20px rgba(107, 74, 62, 0.08);
-        }
-
-        .verse-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .verse-text {
-            font-size: clamp(18px, 4vw, 24px);
-            font-style: italic;
-            line-height: 1.7;
-            color: var(--forest);
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-            position: relative;
-        }
-
-        .verse-text::before,
-        .verse-text::after {
-            content: '"';
-            font-size: 3rem;
-            color: var(--warm-gold);
-            opacity: 0.3;
-            font-family: 'Playfair Display', serif;
-            position: absolute;
-            top: -10px;
-        }
-
-        .verse-text::before {
-            left: -30px;
-        }
-
-        .verse-text::after {
-            right: -30px;
-            bottom: -40px;
-            top: auto;
-        }
-
-        .verse-reference {
-            font-weight: 600;
-            color: var(--accent-2);
-            font-size: clamp(16px, 3vw, 18px);
-        }
-
-        .highlight-box {
-            margin: 2rem 0 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(212, 165, 116, 0.15), rgba(200, 149, 109, 0.1));
-            border-radius: 16px;
-            border: 1px solid rgba(212, 165, 116, 0.25);
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(107, 74, 62, 0.08);
-        }
-
-        .highlight-box p {
-            margin: 0;
-            font-style: italic;
-            color: var(--forest);
-            font-size: clamp(16px, 3vw, 18px);
-            line-height: 1.6;
-        }
-
-        .thank-you-content {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            box-shadow: 0 8px 30px rgba(107, 74, 62, 0.1);
-        }
-
-        .thank-you-text {
-            font-size: clamp(16px, 4vw, 20px);
-            line-height: 1.7;
-            color: var(--forest);
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            color: var(--deep-burgundy);
-            padding: 26px 12px;
-            font-weight: 600;
-            text-shadow: 0 1px 1px rgba(245, 240, 232, 0.6);
-            background: rgba(245, 240, 232, 0.1);
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .bg-layer {
-                background-attachment: scroll !important;
-            }
-            
-            #snap {
-                scroll-snap-type: none;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .date-time-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .chip {
-                min-width: 90px;
-                padding: 10px 12px;
-            }
-
-            .ai-panel {
-                width: 95vw;
-                right: 2.5vw;
-                bottom: 120px;
-            }
-
-            .location-block {
-                padding: 1.5rem;
-            }
-
-            .verse-text::before,
-            .verse-text::after {
-                display: none;
-            }
-
-            .form-container {
-                padding: 1.5rem;
-            }
-
-            .notes-container {
-                padding: 1.5rem;
-            }
-
-            .thank-you-content {
-                padding: 2rem;
-            }
-            
-            .ai-form input:focus,
-            form input:focus, 
-            form textarea:focus, 
-            form select:focus {
-                transform: none !important;
-                zoom: 1 !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .section-content {
-                gap: 1.5rem;
-            }
-
-            .content-block {
-                padding: 1.2rem;
-            }
-
-            .location-block {
-                padding: 1.2rem;
-            }
-
-            .verse-section {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: opacity 0.3s ease !important;
-                scroll-behavior: auto !important;
-            }
-            
-            body {
-                opacity: 1 !important;
-                transform: none !important;
-                filter: none !important;
-            }
-
-            .bg-layer {
-                transition: opacity 0.3s ease !important;
-                transform: none !important;
-            }
-        }
-    </style>
+    .hero h1 { 
+      font-size: 4.5rem; 
+      margin-bottom: 30px; 
+      z-index: 1;
+      position: relative;
+    }
+    .hero .quote { 
+      max-width: 600px; 
+      font-size: 1.3rem; 
+      margin: 20px auto 40px; 
+      line-height: 1.8; 
+      z-index: 1;
+      position: relative;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Countdown Styling */
+    #countdown {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 30px 0 50px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      z-index: 1;
+      position: relative;
+    }
+    .time-box {
+      background: rgba(255,255,255,0.15);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .time-box span { 
+      display: block; 
+      font-size: 2.5rem; 
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    /* Wedding Details Section */
+    .wedding-details {
+      background: linear-gradient(45deg, #f8f4f6 0%, #e8f5e8 100%);
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .wedding-details::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="%23bc6c89" opacity="0.05"/><circle cx="90" cy="20" r="1.5" fill="%23bc6c89" opacity="0.05"/><circle cx="20" cy="80" r="2.5" fill="%23bc6c89" opacity="0.05"/><circle cx="80" cy="90" r="1" fill="%23bc6c89" opacity="0.05"/></svg>');
+    }
+    .wedding-details h2 {
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    .wedding-details .date {
+      font-size: 1.6rem;
+      margin: 20px 0;
+      color: #7a4d5f;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+    .wedding-details .venue {
+      margin: 15px 0;
+      font-size: 1.2rem;
+      color: #666;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Bible Verse Section */
+    .bible-verse {
+      background: linear-gradient(135deg, #e8f4fd 0%, #f0e8fd 100%);
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .bible-verse::before {
+      content: '"';
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8rem;
+      color: rgba(188, 108, 137, 0.1);
+      font-family: serif;
+    }
+    .bible-verse h2 {
+      font-size: 3rem;
+      margin-bottom: 50px;
+      position: relative;
+      z-index: 1;
+    }
+    .bible-verse .verse {
+      font-style: italic;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.8;
+      color: #555;
+      font-size: 1.3rem;
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.7);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* RSVP Section */
+    .rsvp-section {
+      background: linear-gradient(45deg, #fdf4f0 0%, #f0f8ff 100%);
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .rsvp-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M25,25 Q50,15 75,25 Q85,50 75,75 Q50,85 25,75 Q15,50 25,25" fill="none" stroke="%23bc6c89" stroke-width="0.5" opacity="0.05"/></svg>');
+    }
+    .rsvp-section h2 {
+      font-size: 3rem;
+      margin-bottom: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Enhanced Form Styling */
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: left;
+      background: rgba(255,255,255,0.9);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+    form input, form textarea, form select {
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.8);
+    }
+    form input:focus, form textarea:focus, form select:focus {
+      outline: none;
+      border-color: #bc6c89;
+      box-shadow: 0 0 0 3px rgba(188, 108, 137, 0.1);
+      background: white;
+    }
+    form textarea { 
+      min-height: 120px; 
+      resize: vertical; 
+    }
+    form button {
+      background: linear-gradient(45deg, #bc6c89, #a44d6c);
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    form button:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(188, 108, 137, 0.3);
+    }
+
+    /* Notes Section Styling */
+    #notesContainer {
+      margin-top: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      background: rgba(255,255,255,0.9);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+    .note {
+      padding: 20px;
+      border-bottom: 1px solid rgba(188, 108, 137, 0.1);
+      transition: all 0.3s ease;
+    }
+    .note:hover {
+      background: rgba(188, 108, 137, 0.05);
+      border-radius: 10px;
+    }
+    .note strong { 
+      color: #bc6c89; 
+      font-size: 1.1rem;
+    }
+
+    /* Pagination */
+    .pagination { 
+      margin-top: 20px; 
+      display: flex; 
+      justify-content: center; 
+      gap: 15px; 
+    }
+    .pagination button { 
+      padding: 12px 20px; 
+      border: none; 
+      border-radius: 25px; 
+      background: linear-gradient(45deg, #bc6c89, #a44d6c);
+      color: white; 
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    .pagination button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(188, 108, 137, 0.3);
+    }
+    .pagination button:disabled { 
+      background: #ccc; 
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Enhanced Footer */
+    footer { 
+      background: linear-gradient(45deg, #2c3e50, #3498db);
+      color: white; 
+      padding: 60px 20px;
+      margin-top: 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,70 Q50,50 70,70" stroke="white" stroke-width="0.5" fill="none" opacity="0.1"/></svg>');
+    }
+    footer p {
+      font-size: 1.3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Common button styling */
+    .btn {
+      display: inline-block;
+      padding: 15px 35px;
+      background: linear-gradient(45deg, #bc6c89, #a44d6c);
+      border: none;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+    .btn:hover { 
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(188, 108, 137, 0.4);
+    }
+
+    /* Music button */
+    #music-control {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(45deg, #bc6c89, #a44d6c);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(188, 108, 137, 0.3);
+      display: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    #music-control:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px rgba(188, 108, 137, 0.4);
+    }
+
+    /* Error messages */
+    .error-msg {
+      color: #d46a6a;
+      font-size: 0.9rem;
+      display: none;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    #responseMsg { 
+      text-align: center; 
+      margin-top: 20px; 
+      font-weight: 600; 
+      font-size: 1.1rem;
+    }
+
+    .attendance-wrapper { 
+      margin-top: 15px; 
+      text-align: center; 
+    }
+    .attendance-label { 
+      font-size: 1rem; 
+      color: #666; 
+      margin-bottom: 10px; 
+      font-weight: 500;
+    }
+    #attendanceInput {
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+      .hero .quote { font-size: 1.1rem; }
+      #countdown { gap: 15px; }
+      .time-box { padding: 15px; }
+      .time-box span { font-size: 2rem; }
+      .wedding-details h2, .bible-verse h2, .rsvp-section h2 { font-size: 2.5rem; }
+      form { padding: 30px 20px; }
+      .cover h1 { font-size: 2.5rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Page Loader -->
-    <div id="pageLoader" class="page-loader">
-        <div class="loader-content">
-            <div class="loader-hearts">💕 💍 💕</div>
-            <div class="loader-text">Welcome to our love story...</div>
-        </div>
+
+  <!-- 🎶 Music -->
+  <audio id="bg-music" loop>
+    <source src="music/Music-1.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-control">⏸️</button>
+
+  <!-- COVER PAGE -->
+  <div class="cover" id="coverPage">
+    <h1>Zen & Yessica</h1>
+    <p>You're cordially invited to celebrate our wedding</p>
+    <p>Dear <span id="guestName">Beloved Guest</span></p>
+    <button id="openBtn">Open Our Invitation</button>
+  </div>
+
+  <!-- Save the Date -->
+  <section class="hero">
+    <h1>SAVE THE DATE</h1>
+    <p class="quote">
+      "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
+      It is only fitting that every effort to attain His love is pursued with joy."
+    </p>
+    <div id="countdown">
+      <div class="time-box"><span id="days">00</span>Days</div>
+      <div class="time-box"><span id="hours">00</span>Hours</div>
+      <div class="time-box"><span id="minutes">00</span>Minutes</div>
+      <div class="time-box"><span id="seconds">00</span>Seconds</div>
     </div>
+    <a class="btn" 
+       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
+       target="_blank">
+      SAVE THE DATE
+    </a>
+  </section>
 
-    <!-- Dynamic Background Container -->
-    <div class="bg-container">
-        <div class="bg-layer bg-hero" data-section="hero"></div>
-        <div class="bg-layer bg-details" data-section="details"></div>
-        <div class="bg-layer bg-verse" data-section="verse"></div>
-        <div class="bg-layer bg-story" data-section="story"></div>
-        <div class="bg-layer bg-rsvp" data-section="rsvp"></div>
-        <div class="bg-layer bg-notes" data-section="notes"></div>
-        <div class="bg-layer bg-thankyou" data-section="thankyou"></div>
+  <!-- Wedding Details -->
+  <section class="wedding-details">
+    <h2>Our Wedding Day</h2>
+    <p class="date">Saturday, 17th January 2026</p>
+    <p class="venue">✨ Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
+    <p class="venue">🎉 Reception: Bagas Raya Cibinong</p>
+  </section>
+
+  <!-- Bible Verse -->
+  <section class="bible-verse">
+    <h2>Sacred Words</h2>
+    <p class="verse">
+      "So they are no longer two, but one flesh.  
+      What therefore God has joined together, let no man separate."  
+      <br><br>– Matthew 19:6
+    </p>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp-section">
+    <h2>RSVP & Wishes</h2>
+    <form id="rsvpForm">
+      <input type="hidden" name="token" value="ZENYESSICA2026">
+      <input type="hidden" id="referer" name="referer">
+
+      <!-- Name -->
+      <input name="Name" id="nameInput" type="text" placeholder="✨ Please tell us your beautiful name" required>
+      <small id="nameError" class="error-msg">We'd love to know who you are 🌷</small>
+
+      <!-- Notes -->
+      <textarea name="Notes" placeholder="💝 Share your heartfelt wishes and prayers for our new journey together"></textarea>
+
+      <!-- Attendance -->
+      <div class="attendance-wrapper">
+        <p class="attendance-label">Will you be celebrating with us?</p>
+        <select name="Attendance" id="attendanceInput" required>
+          <option value="">-- Please let us know --</option>
+          <option value="Yes">💖 Yes, wouldn't miss it for the world!</option>
+          <option value="No">🌸 Unfortunately, I can't attend</option>
+        </select>
+        <small id="attendanceError" class="error-msg">Please let us know about your attendance 💐</small>
+      </div>
+
+      <button type="submit">Send With Love 💕</button>
+    </form>
+    <p id="responseMsg"></p>
+
+    <h2>Messages of Love 💌</h2>
+    <div id="notesContainer">Loading beautiful messages...</div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous</button>
+      <button id="nextBtn">Next →</button>
     </div>
+  </section>
 
-    <!-- Background Music -->
-    <audio id="bgm" loop>
-        <source src="music/Music-1.mp3" type="audio/mpeg">
-        <source src="music/Music-1.ogg" type="audio/ogg">
-    </audio>
+  <footer>
+    <p>With all our love and gratitude 💕<br><strong>Zen & Yessica</strong></p>
+  </footer>
 
-    <!-- Music Control Button -->
-    <button id="music" class="round-fab" aria-label="Play music">
-        <i class="fas fa-play"></i>
-    </button>
+  <!-- SCRIPT -->
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec";
+    document.getElementById("referer").value = window.location.hostname;
 
-    <!-- AI Assistant Button -->
-    <button id="aiFab" class="ai-fab" aria-label="Open AI Assistant">
-        <i class="fas fa-robot"></i>
-    </button>
+    // Cover + music
+    const cover = document.getElementById("coverPage");
+    const openBtn = document.getElementById("openBtn");
+    const music = document.getElementById("bg-music");
+    const controlBtn = document.getElementById("music-control");
 
-    <!-- AI Chat Panel -->
-    <div id="aiPanel" class="ai-panel">
-        <div class="ai-head">
-            <strong>🤖 Aira - Wedding Assistant</strong>
-            <button id="aiClose" class="ai-close">&times;</button>
-        </div>
-        <div id="aiBody" class="ai-body"></div>
-        <form id="aiForm" class="ai-form">
-            <input id="aiText" type="text" placeholder="Ask me anything about the wedding..." autocomplete="off">
-            <button type="submit">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </form>
-    </div>
+    const urlParams = new URLSearchParams(window.location.search);
+    const guest = urlParams.get("to");
+    if (guest) document.getElementById("guestName").textContent = guest;
 
-    <!-- Main Content with Scroll Snap -->
-    <div id="snap">
-        <!-- Hero Section -->
-        <section class="s" data-section="hero">
-            <div class="section-overlay overlay-hero" data-section="hero"></div>
-            <div class="inner transparent">
-                <p id="dearLine" class="subtle" style="display:none;">Dear Guest</p>
-                <h1 class="title">SAVE THE DATE</h1>
-                <div class="names">Zen & Yessica</div>
-                <p class="quote">
-                    "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
-                    It is only fitting that every effort to attain His love is pursued with joy."
-                </p>
-                
-                <!-- Countdown Timer -->
-                <div id="countdown">
-                    <div class="chip">
-                        <span id="d">00</span>
-                        Days
-                    </div>
-                    <div class="chip">
-                        <span id="h">00</span>
-                        Hours
-                    </div>
-                    <div class="chip">
-                        <span id="m">00</span>
-                        Minutes
-                    </div>
-                    <div class="chip">
-                        <span id="s">00</span>
-                        Seconds
-                    </div>
-                </div>
+    openBtn.addEventListener("click", () => {
+      cover.classList.add("hidden");
+      controlBtn.style.display = "block";
+      music.play().catch(err => console.log("Autoplay blocked:", err));
+    });
 
-                <div class="cta">
-                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
-                       target="_blank" class="btn">
-                        💚 Save the Date
-                    </a>
-                </div>
-            </div>
-        </section>
+    controlBtn.addEventListener("click", () => {
+      if (music.paused) { 
+        music.play(); 
+        controlBtn.textContent = "⏸️"; 
+      } else { 
+        music.pause(); 
+        controlBtn.textContent = "▶️"; 
+      }
+    });
 
-        <!-- Wedding Details -->
-        <section class="s" data-section="details">
-            <div class="section-overlay overlay-light" data-section="details"></div>
-            <div class="inner card">
-                <h2>🌄 Wedding Day Details</h2>
-                <div class="section-content">
-                    <!-- Date & Time Section -->
-                    <div class="content-block">
-                        <h3>📅 Date & Time</h3>
-                        <div class="date-time-grid">
-                            <div class="datetime-card">
-                                <span class="datetime-icon">📅</span>
-                                <div class="datetime-label">Wedding Date</div>
-                                <div class="datetime-value">Saturday, 17 January 2026</div>
-                            </div>
-                            <div class="datetime-card">
-                                <span class="datetime-icon">🕘</span>
-                                <div class="datetime-label">Ceremony Starts</div>
-                                <div class="datetime-value">09:00 AM (WIB)</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Holy Matrimony Section -->
-                    <div class="location-block church">
-                        <div class="location-content">
-                            <div class="location-title">⛪ Holy Matrimony</div>
-                            <div class="location-name">Gereja Santo Fransiskus Asisi</div>
-                            <div class="location-address">Cibinong, Bogor</div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
-                               target="_blank" class="location-button">
-                                🗺️ View Location
-                            </a>
-                        </div>
-                    </div>
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { 
+        music.pause(); 
+        controlBtn.textContent = "▶️"; 
+      }
+    });
+    
+    window.addEventListener("beforeunload", () => { 
+      music.pause(); 
+    });
 
-                    <!-- Reception Section -->
-                    <div class="location-block reception">
-                        <div class="location-content">
-                            <div class="location-title">🎉 Reception</div>
-                            <div class="location-name">Bagas Raya</div>
-                            <div class="location-address">Cibinong, Bogor</div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Bagas+Raya+Cibinong" 
-                               target="_blank" class="location-button">
-                                🗺️ View Location
-                            </a>
-                        </div>
-                    </div>
+    // Countdown
+    function updateCountdown() {
+      const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
+      const now = new Date().getTime();
+      const diff = weddingDate - now;
+      
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "<div style='font-size: 2rem; color: white;'>🎉 Today is our wedding day! 🎉</div>";
+        return;
+      }
+      
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
+      
+      document.getElementById("days").textContent = days.toString().padStart(2, '0');
+      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-                    <div class="highlight-box">
-                        <p>💒 Join us as we begin our journey together in God's love</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    // RSVP validation + submit
+    const form = document.getElementById("rsvpForm");
+    const nameInput = document.getElementById("nameInput");
+    const nameError = document.getElementById("nameError");
+    const attendanceInput = document.getElementById("attendanceInput");
+    const attendanceError = document.getElementById("attendanceError");
+    const msg = document.getElementById("responseMsg");
 
-        <!-- Bible Verse -->
-        <section class="s" data-section="verse">
-            <div class="section-overlay overlay-warm" data-section="verse"></div>
-            <div class="inner card">
-                <h2>✨ God's Word for Us</h2>
-                <div class="section-content">
-                    <div class="verse-section">
-                        <div class="verse-container">
-                            <p class="verse-text">
-                                "So they are no longer two, but one flesh.<br>
-                                What therefore God has joined together,<br>
-                                let no man separate."
-                            </p>
-                            <p class="verse-reference">— Matthew 19:6</p>
-                        </div>
-                    </div>
-                    
-                    <div class="highlight-box">
-                        <p>🙏 We believe that marriage is a sacred covenant blessed by God, 
-                        where two hearts become one in His divine love and grace.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    form.addEventListener("submit", e => {
+      let valid = true;
 
-        <!-- Our Story -->
-        <section class="s" data-section="story">
-            <div class="section-overlay overlay-soft" data-section="story"></div>
-            <div class="inner card">
-                <h2>💕 Our Love Story</h2>
-                <div class="section-content">
-                    <div class="content-block">
-                        <h3>🌟 How We Met</h3>
-                        <p style="line-height: 1.7; font-size: clamp(16px, 3vw, 18px); color: var(--forest);">
-                            Our paths crossed in God's perfect timing, and what started as friendship 
-                            blossomed into a beautiful love story guided by His grace.
-                        </p>
-                    </div>
-                    
-                    <div class="content-block">
-                        <h3>📅 Our Journey</h3>
-                        <div class="journey-info">
-                            <div class="journey-date">
-                                <strong style="color: var(--accent-2);">Dating Anniversary:</strong> 
-                                <span style="color: var(--forest);">28 May 2019</span>
-                            </div>
-                            <p style="line-height: 1.7; margin-top: 0.8rem; font-size: clamp(16px, 3vw, 18px); color: var(--forest);">
-                                Together for <strong id="relationshipYears" style="color: var(--accent-2);">7 years</strong> and counting! 
-                                Through every season, our love has grown stronger with faith as our foundation.
-                            </p>
-                        </div>
-                    </div>
+      if (!nameInput.value.trim()) {
+        nameError.style.display = "block";
+        valid = false;
+      } else {
+        nameError.style.display = "none";
+      }
 
-                    <div class="content-block">
-                        <h3>💙💛 About Us</h3>
-                        <div class="info-grid">
-                            <div class="info-card zen-card">
-                                <div class="card-header">
-                                    <h4>Zen</h4>
-                                </div>
-                                <div class="card-content">
-                                    <p><span class="info-label">Favorite Color:</span> <strong style="color: #4a90e2;">Blue 💙</strong></p>
-                                    <p><span class="info-label">Dream:</span> House in the mountains 🏔️</p>
-                                </div>
-                            </div>
-                            <div class="info-card yessica-card">
-                                <div class="card-header">
-                                    <h4>Yessica</h4>
-                                </div>
-                                <div class="card-content">
-                                    <p><span class="info-label">Favorite Color:</span> <strong style="color: #f1c40f;">Yellow 💛</strong></p>
-                                    <p><span class="info-label">Our Dream:</span> Happy family 👨‍👩‍👧‍👦</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      if (!attendanceInput.value) {
+        attendanceError.style.display = "block";
+        valid = false;
+      } else {
+        attendanceError.style.display = "none";
+      }
 
-        <!-- RSVP Section -->
-        <section class="s" id="rsvp" data-section="rsvp">
-            <div class="section-overlay overlay-light" data-section="rsvp"></div>
-            <div class="inner card">
-                <h2>💌 RSVP & Wedding Notes</h2>
-                <div class="section-content">
-                    <div class="rsvp-intro">
-                        <p>Please let us know if you can celebrate with us! 💝</p>
-                    </div>
-                    
-                    <div class="form-container">
-                        <form id="rsvpForm">
-                            <input type="hidden" name="token" value="ZENYESSICA2026">
-                            <input type="hidden" id="referer" name="referer">
-                            
-                            <div class="form-group">
-                                <label for="nameInput">Your Name</label>
-                                <input name="Name" id="nameInput" type="text" placeholder="Enter your full name 💝" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="notesInput">Your Message</label>
-                                <textarea name="Notes" id="notesInput" placeholder="Share your wishes, prayers, or a special message for us... ✨" rows="4"></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="attendanceSelect">Will you be joining us?</label>
-                                <select name="Attendance" id="attendanceSelect" required>
-                                    <option value="">-- Please select --</option>
-                                    <option value="Yes">💖 Yes, I'll be there!</option>
-                                    <option value="No">🌸 Sorry, can't make it</option>
-                                </select>
-                            </div>
-                            
-                            <button type="submit" class="rsvp-submit-btn">
-                                💌 Send RSVP
-                            </button>
-                        </form>
-                        
-                        <div id="responseMsg" class="response-message"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      if (!valid) {
+        e.preventDefault();
+        msg.textContent = "⚠️ Please complete all required fields to continue 🌸";
+        msg.style.color = "#d46a6a";
+        return;
+      }
 
-        <!-- Guest Notes -->
-        <section class="s" data-section="notes">
-            <div class="section-overlay overlay-warm" data-section="notes"></div>
-            <div class="inner card">
-                <h2>💕 Messages from Our Loved Ones</h2>
-                <div class="section-content">
-                    <div class="notes-container">
-                        <div id="notesContainer">
-                            <p style="text-align: center; color: var(--accent-2);">Loading messages...</p>
-                        </div>
-                        
-                        <div class="pagination">
-                            <button id="prevBtn" class="pagination-btn" disabled>← Previous</button>
-                            <button id="nextBtn" class="pagination-btn" disabled>Next →</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      e.preventDefault();
+      msg.textContent = "⏳ Sending your beautiful message...";
+      msg.style.color = "#bc6c89";
 
-        <!-- Thank You -->
-        <section class="s" data-section="thankyou">
-            <div class="section-overlay overlay-soft" data-section="thankyou"></div>
-            <div class="inner card">
-                <h2>🙏 Thank You</h2>
-                <div class="section-content">
-                    <div class="thank-you-content">
-                        <p class="thank-you-text">
-                            We are so grateful for your love, support, and prayers as we begin this new chapter together.
-                        </p>
-                        <p class="thank-you-text">
-                            Your presence in our lives means the world to us, and we can't wait to celebrate with you!
-                        </p>
-                        <div class="highlight-box">
-                            <p>
-                                "Two hearts, one love, blessed by God above" 💒
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") {
+            msg.textContent = "✅ Your RSVP has been sent successfully! Thank you for your love 💕";
+            msg.style.color = "#28a745";
+            form.reset();
+            loadNotes();
+          } else {
+            msg.textContent = "❌ Sorry, something went wrong. Please try again.";
+            msg.style.color = "#d46a6a";
+          }
+        })
+        .catch(err => {
+          msg.textContent = "❌ Connection error. Please check your internet and try again.";
+          msg.style.color = "#d46a6a";
+          console.error("Error:", err);
+        });
+    });
 
-    <!-- Footer -->
-    <footer>
-        <p>Made with 💚 for Zen & Yessica | January 17, 2026</p>
-    </footer>
+    // Helper: relative time
+    function timeAgo(dateString) {
+      const now = new Date();
+      const date = new Date(dateString);
+      const diff = (now - date) / 1000;
+      
+      if (diff < 60) return "just now";
+      
+      const minutes = Math.floor(diff / 60);
+      if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      
+      const days = Math.floor(hours / 24);
+      if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
+      
+      const weeks = Math.floor(days / 7);
+      if (weeks < 4) return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+      
+      const months = Math.floor(days / 30);
+      return `${months} month${months > 1 ? 's' : ''} ago`;
+    }
 
-    <!-- JavaScript -->
-    <script>
-        // ===== CONFIG =====
-        const WEDDING_DATE = new Date("2026-01-17T09:00:00+07:00");
+    // Notes pagination
+    let notes = [];
+    let currentPage = 1;
+    const notesPerPage = 5;
 
-        // ===== SMOOTH PAGE TRANSITION FROM INDEX.HTML =====
-        function initializePage() {
-            const loader = document.getElementById("pageLoader");
-            const body = document.body;
-            
-            // Check if coming from index.html or autoplay is set
-            const urlParams = new URLSearchParams(window.location.search);
-            const fromIndex = urlParams.get('opened') === '1';
-            const autoplay = sessionStorage.getItem("autoplay") === "1";
-            
-            // Smooth page entry
-            let loadTime = fromIndex ? 1500 : 800; // Longer delay if coming from index
-            
-            setTimeout(() => {
-                loader.classList.add("hidden");
-                body.classList.add("loaded");
-                
-                // Auto-play music if coming from index
-                if (autoplay) {
-                    setTimeout(tryAutoplay, 300);
-                }
-                
-                // Initialize other systems after page is loaded
-                setTimeout(() => {
-                    initializeBackgroundSystem();
-                    initializeScrollDetection();
-                }, 100);
-            }, loadTime);
-        }
+    async function loadNotes() {
+      try {
+        const res = await fetch(scriptURL);
+        notes = await res.json();
+        notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        renderNotes();
+      } catch (err) {
+        document.getElementById("notesContainer").innerHTML = "<p style='text-align: center; color: #666;'>❌ Unable to load messages at the moment.</p>";
+        console.error("Error loading notes:", err);
+      }
+    }
 
-        // ===== SECTION-BASED DYNAMIC BACKGROUND SYSTEM =====
-        const backgroundLayers = document.querySelectorAll('.bg-layer');
-        const sectionOverlays = document.querySelectorAll('.section-overlay');
-        const sections = document.querySelectorAll('section[data-section]');
-        const snapContainer = document.getElementById("snap");
+    function renderNotes() {
+      const container = document.getElementById("notesContainer");
+      container.innerHTML = "";
+      
+      if (!notes.length) {
+        container.innerHTML = "<p style='text-align: center; color: #666; font-style: italic;'>No messages yet. Be the first to share your wishes! 💝</p>";
+        return;
+      }
+      
+      const start = (currentPage - 1) * notesPerPage;
+      const end = start + notesPerPage;
+      const pageNotes = notes.slice(start, end);
+      
+      pageNotes.forEach(n => {
+        let attendanceIcon = "";
+        if (n.attendance === "Yes") attendanceIcon = "💖";
+        if (n.attendance === "No") attendanceIcon = "🌸";
         
-        let currentActiveSection = 'hero';
-        let isTransitioning = false;
+        container.innerHTML += `
+          <div class="note">
+            <strong>${n.name || 'Anonymous'}</strong> ${attendanceIcon}<br>
+            ${n.notes ? `<em style="color: #555; line-height: 1.6; margin: 10px 0; display: block;">${n.notes}</em>` : ''}
+            <small style="color: #999;">${timeAgo(n.timestamp)}</small>
+          </div>
+        `;
+      });
+      
+      document.getElementById("prevBtn").disabled = currentPage === 1;
+      document.getElementById("nextBtn").disabled = end >= notes.length;
+    }
 
-        function initializeBackgroundSystem() {
-            // Set initial background
-            activateBackground('hero');
-        }
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentPage > 1) { 
+        currentPage--; 
+        renderNotes(); 
+      }
+    });
+    
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if ((currentPage * notesPerPage) < notes.length) { 
+        currentPage++; 
+        renderNotes(); 
+      }
+    });
 
-        function activateBackground(sectionName) {
-            if (currentActiveSection === sectionName || isTransitioning) return;
-            
-            isTransitioning = true;
-            
-            // Deactivate all backgrounds and overlays
-            backgroundLayers.forEach(layer => {
-                layer.classList.remove('active');
-            });
-            
-            sectionOverlays.forEach(overlay => {
-                overlay.classList.remove('active');
-            });
-            
-            // Activate target background and overlay
-            const targetBackground = document.querySelector(`.bg-layer[data-section="${sectionName}"]`);
-            const targetOverlay = document.querySelector(`.section-overlay[data-section="${sectionName}"]`);
-            
-            if (targetBackground) {
-                setTimeout(() => {
-                    targetBackground.classList.add('active');
-                }, 50);
-            }
-            
-            if (targetOverlay) {
-                setTimeout(() => {
-                    targetOverlay.classList.add('active');
-                }, 100);
-            }
-            
-            currentActiveSection = sectionName;
-            
-            // Reset transition lock
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 600);
-        }
-
-        function initializeScrollDetection() {
-            let scrollTimeout;
-            
-            function handleScroll() {
-                if (scrollTimeout) {
-                    cancelAnimationFrame(scrollTimeout);
-                }
-                
-                scrollTimeout = requestAnimationFrame(() => {
-                    const scrollTop = snapContainer.scrollTop;
-                    const windowHeight = window.innerHeight;
-                    
-                    // Find which section is most visible
-                    let mostVisibleSection = 'hero';
-                    let maxVisibility = 0;
-                    
-                    sections.forEach(section => {
-                        const rect = section.getBoundingClientRect();
-                        const sectionTop = rect.top;
-                        const sectionBottom = rect.bottom;
-                        
-                        // Calculate how much of the section is visible
-                        const visibleTop = Math.max(0, -sectionTop);
-                        const visibleBottom = Math.min(windowHeight, windowHeight + Math.min(0, windowHeight - sectionBottom));
-                        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-                        const visibility = visibleHeight / windowHeight;
-                        
-                        if (visibility > maxVisibility) {
-                            maxVisibility = visibility;
-                            mostVisibleSection = section.getAttribute('data-section');
-                        }
-                    });
-                    
-                    // Only change background if section changed and has significant visibility
-                    if (maxVisibility > 0.3) {
-                        activateBackground(mostVisibleSection);
-                    }
-                });
-            }
-            
-            snapContainer.addEventListener("scroll", handleScroll, { passive: true });
-            
-            // Initial check
-            handleScroll();
-        }
-
-        // ===== MUSIC SYSTEM =====
-        const audio = document.getElementById("bgm");
-        const musicBtn = document.getElementById("music");
-        const musicIcon = musicBtn.querySelector("i");
-
-        // Set comfortable volume level
-        audio.volume = 0.3; // 30% volume for gentle background music
-
-        function setPlayUI(playing) {
-            if (playing) {
-                musicIcon.classList.remove("fa-play");
-                musicIcon.classList.add("fa-pause");
-                musicBtn.setAttribute("aria-label", "Pause music");
-            } else {
-                musicIcon.classList.remove("fa-pause");
-                musicIcon.classList.add("fa-play");
-                musicBtn.setAttribute("aria-label", "Play music");
-            }
-        }
-
-        function tryAutoplay() {
-            if (audio.readyState >= 2) {
-                audio.play()
-                    .then(() => { 
-                        setPlayUI(true); 
-                        sessionStorage.removeItem("autoplay"); 
-                    })
-                    .catch((error) => {
-                        console.warn('Autoplay failed:', error);
-                        setPlayUI(false);
-                    });
-            } else {
-                audio.addEventListener('canplay', () => {
-                    audio.play()
-                        .then(() => { 
-                            setPlayUI(true); 
-                            sessionStorage.removeItem("autoplay"); 
-                        })
-                        .catch((error) => {
-                            console.warn('Delayed autoplay failed:', error);
-                            setPlayUI(false);
-                        });
-                }, { once: true });
-            }
-        }
-
-        musicBtn.addEventListener("click", () => {
-            if (audio.paused) {
-                audio.play()
-                    .then(() => { 
-                        setPlayUI(true); 
-                    })
-                    .catch((error) => {
-                        console.warn('Audio play failed:', error);
-                        setPlayUI(false);
-                    });
-            } else {
-                audio.pause(); 
-                setPlayUI(false);
-            }
-        });
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden && !audio.paused) { 
-                audio.pause(); 
-                setPlayUI(false); 
-            }
-        });
-
-        // ===== COUNTDOWN TIMER =====
-        const dEl = document.getElementById("d"),
-              hEl = document.getElementById("h"),
-              mEl = document.getElementById("m"),
-              sEl = document.getElementById("s");
-        let prev = {};
-        let countdownInterval;
-
-        const pop = (el, v, k) => {
-            const valueStr = String(v).padStart(2, '0');
-            if (prev[k] !== valueStr) {
-                el.textContent = valueStr;
-                el.classList.remove("pop");
-                void el.offsetWidth;
-                el.classList.add("pop");
-                prev[k] = valueStr;
-            }
-        };
-
-        function tick(){
-            try {
-                const t = WEDDING_DATE.getTime();
-                const now = Date.now();
-                const diff = t - now;
-                
-                const wrap = document.getElementById("countdown");
-                if (!wrap) return;
-                
-                if (diff <= 0) { 
-                    wrap.innerHTML = '<div style="color: var(--warm-gold); font-size: clamp(18px, 4vw, 24px); text-align: center; padding: 1rem;">🎉 Today is the wedding day! 🎉</div>';
-                    if (countdownInterval) {
-                        clearInterval(countdownInterval);
-                    }
-                    return; 
-                }
-                
-                const days = Math.floor(diff / 86400000);
-                const hours = Math.floor((diff % 86400000) / 3600000);
-                const minutes = Math.floor((diff % 3600000) / 60000);
-                const seconds = Math.floor((diff % 60000) / 1000);
-                
-                if (dEl && hEl && mEl && sEl) {
-                    pop(dEl, days, "d");
-                    pop(hEl, hours, "h");
-                    pop(mEl, minutes, "m");
-                    pop(sEl, seconds, "s");
-                }
-            } catch (error) {
-                console.warn('Countdown error:', error);
-            }
-        }
-
-        tick();
-        countdownInterval = setInterval(tick, 1000);
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden && countdownInterval) {
-                clearInterval(countdownInterval);
-            } else if (!document.hidden && !countdownInterval) {
-                tick();
-                countdownInterval = setInterval(tick, 1000);
-            }
-        });
-
-        // ===== Dear Guest =====
-        (function(){
-            const to = new URLSearchParams(location.search).get("to");
-            if (to) {
-                const el = document.getElementById("dearLine");
-                if (el) {
-                    el.textContent = `Dear ${to}`;
-                    el.style.display = "block";
-                }
-            }
-        })();
-
-        // ===== RSVP FORM =====
-        document.getElementById("referer").value = location.hostname;
-        const form = document.getElementById("rsvpForm");
-        const msg = document.getElementById("responseMsg");
-        let isSubmitting = false;
-
-        function showMessage(text, type = 'info') {
-            msg.textContent = text;
-            msg.className = `response-message show ${type}`;
-            
-            if (type === 'success') {
-                setTimeout(() => {
-                    msg.classList.remove('show');
-                }, 5000);
-            }
-        }
-
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            if (isSubmitting) return;
-            
-            const nameValue = form.Name.value.trim();
-            const attendanceValue = form.Attendance.value;
-            
-            if (!nameValue || !attendanceValue) {
-                showMessage("⚠️ Please fill out name and attendance 🌸", "warning");
-                return;
-            }
-            
-            if (nameValue.length < 2) {
-                showMessage("⚠️ Please enter a valid name (at least 2 characters)", "warning");
-                return;
-            }
-            
-            if (nameValue.length > 100) {
-                showMessage("⚠️ Name is too long (maximum 100 characters)", "warning");
-                return;
-            }
-            
-            isSubmitting = true;
-            showMessage("⏳ Sending...", "info");
-            
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ Sending...';
-            
-            try {
-                // Simulate API call for demo
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                showMessage("✅ RSVP berhasil dikirim! Thank you 💕", "success");
-                form.reset();
-                loadDemoNotes();
-            } catch(error) {
-                showMessage("❌ Network error. Please try again.", "error");
-            } finally {
-                isSubmitting = false;
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-            }
-        });
-
-        // ===== DEMO NOTES SYSTEM =====
-        let notes = [];
-        let currentPage = 1;
-        const perPage = 5;
-
-        function loadDemoNotes() {
-            const demoNotes = [
-                {
-                    name: "Sarah & Michael",
-                    notes: "So excited to celebrate your special day! May your marriage be filled with endless love and joy. Can't wait to see you both say 'I do'! 💕",
-                    attendance: "Yes",
-                    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    name: "David Rodriguez",
-                    notes: "Wishing you both a lifetime of happiness together. Your love story is truly inspiring!",
-                    attendance: "Yes", 
-                    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    name: "Emma Thompson",
-                    notes: "Unfortunately can't make it due to work commitments, but sending all my love and best wishes for your beautiful day! 💐",
-                    attendance: "No",
-                    timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    name: "Robert & Linda Chen",
-                    notes: "We're so happy for you both! Looking forward to celebrating this joyous occasion with you.",
-                    attendance: "Yes",
-                    timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    name: "Jessica Williams",
-                    notes: "God bless your union! May your marriage be a reflection of His love and grace. So excited to be there! 🙏",
-                    attendance: "Yes",
-                    timestamp: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
-                }
-            ];
-
-            notes = demoNotes;
-            renderNotes();
-        }
-
-        function timeAgo(ts){
-            try {
-                const now = new Date();
-                const d = new Date(ts);
-                
-                if (isNaN(d.getTime())) {
-                    return "waktu tidak diketahui";
-                }
-                
-                const s = (now - d) / 1000;
-                if (s < 0) return "baru saja";
-                if (s < 60) return "baru saja";
-                
-                const m = Math.floor(s / 60);
-                if (m < 60) return `${m} menit lalu`;
-                
-                const h = Math.floor(m / 60);
-                if (h < 24) return `${h} jam lalu`;
-                
-                const day = Math.floor(h / 24);
-                if (day < 7) return `${day} hari lalu`;
-                
-                const w = Math.floor(day / 7);
-                if (w < 4) return `${w} minggu lalu`;
-                
-                const mo = Math.floor(day / 30);
-                if (mo < 12) return `${mo} bulan lalu`;
-                
-                const year = Math.floor(mo / 12);
-                return `${year} tahun lalu`;
-            } catch (error) {
-                return "waktu tidak diketahui";
-            }
-        }
-
-        function renderNotes(){
-            const box = document.getElementById("notesContainer");
-            if (!box) return;
-            
-            box.innerHTML = "";
-            
-            if (!notes.length) {
-                box.innerHTML = '<p style="text-align: center; color: var(--accent-2); font-style: italic;">No messages yet. Be the first to share your wishes! 💝</p>';
-                document.getElementById("prevBtn").disabled = true;
-                document.getElementById("nextBtn").disabled = true;
-                return;
-            }
-            
-            const start = (currentPage - 1) * perPage;
-            const end = Math.min(start + perPage, notes.length);
-            const page = notes.slice(start, end);
-            
-            page.forEach((n, i) => {
-                const el = document.createElement("div");
-                el.className = "note";
-                el.style.transitionDelay = (i * 80) + "ms";
-                
-                const name = (n.name || "Guest").toString().replace(/[<>&"']/g, (c) => ({
-                    '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
-                }[c]));
-                
-                const notesText = (n.notes || '').toString().replace(/[<>&"']/g, (c) => ({
-                    '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
-                }[c]));
-                
-                const icon = n.attendance === "Yes" ? "💖" : (n.attendance === "No" ? "🌸" : "💌");
-                
-                el.innerHTML = `
-                    <strong style="color:var(--accent-2)">${name}</strong> ${icon}<br>
-                    ${notesText ? `<em style="margin: 0.5rem 0; display: block; line-height: 1.6;">${notesText}</em>` : ''}
-                    <small style="color: var(--accent); opacity: 0.8;">${timeAgo(n.timestamp)}</small>
-                `;
-                
-                box.appendChild(el);
-                
-                requestAnimationFrame(() => el.classList.add("show"));
-            });
-            
-            const prevBtn = document.getElementById("prevBtn");
-            const nextBtn = document.getElementById("nextBtn");
-            
-            if (prevBtn && nextBtn) {
-                prevBtn.disabled = currentPage <= 1;
-                nextBtn.disabled = end >= notes.length;
-                
-                const totalPages = Math.ceil(notes.length / perPage);
-                if (totalPages > 1) {
-                    prevBtn.textContent = `← Previous (${currentPage}/${totalPages})`;
-                    nextBtn.textContent = `Next (${currentPage}/${totalPages}) →`;
-                } else {
-                    prevBtn.textContent = "← Previous";
-                    nextBtn.textContent = "Next →";
-                }
-            }
-        }
-
-        // ===== PAGINATION =====
-        document.getElementById("prevBtn").addEventListener("click", () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderNotes();
-                
-                const notesContainer = document.getElementById("notesContainer");
-                if (notesContainer) {
-                    notesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-            }
-        });
-
-        document.getElementById("nextBtn").addEventListener("click", () => {
-            const totalPages = Math.ceil(notes.length / perPage);
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderNotes();
-                
-                const notesContainer = document.getElementById("notesContainer");
-                if (notesContainer) {
-                    notesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-            }
-        });
-
-        // ===== AI ASSISTANT =====
-        const aiFab = document.getElementById("aiFab");
-        const aiPanel = document.getElementById("aiPanel");
-        const aiClose = document.getElementById("aiClose");
-        const aiBody = document.getElementById("aiBody");
-        const aiForm = document.getElementById("aiForm");
-        const aiText = document.getElementById("aiText");
-        const guest = new URLSearchParams(location.search).get("to");
-
-        function openAI(){
-            aiPanel.classList.add("open");
-            aiText.focus();
-            if (!sessionStorage.getItem("aira_welcomed")) {
-                botSay(`Halo${guest ? " " + guest : ""}! Aku <b>Aira</b> 👋. Aku bisa bantu info acara Zen & Yessica: waktu, lokasi, RSVP, arah ke tempat, dan lainnya.`);
-                sessionStorage.setItem("aira_welcomed", "1");
-            }
-        }
-
-        function closeAI(){
-            aiPanel.classList.remove("open");
-        }
-
-        aiFab.addEventListener("click", () => {
-            aiPanel.classList.contains("open") ? closeAI() : openAI();
-        });
-
-        aiClose.addEventListener("click", closeAI);
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") closeAI();
-        });
-
-        function renderMsg(role, html){
-            const wrap = document.createElement("div");
-            wrap.className = "ai-msg " + (role === "user" ? "user" : "ai");
-            const b = document.createElement("div");
-            b.className = "ai-bubble";
-            b.innerHTML = html;
-            wrap.appendChild(b);
-            aiBody.appendChild(wrap);
-            aiBody.scrollTop = aiBody.scrollHeight;
-        }
-
-        function userSay(t){
-            renderMsg("user", t.replace(/[<>&"]/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c])));
-        }
-
-        function botSay(h){
-            renderMsg("ai", h);
-        }
-
-        const fmtDate = d => d.toLocaleString("id-ID", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            timeZone: "Asia/Jakarta"
-        });
-
-        const daysTo = d => {
-            const ms = d.getTime() - Date.now();
-            if (ms <= 0) return "Hari ini!";
-            const DD = Math.floor(ms / 86400000);
-            const HH = Math.floor((ms % 86400000) / 3600000);
-            return `${DD} hari ${HH} jam lagi`;
-        };
-
-        function reply(text){
-            const q = text.toLowerCase();
-            if (/\b(hai|halo|hello|hi)\b/.test(q)) {
-                return `Halo${guest ? ' ' + guest : ''}! Ada yang bisa Aira bantu?`;
-            }
-            if (/siapa|pengantin|couple|bride|groom/.test(q)) {
-                return `Acara ini untuk <b>Zen & Yessica</b> 🥂.`;
-            }
-            if (/kapan|tanggal|jam|time|when|countdown|berapa hari/.test(q)) {
-                return `Pemberkatan dimulai <b>${fmtDate(WEDDING_DATE)}</b> (WIB). Tersisa <b>${daysTo(WEDDING_DATE)}</b>.`;
-            }
-            if (/di mana|lokasi|alamat|where|maps|arah|route|direction/.test(q)) {
-                return `Lokasi: <br>• Pemberkatan: Gereja Santo Fransiskus Asisi, Cibinong<br>• Resepsi: Bagas Raya Cibinong`;
-            }
-            if (/rsvp|konfirmasi|hadir|attend|daftar/.test(q)){
-                setTimeout(() => {
-                    const rsvpSection = document.querySelector("#rsvp");
-                    if (rsvpSection) {
-                        rsvpSection.scrollIntoView({behavior: "smooth"});
-                    }
-                }, 300);
-                return `Kamu bisa RSVP di bagian <b>RSVP & Notes</b>. Aku sudah menggulir ke sana 😉.`;
-            }
-            if (/musik|music|lagu|sound/.test(q)) {
-                return `Tombol musik ada di kanan bawah (ikon ▶️/⏸️).`;
-            }
-            return `Aku bisa bantu: "Kapan mulai?", "Lokasinya?", "Cara RSVP?", dan info lainnya tentang pernikahan Zen & Yessica!`;
-        }
-
-        aiForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const t = aiText.value.trim();
-            if (!t) return;
-            userSay(t);
-            botSay(reply(t));
-            aiText.value = "";
-        });
-
-        // ===== CALCULATE RELATIONSHIP YEARS =====
-        function updateRelationshipYears() {
-            try {
-                const now = new Date();
-                const start = new Date("2019-05-28T00:00:00");
-                
-                if (isNaN(start.getTime())) {
-                    console.warn('Invalid relationship start date');
-                    return;
-                }
-                
-                const diffTime = now - start;
-                const years = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365.25));
-                
-                const element = document.getElementById("relationshipYears");
-                if (element) {
-                    const yearText = years === 1 ? "year" : "years";
-                    element.textContent = `${years} ${yearText}`;
-                }
-            } catch (error) {
-                console.error('Error updating relationship years:', error);
-            }
-        }
-
-        // ===== INITIALIZE EVERYTHING =====
-        document.addEventListener("DOMContentLoaded", () => {
-            updateRelationshipYears();
-            loadDemoNotes();
-            initializePage();
-        });
-
-        // Handle page navigation
-        window.addEventListener("pageshow", (event) => {
-            if (sessionStorage.getItem("autoplay") === "1") {
-                setTimeout(tryAutoplay, 200);
-            }
-        });
-
-        // Clean up intervals when page is hidden
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden && countdownInterval) {
-                clearInterval(countdownInterval);
-                countdownInterval = null;
-            } else if (!document.hidden && !countdownInterval) {
-                tick();
-                countdownInterval = setInterval(tick, 1000);
-            }
-        });
-    </script>
+    // Load notes on page load
+    loadNotes();
+  </script>
 </body>
 </html>
