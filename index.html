@@ -5,23 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation - Zen & Yessica</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    * {
+    body, html {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
       font-family: 'Poppins', sans-serif;
       background: #fff;
       color: #333;
       height: 100%;
       overflow-x: hidden;
-      scroll-behavior: smooth;
     }
-
     h1, h2 {
       font-family: 'Great Vibes', cursive;
       color: #bc6c89;
@@ -32,601 +26,161 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(139, 69, 19, 0.3) 50%, rgba(0, 0, 0, 0.5) 100%),
-                  url('image/Main-image.jpeg');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
+      background: linear-gradient(135deg, #fbd3e9, #91a1f0);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       z-index: 9999;
-      transition: opacity 1s ease, visibility 1s ease;
-      padding: 20px;
-      overflow-y: auto;
-    }
-    .cover::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.2);
-      z-index: 0;
-    }
-    @keyframes sparkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.8; }
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
     .cover h1 {
-      font-size: 3.5rem;
-      color: #E8E8E8;
-      margin-bottom: 20px;
-      text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
-      animation: fadeInUp 1s ease-out;
-      position: relative;
-      z-index: 2;
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
     }
     .cover p {
-      font-size: 1.3rem;
-      color: rgba(255,255,255,0.95);
-      margin-bottom: 20px;
-      animation: fadeInUp 1s ease-out 0.3s both;
-      position: relative;
-      z-index: 2;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 30px;
     }
     .cover button {
       padding: 12px 30px;
-      border: 2px solid rgba(255,255,255,0.8);
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #bc6c89;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
-      animation: fadeInUp 1s ease-out 0.6s both;
-      backdrop-filter: blur(10px);
-      position: relative;
-      z-index: 2;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      transition: background 0.3s, color 0.3s;
     }
     .cover button:hover {
-      background: rgba(255, 255, 255, 0.9);
-      color: #333;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+      background: #bc6c89;
+      color: white;
     }
     .cover.hidden {
       opacity: 0;
       visibility: hidden;
     }
 
-    /* Cover Icons */
-    .cover-icons {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 30px 0 20px 0;
-      position: relative;
-      animation: fadeInUp 1s ease-out 0.9s both;
-      z-index: 2;
-    }
-    
-    .connecting-line {
-      width: 50px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.4);
-      position: relative;
-    }
-    
-    .cover-icon {
-      cursor: pointer;
-      transition: all 0.4s ease;
-      position: relative;
-    }
-    
-    .cover-icon.active .icon-circle {
-      background: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.7);
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    }
-    
-    .icon-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      backdrop-filter: blur(15px);
-      transition: all 0.4s ease;
-      cursor: pointer;
-    }
-    
-    .cover-icon:hover .icon-circle {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.5);
-      transform: scale(1.05);
-    }
+    section { padding: 50px 20px; text-align: center; }
+    .date { font-size: 1.3rem; margin: 15px 0; }
+    .venue { margin: 8px 0; font-style: italic; }
+    .verse { font-style: italic; max-width: 600px; margin: auto; line-height: 1.5; color: #555; }
+    footer { background: #333; color: white; padding: 20px; margin-top: 40px; }
 
-    /* Message Display Area */
-    .message-display {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 15px auto 30px;
-      max-width: 320px;
-      transition: all 0.5s ease;
-      animation: fadeInUp 1s ease-out 1.2s both;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .message-content h3 {
-      color: rgba(255, 255, 255, 0.95);
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-      text-align: center;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-      transition: opacity 0.3s ease;
-    }
-    
-    .message-content p {
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.5;
-      font-size: 0.85rem;
-      text-align: center;
-      margin: 0;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-      transition: opacity 0.3s ease;
-    }
-
-
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Hero Section */
+    /* Hero */
     .hero {
       height: 100vh;
-      background: linear-gradient(135deg, #fbd3e9 0%, #bbd2c5 50%, #91a1f0 100%);
+      background: linear-gradient(135deg, #fbd3e9, #bbd2c5, #91a1f0);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
       color: white;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-      position: relative;
-      overflow: hidden;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 Q30,10 40,20 T60,20" stroke="white" stroke-width="0.5" fill="none" opacity="0.1"/><path d="M10,40 Q20,30 30,40 T50,40" stroke="white" stroke-width="0.5" fill="none" opacity="0.1"/></svg>');
-      animation: float 20s infinite linear;
-    }
-    @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(-50px, -50px) rotate(360deg); }
-    }
-    
-    .hero h1 { 
-      font-size: 4.5rem; 
-      margin-bottom: 30px; 
-      z-index: 1;
-      position: relative;
-    }
-    .hero .quote { 
-      max-width: 600px; 
-      font-size: 1.3rem; 
-      margin: 20px auto 40px; 
-      line-height: 1.8; 
-      z-index: 1;
-      position: relative;
-      text-align: center;
-      font-style: italic;
-    }
-
-    /* Countdown Styling */
+    .hero h1 { font-size: 4rem; margin-bottom: 15px; }
+    .hero .quote { max-width: 600px; font-size: 1.2rem; margin: 20px auto 40px; line-height: 1.6; }
     #countdown {
       font-size: 1.2rem;
       font-weight: bold;
-      margin: 30px 0 50px;
+      margin: 20px 0 40px;
       display: flex;
-      gap: 30px;
-      justify-content: center;
-      z-index: 1;
-      position: relative;
-    }
-    .time-box {
-      background: rgba(255,255,255,0.15);
-      padding: 20px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    .time-box span { 
-      display: block; 
-      font-size: 2.5rem; 
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    /* Wedding Details Section */
-    .wedding-details {
-      background: linear-gradient(45deg, #f8f4f6 0%, #e8f5e8 100%);
-      padding: 100px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .wedding-details::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="%23bc6c89" opacity="0.05"/><circle cx="90" cy="20" r="1.5" fill="%23bc6c89" opacity="0.05"/><circle cx="20" cy="80" r="2.5" fill="%23bc6c89" opacity="0.05"/><circle cx="80" cy="90" r="1" fill="%23bc6c89" opacity="0.05"/></svg>');
-    }
-    .wedding-details h2 {
-      font-size: 3.5rem;
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 1;
-    }
-    .wedding-details .date {
-      font-size: 1.6rem;
-      margin: 20px 0;
-      color: #7a4d5f;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
-    }
-    .wedding-details .venue {
-      margin: 15px 0;
-      font-size: 1.2rem;
-      color: #666;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Bible Verse Section */
-    .bible-verse {
-      background: linear-gradient(135deg, #e8f4fd 0%, #f0e8fd 100%);
-      padding: 100px 20px;
-      text-align: center;
-      position: relative;
-    }
-    .bible-verse::before {
-      content: '"';
-      position: absolute;
-      top: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 8rem;
-      color: rgba(188, 108, 137, 0.1);
-      font-family: serif;
-    }
-    .bible-verse h2 {
-      font-size: 3rem;
-      margin-bottom: 50px;
-      position: relative;
-      z-index: 1;
-    }
-    .bible-verse .verse {
-      font-style: italic;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.8;
-      color: #555;
-      font-size: 1.3rem;
-      position: relative;
-      z-index: 1;
-      background: rgba(255,255,255,0.7);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    /* RSVP Section */
-    .rsvp-section {
-      background: linear-gradient(45deg, #fdf4f0 0%, #f0f8ff 100%);
-      padding: 100px 20px;
-      text-align: center;
-      position: relative;
-    }
-    .rsvp-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M25,25 Q50,15 75,25 Q85,50 75,75 Q50,85 25,75 Q15,50 25,25" fill="none" stroke="%23bc6c89" stroke-width="0.5" opacity="0.05"/></svg>');
-    }
-    .rsvp-section h2 {
-      font-size: 3rem;
-      margin-bottom: 50px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Enhanced Form Styling */
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
       gap: 20px;
-      text-align: left;
-      background: rgba(255,255,255,0.9);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1;
+      justify-content: center;
     }
-    form input, form textarea, form select {
-      padding: 15px 20px;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-family: 'Poppins', sans-serif;
-      transition: all 0.3s ease;
-      background: rgba(255,255,255,0.8);
-    }
-    form input:focus, form textarea:focus, form select:focus {
-      outline: none;
-      border-color: #bc6c89;
-      box-shadow: 0 0 0 3px rgba(188, 108, 137, 0.1);
-      background: white;
-    }
-    form textarea { 
-      min-height: 120px; 
-      resize: vertical; 
-    }
-    form button {
-      background: linear-gradient(45deg, #bc6c89, #a44d6c);
-      color: white;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
-    form button:hover { 
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(188, 108, 137, 0.3);
-    }
-
-    /* Notes Section Styling */
-    #notesContainer {
-      margin-top: 60px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-      background: rgba(255,255,255,0.9);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1;
-    }
-    .note {
-      padding: 20px;
-      border-bottom: 1px solid rgba(188, 108, 137, 0.1);
-      transition: all 0.3s ease;
-    }
-    .note:hover {
-      background: rgba(188, 108, 137, 0.05);
-      border-radius: 10px;
-    }
-    .note strong { 
-      color: #bc6c89; 
-      font-size: 1.1rem;
-    }
-
-    /* Pagination */
-    .pagination { 
-      margin-top: 20px; 
-      display: flex; 
-      justify-content: center; 
-      gap: 15px; 
-      position: relative;
-      z-index: 10;
-    }
-    .pagination button { 
-      padding: 12px 20px; 
-      border: none; 
-      border-radius: 25px; 
-      background: linear-gradient(45deg, #bc6c89, #a44d6c);
-      color: white; 
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      position: relative;
-      z-index: 11;
-      font-size: 1rem;
-      min-width: 80px;
-    }
-    .pagination button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(188, 108, 137, 0.3);
-    }
-    .pagination button:disabled { 
-      background: #ccc; 
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-      opacity: 0.6;
-    }
-    .pagination button:not(:disabled):active {
-      transform: translateY(0);
-    }
-
-    /* Enhanced Footer */
-    footer { 
-      background: linear-gradient(45deg, #2c3e50, #3498db);
-      color: white; 
-      padding: 60px 20px;
-      margin-top: 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,70 Q50,50 70,70" stroke="white" stroke-width="0.5" fill="none" opacity="0.1"/></svg>');
-    }
-    footer p {
-      font-size: 1.3rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Common button styling */
+    .time-box span { display: block; font-size: 2rem; }
     .btn {
       display: inline-block;
-      padding: 15px 35px;
-      background: linear-gradient(45deg, #bc6c89, #a44d6c);
+      padding: 12px 30px;
+      background: #bc6c89;
       border: none;
       color: white;
       border-radius: 30px;
       text-decoration: none;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
+      font-size: 1rem;
+      transition: 0.3s;
     }
-    .btn:hover { 
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(188, 108, 137, 0.4);
-    }
+    .btn:hover { background: #a44d6c; }
 
     /* Music button */
     #music-control {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: linear-gradient(45deg, #bc6c89, #a44d6c);
+      bottom: 20px;
+      right: 20px;
+      background: #bc6c89;
       color: white;
       border: none;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 1.5rem;
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(188, 108, 137, 0.3);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
       display: none;
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-    #music-control:hover {
-      transform: scale(1.1);
-      box-shadow: 0 10px 30px rgba(188, 108, 137, 0.4);
     }
 
-    /* Error messages */
-    .error-msg {
-      color: #d46a6a;
-      font-size: 0.9rem;
-      display: none;
-      margin-top: 8px;
-      font-style: italic;
+    /* RSVP Form + Notes */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
     }
+    form input, form textarea, form select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    form textarea { min-height: 100px; resize: vertical; }
+    form button {
+      background: #bc6c89;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    form button:hover { background: #a44d6c; }
+    #responseMsg { text-align: center; margin-top: 15px; font-weight: 600; }
 
-    #responseMsg { 
-      text-align: center; 
-      margin-top: 20px; 
-      font-weight: 600; 
-      font-size: 1.1rem;
-    }
-
-    .attendance-wrapper { 
-      margin-top: 15px; 
-      text-align: center; 
-    }
-    .attendance-label { 
-      font-size: 1rem; 
-      color: #666; 
-      margin-bottom: 10px; 
-      font-weight: 500;
-    }
+    .attendance-wrapper { margin-top: 15px; text-align: center; }
+    .attendance-label { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
     #attendanceInput {
-      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 80%;
       text-align: center;
       cursor: pointer;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 3rem; }
-      .hero .quote { font-size: 1.1rem; }
-      #countdown { gap: 15px; }
-      .time-box { padding: 15px; }
-      .time-box span { font-size: 2rem; }
-      .wedding-details h2, .bible-verse h2, .rsvp-section h2 { font-size: 2.5rem; }
-      form { padding: 30px 20px; }
-      .cover h1 { font-size: 2.5rem; }
-      
-      /* Mobile cover icons */
-      .cover-icons {
-        margin: 20px 0 10px 0;
-      }
-      
-      .connecting-line {
-        width: 30px;
-      }
-      
-      .icon-circle {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-      }
-      
-      .message-display {
-        padding: 15px;
-        margin: 10px auto 25px;
-        max-width: 280px;
-      }
-      
-      .message-content h3 {
-        font-size: 1.2rem;
-        margin-bottom: 6px;
-      }
-      
-      .message-content p {
-        font-size: 0.75rem;
-        line-height: 1.4;
-      }
+    .error-msg {
+      color: #d46a6a;
+      font-size: 0.9rem;
+      display: none;
+      margin-top: 5px;
+      font-style: italic;
     }
+
+    #notesContainer { margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; text-align: left; }
+    .note { padding: 12px; border-bottom: 1px solid #ddd; }
+    .note strong { color: #bc6c89; }
+    .pagination { margin-top: 15px; display: flex; justify-content: center; gap: 10px; }
+    .pagination button { padding: 8px 15px; border: none; border-radius: 6px; background: #bc6c89; color: white; cursor: pointer; }
+    .pagination button:disabled { background: #ccc; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -640,43 +194,16 @@
   <!-- COVER PAGE -->
   <div class="cover" id="coverPage">
     <h1>Zen & Yessica</h1>
-    <p>You're cordially invited to celebrate our wedding</p>
-    <p>Dear <span id="guestName">Beloved Guest</span></p>
-    
-    <!-- Interactive Icons -->
-    <div class="cover-icons">
-      <div class="connecting-line line-1"></div>
-      <div class="cover-icon" id="icon1" data-type="story">
-        <div class="icon-circle">💕</div>
-      </div>
-      <div class="connecting-line line-2"></div>
-      <div class="cover-icon" id="icon2" data-type="journey">
-        <div class="icon-circle">🌿</div>
-      </div>
-      <div class="connecting-line line-3"></div>
-      <div class="cover-icon" id="icon3" data-type="future">
-        <div class="icon-circle">🏠</div>
-      </div>
-      <div class="connecting-line line-4"></div>
-    </div>
-    
-    <!-- Message Display Area -->
-    <div class="message-display" id="messageDisplay">
-      <div class="message-content">
-        <h3 id="displayTitle">Our Love Story</h3>
-        <p id="displayMessage">Two hearts, one soul. Our journey began with a simple smile and grew into an everlasting love. From strangers to best friends, from best friends to soulmates - this is our beautiful story unfolding.</p>
-      </div>
-    </div>
-    
-    <button id="openBtn">Open Our Invitation</button>
+    <p>Dear <span id="guestName">Guest</span></p>
+    <button id="openBtn">Open Invitation</button>
   </div>
 
   <!-- Save the Date -->
   <section class="hero">
     <h1>SAVE THE DATE</h1>
     <p class="quote">
-      "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
-      It is only fitting that every effort to attain His love is pursued with joy."
+      “Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
+      It is only fitting that every effort to attain His love is pursued with joy.”
     </p>
     <div id="countdown">
       <div class="time-box"><span id="days">00</span>Days</div>
@@ -691,63 +218,63 @@
     </a>
   </section>
 
-  <!-- Wedding Details -->
-  <section class="wedding-details">
-    <h2>Our Wedding Day</h2>
-    <p class="date">Saturday, 17th January 2026</p>
-    <p class="venue">✨ Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
-    <p class="venue">🎉 Reception: Bagas Raya Cibinong</p>
+  <!-- Details -->
+  <section>
+    <h2>Wedding Day</h2>
+    <p class="date">Saturday, 17 January 2026</p>
+    <p class="venue">Holy Matrimony: Gereja Santo Fransiskus Asisi, Cibinong</p>
+    <p class="venue">Reception: Bagas Raya Cibinong</p>
   </section>
 
-  <!-- Bible Verse -->
-  <section class="bible-verse">
-    <h2>Sacred Words</h2>
+  <!-- Verse -->
+  <section>
+    <h2>Bible Verse</h2>
     <p class="verse">
-      "So they are no longer two, but one flesh.  
-      What therefore God has joined together, let no man separate."  
-      <br><br>– Matthew 19:6
+      “So they are no longer two, but one flesh.  
+      What therefore God has joined together, let no man separate.”  
+      <br>– Matthew 19:6
     </p>
   </section>
 
   <!-- RSVP -->
-  <section class="rsvp-section">
-    <h2>RSVP & Wishes</h2>
+  <section>
+    <h2>RSVP & Notes</h2>
     <form id="rsvpForm">
       <input type="hidden" name="token" value="ZENYESSICA2026">
       <input type="hidden" id="referer" name="referer">
 
       <!-- Name -->
-      <input name="Name" id="nameInput" type="text" placeholder="✨ Please tell us your beautiful name" required>
-      <small id="nameError" class="error-msg">We'd love to know who you are 🌷</small>
+      <input name="Name" id="nameInput" type="text" placeholder="We’d like to know you 💌" required>
+      <small id="nameError" class="error-msg">Oops, please tell us your name 🌷</small>
 
       <!-- Notes -->
-      <textarea name="Notes" placeholder="💝 Share your heartfelt wishes and prayers for our new journey together"></textarea>
+      <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
 
       <!-- Attendance -->
       <div class="attendance-wrapper">
-        <p class="attendance-label">Will you be celebrating with us?</p>
+        <p class="attendance-label">Attendance confirmation</p>
         <select name="Attendance" id="attendanceInput" required>
-          <option value="">-- Please let us know --</option>
-          <option value="Yes">💖 Yes, wouldn't miss it for the world!</option>
-          <option value="No">🌸 Unfortunately, I can't attend</option>
+          <option value="">-- Select attendance --</option>
+          <option value="Yes">💖 Yes, I’ll be there</option>
+          <option value="No">🌸 Sorry, can’t attend</option>
         </select>
-        <small id="attendanceError" class="error-msg">Please let us know about your attendance 💐</small>
+        <small id="attendanceError" class="error-msg">Please let us know if you can attend 💐</small>
       </div>
 
-      <button type="submit">Send With Love 💕</button>
+      <button type="submit">SEND</button>
     </form>
     <p id="responseMsg"></p>
 
-    <h2>Messages of Love 💌</h2>
-    <div id="notesContainer">Loading beautiful messages...</div>
+    <h2>Guest Notes 💌</h2>
+    <div id="notesContainer">Loading...</div>
     <div class="pagination">
-      <button id="prevBtn">← Previous</button>
-      <button id="nextBtn">Next →</button>
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
     </div>
   </section>
 
   <footer>
-    <p>With all our love and gratitude 💕<br><strong>Zen & Yessica</strong></p>
+    <p>With love, Zen & Yessica 💕</p>
   </footer>
 
   <!-- SCRIPT -->
@@ -772,46 +299,32 @@
     });
 
     controlBtn.addEventListener("click", () => {
-      if (music.paused) { 
-        music.play(); 
-        controlBtn.textContent = "⏸️"; 
-      } else { 
-        music.pause(); 
-        controlBtn.textContent = "▶️"; 
-      }
+      if (music.paused) { music.play(); controlBtn.textContent = "⏸️"; }
+      else { music.pause(); controlBtn.textContent = "▶️"; }
     });
 
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) { 
-        music.pause(); 
-        controlBtn.textContent = "▶️"; 
-      }
+      if (document.hidden) { music.pause(); controlBtn.textContent = "▶️"; }
     });
-    
-    window.addEventListener("beforeunload", () => { 
-      music.pause(); 
-    });
+    window.addEventListener("beforeunload", () => { music.pause(); });
 
     // Countdown
     function updateCountdown() {
       const weddingDate = new Date("Jan 17, 2026 09:00:00").getTime();
       const now = new Date().getTime();
       const diff = weddingDate - now;
-      
       if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "<div style='font-size: 2rem; color: white;'>🎉 Today is our wedding day! 🎉</div>";
+        document.getElementById("countdown").innerHTML = "🎉 Today is the wedding day!";
         return;
       }
-      
       const days = Math.floor(diff / (1000*60*60*24));
       const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
       const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
       const seconds = Math.floor((diff % (1000*60)) / 1000);
-      
-      document.getElementById("days").textContent = days.toString().padStart(2, '0');
-      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
@@ -843,57 +356,50 @@
 
       if (!valid) {
         e.preventDefault();
-        msg.textContent = "⚠️ Please complete all required fields to continue 🌸";
+        msg.textContent = "⚠️ Please check the form again, some fields are missing 🌸";
         msg.style.color = "#d46a6a";
         return;
       }
 
       e.preventDefault();
-      msg.textContent = "⏳ Sending your beautiful message...";
-      msg.style.color = "#bc6c89";
+      msg.textContent = "⏳ Sending...";
+      msg.style.color = "gray";
 
       fetch(scriptURL, { method: "POST", body: new FormData(form) })
         .then(res => res.json())
         .then(data => {
           if (data.status === "success") {
-            msg.textContent = "✅ Your RSVP has been sent successfully! Thank you for your love 💕";
-            msg.style.color = "#28a745";
+            msg.textContent = "✅ RSVP berhasil dikirim! Thank you 💕";
+            msg.style.color = "green";
             form.reset();
             loadNotes();
           } else {
-            msg.textContent = "❌ Sorry, something went wrong. Please try again.";
-            msg.style.color = "#d46a6a";
+            msg.textContent = "❌ Gagal mengirim RSVP.";
+            msg.style.color = "red";
           }
         })
         .catch(err => {
-          msg.textContent = "❌ Connection error. Please check your internet and try again.";
-          msg.style.color = "#d46a6a";
-          console.error("Error:", err);
+          msg.textContent = "❌ Error: " + err;
+          msg.style.color = "red";
         });
     });
 
-    // Helper: relative time
+    // Helper: waktu relatif
     function timeAgo(dateString) {
       const now = new Date();
       const date = new Date(dateString);
       const diff = (now - date) / 1000;
-      
-      if (diff < 60) return "just now";
-      
+      if (diff < 60) return "baru saja";
       const minutes = Math.floor(diff / 60);
-      if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-      
+      if (minutes < 60) return ${minutes} menit lalu;
       const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-      
+      if (hours < 24) return ${hours} jam lalu;
       const days = Math.floor(hours / 24);
-      if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
-      
+      if (days < 7) return ${days} hari lalu;
       const weeks = Math.floor(days / 7);
-      if (weeks < 4) return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-      
+      if (weeks < 4) return ${weeks} minggu lalu;
       const months = Math.floor(days / 30);
-      return `${months} month${months > 1 ? 's' : ''} ago`;
+      return ${months} bulan lalu;
     }
 
     // Notes pagination
@@ -908,150 +414,44 @@
         notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         renderNotes();
       } catch (err) {
-        document.getElementById("notesContainer").innerHTML = "<p style='text-align: center; color: #666;'>❌ Unable to load messages at the moment.</p>";
-        console.error("Error loading notes:", err);
+        document.getElementById("notesContainer").innerHTML = "<p>❌ Gagal load notes.</p>";
       }
     }
 
     function renderNotes() {
       const container = document.getElementById("notesContainer");
       container.innerHTML = "";
-      
       if (!notes.length) {
-        container.innerHTML = "<p style='text-align: center; color: #666; font-style: italic;'>No messages yet. Be the first to share your wishes! 💝</p>";
-        document.getElementById("prevBtn").disabled = true;
-        document.getElementById("nextBtn").disabled = true;
+        container.innerHTML = "<p>No notes yet.</p>";
         return;
       }
-      
       const start = (currentPage - 1) * notesPerPage;
       const end = start + notesPerPage;
       const pageNotes = notes.slice(start, end);
-      
       pageNotes.forEach(n => {
         let attendanceIcon = "";
         if (n.attendance === "Yes") attendanceIcon = "💖";
         if (n.attendance === "No") attendanceIcon = "🌸";
-        
         container.innerHTML += `
           <div class="note">
-            <strong>${n.name || 'Anonymous'}</strong> ${attendanceIcon}<br>
-            ${n.notes ? `<em style="color: #555; line-height: 1.6; margin: 10px 0; display: block;">${n.notes}</em>` : ''}
-            <small style="color: #999;">${timeAgo(n.timestamp)}</small>
+            <strong>${n.name}</strong> ${attendanceIcon}<br>
+            <em>${n.notes}</em><br>
+            <small>${timeAgo(n.timestamp)}</small>
           </div>
         `;
       });
-      
-      // Fix pagination button states
-      const prevBtn = document.getElementById("prevBtn");
-      const nextBtn = document.getElementById("nextBtn");
-      
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage * notesPerPage >= notes.length;
-      
-      console.log(`Current page: ${currentPage}, Total notes: ${notes.length}, Notes per page: ${notesPerPage}`);
-      console.log(`Next button disabled: ${nextBtn.disabled}`);
+      document.getElementById("prevBtn").disabled = currentPage === 1;
+      document.getElementById("nextBtn").disabled = end >= notes.length;
     }
 
     document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) { 
-        currentPage--; 
-        renderNotes(); 
-      }
+      if (currentPage > 1) { currentPage--; renderNotes(); }
     });
-    
-    document.getElementById("nextBtn").addEventListener("click", (e) => {
-      e.preventDefault();
-      console.log("Next button clicked");
-      if (currentPage * notesPerPage < notes.length) { 
-        currentPage++; 
-        renderNotes(); 
-      } else {
-        console.log("No more pages available");
-      }
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if ((currentPage * notesPerPage) < notes.length) { currentPage++; renderNotes(); }
     });
 
-    // Load notes on page load
     loadNotes();
-
-    // Cover Icons Functionality
-    const displayTitle = document.getElementById("displayTitle");
-    const displayMessage = document.getElementById("displayMessage");
-
-    // Messages data - you can customize these or fetch from Google Sheets
-    const messagesData = {
-      story: {
-        title: "Our Love Story",
-        message: "Two hearts, one soul. Our journey began with a simple smile and grew into an everlasting love. From strangers to best friends, from best friends to soulmates - this is our beautiful story unfolding."
-      },
-      journey: {
-        title: "Our Journey Together", 
-        message: "Every step we've taken has led us to this moment. Through laughter and tears, challenges and victories, we've grown stronger together. Our love has been tested by time and has only grown more beautiful."
-      },
-      future: {
-        title: "Our Future Dreams",
-        message: "Together we dream of building a home filled with love, laughter, and endless adventures. We envision growing old together, creating memories, and sharing our love with family and friends for years to come."
-      }
-    };
-
-    // Add click event listeners to cover icons
-    document.querySelectorAll('.cover-icon').forEach(icon => {
-      icon.addEventListener('click', (e) => {
-        // Remove active class from all icons
-        document.querySelectorAll('.cover-icon').forEach(ic => ic.classList.remove('active'));
-        
-        // Add active class to clicked icon
-        icon.classList.add('active');
-        
-        const type = icon.dataset.type;
-        const messageData = messagesData[type];
-        
-        if (messageData) {
-          // Update the display with smooth transition
-          displayTitle.style.opacity = '0';
-          displayMessage.style.opacity = '0';
-          
-          setTimeout(() => {
-            displayTitle.textContent = messageData.title;
-            displayMessage.textContent = messageData.message;
-            displayTitle.style.opacity = '1';
-            displayMessage.style.opacity = '1';
-          }, 200);
-        }
-      });
-    });
-
-    // Set first icon as active by default
-    document.getElementById('icon1').classList.add('active');
-
-    // Alternative: Fetch messages from Google Sheets
-    // Uncomment and modify this function if you want to fetch from Google Sheets
-    /*
-    async function fetchCoverMessages() {
-      try {
-        // Add a new endpoint parameter to your Google Sheets script to handle different message types
-        const response = await fetch(scriptURL + '?action=getCoverMessages');
-        const data = await response.json();
-        
-        // Assuming your Google Sheets returns data in format:
-        // [{type: 'story', title: '...', message: '...'}, ...]
-        data.forEach(item => {
-          if (messagesData[item.type]) {
-            messagesData[item.type] = {
-              title: item.title,
-              message: item.message
-            };
-          }
-        });
-      } catch (error) {
-        console.log('Could not fetch cover messages:', error);
-        // Falls back to default messages
-      }
-    }
-    
-    // Call this function on page load if you want to fetch from Google Sheets
-    // fetchCoverMessages();
-    */
   </script>
 </body>
 </html>
