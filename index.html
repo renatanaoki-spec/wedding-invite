@@ -32,7 +32,11 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, #8B4513 0%, #A0522D 25%, #CD853F 50%, #8B4513 75%, #654321 100%);
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.7) 0%, rgba(160, 82, 45, 0.7) 25%, rgba(205, 133, 63, 0.7) 50%, rgba(139, 69, 19, 0.7) 75%, rgba(101, 67, 33, 0.7) 100%),
+                  url('image/Main-image.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -48,33 +52,8 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="gold" opacity="0.1"/><circle cx="80" cy="30" r="1.5" fill="gold" opacity="0.1"/><circle cx="40" cy="70" r="1" fill="gold" opacity="0.1"/><circle cx="90" cy="80" r="1.2" fill="gold" opacity="0.1"/></svg>');
-      animation: sparkle 3s infinite;
-    }
-
-    /* Couple Image */
-    .couple-image {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 30px;
-      border: 4px solid rgba(255, 215, 0, 0.4);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: fadeInUp 1s ease-out 0.3s both;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .couple-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    
-    .couple-image:hover img {
-      transform: scale(1.05);
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 0;
     }
     @keyframes sparkle {
       0%, 100% { opacity: 0.3; }
@@ -84,10 +63,10 @@
       font-size: 3.5rem;
       color: #FFD700;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
       animation: fadeInUp 1s ease-out;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     .cover p {
       font-size: 1.3rem;
@@ -95,13 +74,14 @@
       margin-bottom: 20px;
       animation: fadeInUp 1s ease-out 0.3s both;
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
     }
     .cover button {
       padding: 15px 40px;
       border: 2px solid #FFD700;
       border-radius: 50px;
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(255, 215, 0, 0.2);
       color: #FFD700;
       font-size: 1.1rem;
       font-weight: 600;
@@ -110,13 +90,14 @@
       animation: fadeInUp 1s ease-out 0.6s both;
       backdrop-filter: blur(10px);
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     .cover button:hover {
-      background: #FFD700;
+      background: rgba(255, 215, 0, 0.9);
       color: #8B4513;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
     }
     .cover.hidden {
       opacity: 0;
@@ -131,13 +112,13 @@
       margin: 30px 0 20px 0;
       position: relative;
       animation: fadeInUp 1s ease-out 0.9s both;
-      z-index: 1;
+      z-index: 2;
     }
     
     .connecting-line {
       width: 60px;
       height: 2px;
-      background: rgba(255, 215, 0, 0.4);
+      background: rgba(255, 215, 0, 0.6);
       position: relative;
     }
     
@@ -148,18 +129,18 @@
     }
     
     .cover-icon.active .icon-circle {
-      background: rgba(255, 215, 0, 0.3);
-      border-color: rgba(255, 215, 0, 0.8);
+      background: rgba(255, 215, 0, 0.4);
+      border-color: rgba(255, 215, 0, 0.9);
       transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
     }
     
     .icon-circle {
       width: 70px;
       height: 70px;
       border-radius: 50%;
-      background: rgba(255, 215, 0, 0.1);
-      border: 2px solid rgba(255, 215, 0, 0.3);
+      background: rgba(255, 215, 0, 0.2);
+      border: 2px solid rgba(255, 215, 0, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -170,16 +151,16 @@
     }
     
     .cover-icon:hover .icon-circle {
-      background: rgba(255, 215, 0, 0.2);
-      border-color: rgba(255, 215, 0, 0.5);
+      background: rgba(255, 215, 0, 0.3);
+      border-color: rgba(255, 215, 0, 0.6);
       transform: scale(1.05);
     }
 
     /* Message Display Area */
     .message-display {
-      background: rgba(255, 215, 0, 0.1);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 215, 0, 0.3);
+      background: rgba(255, 215, 0, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 215, 0, 0.4);
       border-radius: 20px;
       padding: 25px;
       margin: 15px auto 30px;
@@ -187,7 +168,7 @@
       transition: all 0.5s ease;
       animation: fadeInUp 1s ease-out 1.2s both;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     
     .message-content h3 {
@@ -196,7 +177,7 @@
       font-size: 1.8rem;
       margin-bottom: 12px;
       text-align: center;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
       transition: opacity 0.3s ease;
     }
     
@@ -206,7 +187,7 @@
       font-size: 0.95rem;
       text-align: center;
       margin: 0;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
       transition: opacity 0.3s ease;
     }
 
@@ -607,38 +588,32 @@
       
       /* Mobile cover icons */
       .cover-icons {
-        margin: 25px 0 15px 0;
+        margin: 20px 0 10px 0;
       }
       
       .connecting-line {
-        width: 40px;
+        width: 30px;
       }
       
       .icon-circle {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-      }
-      
-      .touch-instruction {
-        font-size: 1rem;
-        margin: 15px auto 20px;
-        max-width: 300px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.4rem;
       }
       
       .message-display {
-        padding: 25px 20px;
-        margin: 15px auto 30px;
+        padding: 20px 15px;
+        margin: 10px auto 25px;
         max-width: 90%;
       }
       
       .message-content h3 {
-        font-size: 1.6rem;
-        margin-bottom: 12px;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
       }
       
       .message-content p {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         line-height: 1.5;
       }
     }
@@ -654,9 +629,6 @@
 
   <!-- COVER PAGE -->
   <div class="cover" id="coverPage">
-    <div class="couple-image">
-      <img src="image/Main-image.jpeg" alt="Zen & Yessica" />
-    </div>
     <h1>Zen & Yessica</h1>
     <p>You're cordially invited to celebrate our wedding</p>
     <p>Dear <span id="guestName">Beloved Guest</span></p>
