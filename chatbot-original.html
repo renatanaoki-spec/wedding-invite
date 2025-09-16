@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zen & Yessica Chatbot</title>
+  <style>
+    /* Floating button */
+    #chatbot-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #6b8e72; /* sage green */
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Chat window */
+    #chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      max-height: 400px;
+      background: #fffdf5; /* ivory */
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    /* Chat messages */
+    #chat-box {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .msg {
+      margin: 5px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+
+    .msg.user {
+      background: #557a60; /* darker sage */
+      color: white;
+      align-self: flex-end;
+    }
+
+    .msg.bot {
+      background: #e6e6e6;
+      color: black;
+      align-self: flex-start;
+    }
+
+    /* Input area */
+    #chat-input-area {
+      border-top: 1px solid #ccc;
+      padding: 8px;
+      display: flex;
+    }
+
+    #chat-input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    #send-btn {
+      margin-left: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      background: #6b8e72;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Chat bubble -->
+  <button id="chatbot-btn">💬</button>
+
+  <!-- Chat window -->
+  <div id="chat-window">
+    <div id="chat-box"></div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Ask me something..."/>
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  
+  <!-- External JavaScript -->
+  <script src="js/chatbot-original.js"></script>
+</body>
+</html>
