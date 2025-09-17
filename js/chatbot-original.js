@@ -687,3 +687,393 @@ window.openChat = openChat;
 window.returnToMainMenu = returnToMainMenu;
 window.navigateToSection = navigateToSection;
 window.showQuestionHelper = showQuestionHelper;
+
+// Enhanced Venue-Specific Navigation for Chatbot
+// ADD these functions to your existing chatbot-original.js file
+
+// Enhanced navigation keywords with venue-specific targeting
+const ENHANCED_NAVIGATION_KEYWORDS = {
+    rsvp: {
+        keywords: ['rsvp', 'respond', 'confirmation', 'attend', 'attending', 'confirm attendance', 'reply', 'guest list'],
+        section: 'rsvp',
+        message: "I'll help you with RSVP! Here's the information about confirming your attendance."
+    },
+    ceremony_specific: {
+        keywords: [
+            'ceremony', 'holy matrimony', 'church', 'gereja', 'santo fransiskus', 'fransiskus asisi', 
+            'morning', '8 am', 'pagi', 'nikah', 'pemberkatan', 'upacara', 'pernikahan',
+            'ceremony venue', 'church location', 'morning event', 'first event'
+        ],
+        section: 'ceremony-specific',
+        message: "Here's specific information about the Holy Matrimony ceremony at Gereja Santo Fransiskus Asisi."
+    },
+    reception_specific: {
+        keywords: [
+            'reception', 'party', 'celebration', 'bagas raya', '11 am', 'siang', 'lunch', 'resepsi',
+            'pesta', 'acara makan', 'second event', 'after ceremony', 'reception venue', 'party location'
+        ],
+        section: 'reception-specific', 
+        message: "Here's specific information about the wedding reception at Bagas Raya Cibinong."
+    },
+    both_venues: {
+        keywords: [
+            'where', 'location', 'venue', 'place', 'address', 'cibinong', 'tempat',
+            'both venues', 'all locations', 'wedding venues', 'both places'
+        ],
+        section: 'venues',
+        message: "Here are both wedding venue locations and details."
+    },
+    timing: {
+        keywords: ['when', 'time', 'date', 'schedule', 'start', 'begin', 'hour', 'day', 'january', 'jam', 'waktu'],
+        section: 'venues',
+        message: "Here are the wedding date and time details."
+    },
+    maps: {
+        keywords: ['maps', 'direction', 'how to get', 'navigate', 'driving', 'location maps', 'google maps', 'arah'],
+        section: 'venues',
+        message: "Here are the Google Maps links for both wedding venues."
+    },
+    countdown: {
+        keywords: ['countdown', 'how long', 'days left', 'time left', 'until wedding', 'berapa hari'],
+        section: 'hero',
+        message: "Let me show you the wedding countdown!"
+    }
+};
+
+// Enhanced venue-specific answers
+const VENUE_SPECIFIC_ANSWERS = {
+    // Ceremony-specific questions
+    "Where is the ceremony?": "The Holy Matrimony ceremony will be held at Gereja Santo Fransiskus Asisi, Cibinong at 8:00 AM on January 17, 2026.",
+    "What time is the ceremony?": "The Holy Matrimony ceremony starts at 8:00 AM on Saturday, January 17, 2026.",
+    "Where is the church?": "The ceremony will be at Gereja Santo Fransiskus Asisi in Cibinong at 8:00 AM.",
+    "What time does the ceremony start?": "The ceremony starts at 8:00 AM sharp. Please arrive 15 minutes early.",
+    
+    // Reception-specific questions
+    "Where is the reception?": "The wedding reception will be at Bagas Raya Cibinong at 11:00 AM on January 17, 2026.",
+    "What time is the reception?": "The wedding reception starts at 11:00 AM on Saturday, January 17, 2026.",
+    "Where is the party?": "The reception party will be at Bagas Raya Cibinong at 11:00 AM.",
+    "What time does the reception start?": "The reception starts at 11:00 AM with lunch being served.",
+    
+    // General venue questions
+    "Are the venues close to each other?": "Yes, both the ceremony and reception are in the Cibinong area with 3 hours between events.",
+    "How long between ceremony and reception?": "There are 3 hours between the ceremony (8 AM) and reception (11 AM) - perfect time to refresh and prepare for the celebration!",
+    "Is there parking available?": "Yes, parking is available at both Gereja Santo Fransiskus Asisi and Bagas Raya Cibinong.",
+    
+    // Timing questions
+    "What time does it start?": "The ceremony starts at 8:00 AM and the reception starts at 11:00 AM on January 17, 2026.",
+    "When is the wedding?": "The wedding is on Saturday, January 17, 2026. Ceremony at 8:00 AM, Reception at 11:00 AM.",
+    
+    // Navigation questions
+    "Can you give me directions?": "I can provide Google Maps links to both venues for easy navigation!",
+    "How do I get to the venues?": "Both venues are in Cibinong. I can provide Google Maps links to help you navigate to each specific location."
+};
+
+// Enhanced navigation function with venue-specific targeting
+function navigateToVenueSection(sectionType, navigationType) {
+    console.log(`🧭 Navigating to ${sectionType} for ${navigationType}`);
+    
+    let targetElement = null;
+    let highlightClass = '';
+    
+    // Find the target section with enhanced specificity
+    switch(sectionType) {
+        case 'rsvp':
+            targetElement = document.querySelector('#rsvpForm') || 
+                           document.querySelector('[id*="rsvp" i]') ||
+                           document.querySelector('section:has(form)') ||
+                           document.querySelector('form');
+            break;
+            
+        case 'ceremony-specific':
+            targetElement = document.querySelector('#ceremony-venue') ||
+                           document.querySelector('.ceremony-card') ||
+                           document.querySelector('.venue-card:first-of-type');
+            highlightClass = 'ceremony-highlight';
+            break;
+            
+        case 'reception-specific':
+            targetElement = document.querySelector('#reception-venue') ||
+                           document.querySelector('.reception-card') ||
+                           document.querySelector('.venue-card:last-of-type');
+            highlightClass = 'reception-highlight';
+            break;
+            
+        case 'venues':
+            targetElement = document.querySelector('#wedding-venues') ||
+                           document.querySelector('.venue-card') ||
+                           document.querySelector('section:has(.venue-card)');
+            break;
+            
+        case 'hero':
+            targetElement = document.querySelector('#countdown') ||
+                           document.querySelector('.countdown-container') ||
+                           document.querySelector('.hero') ||
+                           document.querySelector('section:has(#countdown)');
+            break;
+    }
+    
+    if (targetElement) {
+        // Close the chat first
+        closeChat();
+        
+        // Wait a bit for chat to close, then scroll
+        setTimeout(() => {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // Add venue-specific highlight effect
+            highlightVenueSection(targetElement, highlightClass);
+            
+            console.log(`✅ Successfully navigated to ${sectionType}`);
+        }, 300);
+    } else {
+        console.warn(`⚠️ Could not find section: ${sectionType}`);
+        addMessage("bot", "Sorry, I couldn't find that section on the page. Please scroll manually to find the information you need.");
+    }
+}
+
+// Enhanced venue-specific highlighting
+function highlightVenueSection(element, highlightClass = '') {
+    // Remove any existing highlights
+    document.querySelectorAll('.venue-highlighted, .ceremony-highlight, .reception-highlight').forEach(el => {
+        el.classList.remove('venue-highlighted', 'ceremony-highlight', 'reception-highlight');
+    });
+    
+    // Add specific highlight class
+    if (highlightClass) {
+        element.classList.add(highlightClass);
+    } else {
+        element.classList.add('venue-highlighted');
+    }
+    
+    // Add dynamic highlight styles if not already present
+    if (!document.querySelector('#venue-highlight-styles')) {
+        const style = document.createElement('style');
+        style.id = 'venue-highlight-styles';
+        style.textContent = `
+            .ceremony-highlight {
+                animation: ceremonyPulse 2s ease-in-out;
+                border: 3px solid var(--primary-pink) !important;
+            }
+            
+            .reception-highlight {
+                animation: receptionPulse 2s ease-in-out;
+                border: 3px solid var(--primary-green) !important;
+            }
+            
+            @keyframes ceremonyPulse {
+                0%, 100% { 
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                    transform: translateY(0) scale(1);
+                }
+                50% { 
+                    box-shadow: 0 30px 80px rgba(188, 108, 137, 0.6);
+                    transform: translateY(-8px) scale(1.03);
+                }
+            }
+            
+            @keyframes receptionPulse {
+                0%, 100% { 
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                    transform: translateY(0) scale(1);
+                }
+                50% { 
+                    box-shadow: 0 30px 80px rgba(107, 142, 114, 0.6);
+                    transform: translateY(-8px) scale(1.03);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Remove highlight after animation
+    setTimeout(() => {
+        element.classList.remove('venue-highlighted', 'ceremony-highlight', 'reception-highlight');
+    }, 2000);
+}
+
+// Enhanced navigation check with venue specificity
+function checkForVenueNavigation(query) {
+    const lowerQuery = query.toLowerCase();
+    
+    for (const [type, config] of Object.entries(ENHANCED_NAVIGATION_KEYWORDS)) {
+        if (config.keywords.some(keyword => lowerQuery.includes(keyword))) {
+            return {
+                type: type,
+                section: config.section,
+                message: config.message
+            };
+        }
+    }
+    return null;
+}
+
+// Enhanced search with venue-specific answers
+function searchVenueAnswer(query) {
+    if (!fuse || !qaData.length) {
+        return "Data is still loading, please wait...";
+    }
+    
+    console.log(`🔍 Searching for venue-specific answer: "${query}"`);
+    
+    // First check venue-specific predefined answers
+    const lowerQuery = query.toLowerCase();
+    for (const [question, answer] of Object.entries(VENUE_SPECIFIC_ANSWERS)) {
+        if (lowerQuery.includes(question.toLowerCase()) || 
+            question.toLowerCase().includes(lowerQuery)) {
+            console.log(`✅ Found venue-specific answer: ${question}`);
+            return answer;
+        }
+    }
+    
+    // Then search in CSV data using fuzzy matching
+    const result = fuse.search(query);
+    
+    if (result.length > 0) {
+        const bestMatch = result[0];
+        console.log(`✅ Found answer in CSV (score: ${bestMatch.score}):`, bestMatch.item.question);
+        return bestMatch.item.answer;
+    }
+    
+    console.log("❌ No answer found in venue data or CSV");
+    return null;
+}
+
+// REPLACE the existing sendMessage function with this enhanced version
+function sendVenueAwareMessage() {
+    const input = document.getElementById("chat-input");
+    if (!input) return;
+
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+
+    addMessage("user", userMsg);
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    // Simulate slight delay for more natural conversation
+    setTimeout(() => {
+        hideTypingIndicator();
+        
+        // FIRST: Try to get venue-specific answer
+        const venueAnswer = searchVenueAnswer(userMsg);
+        
+        // SECOND: Check if question requires venue-specific navigation
+        const navigationInfo = checkForVenueNavigation(userMsg);
+        
+        if (venueAnswer) {
+            // Show venue-specific answer first
+            addMessage("bot", venueAnswer);
+            
+            // Then offer specific navigation if applicable
+            if (navigationInfo) {
+                setTimeout(() => {
+                    addMessageWithVenueNavigation(navigationInfo.message, navigationInfo);
+                }, 500);
+            }
+        } else if (navigationInfo) {
+            // If no specific answer but navigation is relevant, show navigation directly
+            addMessageWithVenueNavigation(navigationInfo.message, navigationInfo);
+        } else {
+            // No answer found anywhere
+            addMessage("bot", "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!");
+            
+            setTimeout(() => {
+                showFallbackQuestionHelper();
+            }, 800);
+        }
+    }, 800);
+
+    input.value = "";
+}
+
+// Enhanced message with venue-specific navigation
+function addMessageWithVenueNavigation(text, navigationInfo) {
+    const chatBox = document.getElementById("chat-box");
+    if (!chatBox) return;
+
+    const msgContainer = document.createElement("div");
+    msgContainer.className = "msg bot";
+    
+    // Determine button style based on venue type
+    let buttonStyle = "background: linear-gradient(135deg, #6b8e72, #557a60);";
+    if (navigationInfo.section === 'ceremony-specific') {
+        buttonStyle = "background: linear-gradient(135deg, #bc6c89, #a44d6c);";
+    } else if (navigationInfo.section === 'reception-specific') {
+        buttonStyle = "background: linear-gradient(135deg, #6b8e72, #557a60);";
+    }
+    
+    msgContainer.innerHTML = `
+        <div>${text}</div>
+        <div style="margin-top: 12px;">
+            <button 
+                class="nav-button" 
+                onclick="navigateToVenueSection('${navigationInfo.section}', '${navigationInfo.type}')"
+                style="
+                    ${buttonStyle}
+                    color: white;
+                    border: none;
+                    padding: 10px 18px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    margin-right: 8px;
+                    box-shadow: 0 2px 8px rgba(107, 142, 114, 0.3);
+                "
+                onmouseover="this.style.transform='scale(1.05) translateY(-2px)'"
+                onmouseout="this.style.transform='scale(1)'"
+            >
+                📍 Take me there
+            </button>
+            <button 
+                class="helper-button" 
+                onclick="showQuestionHelper()"
+                style="
+                    background: transparent;
+                    color: #6b8e72;
+                    border: 2px solid #6b8e72;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                "
+                onmouseover="this.style.background='#6b8e72'; this.style.color='white'"
+                onmouseout="this.style.background='transparent'; this.style.color='#6b8e72'"
+            >
+                💡 More questions
+            </button>
+        </div>
+    `;
+    
+    chatBox.appendChild(msgContainer);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Expose the enhanced functions globally
+window.navigateToVenueSection = navigateToVenueSection;
+window.addMessageWithVenueNavigation = addMessageWithVenueNavigation;
+window.searchVenueAnswer = searchVenueAnswer;
+window.checkForVenueNavigation = checkForVenueNavigation;
+
+// Enhanced suggested questions with venue specificity
+const VENUE_SPECIFIC_QUESTIONS = [
+    "Where is the ceremony?",
+    "Where is the reception?",
+    "What time is the ceremony?",
+    "What time is the reception?",
+    "How do I get to the church?",
+    "How do I get to Bagas Raya?",
+    "Is there parking at both venues?",
+    "How long between events?",
+    "When is the wedding?",
+    "How do I RSVP?"
+];
+
+console.log("🎯 Enhanced venue-specific chatbot navigation loaded! 🏛️💒");
