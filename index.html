@@ -703,6 +703,303 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #a44d6c;
     }
+/* ========================================
+   NEW CSS FOR CHATBOT NAVIGATION FEATURE
+   Add this to the END of your existing <style> section
+   ======================================== */
+
+/* Navigation buttons in chat messages */
+.msg .nav-button {
+  background: linear-gradient(135deg, #6b8e72, #557a60) !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 18px !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  margin-right: 8px !important;
+  margin-top: 8px !important;
+  display: inline-block !important;
+  box-shadow: 0 2px 8px rgba(107, 142, 114, 0.3) !important;
+}
+
+.msg .nav-button:hover {
+  transform: scale(1.05) translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(107, 142, 114, 0.4) !important;
+  background: linear-gradient(135deg, #557a60, #6b8e72) !important;
+}
+
+.msg .nav-button:active {
+  transform: scale(0.98) !important;
+  transition: all 0.1s ease !important;
+}
+
+/* Helper button in chat messages */
+.msg .helper-button {
+  background: transparent !important;
+  color: #6b8e72 !important;
+  border: 2px solid #6b8e72 !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  margin-top: 8px !important;
+  display: inline-block !important;
+}
+
+.msg .helper-button:hover {
+  background: #6b8e72 !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+}
+
+/* Section highlight animation */
+@keyframes highlightPulse {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.02); 
+    box-shadow: 0 0 30px rgba(107, 142, 114, 0.5);
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(1); 
+  }
+}
+
+/* Enhanced section highlighting */
+.section-highlight {
+  position: relative;
+  overflow: visible;
+}
+
+.section-highlight::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(107, 142, 114, 0.1);
+  border: 3px solid #6b8e72;
+  border-radius: 15px;
+  pointer-events: none;
+  z-index: 1000;
+  animation: highlightPulse 2s ease-in-out;
+}
+
+/* Chat header with close button */
+#chat-header {
+  background: linear-gradient(135deg, var(--primary-green), #557a60);
+  color: white;
+  padding: 16px 20px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#chat-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+#chat-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chat-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Typing indicator */
+.msg.typing {
+  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+  padding: 16px 20px;
+}
+
+.typing-dots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.typing-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: 0s; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* Question Helper */
+.question-helper {
+  background: linear-gradient(135deg, #fff8e1, #f3e5f5);
+  border-radius: 15px;
+  padding: 16px;
+  margin: 10px 0;
+  border: 2px dashed rgba(107, 142, 114, 0.3);
+  animation: fadeIn 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.helper-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-green);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.helper-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.helper-question {
+  background: rgba(107, 142, 114, 0.1);
+  border: 1px solid rgba(107, 142, 114, 0.3);
+  color: #4a5f4f;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+}
+
+.helper-question:hover {
+  background: rgba(107, 142, 114, 0.2);
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(107, 142, 114, 0.2);
+}
+
+.show-more-btn {
+  background: none;
+  border: 1px solid rgba(107, 142, 114, 0.5);
+  color: var(--primary-green);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+}
+
+.show-more-btn:hover {
+  background: rgba(107, 142, 114, 0.1);
+}
+
+.more-questions {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Mobile responsive navigation buttons */
+@media (max-width: 768px) {
+  .msg .nav-button,
+  .msg .helper-button {
+    display: block !important;
+    width: 100% !important;
+    margin: 5px 0 !important;
+    text-align: center !important;
+  }
+  
+  .msg .nav-button {
+    margin-bottom: 8px !important;
+  }
+  
+  .helper-question {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+  
+  .helper-title {
+    font-size: 0.85rem;
+  }
+}
+
+/* Icon animations for navigation buttons */
+.nav-button::before {
+  content: '📍 ';
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.nav-button:hover::before {
+  transform: scale(1.2);
+}
+
+.helper-button::before {
+  content: '💡 ';
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.helper-button:hover::before {
+  transform: scale(1.2);
+}
+    
   </style>
 </head>
 <body>
