@@ -1,11 +1,11 @@
-// Enhanced Wedding Chatbot JavaScript with Close Button & Question Helper
+// Enhanced Wedding Chatbot - FIXED VERSION with Question Suggestions
 let fuse;
 let qaData = [];
 
 // Suggested questions for the helper
 const SUGGESTED_QUESTIONS = [
     "Who are the bride and groom?",
-    "When is the wedding?",
+    "When is the wedding?", 
     "Where is the wedding?",
     "What time does the ceremony start?",
     "What should I wear?",
@@ -14,6 +14,13 @@ const SUGGESTED_QUESTIONS = [
     "What's the dress code?",
     "Where is the reception?",
     "How do I RSVP?"
+];
+
+// Random questions to show when chatbot doesn't know answer
+const FALLBACK_QUESTIONS = [
+    "When is the wedding?",
+    "Where is the wedding?", 
+    "What time does the ceremony start?"
 ];
 
 function loadData() {
@@ -40,6 +47,8 @@ function loadData() {
         error: function(err) {
             console.error("Error loading CSV", err);
             addMessage("bot", "Sorry, I'm having trouble loading my knowledge base. Please try again later.");
+            // Show question helper even on error
+            setTimeout(() => showQuestionHelper(), 1000);
         }
     });
 }
@@ -51,7 +60,9 @@ function searchAnswer(query) {
     if (result.length > 0) {
         return result[0].item.answer;
     }
-    return "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!";
+    
+    // **KEY FIX**: Return null when no answer found, so we can show question helper
+    return null;
 }
 
 function addMessage(sender, text) {
@@ -86,7 +97,19 @@ function sendMessage() {
     setTimeout(() => {
         hideTypingIndicator();
         const reply = searchAnswer(userMsg);
-        addMessage("bot", reply);
+        
+        // **KEY FIX**: Handle no answer found case
+        if (reply === null) {
+            // Show "don't know" message
+            addMessage("bot", "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!");
+            
+            // **IMPORTANT**: Show question suggestions after a short delay
+            setTimeout(() => {
+                showFallbackQuestionHelper();
+            }, 800);
+        } else {
+            addMessage("bot", reply);
+        }
     }, 800);
 
     input.value = "";
@@ -158,6 +181,51 @@ function showQuestionHelper() {
     
     chatBox.appendChild(helperDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// **NEW FUNCTION**: Show fallback questions when chatbot doesn't know answer
+function showFallbackQuestionHelper() {
+    const chatBox = document.getElementById("chat-box");
+    if (!chatBox) return;
+
+    // Remove existing helper
+    const existingHelper = document.getElementById("question-helper");
+    if (existingHelper) {
+        existingHelper.remove();
+    }
+
+    const helperDiv = document.createElement("div");
+    helperDiv.id = "question-helper";
+    helperDiv.className = "question-helper";
+    
+    helperDiv.innerHTML = `
+        <div class="helper-title">🤔 Maybe try asking:</div>
+        <div class="helper-questions">
+            ${FALLBACK_QUESTIONS.map(q => 
+                `<button class="helper-question" onclick="askQuestion('${q}')">${q}</button>`
+            ).join('')}
+        </div>
+        <button class="show-more-btn" onclick="showAllQuestions()">Show all questions</button>
+    `;
+    
+    chatBox.appendChild(helperDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// **NEW FUNCTION**: Show all questions when user clicks "Show all questions"
+function showAllQuestions() {
+    const helperDiv = document.getElementById("question-helper");
+    if (!helperDiv) return;
+    
+    helperDiv.innerHTML = `
+        <div class="helper-title">💡 All available questions:</div>
+        <div class="helper-questions">
+            ${SUGGESTED_QUESTIONS.map(q => 
+                `<button class="helper-question" onclick="askQuestion('${q}')">${q}</button>`
+            ).join('')}
+        </div>
+        <button class="show-more-btn" onclick="showFallbackQuestionHelper()">Show less</button>
+    `;
 }
 
 function hideQuestionHelper() {
@@ -260,6 +328,14 @@ function minimizeChat() {
     }
 }
 
+// **NEW FUNCTION**: Return to main menu / reset chat
+function returnToMainMenu() {
+    clearChat();
+    setTimeout(() => {
+        showQuestionHelper();
+    }, 500);
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
     loadData();
@@ -323,6 +399,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // Expose functions globally for inline event handlers
 window.askQuestion = askQuestion;
 window.toggleMoreQuestions = toggleMoreQuestions;
+window.showAllQuestions = showAllQuestions;
+window.showFallbackQuestionHelper = showFallbackQuestionHelper;
 window.clearChat = clearChat;
 window.closeChat = closeChat;
 window.openChat = openChat;
+window.returnToMainMenu = returnToMainMenu;
