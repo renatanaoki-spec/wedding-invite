@@ -1,4 +1,6 @@
-// Enhanced Wedding Chatbot with Section Navigation
+// Enhanced Wedding Chatbot - CSV DATA PRIORITIZED VERSION
+// Replace your entire js/chatbot-original.js file with this code
+
 let fuse;
 let qaData = [];
 
@@ -8,40 +10,55 @@ const SUGGESTED_QUESTIONS = [
     "When is the wedding?", 
     "Where is the wedding?",
     "What time does the ceremony start?",
+    "What time is the reception?",
     "How do I RSVP?",
     "What should I wear?",
     "Is there parking available?",
     "Can I bring children?",
-    "What's the dress code?",
-    "Where is the reception?"
+    "What's the dress code?"
 ];
 
 // Random questions to show when chatbot doesn't know answer
 const FALLBACK_QUESTIONS = [
     "When is the wedding?",
-    "Where is the wedding?", 
+    "Where is the ceremony?", 
     "How do I RSVP?"
 ];
 
-// **NEW**: Keywords for section navigation
+// Enhanced navigation keywords with specific venue information
 const NAVIGATION_KEYWORDS = {
     rsvp: {
         keywords: ['rsvp', 'respond', 'confirmation', 'attend', 'attending', 'confirm attendance', 'reply', 'guest list'],
         section: 'rsvp',
         message: "I'll help you with RSVP! Here's the information about confirming your attendance."
     },
+    ceremony: {
+        keywords: ['ceremony', 'holy matrimony', 'church', 'gereja', 'santo fransiskus', 'fransiskus asisi', 'morning', '8 am', 'pagi', 'nikah'],
+        section: 'ceremony',
+        message: "Here's information about the Holy Matrimony ceremony."
+    },
+    reception: {
+        keywords: ['reception', 'party', 'celebration', 'bagas raya', '11 am', 'siang', 'lunch', 'resepsi'],
+        section: 'reception', 
+        message: "Here's information about the wedding reception."
+    },
     location: {
-        keywords: ['where', 'location', 'venue', 'place', 'address', 'church', 'reception', 'ceremony'],
-        section: 'details',
-        message: "Here's information about the wedding location and venue details."
+        keywords: ['where', 'location', 'venue', 'place', 'address', 'cibinong', 'tempat'],
+        section: 'venues',
+        message: "Here are the wedding venue locations and details."
     },
     timing: {
-        keywords: ['when', 'time', 'date', 'schedule', 'start', 'begin', 'hour', 'day'],
-        section: 'details',
+        keywords: ['when', 'time', 'date', 'schedule', 'start', 'begin', 'hour', 'day', 'january', 'jam', 'waktu'],
+        section: 'venues',
         message: "Here are the wedding date and time details."
     },
+    maps: {
+        keywords: ['maps', 'direction', 'how to get', 'navigate', 'driving', 'location maps', 'google maps', 'arah'],
+        section: 'venues',
+        message: "Here are the Google Maps links for both wedding venues."
+    },
     countdown: {
-        keywords: ['countdown', 'how long', 'days left', 'time left', 'until wedding'],
+        keywords: ['countdown', 'how long', 'days left', 'time left', 'until wedding', 'berapa hari'],
         section: 'hero',
         message: "Let me show you the wedding countdown!"
     }
@@ -50,6 +67,8 @@ const NAVIGATION_KEYWORDS = {
 function loadData() {
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9ryftjbytcsFzmU4KAactGkErWIvh7mzfZ4kpuXREGuPCb6RkNo2qlea5IPE6SpCKYTn7Jzh0QMzb/pub?gid=2043771999&single=true&output=csv";
 
+    console.log("📊 Loading chatbot data from CSV...");
+    
     Papa.parse(CSV_URL, {
         download: true,
         header: true,
@@ -58,26 +77,33 @@ function loadData() {
                 .filter(r => r.Questions && r.Answer)
                 .map(r => ({
                     id: r.ID,
-                    question: r.Questions,
-                    answer: r.Answer
+                    question: r.Questions.trim(),
+                    answer: r.Answer.trim()
                 }));
 
-            fuse = new Fuse(qaData, { keys: ["question"], threshold: 0.4 });
-            console.log("Chatbot data loaded:", qaData);
+            fuse = new Fuse(qaData, { 
+                keys: ["question"], 
+                threshold: 0.4,
+                includeScore: true
+            });
+            
+            console.log("✅ Chatbot data loaded successfully:");
+            console.log(`   📝 ${qaData.length} Q&A pairs from CSV`);
+            console.log("   🔍 Sample questions:", qaData.slice(0, 3).map(q => q.question));
             
             // Show welcome message after data loads
             showWelcomeMessage();
         },
         error: function(err) {
-            console.error("Error loading CSV", err);
-            addMessage("bot", "Sorry, I'm having trouble loading my knowledge base. Please try again later.");
+            console.error("❌ Error loading CSV data:", err);
+            addMessage("bot", "Sorry, I'm having trouble loading my knowledge base. Please try again later or contact Zen & Yessica directly.");
             // Show question helper even on error
             setTimeout(() => showQuestionHelper(), 1000);
         }
     });
 }
 
-// **NEW**: Check if question requires navigation to section
+// Check if question requires navigation to section
 function checkForNavigation(query) {
     const lowerQuery = query.toLowerCase();
     
@@ -93,16 +119,25 @@ function checkForNavigation(query) {
     return null;
 }
 
+// Primary search function - CSV DATA FIRST
 function searchAnswer(query) {
-    if (!fuse) return "Data is still loading, please wait...";
-    
-    const result = fuse.search(query);
-    if (result.length > 0) {
-        return result[0].item.answer;
+    if (!fuse || !qaData.length) {
+        return "Data is still loading, please wait...";
     }
     
-    // Return null when no answer found, so we can show question helper
-    return null;
+    console.log(`🔍 Searching for: "${query}"`);
+    
+    // Search in CSV data using fuzzy matching
+    const result = fuse.search(query);
+    
+    if (result.length > 0) {
+        const bestMatch = result[0];
+        console.log(`✅ Found answer in CSV (score: ${bestMatch.score}):`, bestMatch.item.question);
+        return bestMatch.item.answer;
+    }
+    
+    console.log("❌ No answer found in CSV data");
+    return null; // No answer found in CSV
 }
 
 function addMessage(sender, text) {
@@ -121,7 +156,7 @@ function addMessage(sender, text) {
     }
 }
 
-// **NEW**: Add message with navigation button
+// Add message with navigation button
 function addMessageWithNavigation(text, navigationInfo) {
     const chatBox = document.getElementById("chat-box");
     if (!chatBox) return;
@@ -139,15 +174,16 @@ function addMessageWithNavigation(text, navigationInfo) {
                     background: linear-gradient(135deg, #6b8e72, #557a60);
                     color: white;
                     border: none;
-                    padding: 8px 16px;
+                    padding: 10px 18px;
                     border-radius: 20px;
                     cursor: pointer;
                     font-size: 0.9rem;
                     font-weight: 600;
                     transition: all 0.3s ease;
                     margin-right: 8px;
+                    box-shadow: 0 2px 8px rgba(107, 142, 114, 0.3);
                 "
-                onmouseover="this.style.transform='scale(1.05)'"
+                onmouseover="this.style.transform='scale(1.05) translateY(-2px)'"
                 onmouseout="this.style.transform='scale(1)'"
             >
                 📍 Take me there
@@ -178,7 +214,7 @@ function addMessageWithNavigation(text, navigationInfo) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// **NEW**: Navigate to specific section
+// Enhanced navigation function with venue-specific targeting
 function navigateToSection(sectionType, navigationType) {
     console.log(`🧭 Navigating to ${sectionType} for ${navigationType}`);
     
@@ -187,23 +223,31 @@ function navigateToSection(sectionType, navigationType) {
     // Find the target section
     switch(sectionType) {
         case 'rsvp':
-            // Try different selectors for RSVP section
             targetElement = document.querySelector('#rsvpForm') || 
                            document.querySelector('[id*="rsvp" i]') ||
                            document.querySelector('section:has(form)') ||
                            document.querySelector('form');
             break;
             
-        case 'details':
-            // Try different selectors for wedding details
-            targetElement = document.querySelector('.date') ||
-                           document.querySelector('.venue') ||
-                           document.querySelector('section:has(.date)') ||
-                           document.querySelector('section:has(.venue)');
+        case 'ceremony':
+            targetElement = document.querySelector('.ceremony-card') ||
+                           document.querySelector('.venue-card:first-of-type') ||
+                           document.querySelector('section:has(.ceremony-card)');
+            break;
+            
+        case 'reception':
+            targetElement = document.querySelector('.reception-card') ||
+                           document.querySelector('.venue-card:last-of-type') ||
+                           document.querySelector('section:has(.reception-card)');
+            break;
+            
+        case 'venues':
+            targetElement = document.querySelector('.venue-card') ||
+                           document.querySelector('.timeline-container') ||
+                           document.querySelector('section:has(.venue-card)');
             break;
             
         case 'hero':
-            // Try different selectors for hero/countdown section
             targetElement = document.querySelector('#countdown') ||
                            document.querySelector('.countdown-container') ||
                            document.querySelector('.hero') ||
@@ -233,7 +277,7 @@ function navigateToSection(sectionType, navigationType) {
     }
 }
 
-// **NEW**: Highlight section with animation
+// Highlight section with animation
 function highlightSection(element) {
     // Create highlight overlay
     const highlight = document.createElement('div');
@@ -303,37 +347,32 @@ function sendMessage() {
     setTimeout(() => {
         hideTypingIndicator();
         
-        // **NEW**: Check if question requires navigation first
+        // FIRST: Try to get answer from CSV data
+        const csvAnswer = searchAnswer(userMsg);
+        
+        // SECOND: Check if question requires navigation
         const navigationInfo = checkForNavigation(userMsg);
         
-        if (navigationInfo) {
-            // First, try to get answer from knowledge base
-            const answer = searchAnswer(userMsg);
+        if (csvAnswer) {
+            // Show CSV answer first
+            addMessage("bot", csvAnswer);
             
-            if (answer) {
-                // Show answer + navigation option
-                addMessage("bot", answer);
+            // Then offer navigation if applicable
+            if (navigationInfo) {
                 setTimeout(() => {
                     addMessageWithNavigation(navigationInfo.message, navigationInfo);
                 }, 500);
-            } else {
-                // Show navigation message directly
-                addMessageWithNavigation(navigationInfo.message, navigationInfo);
             }
+        } else if (navigationInfo) {
+            // If no CSV answer but navigation is relevant, show navigation directly
+            addMessageWithNavigation(navigationInfo.message, navigationInfo);
         } else {
-            // Normal flow - search for answer
-            const reply = searchAnswer(userMsg);
+            // No answer found anywhere
+            addMessage("bot", "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!");
             
-            if (reply === null) {
-                // Show "don't know" message + suggestions
-                addMessage("bot", "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!");
-                
-                setTimeout(() => {
-                    showFallbackQuestionHelper();
-                }, 800);
-            } else {
-                addMessage("bot", reply);
-            }
+            setTimeout(() => {
+                showFallbackQuestionHelper();
+            }, 800);
         }
     }, 800);
 
@@ -557,8 +596,20 @@ function returnToMainMenu() {
     }, 500);
 }
 
+// Debug function to show CSV data
+function debugShowCSVData() {
+    console.log("🔍 CSV Data Debug:");
+    console.log(`   📊 Total Q&A pairs: ${qaData.length}`);
+    console.log("   📝 All questions:");
+    qaData.forEach((item, index) => {
+        console.log(`   ${index + 1}. Q: "${item.question}"`);
+        console.log(`      A: "${item.answer}"`);
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("🤖 Initializing CSV-Prioritized Wedding Chatbot...");
     loadData();
 
     // Get elements
@@ -571,14 +622,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event listeners
     if (btn) {
         btn.addEventListener("click", toggleChat);
+        console.log("✅ Chat button listener attached");
     }
 
     if (closeBtn) {
         closeBtn.addEventListener("click", closeChat);
+        console.log("✅ Close button listener attached");
     }
 
     if (sendBtn) {
         sendBtn.addEventListener("click", sendMessage);
+        console.log("✅ Send button listener attached");
     }
 
     if (input) {
@@ -595,6 +649,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => showQuestionHelper(), 200);
             }
         });
+        
+        console.log("✅ Input field listeners attached");
     }
 
     // Close chat when clicking outside
@@ -614,7 +670,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    console.log("Enhanced wedding chatbot with navigation initialized! 🤖💒🧭");
+    console.log("🎉 CSV-prioritized wedding chatbot initialized! 💒🤖");
+    
+    // Expose debug function for testing
+    window.debugShowCSVData = debugShowCSVData;
 });
 
 // Expose functions globally for inline event handlers
@@ -626,5 +685,5 @@ window.clearChat = clearChat;
 window.closeChat = closeChat;
 window.openChat = openChat;
 window.returnToMainMenu = returnToMainMenu;
-window.navigateToSection = navigateToSection; // **NEW**
+window.navigateToSection = navigateToSection;
 window.showQuestionHelper = showQuestionHelper;
