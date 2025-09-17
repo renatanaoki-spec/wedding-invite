@@ -1284,19 +1284,19 @@
 
 <!-- REPLACE your existing venue section with this enhanced version -->
 
-<!-- Enhanced Wedding Details with Beautiful Backgrounds -->
+<!-- Clean Wedding Details Section -->
 <section id="wedding-venues">
   <h2>Wedding Day Details</h2>
   <p class="date">Saturday, 17 January 2026</p>
   
-  <!-- Enhanced Ceremony Card with Background -->
-  <div class="venue-card ceremony-card" id="ceremony-venue">
+  <!-- Ceremony Card -->
+  <div class="venue-card ceremony-card">
     <div class="venue-background ceremony-bg"></div>
     <div class="venue-overlay"></div>
     <div class="venue-content">
       <div class="venue-header">
         <div class="venue-icon ceremony-icon">⛪</div>
-        <div class="venue-title-section">
+        <div class="venue-info">
           <h3 class="venue-title">Holy Matrimony</h3>
           <p class="venue-name">Gereja Santo Fransiskus Asisi</p>
           <p class="venue-location">📍 Cibinong</p>
@@ -1304,33 +1304,28 @@
       </div>
       
       <div class="venue-details">
-        <div class="venue-time ceremony-time">
+        <div class="venue-time">
           <span class="time-icon">🕰️</span>
           <span class="time-text">8:00 AM</span>
         </div>
         
-        <div class="venue-actions">
-          <a href="https://maps.app.goo.gl/Yd4EiuMgOozPLCBgH" 
-             target="_blank" 
-             class="venue-map-btn ceremony-btn">
-            📍 View Location on Maps
-          </a>
-          <button class="venue-info-btn ceremony-info" onclick="showVenueInfo('ceremony')">
-            ℹ️ More Info
-          </button>
-        </div>
+        <a href="https://maps.app.goo.gl/Yd4EiuMgOozPLCBgH" 
+           target="_blank" 
+           class="venue-map-btn">
+          📍 View Location on Maps
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Enhanced Reception Card with Background -->
-  <div class="venue-card reception-card" id="reception-venue">
+  <!-- Reception Card -->
+  <div class="venue-card reception-card">
     <div class="venue-background reception-bg"></div>
     <div class="venue-overlay"></div>
     <div class="venue-content">
       <div class="venue-header">
         <div class="venue-icon reception-icon">🎉</div>
-        <div class="venue-title-section">
+        <div class="venue-info">
           <h3 class="venue-title">Wedding Reception</h3>
           <p class="venue-name">Bagas Raya Cibinong</p>
           <p class="venue-location">📍 Cibinong</p>
@@ -1338,55 +1333,199 @@
       </div>
       
       <div class="venue-details">
-        <div class="venue-time reception-time">
+        <div class="venue-time">
           <span class="time-icon">🕰️</span>
           <span class="time-text">11:00 AM</span>
         </div>
         
-        <div class="venue-actions">
-          <a href="https://maps.app.goo.gl/y3GcJGPvrLARQwwz9" 
-             target="_blank" 
-             class="venue-map-btn reception-btn">
-            📍 View Location on Maps
-          </a>
-          <button class="venue-info-btn reception-info" onclick="showVenueInfo('reception')">
-            ℹ️ More Info
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Enhanced Travel Information -->
-  <div class="travel-info">
-    <div class="travel-header">
-      <h4>🚗 Travel Information</h4>
-    </div>
-    <div class="travel-grid">
-      <div class="travel-item">
-        <span class="travel-icon">⏱️</span>
-        <div class="travel-text">
-          <strong>3 Hours Break</strong><br>
-          <small>Between ceremony and reception</small>
-        </div>
-      </div>
-      <div class="travel-item">
-        <span class="travel-icon">📍</span>
-        <div class="travel-text">
-          <strong>Same Area</strong><br>
-          <small>Both venues in Cibinong</small>
-        </div>
-      </div>
-      <div class="travel-item">
-        <span class="travel-icon">🚙</span>
-        <div class="travel-text">
-          <strong>Parking Available</strong><br>
-          <small>At both locations</small>
-        </div>
+        <a href="https://maps.app.goo.gl/y3GcJGPvrLARQwwz9" 
+           target="_blank" 
+           class="venue-map-btn">
+          📍 View Location on Maps
+        </a>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+#wedding-venues {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#wedding-venues h2 {
+  text-align: center;
+  color: #8B4513;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.date {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6B5B73;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.venue-card {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+.venue-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+}
+
+.ceremony-bg {
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.reception-bg {
+  background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.venue-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.9);
+}
+
+.venue-content {
+  position: relative;
+  padding: 2rem;
+  z-index: 2;
+}
+
+.venue-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.venue-icon {
+  font-size: 2.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: rgba(139, 69, 19, 0.1);
+  min-width: 60px;
+  text-align: center;
+}
+
+.venue-info {
+  flex: 1;
+}
+
+.venue-title {
+  margin: 0 0 0.5rem 0;
+  color: #8B4513;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.venue-name {
+  margin: 0 0 0.3rem 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.venue-location {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.venue-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.venue-time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(139, 69, 19, 0.1);
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  color: #8B4513;
+}
+
+.time-icon {
+  font-size: 1.2rem;
+}
+
+.venue-map-btn {
+  background: #8B4513;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.venue-map-btn:hover {
+  background: #A0522D;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+}
+
+@media (max-width: 768px) {
+  #wedding-venues {
+    padding: 1rem;
+  }
+  
+  .venue-content {
+    padding: 1.5rem;
+  }
+  
+  .venue-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .venue-details {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .venue-time {
+    justify-self: center;
+  }
+}
+</style>
 
 <!-- Enhanced CSS Styles -->
 <style>
