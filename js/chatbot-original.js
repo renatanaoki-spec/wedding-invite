@@ -1,4 +1,4 @@
-// Enhanced Wedding Chatbot - FIXED VERSION with Question Suggestions
+// Enhanced Wedding Chatbot with Section Navigation
 let fuse;
 let qaData = [];
 
@@ -8,20 +8,44 @@ const SUGGESTED_QUESTIONS = [
     "When is the wedding?", 
     "Where is the wedding?",
     "What time does the ceremony start?",
+    "How do I RSVP?",
     "What should I wear?",
     "Is there parking available?",
     "Can I bring children?",
     "What's the dress code?",
-    "Where is the reception?",
-    "How do I RSVP?"
+    "Where is the reception?"
 ];
 
 // Random questions to show when chatbot doesn't know answer
 const FALLBACK_QUESTIONS = [
     "When is the wedding?",
     "Where is the wedding?", 
-    "What time does the ceremony start?"
+    "How do I RSVP?"
 ];
+
+// **NEW**: Keywords for section navigation
+const NAVIGATION_KEYWORDS = {
+    rsvp: {
+        keywords: ['rsvp', 'respond', 'confirmation', 'attend', 'attending', 'confirm attendance', 'reply', 'guest list'],
+        section: 'rsvp',
+        message: "I'll help you with RSVP! Here's the information about confirming your attendance."
+    },
+    location: {
+        keywords: ['where', 'location', 'venue', 'place', 'address', 'church', 'reception', 'ceremony'],
+        section: 'details',
+        message: "Here's information about the wedding location and venue details."
+    },
+    timing: {
+        keywords: ['when', 'time', 'date', 'schedule', 'start', 'begin', 'hour', 'day'],
+        section: 'details',
+        message: "Here are the wedding date and time details."
+    },
+    countdown: {
+        keywords: ['countdown', 'how long', 'days left', 'time left', 'until wedding'],
+        section: 'hero',
+        message: "Let me show you the wedding countdown!"
+    }
+};
 
 function loadData() {
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9ryftjbytcsFzmU4KAactGkErWIvh7mzfZ4kpuXREGuPCb6RkNo2qlea5IPE6SpCKYTn7Jzh0QMzb/pub?gid=2043771999&single=true&output=csv";
@@ -53,6 +77,22 @@ function loadData() {
     });
 }
 
+// **NEW**: Check if question requires navigation to section
+function checkForNavigation(query) {
+    const lowerQuery = query.toLowerCase();
+    
+    for (const [type, config] of Object.entries(NAVIGATION_KEYWORDS)) {
+        if (config.keywords.some(keyword => lowerQuery.includes(keyword))) {
+            return {
+                type: type,
+                section: config.section,
+                message: config.message
+            };
+        }
+    }
+    return null;
+}
+
 function searchAnswer(query) {
     if (!fuse) return "Data is still loading, please wait...";
     
@@ -61,7 +101,7 @@ function searchAnswer(query) {
         return result[0].item.answer;
     }
     
-    // **KEY FIX**: Return null when no answer found, so we can show question helper
+    // Return null when no answer found, so we can show question helper
     return null;
 }
 
@@ -81,6 +121,172 @@ function addMessage(sender, text) {
     }
 }
 
+// **NEW**: Add message with navigation button
+function addMessageWithNavigation(text, navigationInfo) {
+    const chatBox = document.getElementById("chat-box");
+    if (!chatBox) return;
+
+    const msgContainer = document.createElement("div");
+    msgContainer.className = "msg bot";
+    
+    msgContainer.innerHTML = `
+        <div>${text}</div>
+        <div style="margin-top: 12px;">
+            <button 
+                class="nav-button" 
+                onclick="navigateToSection('${navigationInfo.section}', '${navigationInfo.type}')"
+                style="
+                    background: linear-gradient(135deg, #6b8e72, #557a60);
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    margin-right: 8px;
+                "
+                onmouseover="this.style.transform='scale(1.05)'"
+                onmouseout="this.style.transform='scale(1)'"
+            >
+                📍 Take me there
+            </button>
+            <button 
+                class="helper-button" 
+                onclick="showQuestionHelper()"
+                style="
+                    background: transparent;
+                    color: #6b8e72;
+                    border: 2px solid #6b8e72;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                "
+                onmouseover="this.style.background='#6b8e72'; this.style.color='white'"
+                onmouseout="this.style.background='transparent'; this.style.color='#6b8e72'"
+            >
+                💡 More questions
+            </button>
+        </div>
+    `;
+    
+    chatBox.appendChild(msgContainer);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// **NEW**: Navigate to specific section
+function navigateToSection(sectionType, navigationType) {
+    console.log(`🧭 Navigating to ${sectionType} for ${navigationType}`);
+    
+    let targetElement = null;
+    
+    // Find the target section
+    switch(sectionType) {
+        case 'rsvp':
+            // Try different selectors for RSVP section
+            targetElement = document.querySelector('#rsvpForm') || 
+                           document.querySelector('[id*="rsvp" i]') ||
+                           document.querySelector('section:has(form)') ||
+                           document.querySelector('form');
+            break;
+            
+        case 'details':
+            // Try different selectors for wedding details
+            targetElement = document.querySelector('.date') ||
+                           document.querySelector('.venue') ||
+                           document.querySelector('section:has(.date)') ||
+                           document.querySelector('section:has(.venue)');
+            break;
+            
+        case 'hero':
+            // Try different selectors for hero/countdown section
+            targetElement = document.querySelector('#countdown') ||
+                           document.querySelector('.countdown-container') ||
+                           document.querySelector('.hero') ||
+                           document.querySelector('section:has(#countdown)');
+            break;
+    }
+    
+    if (targetElement) {
+        // Close the chat first
+        closeChat();
+        
+        // Wait a bit for chat to close, then scroll
+        setTimeout(() => {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // Add highlight effect
+            highlightSection(targetElement);
+            
+            console.log(`✅ Successfully navigated to ${sectionType}`);
+        }, 300);
+    } else {
+        console.warn(`⚠️ Could not find section: ${sectionType}`);
+        addMessage("bot", "Sorry, I couldn't find that section on the page. Please scroll manually to find the information you need.");
+    }
+}
+
+// **NEW**: Highlight section with animation
+function highlightSection(element) {
+    // Create highlight overlay
+    const highlight = document.createElement('div');
+    highlight.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(107, 142, 114, 0.1);
+        border: 3px solid #6b8e72;
+        border-radius: 15px;
+        pointer-events: none;
+        z-index: 1000;
+        animation: highlightPulse 2s ease-in-out;
+    `;
+    
+    // Make parent relative if needed
+    const originalPosition = element.style.position;
+    if (!element.style.position || element.style.position === 'static') {
+        element.style.position = 'relative';
+    }
+    
+    element.appendChild(highlight);
+    
+    // Add highlight animation CSS
+    if (!document.querySelector('#highlight-animation-style')) {
+        const style = document.createElement('style');
+        style.id = 'highlight-animation-style';
+        style.textContent = `
+            @keyframes highlightPulse {
+                0% { opacity: 0; transform: scale(0.95); }
+                50% { opacity: 1; transform: scale(1.02); }
+                100% { opacity: 0; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Remove highlight after animation
+    setTimeout(() => {
+        if (highlight.parentElement) {
+            highlight.remove();
+        }
+        // Restore original position
+        if (originalPosition) {
+            element.style.position = originalPosition;
+        } else {
+            element.style.position = '';
+        }
+    }, 2000);
+}
+
 function sendMessage() {
     const input = document.getElementById("chat-input");
     if (!input) return;
@@ -96,19 +302,38 @@ function sendMessage() {
     // Simulate slight delay for more natural conversation
     setTimeout(() => {
         hideTypingIndicator();
-        const reply = searchAnswer(userMsg);
         
-        // **KEY FIX**: Handle no answer found case
-        if (reply === null) {
-            // Show "don't know" message
-            addMessage("bot", "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!");
+        // **NEW**: Check if question requires navigation first
+        const navigationInfo = checkForNavigation(userMsg);
+        
+        if (navigationInfo) {
+            // First, try to get answer from knowledge base
+            const answer = searchAnswer(userMsg);
             
-            // **IMPORTANT**: Show question suggestions after a short delay
-            setTimeout(() => {
-                showFallbackQuestionHelper();
-            }, 800);
+            if (answer) {
+                // Show answer + navigation option
+                addMessage("bot", answer);
+                setTimeout(() => {
+                    addMessageWithNavigation(navigationInfo.message, navigationInfo);
+                }, 500);
+            } else {
+                // Show navigation message directly
+                addMessageWithNavigation(navigationInfo.message, navigationInfo);
+            }
         } else {
-            addMessage("bot", reply);
+            // Normal flow - search for answer
+            const reply = searchAnswer(userMsg);
+            
+            if (reply === null) {
+                // Show "don't know" message + suggestions
+                addMessage("bot", "Sorry, I don't know the answer to that question yet. Please contact Zen & Yessica directly, or try asking something else!");
+                
+                setTimeout(() => {
+                    showFallbackQuestionHelper();
+                }, 800);
+            } else {
+                addMessage("bot", reply);
+            }
         }
     }, 800);
 
@@ -183,7 +408,6 @@ function showQuestionHelper() {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// **NEW FUNCTION**: Show fallback questions when chatbot doesn't know answer
 function showFallbackQuestionHelper() {
     const chatBox = document.getElementById("chat-box");
     if (!chatBox) return;
@@ -212,7 +436,6 @@ function showFallbackQuestionHelper() {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// **NEW FUNCTION**: Show all questions when user clicks "Show all questions"
 function showAllQuestions() {
     const helperDiv = document.getElementById("question-helper");
     if (!helperDiv) return;
@@ -312,7 +535,6 @@ function toggleChat() {
     }
 }
 
-// Add some utility functions
 function clearChat() {
     const chatBox = document.getElementById("chat-box");
     if (chatBox) {
@@ -328,7 +550,6 @@ function minimizeChat() {
     }
 }
 
-// **NEW FUNCTION**: Return to main menu / reset chat
 function returnToMainMenu() {
     clearChat();
     setTimeout(() => {
@@ -393,7 +614,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    console.log("Enhanced wedding chatbot initialized! 🤖💒");
+    console.log("Enhanced wedding chatbot with navigation initialized! 🤖💒🧭");
 });
 
 // Expose functions globally for inline event handlers
@@ -405,3 +626,5 @@ window.clearChat = clearChat;
 window.closeChat = closeChat;
 window.openChat = openChat;
 window.returnToMainMenu = returnToMainMenu;
+window.navigateToSection = navigateToSection; // **NEW**
+window.showQuestionHelper = showQuestionHelper;
