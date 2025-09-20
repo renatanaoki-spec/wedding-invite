@@ -97,10 +97,10 @@ function toggleMusic() {
     
     if (elements.music.paused) {
         elements.music.play();
-        elements.controlBtn.textContent = "⏸️";
+        elements.controlBtn.classList.remove("paused");
     } else {
         elements.music.pause();
-        elements.controlBtn.textContent = "▶️";
+        elements.controlBtn.classList.add("paused");
     }
 }
 
@@ -115,7 +115,7 @@ function pauseMusic() {
         elements.music.pause();
     }
     if (elements.controlBtn) {
-        elements.controlBtn.textContent = "▶️";
+        elements.controlBtn.classList.add("paused");
     }
 }
 
