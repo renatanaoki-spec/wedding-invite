@@ -1795,7 +1795,120 @@ form button:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
 }
-    
+  /* ======================================== 
+   ENHANCED VENUE CARDS WITH BUILDING IMAGES
+   ======================================== */
+
+.venue-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 0;
+  margin: 30px auto;
+  max-width: 700px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+}
+
+.venue-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+/* Church Image for Ceremony Card */
+.ceremony-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(
+    rgba(139, 111, 71, 0.3), 
+    rgba(139, 111, 71, 0.1)
+  ),
+  url('https://images.unsplash.com/photo-1520637836862-4d197d17c93a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px 20px 0 0;
+  z-index: 1;
+}
+
+/* Reception Hall Image for Reception Card */
+.reception-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(
+    rgba(107, 142, 114, 0.3), 
+    rgba(107, 142, 114, 0.1)
+  ),
+  url('https://images.unsplash.com/photo-1519167758481-83f29c852c26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px 20px 0 0;
+  z-index: 1;
+}
+
+/* Content positioning to accommodate images */
+.venue-content {
+  position: relative;
+  padding: 220px 40px 40px 40px;
+  z-index: 2;
+}
+
+/* Venue labels on images */
+.ceremony-card::after {
+  content: 'CEREMONY';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(139, 111, 71, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+}
+
+.reception-card::after {
+  content: 'RECEPTION';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(107, 142, 114, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .venue-content {
+    padding: 200px 25px 30px 25px;
+  }
+  
+  .ceremony-card::before,
+  .reception-card::before {
+    height: 180px;
+  }
+}  
   </style>
 </head>
 <body>
