@@ -210,41 +210,482 @@
 </div>
     
     /* RSVP Section Background */
-    .rsvp-section {
-      background: linear-gradient(rgba(145, 161, 240, 0.1), rgba(255, 255, 255, 0.95)),
-                  url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    .date {
-      font-size: clamp(1.2rem, 4vw, 1.6rem);
-      margin: 20px 0;
-      font-weight: 500;
-      color: var(--primary-green);
-    }
+/* ======================================== 
+   ENHANCED RSVP SECTION - NO CARD STYLE
+   Replace your existing RSVP CSS with this
+   ======================================== */
 
-    .venue {
-      margin: 12px 0;
-      font-style: italic;
-      color: var(--text-light);
-      font-size: 1.1rem;
-    }
+.rsvp-section {
+  /* Beautiful wedding background */
+  background: 
+    linear-gradient(135deg, 
+      rgba(251, 211, 233, 0.9) 0%, 
+      rgba(187, 210, 197, 0.9) 50%, 
+      rgba(145, 161, 240, 0.9) 100%
+    ),
+    url('https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 100vh;
+}
 
-    .verse {
-      font-style: italic;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.8;
-      color: var(--text-light);
-      font-size: 1.1rem;
-      padding: 40px;
-      background: var(--gradient-card);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
+/* Add decorative overlay pattern */
+.rsvp-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="7" cy="7" r="1" fill="rgba(255,255,255,0.08)"/><circle cx="23" cy="8" r="1" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+  pointer-events: none;
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Section headers */
+.rsvp-section h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  position: relative;
+  z-index: 2;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+/* Remove card container completely */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0; /* Remove padding */
+  background: none; /* Remove background */
+  border-radius: 0; /* Remove border radius */
+  box-shadow: none; /* Remove shadow */
+  backdrop-filter: none; /* Remove blur */
+  border: none; /* Remove border */
+  position: relative;
+  z-index: 2;
+}
+
+/* Enhanced form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Input field styling - glassy effect */
+form input, form textarea, form select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 20px 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  color: #2c2c2c;
+  font-weight: 500;
+  
+  /* Prevent text overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Placeholder styling */
+form input::placeholder, 
+form textarea::placeholder {
+  color: rgba(44, 44, 44, 0.7);
+  font-weight: 400;
+}
+
+/* Focus states */
+form input:focus, 
+form textarea:focus, 
+form select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Textarea specific */
+form textarea {
+  white-space: normal;
+  resize: vertical;
+  overflow: auto;
+  min-height: 120px;
+}
+
+/* Select dropdown */
+form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23666" d="M6 8L2 4h8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  padding-right: 50px;
+}
+
+/* Enhanced submit button */
+form button {
+  width: 100%;
+  max-width: 100%;
+  background: linear-gradient(135deg, #bc6c89, #a44d6c);
+  color: white;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 10px 30px rgba(188, 108, 137, 0.4);
+  margin-top: 10px;
+  
+  /* Prevent text overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+form button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(188, 108, 137, 0.6);
+  background: linear-gradient(135deg, #a44d6c, #bc6c89);
+}
+
+form button:active {
+  transform: translateY(-2px);
+}
+
+/* Attendance wrapper */
+.attendance-wrapper {
+  margin-top: 10px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.attendance-label {
+  font-size: 1.1rem;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+/* Error messages */
+.error-msg {
+  color: #ff6b6b;
+  font-size: 0.95rem;
+  display: none;
+  margin-top: 8px;
+  font-style: italic;
+  padding: 10px 15px;
+  background: rgba(255, 107, 107, 0.15);
+  border-radius: 10px;
+  border-left: 4px solid #ff6b6b;
+  backdrop-filter: blur(10px);
+  
+  /* Prevent overflow */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Response message */
+#responseMsg {
+  text-align: center;
+  margin-top: 25px;
+  font-weight: 600;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(20px);
+  font-size: 1.1rem;
+  
+  /* Prevent overflow */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Guest Notes Section */
+.rsvp-section h2:last-of-type {
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+#notesContainer {
+  margin-top: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+}
+
+.note {
+  padding: 25px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+  
+  /* Prevent text overflow */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.note:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.note strong {
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  
+  /* Handle long names */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.note em {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.note small {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+/* Enhanced pagination */
+.pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.pagination button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  
+  /* Prevent text overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.pagination button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.pagination button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mobile responsive enhancements */
+@media (max-width: 768px) {
+  .rsvp-section {
+    padding: 60px 15px;
+    background-attachment: scroll;
+  }
+
+  .rsvp-section h2 {
+    font-size: 2.2rem;
+  }
+
+  .form-container {
+    margin: 0 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  form {
+    max-width: none;
+  }
+
+  /* Smaller form elements on mobile */
+  form input, form textarea, form select {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 18px 20px;
+  }
+
+  form button {
+    font-size: 1.1rem;
+    padding: 18px 30px;
+    letter-spacing: 1px;
+  }
+
+  /* Notes container mobile adjustments */
+  #notesContainer {
+    margin: 30px 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .note {
+    padding: 20px;
+    margin-bottom: 15px;
+    max-width: 100%;
+  }
+
+  .note strong {
+    font-size: 1.1rem;
+  }
+
+  /* Pagination mobile */
+  .pagination {
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+  }
+
+  .pagination button {
+    width: 100%;
+    min-width: auto;
+    padding: 15px 20px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .rsvp-section {
+    padding: 40px 10px;
+  }
+
+  .rsvp-section h2 {
+    font-size: 2rem;
+  }
+
+  .form-container {
+    margin: 0 5px;
+    max-width: calc(100vw - 10px);
+  }
+
+  /* Form adjustments for very small screens */
+  form input, form textarea, form select {
+    padding: 16px 18px;
+    font-size: 16px;
+  }
+
+  form button {
+    padding: 16px 25px;
+    font-size: 1rem;
+  }
+
+  .note {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .error-msg {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+}
+
+/* Global text wrapping for mobile */
+.rsvp-section * {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Force text wrapping for very long words */
+.note em, 
+.note small,
+#responseMsg,
+.error-msg {
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Enhanced visual effects */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+  border-radius: 25px;
+}
+
+form button {
+  position: relative;
+  overflow: hidden;
+}
 
     /* Enhanced Hero Section */
     .hero {
