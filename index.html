@@ -1518,6 +1518,284 @@ footer {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* Enhanced RSVP Section Background */
+.rsvp-section {
+  /* Enhanced background with better wedding theme */
+  background: 
+    linear-gradient(135deg, 
+      rgba(251, 211, 233, 0.85) 0%, 
+      rgba(187, 210, 197, 0.85) 50%, 
+      rgba(145, 161, 240, 0.85) 100%
+    ),
+    url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 80px 20px;
+  position: relative;
+  min-height: 600px;
+}
+
+/* Add decorative overlay pattern */
+.rsvp-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Enhanced form container */
+.form-container {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* MOBILE TEXT OVERFLOW FIXES */
+
+/* Global text wrapping rules */
+* {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden;
+}
+
+.rsvp-section * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fix form inputs - prevent overflow */
+form input, form textarea, form select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Allow wrapping for textarea */
+form textarea {
+  white-space: normal;
+  resize: vertical;
+  overflow: auto;
+}
+
+/* Fix button text overflow */
+form button {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Fix error messages */
+.error-msg {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Fix response message */
+#responseMsg {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Fix notes container */
+.note {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.note strong {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: block;
+  max-width: 100%;
+}
+
+/* Force text wrapping for very long words */
+.note em, 
+.note small,
+#responseMsg,
+.error-msg {
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+/* Enhanced pagination buttons */
+.pagination button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+/* MOBILE RESPONSIVE ENHANCEMENTS */
+@media (max-width: 768px) {
+  .rsvp-section {
+    padding: 60px 15px;
+    background-attachment: scroll; /* Better performance on mobile */
+  }
+
+  .form-container {
+    margin: 0 10px;
+    padding: 25px 20px;
+    max-width: calc(100vw - 20px);
+  }
+
+  /* Smaller form elements on mobile */
+  form input, form textarea, form select {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 14px 16px;
+  }
+
+  form button {
+    font-size: 1rem;
+    padding: 14px 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Notes container mobile adjustments */
+  #notesContainer {
+    margin: 30px 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .note {
+    padding: 15px;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+
+  .note strong {
+    font-size: 1rem;
+  }
+
+  /* Pagination mobile */
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .pagination button {
+    width: 100%;
+    min-width: auto;
+    padding: 12px 16px;
+  }
+
+  /* Header adjustments */
+  .rsvp-section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    color: #bc6c89;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  }
+
+  /* Attendance label */
+  .attendance-label {
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* EXTRA SMALL MOBILE (< 480px) */
+@media (max-width: 480px) {
+  .rsvp-section {
+    padding: 40px 10px;
+  }
+
+  .form-container {
+    margin: 0 5px;
+    padding: 20px 15px;
+    border-radius: 15px;
+    max-width: calc(100vw - 10px);
+  }
+
+  .rsvp-section h2 {
+    font-size: 1.8rem;
+  }
+
+  /* Ensure no horizontal scroll */
+  .note {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Error messages on very small screens */
+  .error-msg {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  /* Form adjustments for very small screens */
+  form input, form textarea, form select {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+
+  form button {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ADDITIONAL ENHANCEMENTS */
+
+/* Enhanced visual depth */
+.rsvp-section h2:first-of-type {
+  position: relative;
+  z-index: 2;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Improved focus styles for accessibility */
+form input:focus, 
+form textarea:focus, 
+form select:focus {
+  outline: none;
+  border-color: #bc6c89;
+  box-shadow: 0 0 20px rgba(188, 108, 137, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Enhanced hover effects */
+form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
+}
+
+/* Better note hover effect */
+.note:hover {
+  transform: translateX(5px);
+}
+
+/* Improved pagination hover */
+.pagination button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
+}
+    
   </style>
 </head>
 <body>
