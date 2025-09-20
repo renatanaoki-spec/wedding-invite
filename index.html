@@ -264,13 +264,17 @@
       100% { transform: translate(0, 0); }
     }
 
-    .hero h1 {
-      font-size: clamp(3rem, 10vw, 5rem);
-      margin-bottom: 30px;
-      color: white;
-      position: relative;
-      z-index: 1;
-    }
+.hero h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.2rem, 7vw, 3.5rem);
+  font-weight: 300;  /* Light weight */
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
 
     .hero .quote {
       max-width: 700px;
@@ -351,7 +355,7 @@
       background: linear-gradient(135deg, #a44d6c, var(--primary-pink));
     }
 
-    /* Control Buttons */
+   /* Enhanced Control Buttons with CSS Icons */
     #music-control, #chatbot-btn {
       position: fixed;
       bottom: 20px;
@@ -359,29 +363,130 @@
       border-radius: 50%;
       width: 60px;
       height: 60px;
-      font-size: 1.4rem;
       cursor: pointer;
-      box-shadow: var(--shadow-medium);
+      box-shadow: 0 8px 25px rgba(188, 108, 137, 0.4);
       z-index: 1000;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
     }
 
     #music-control {
       right: 100px;
-      background: linear-gradient(135deg, var(--primary-pink), #a44d6c);
-      color: white;
+      background: linear-gradient(135deg, #bc6c89, #a44d6c);
       display: none;
     }
 
     #chatbot-btn {
       right: 20px;
-      background: linear-gradient(135deg, var(--primary-green), #557a60);
-      color: white;
+      background: linear-gradient(135deg, #6b8e72, #557a60);
+      box-shadow: 0 8px 25px rgba(107, 142, 114, 0.4);
     }
 
     #music-control:hover, #chatbot-btn:hover {
-      transform: scale(1.1) rotate(10deg);
-      box-shadow: var(--shadow-strong);
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
+    }
+
+    #chatbot-btn:hover {
+      box-shadow: 0 12px 35px rgba(107, 142, 114, 0.6);
+    }
+
+    /* Music Note Icon */
+    .music-icon {
+      position: relative;
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin: 0 auto;
+    }
+
+    .music-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 3px;
+      height: 16px;
+      background: white;
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .music-icon::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 4px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* When music is paused, show play icon */
+    #music-control.paused .music-icon::before {
+      width: 2px;
+      height: 14px;
+      left: 6px;
+      box-shadow: 4px 0 0 white, 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    #music-control.paused .music-icon::after {
+      display: none;
+    }
+
+    /* Chat Bubble Icon */
+    .chat-icon {
+      position: relative;
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+    }
+
+    .chat-icon::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 14px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      background-image: 
+        radial-gradient(circle at 6px 7px, #6b8e72 1.5px, transparent 1.5px),
+        radial-gradient(circle at 10px 7px, #6b8e72 1.5px, transparent 1.5px),
+        radial-gradient(circle at 14px 7px, #6b8e72 1.5px, transparent 1.5px);
+    }
+
+    .chat-icon::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 6px;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid white;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
+    #music-control, #chatbot-btn {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    #music-control:hover, #chatbot-btn:hover {
+      animation: none; /* Stop floating on hover */
     }
 
     /* Enhanced RSVP Form */
@@ -691,10 +796,10 @@ footer {
         gap: 20px;
       }
 
-      .time-box {
-        padding: 15px;
-        min-width: 80px;
-      }
+.time-box {
+  padding: 20px 25px;  /* Bigger on mobile too */
+  min-width: 100px;
+}
 
       #chat-window {
         width: calc(100vw - 40px);
@@ -1040,12 +1145,16 @@ footer {
   <audio id="bg-music" loop>
     <source src="music/Music-1.mp3" type="audio/mpeg">
   </audio>
-  <button id="music-control" title="Music Control">⏸️</button>
+<button id="music-control" title="Music Control">
+  <span class="music-icon"></span>
+</button>
 
 <!-- REPLACE your existing chatbot HTML section with this enhanced version -->
 
 <!-- Chatbot -->
-<button id="chatbot-btn" title="Ask me about the wedding!">💬</button>
+<button id="chatbot-btn" title="Ask me about the wedding!">
+  <span class="chat-icon"></span>
+</button>
 <div id="chat-window">
   <div id="chat-header">
     <h3>Wedding Assistant 💒</h3>
