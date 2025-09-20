@@ -1184,10 +1184,12 @@ footer {
 .photo-gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 20px;
   max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
+  min-height: 600px; /* Ensure consistent height */
 }
 
 .photo-item {
@@ -1225,14 +1227,15 @@ footer {
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, 
-    rgba(188, 108, 137, 0.8), 
-    rgba(107, 142, 114, 0.8));
+    rgba(0, 0, 0, 0.7), 
+    rgba(0, 0, 0, 0.5));
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(2px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(5px);
 }
 
 .photo-item:hover .photo-overlay {
@@ -1240,14 +1243,46 @@ footer {
 }
 
 .photo-icon {
-  font-size: 2rem;
-  color: white;
-  animation: pulse 2s infinite;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+.photo-icon::before {
+  content: '→';
+  font-size: 20px;
+  color: white;
+  transform: rotate(-45deg);
+}
+
+.photo-icon::after {
+  display: none;
+}
+
+.photo-item:hover .photo-icon {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Alternative: Elegant View Text */
+.photo-text {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
 }
 
 /* ======================================== 
@@ -2307,76 +2342,85 @@ footer {
   </section>
 
   <!-- ADD GALLERY HERE -->
-  <!-- Our Moments Gallery -->
-  <section class="moments-section">
-    <h2>Our Moments</h2>
-    <p class="moments-subtitle">Beautiful memories we've shared together</p>
-    
-    <div class="photo-gallery">
-      <div class="photo-item" data-index="0">
-        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 1" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="1">
-        <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 2" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="2">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 3" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="3">
-        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 4" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="4">
-        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 5" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="5">
-        <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 6" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="6">
-        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 7" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="7">
-        <img src="https://images.unsplash.com/photo-1594736797933-d0e501ba2fe6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 8" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
-      </div>
-      
-      <div class="photo-item" data-index="8">
-        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 9" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-icon">🔍</span>
-        </div>
+<!-- Our Moments Gallery -->
+<section class="moments-section">
+  <h2>Our Moments</h2>
+  <p class="moments-subtitle">Beautiful memories we've shared together</p>
+  
+  <div class="photo-gallery">
+    <div class="photo-item" data-index="0">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 1" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
       </div>
     </div>
-  </section>
+    
+    <div class="photo-item" data-index="1">
+      <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 2" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="2">
+      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 3" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="3">
+      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 4" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="4">
+      <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 5" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="5">
+      <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 6" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="6">
+      <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 7" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="7">
+      <img src="https://images.unsplash.com/photo-1594736797933-d0e501ba2fe6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 8" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+    
+    <div class="photo-item" data-index="8">
+      <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 9" loading="lazy">
+      <div class="photo-overlay">
+        <div class="photo-icon"></div>
+        <div class="photo-text">View Photo</div>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- Photo Lightbox Modal -->
   <div class="photo-lightbox" id="photoLightbox">
