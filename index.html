@@ -164,6 +164,13 @@
       text-align: center;
       position: relative;
     }
+    #wedding-venues {
+  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+              url('https://images.unsplash.com/photo-1464047736614-af63643285bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
     section::before {
       content: '';
@@ -176,7 +183,22 @@
       background: linear-gradient(90deg, transparent, var(--primary-pink), transparent);
       border-radius: 2px;
     }
-
+/* Bible Verse Section Background */
+    .verse-section {
+      background: linear-gradient(rgba(251, 211, 233, 0.8), rgba(187, 210, 197, 0.8)),
+                  url('https://images.unsplash.com/photo-1481653667108-2dc1927cbfe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    /* RSVP Section Background */
+    .rsvp-section {
+      background: linear-gradient(rgba(145, 161, 240, 0.1), rgba(255, 255, 255, 0.95)),
+                  url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
     .date {
       font-size: clamp(1.2rem, 4vw, 1.6rem);
       margin: 20px 0;
@@ -208,8 +230,13 @@
 
     /* Enhanced Hero Section */
     .hero {
-      min-height: 100vh;
-      background: var(--gradient-main);
+  min-height: 100vh;
+  background: var(--gradient-main),
+              url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -220,7 +247,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .hero::before {
       content: '';
       position: absolute;
@@ -517,8 +543,12 @@
     }
 
     /* Enhanced Footer */
-    footer {
-      background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+footer {
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.9), rgba(26, 26, 26, 0.9)),
+              url('https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
       color: white;
       padding: 40px 20px;
       margin-top: 60px;
@@ -1348,185 +1378,6 @@
   </div>
 </section>
 
-<style>
-#wedding-venues {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-#wedding-venues h2 {
-  text-align: center;
-  color: #8B4513;
-  margin-bottom: 1rem;
-  font-size: 2rem;
-}
-
-.date {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #6B5B73;
-  margin-bottom: 2rem;
-  font-weight: 500;
-}
-
-.venue-card {
-  position: relative;
-  background: white;
-  border-radius: 15px;
-  margin-bottom: 2rem;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-}
-
-.venue-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-}
-
-.venue-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.2;
-}
-
-.ceremony-bg {
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.reception-bg {
-  background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.venue-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255,255,255,0.9);
-}
-
-.venue-content {
-  position: relative;
-  padding: 2rem;
-  z-index: 2;
-}
-
-.venue-header {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
-}
-
-.venue-icon {
-  font-size: 2.5rem;
-  padding: 0.5rem;
-  border-radius: 50%;
-  background: rgba(139, 69, 19, 0.1);
-  min-width: 60px;
-  text-align: center;
-}
-
-.venue-info {
-  flex: 1;
-}
-
-.venue-title {
-  margin: 0 0 0.5rem 0;
-  color: #8B4513;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.venue-name {
-  margin: 0 0 0.3rem 0;
-  color: #333;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-.venue-location {
-  margin: 0;
-  color: #666;
-  font-size: 0.95rem;
-}
-
-.venue-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.venue-time {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(139, 69, 19, 0.1);
-  padding: 0.8rem 1.2rem;
-  border-radius: 25px;
-  font-weight: 600;
-  color: #8B4513;
-}
-
-.time-icon {
-  font-size: 1.2rem;
-}
-
-.venue-map-btn {
-  background: #8B4513;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.venue-map-btn:hover {
-  background: #A0522D;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
-}
-
-@media (max-width: 768px) {
-  #wedding-venues {
-    padding: 1rem;
-  }
-  
-  .venue-content {
-    padding: 1.5rem;
-  }
-  
-  .venue-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-  
-  .venue-details {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .venue-time {
-    justify-self: center;
-  }
-}
-</style>
-
 <!-- Enhanced CSS Styles -->
 <style>
 /* Enhanced Venue Cards with Backgrounds */
@@ -1850,431 +1701,11 @@
   color: var(--primary-green);
 }
 </style>
-
-<!-- JavaScript for Venue Info -->
-<script>
-function showVenueInfo(venueType) {
-  let message = '';
-  
-  if (venueType === 'ceremony') {
-    message = `
-      📍 Holy Matrimony Ceremony Details:
-      
-      🕰️ Time: 8:00 AM sharp
-      ⛪ Venue: Gereja Santo Fransiskus Asisi
-      📍 Location: Cibinong
-      👔 Dress Code: Formal/Semi-formal
-      
-      🗺️ Need directions? Click the Maps button!
-    `;
-  } else if (venueType === 'reception') {
-    message = `
-      📍 Wedding Reception Details:
-      
-      🕰️ Time: 11:00 AM
-      🎉 Venue: Bagas Raya Cibinong
-      📍 Location: Cibinong
-      🗺️ Need directions? Click the Maps button!
-    `;
-  }
-  
-  alert(message);
-}
-</script>
-
-  <!-- Reception Card -->
-  <div class="venue-card reception-card">
-    <div class="venue-icon">🎉</div>
-    <div class="venue-content">
-      <h3 class="venue-title">Wedding Reception</h3>
-      <p class="venue-name">Bagas Raya Cibinong</p>
-      <p class="venue-location">📍 Cibinong</p>
-      <div class="venue-time">
-        <span class="time-icon">🕰️</span>
-        <span class="time-text">11:00 AM</span>
-      </div>
-      <a href="https://maps.app.goo.gl/y3GcJGPvrLARQwwz9" 
-         target="_blank" 
-         class="venue-map-btn">
-        📍 View Location on Maps
-      </a>
-    </div>
-  </div>
-
-  <!-- Travel Information -->
-  <div class="travel-info">
-    <h4>🚗 Travel Information</h4>
-    <div class="travel-details">
-      <div class="travel-item">
-        <span class="travel-icon">⏱️</span>
-        <span class="travel-text">3 hours between ceremony and reception</span>
-      </div>
-      <div class="travel-item">
-        <span class="travel-icon">📍</span>
-        <span class="travel-text">Both venues are in Cibinong area</span>
-      </div>
-      <div class="travel-item">
-        <span class="travel-icon">🚙</span>
-        <span class="travel-text">Parking available at both locations</span>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- ADD this CSS to your existing <style> section -->
-<style>
-/* Enhanced Venue Cards */
-.venue-card {
-  background: var(--gradient-card);
-  border-radius: var(--border-radius);
-  padding: 30px;
-  margin: 30px auto;
-  max-width: 500px;
-  box-shadow: var(--shadow-medium);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.venue-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
-
-.ceremony-card::before {
-  background: linear-gradient(90deg, var(--primary-pink), #bc6c89);
-}
-
-.reception-card::before {
-  background: linear-gradient(90deg, var(--primary-green), #6b8e72);
-}
-
-.venue-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: var(--shadow-strong);
-}
-
-.venue-icon {
-  font-size: 3rem;
-  opacity: 0.8;
-  flex-shrink: 0;
-}
-
-.ceremony-card .venue-icon {
-  color: var(--primary-pink);
-}
-
-.reception-card .venue-icon {
-  color: var(--primary-green);
-}
-
-.venue-content {
-  flex: 1;
-  text-align: left;
-}
-
-.venue-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.8rem;
-  margin: 0 0 8px 0;
-  color: var(--primary-pink);
-}
-
-.reception-card .venue-title {
-  color: var(--primary-green);
-}
-
-.venue-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0 0 5px 0;
-  color: var(--text-dark);
-}
-
-.venue-location {
-  font-size: 1rem;
-  color: var(--text-light);
-  margin: 0 0 15px 0;
-  font-style: italic;
-}
-
-.venue-time {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 15px 0;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 25px;
-  border: 2px solid rgba(188, 108, 137, 0.2);
-}
-
-.reception-card .venue-time {
-  border-color: rgba(107, 142, 114, 0.2);
-}
-
-.time-icon {
-  font-size: 1.2rem;
-}
-
-.time-text {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-dark);
-}
-
-.venue-map-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--primary-pink), #a44d6c);
-  color: white;
-  text-decoration: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-soft);
-  margin-top: 10px;
-}
-
-.reception-card .venue-map-btn {
-  background: linear-gradient(135deg, var(--primary-green), #557a60);
-}
-
-.venue-map-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: var(--shadow-medium);
-  text-decoration: none;
-  color: white;
-}
-
-/* Timeline Section */
-.timeline-container {
-  background: var(--gradient-card);
-  border-radius: var(--border-radius);
-  padding: 30px;
-  margin: 40px auto;
-  max-width: 600px;
-  box-shadow: var(--shadow-medium);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.timeline-title {
-  text-align: center;
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  color: var(--primary-pink);
-  margin-bottom: 30px;
-}
-
-.timeline {
-  position: relative;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.timeline-item {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-}
-
-.timeline-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-right: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.ceremony-dot {
-  background: var(--primary-pink);
-}
-
-.reception-dot {
-  background: var(--primary-green);
-}
-
-.timeline-connector {
-  width: 3px;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--primary-pink), var(--primary-green));
-  margin-left: 8.5px;
-  margin-top: -10px;
-  margin-bottom: -10px;
-  border-radius: 2px;
-}
-
-.timeline-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.timeline-time {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--primary-pink);
-  margin-bottom: 5px;
-}
-
-.timeline-item:last-of-type .timeline-time {
-  color: var(--primary-green);
-}
-
-.timeline-event {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 3px;
-}
-
-.timeline-location {
-  font-size: 0.95rem;
-  color: var(--text-light);
-  font-style: italic;
-}
-
-/* Travel Information */
-.travel-info {
-  background: rgba(145, 161, 240, 0.1);
-  border-radius: var(--border-radius);
-  padding: 25px;
-  margin: 30px auto;
-  max-width: 500px;
-  border-left: 5px solid var(--accent-purple);
-}
-
-.travel-info h4 {
-  margin: 0 0 20px 0;
-  font-size: 1.3rem;
-  color: var(--primary-pink);
-  text-align: center;
-}
-
-.travel-details {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.travel-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 0;
-}
-
-.travel-icon {
-  font-size: 1.1rem;
-  width: 24px;
-  text-align: center;
-}
-
-.travel-text {
-  color: var(--text-dark);
-  font-weight: 500;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .venue-card {
-    flex-direction: column;
-    text-align: center;
-    padding: 25px 20px;
-    margin: 20px 15px;
-  }
-  
-  .venue-icon {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .venue-content {
-    text-align: center;
-  }
-  
-  .venue-title {
-    font-size: 1.5rem;
-  }
-  
-  .venue-name {
-    font-size: 1.1rem;
-  }
-  
-  .timeline-container {
-    margin: 30px 15px;
-    padding: 25px 20px;
-  }
-  
-  .timeline-title {
-    font-size: 1.6rem;
-  }
-  
-  .timeline-item {
-    flex-direction: column;
-    text-align: center;
-    margin: 15px 0;
-  }
-  
-  .timeline-dot {
-    margin: 0 0 10px 0;
-  }
-  
-  .timeline-connector {
-    width: 20px;
-    height: 3px;
-    margin: 15px auto;
-  }
-  
-  .travel-info {
-    margin: 20px 15px;
-    padding: 20px 15px;
-  }
-}
-
-/* Animation on scroll */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.venue-card,
-.timeline-container,
-.travel-info {
-  animation: slideInUp 0.6s ease-out;
-}
-
-.venue-card:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.venue-card:nth-child(3) {
-  animation-delay: 0.4s;
-}
-</style>
-
   <!-- Verse -->
-  <section>
-    <h2>Bible Verse</h2>
+<section class="verse-section">
+  <h2>Bible Verse</h2>
     <div class="verse">
       "So they are no longer two, but one flesh.<br>
       What therefore God has joined together, let no man separate."<br>
@@ -2283,8 +1714,8 @@ function showVenueInfo(venueType) {
   </section>
 
   <!-- RSVP -->
-  <section>
-    <h2>RSVP & Notes</h2>
+<section class="rsvp-section">
+  <h2>RSVP & Notes</h2>
     <div class="form-container">
       <form id="rsvpForm">
         <input type="hidden" name="token" value="ZENYESSICA2026">
