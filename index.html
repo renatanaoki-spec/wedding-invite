@@ -1419,10 +1419,6 @@ footer {
     </a>
   </section>
 
- <!-- REPLACE your existing "Details" section with this enhanced version -->
-
-<!-- REPLACE your existing venue section with this enhanced version -->
-
 <!-- Clean Wedding Details Section -->
 <section id="wedding-venues">
   <h2>Wedding Day Details</h2>
@@ -1430,8 +1426,6 @@ footer {
   
   <!-- Ceremony Card -->
   <div class="venue-card ceremony-card">
-    <div class="venue-background ceremony-bg"></div>
-    <div class="venue-overlay"></div>
     <div class="venue-content">
       <div class="venue-header">
         <div class="venue-icon ceremony-icon">⛪</div>
@@ -1459,11 +1453,9 @@ footer {
 
   <!-- Reception Card -->
   <div class="venue-card reception-card">
-    <div class="venue-background reception-bg"></div>
-    <div class="venue-overlay"></div>
     <div class="venue-content">
       <div class="venue-header">
-        <div class="venue-icon reception-icon">🎉</div>
+        <div class="venue-icon reception-icon">🥂</div>
         <div class="venue-info">
           <h3 class="venue-title">Wedding Reception</h3>
           <p class="venue-name">Bagas Raya Cibinong</p>
@@ -1489,127 +1481,262 @@ footer {
 
 <!-- Enhanced CSS Styles -->
 <style>
-/* Enhanced Venue Cards with Backgrounds */
+/* ======================================== 
+   ELEGANT VENUE CARDS
+   ======================================== */
+
 .venue-card {
   position: relative;
-  background: white;
-  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
   padding: 0;
-  margin: 40px auto;
-  max-width: 600px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  margin: 30px auto;
+  max-width: 650px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 3px solid transparent;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .venue-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-/* Background Images for Venues */
-.venue-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
+/* Elegant Church Background */
+.ceremony-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(248, 246, 243, 0.95) 100%),
+    url('https://images.unsplash.com/photo-1520637836862-4d197d17c93a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-blend-mode: overlay;
 }
 
-.ceremony-bg {
-  background-image: linear-gradient(135deg, 
-    rgba(188, 108, 137, 0.8), 
-    rgba(156, 89, 109, 0.9)), 
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="church" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><rect fill="%23ffffff" fill-opacity="0.1" width="100" height="100"/><path d="M50 10L60 30L50 40L40 30Z" fill="%23ffffff" fill-opacity="0.2"/></pattern></defs><rect fill="url(%23church)" width="1000" height="1000"/></svg>');
+/* Elegant Reception Background */
+.reception-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(243, 248, 246, 0.95) 100%),
+    url('https://images.unsplash.com/photo-1519167758481-83f29c852c26?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
 }
 
-.reception-bg {
-  background-image: linear-gradient(135deg, 
-    rgba(107, 142, 114, 0.8), 
-    rgba(85, 122, 96, 0.9)), 
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="celebration" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><rect fill="%23ffffff" fill-opacity="0.1" width="80" height="80"/><circle cx="40" cy="40" r="3" fill="%23ffffff" fill-opacity="0.3"/><circle cx="20" cy="20" r="2" fill="%23ffffff" fill-opacity="0.2"/><circle cx="60" cy="60" r="2" fill="%23ffffff" fill-opacity="0.2"/></pattern></defs><rect fill="url(%23celebration)" width="1000" height="1000"/></svg>');
-}
-
+/* Remove childish background elements */
+.venue-background,
 .venue-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
-  background: linear-gradient(180deg, 
-    rgba(0, 0, 0, 0.1) 0%, 
-    rgba(0, 0, 0, 0.4) 100%);
+  display: none;
 }
 
-/* Venue Content */
+/* Elegant Content Layout */
 .venue-content {
   position: relative;
+  padding: 40px;
   z-index: 2;
-  padding: 30px;
-  padding-top: 160px;
 }
 
 .venue-header {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 25px;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+/* Sophisticated Icon */
 .venue-icon {
-  position: absolute;
-  top: -120px;
-  left: 30px;
-  font-size: 4rem;
-  padding: 20px;
-  border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  z-index: 3;
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 2.5rem;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
 }
 
 .ceremony-icon {
-  background: linear-gradient(135deg, #fff, #f8f8f8);
-  color: var(--primary-pink);
+  color: #8B6F47;
+  background: linear-gradient(135deg, #fff, #f8f6f3);
 }
 
 .reception-icon {
-  background: linear-gradient(135deg, #fff, #f8f8f8);
-  color: var(--primary-green);
+  color: #6B8E72;
+  background: linear-gradient(135deg, #fff, #f3f8f6);
 }
 
-.venue-title-section {
+.venue-info {
   flex: 1;
-  text-align: left;
 }
 
+/* Elegant Typography */
 .venue-title {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin: 0 0 8px 0;
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: -100px;
-  left: 120px;
-  z-index: 3;
+  color: #5D4E37;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: auto;
+  text-shadow: none;
+}
+
+.reception-card .venue-title {
+  color: #4A5D4A;
 }
 
 .venue-name {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin: 0 0 5px 0;
-  color: var(--text-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #2C2C2C;
+  letter-spacing: 0.5px;
 }
 
 .venue-location {
-  font-size: 1.1rem;
-  color: var(--text-light);
+  font-size: 1rem;
+  color: #757575;
   margin: 0;
-  font-style: italic;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Refined Time Display */
+.venue-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.venue-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  align-self: flex-start;
+}
+
+.time-icon {
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+.time-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2C2C2C;
+}
+
+/* Sophisticated Button */
+.venue-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #8B6F47, #A0845C);
+  color: white;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(139, 111, 71, 0.3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.reception-card .venue-map-btn {
+  background: linear-gradient(135deg, #6B8E72, #7BA083);
+  box-shadow: 0 4px 15px rgba(107, 142, 114, 0.3);
+}
+
+.venue-map-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139, 111, 71, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.reception-card .venue-map-btn:hover {
+  box-shadow: 0 8px 25px rgba(107, 142, 114, 0.4);
+}
+
+/* Remove cartoonish elements */
+.venue-title-section,
+.ceremony-time,
+.reception-time,
+.venue-actions,
+.ceremony-btn,
+.reception-btn,
+.ceremony-info,
+.reception-info {
+  /* Remove all these classes - they're making it look cartoonish */
+}
+
+/* Mobile Responsive - Elegant */
+@media (max-width: 768px) {
+  .venue-card {
+    margin: 20px 15px;
+    max-width: none;
+  }
+  
+  .venue-content {
+    padding: 30px 25px;
+  }
+  
+  .venue-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .venue-icon {
+    font-size: 2rem;
+    padding: 12px;
+  }
+  
+  .venue-title {
+    font-size: 1.6rem;
+  }
+  
+  .venue-name {
+    font-size: 1.1rem;
+  }
+}
+
+/* Section Header - More Elegant */
+#wedding-venues h2 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #8B6F47;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.date {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 400;
+  color: #6B8E72;
+  letter-spacing: 0.5px;
 }
 
 /* Venue Details */
