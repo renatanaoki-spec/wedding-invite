@@ -1,27 +1,84 @@
-<!DOCTYPE html>
+.attendance-label {
+      font-size: 1rem;
+      color: var(--secondary);
+      margin-bottom: var(--spacing-xs);
+      font-weight: 500;
+      display: block;
+    }
+
+    .attendance-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    #responseMsg {
+      text-align: center;
+      margin-top: var(--spacing-md);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+
+    /* Music control paused state */
+    #music-control.paused {
+      opacity: 0.6;
+    }
+
+    #music-control.paused svg {
+      opacity: 0.5;
+    }<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation - Zen & Yessica</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <title>Zen & Yessica - January 17, 2026</title>
   <style>
+    /* ==========================================
+       APPLE-STYLE WEDDING INVITATION
+       Clean, Minimal, Sophisticated
+       ========================================== */
+
     :root {
-      --primary-pink: #bc6c89;
-      --primary-green: #6b8e72;
-      --secondary-pink: #fbd3e9;
-      --secondary-green: #bbd2c5;
-      --accent-purple: #91a1f0;
-      --text-dark: #2c2c2c;
-      --text-light: #666;
-      --ivory: #fffdf5;
-      --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
-      --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.15);
-      --shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.2);
-      --gradient-main: linear-gradient(135deg, #fbd3e9 0%, #bbd2c5 50%, #91a1f0 100%);
-      --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-      --border-radius: 20px;
+      /* Apple-inspired Color Palette */
+      --primary: #1d1d1f;
+      --secondary: #86868b;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --surface: #ffffff;
+      --surface-secondary: #f5f5f7;
+      --surface-tertiary: #fbfbfd;
+      --divider: #d2d2d7;
+      --overlay: rgba(0, 0, 0, 0.4);
+      
+      /* Typography */
+      --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      /* Spacing */
+      --spacing-xs: 8px;
+      --spacing-sm: 16px;
+      --spacing-md: 24px;
+      --spacing-lg: 40px;
+      --spacing-xl: 64px;
+      --spacing-2xl: 96px;
+      
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+      
+      /* Transitions */
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -31,958 +88,453 @@
     }
 
     body, html {
-      font-family: 'Poppins', sans-serif;
-      background: #fff;
-      color: var(--text-dark);
-      height: 100%;
+      font-family: var(--font-system);
+      background: var(--surface);
+      color: var(--primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
-      scroll-behavior: smooth;
     }
 
-    h1, h2 {
-      font-family: 'Great Vibes', cursive;
-      color: var(--primary-pink);
-    }
+    /* ==========================================
+       COVER PAGE - Apple Keynote Style
+       ========================================== */
 
-    /* Animated Background Particles */
-    .bg-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(188, 108, 137, 0.3);
-      border-radius: 50%;
-      animation: float 8s infinite linear;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* Enhanced Cover Page */
     .cover {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: var(--gradient-main);
+      height: 100vh;
+      background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       z-index: 9999;
-      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(10px);
-    }
-
-    .cover::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="white" stop-opacity="0.1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="300" r="3" fill="url(%23a)"/><circle cx="800" cy="200" r="2" fill="url(%23a)"/><circle cx="300" cy="700" r="4" fill="url(%23a)"/><circle cx="700" cy="800" r="2" fill="url(%23a)"/></svg>');
-      animation: sparkle 4s infinite;
-    }
-
-    @keyframes sparkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.8; }
-    }
-
-    .cover h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      color: white;
-      margin-bottom: 20px;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      animation: fadeInUp 1.2s ease-out;
-      font-weight: 400;
-      letter-spacing: 2px;
-    }
-
-    .cover p {
-      font-size: clamp(1rem, 3vw, 1.4rem);
-      color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 40px;
-      animation: fadeInUp 1.2s ease-out 0.3s both;
-      font-weight: 300;
-    }
-
-    .cover button {
-      padding: 16px 40px;
-      border: none;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--primary-pink);
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(10px);
-      animation: fadeInUp 1.2s ease-out 0.6s both;
-      box-shadow: var(--shadow-medium);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .cover button:hover {
-      transform: translateY(-3px) scale(1.05);
-      background: var(--primary-pink);
-      color: white;
-      box-shadow: var(--shadow-strong);
+      transition: opacity var(--transition-slow), visibility var(--transition-slow);
     }
 
     .cover.hidden {
       opacity: 0;
       visibility: hidden;
-      transform: scale(1.1);
+      pointer-events: none;
+    }
+
+    .cover h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      margin-bottom: var(--spacing-sm);
+      animation: fadeInUp 0.8s var(--transition-base) backwards;
+    }
+
+    .cover p {
+      font-size: clamp(1.125rem, 3vw, 1.5rem);
+      color: var(--secondary);
+      font-weight: 400;
+      margin-bottom: var(--spacing-xl);
+      animation: fadeInUp 0.8s var(--transition-base) 0.2s backwards;
+    }
+
+    .cover button {
+      padding: 14px 32px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 980px;
+      font-size: 1.0625rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      animation: fadeInUp 0.8s var(--transition-base) 0.4s backwards;
+      letter-spacing: -0.01em;
+    }
+
+    .cover button:hover {
+      background: #42424a;
+      transform: scale(1.02);
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* Enhanced Sections */
-    section {
-      padding: 80px 20px;
-      text-align: center;
-      position: relative;
-    }
-    #wedding-venues {
-  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
-              url('https://images.unsplash.com/photo-1464047736614-af63643285bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
+    /* ==========================================
+       HERO SECTION
+       ========================================== */
 
-    section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--primary-pink), transparent);
-      border-radius: 2px;
-    }
-/* Bible Verse Section Background */
-    .verse-section {
-      background: linear-gradient(rgba(251, 211, 233, 0.8), rgba(187, 210, 197, 0.8)),
-                  url('https://images.unsplash.com/photo-1481653667108-2dc1927cbfe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-<!-- Photo Lightbox Modal -->
-<div class="photo-lightbox" id="photoLightbox">
-  <div class="lightbox-backdrop"></div>
-  <div class="lightbox-container">
-    <button class="lightbox-close" id="closeLightbox">×</button>
-    <button class="lightbox-nav lightbox-prev" id="prevPhoto">‹</button>
-    <button class="lightbox-nav lightbox-next" id="nextPhoto">›</button>
-    
-    <div class="lightbox-content">
-      <img class="lightbox-image" id="lightboxImage" src="" alt="">
-      <div class="lightbox-info">
-        <span class="photo-counter" id="photoCounter">1 / 9</span>
-      </div>
-    </div>
-  </div>
-</div>
-    
-    /* RSVP Section Background */
-/* ======================================== 
-   ENHANCED RSVP SECTION - NO CARD STYLE
-   Replace your existing RSVP CSS with this
-   ======================================== */
-
-.rsvp-section {
-  /* Beautiful wedding background */
-  background: 
-    linear-gradient(135deg, 
-      rgba(251, 211, 233, 0.9) 0%, 
-      rgba(187, 210, 197, 0.9) 50%, 
-      rgba(145, 161, 240, 0.9) 100%
-    ),
-    url('https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 80px 20px;
-  position: relative;
-  min-height: 100vh;
-}
-
-/* Add decorative overlay pattern */
-.rsvp-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="7" cy="7" r="1" fill="rgba(255,255,255,0.08)"/><circle cx="23" cy="8" r="1" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
-  pointer-events: none;
-  opacity: 0.4;
-  animation: float 20s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Section headers */
-.rsvp-section h2 {
-  text-align: center;
-  color: white;
-  margin-bottom: 20px;
-  font-size: 3rem;
-  position: relative;
-  z-index: 2;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-  font-weight: 400;
-  letter-spacing: 2px;
-}
-
-/* Remove card container completely */
-.form-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0; /* Remove padding */
-  background: none; /* Remove background */
-  border-radius: 0; /* Remove border radius */
-  box-shadow: none; /* Remove shadow */
-  backdrop-filter: none; /* Remove blur */
-  border: none; /* Remove border */
-  position: relative;
-  z-index: 2;
-}
-
-/* Enhanced form styling */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  text-align: left;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-/* Input field styling - glassy effect */
-form input, form textarea, form select {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 20px 25px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
-  transition: all 0.4s ease;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  color: #2c2c2c;
-  font-weight: 500;
-  
-  /* Prevent text overflow */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Placeholder styling */
-form input::placeholder, 
-form textarea::placeholder {
-  color: rgba(44, 44, 44, 0.7);
-  font-weight: 400;
-}
-
-/* Focus states */
-form input:focus, 
-form textarea:focus, 
-form select:focus {
-  outline: none;
-  border-color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  transform: translateY(-3px);
-}
-
-/* Textarea specific */
-form textarea {
-  white-space: normal;
-  resize: vertical;
-  overflow: auto;
-  min-height: 120px;
-}
-
-/* Select dropdown */
-form select {
-  cursor: pointer;
-  appearance: none;
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23666" d="M6 8L2 4h8z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 20px center;
-  padding-right: 50px;
-}
-
-/* Enhanced submit button */
-form button {
-  width: 100%;
-  max-width: 100%;
-  background: linear-gradient(135deg, #bc6c89, #a44d6c);
-  color: white;
-  padding: 20px 40px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  box-shadow: 0 10px 30px rgba(188, 108, 137, 0.4);
-  margin-top: 10px;
-  
-  /* Prevent text overflow */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-form button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(188, 108, 137, 0.6);
-  background: linear-gradient(135deg, #a44d6c, #bc6c89);
-}
-
-form button:active {
-  transform: translateY(-2px);
-}
-
-/* Attendance wrapper */
-.attendance-wrapper {
-  margin-top: 10px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.attendance-label {
-  font-size: 1.1rem;
-  color: white;
-  margin-bottom: 15px;
-  font-weight: 600;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  letter-spacing: 1px;
-}
-
-/* Error messages */
-.error-msg {
-  color: #ff6b6b;
-  font-size: 0.95rem;
-  display: none;
-  margin-top: 8px;
-  font-style: italic;
-  padding: 10px 15px;
-  background: rgba(255, 107, 107, 0.15);
-  border-radius: 10px;
-  border-left: 4px solid #ff6b6b;
-  backdrop-filter: blur(10px);
-  
-  /* Prevent overflow */
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-/* Response message */
-#responseMsg {
-  text-align: center;
-  margin-top: 25px;
-  font-weight: 600;
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(20px);
-  font-size: 1.1rem;
-  
-  /* Prevent overflow */
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-/* Guest Notes Section */
-.rsvp-section h2:last-of-type {
-  margin-top: 80px;
-  margin-bottom: 40px;
-}
-
-#notesContainer {
-  margin-top: 40px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-  position: relative;
-  z-index: 2;
-}
-
-.note {
-  padding: 25px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20px);
-  transition: all 0.3s ease;
-  
-  /* Prevent text overflow */
-  word-break: break-word;
-  overflow-wrap: break-word;
-  overflow: hidden;
-  max-width: 100%;
-}
-
-.note:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
-
-.note strong {
-  color: white;
-  font-weight: 700;
-  font-size: 1.2rem;
-  display: block;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  
-  /* Handle long names */
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-.note em {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.05rem;
-  line-height: 1.6;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.note small {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
-}
-
-/* Enhanced pagination */
-.pagination {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  z-index: 2;
-}
-
-.pagination button {
-  padding: 15px 30px;
-  border: none;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  
-  /* Prevent text overflow */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  min-width: 120px;
-}
-
-.pagination button:hover:not(:disabled) {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.pagination button:disabled {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.5);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-/* Mobile responsive enhancements */
-@media (max-width: 768px) {
-  .rsvp-section {
-    padding: 60px 15px;
-    background-attachment: scroll;
-  }
-
-  .rsvp-section h2 {
-    font-size: 2.2rem;
-  }
-
-  .form-container {
-    margin: 0 10px;
-    max-width: calc(100vw - 20px);
-  }
-
-  form {
-    max-width: none;
-  }
-
-  /* Smaller form elements on mobile */
-  form input, form textarea, form select {
-    font-size: 16px; /* Prevent zoom on iOS */
-    padding: 18px 20px;
-  }
-
-  form button {
-    font-size: 1.1rem;
-    padding: 18px 30px;
-    letter-spacing: 1px;
-  }
-
-  /* Notes container mobile adjustments */
-  #notesContainer {
-    margin: 30px 10px;
-    max-width: calc(100vw - 20px);
-  }
-
-  .note {
-    padding: 20px;
-    margin-bottom: 15px;
-    max-width: 100%;
-  }
-
-  .note strong {
-    font-size: 1.1rem;
-  }
-
-  /* Pagination mobile */
-  .pagination {
-    flex-direction: column;
-    gap: 15px;
-    padding: 0 20px;
-  }
-
-  .pagination button {
-    width: 100%;
-    min-width: auto;
-    padding: 15px 20px;
-  }
-}
-
-/* Extra small mobile */
-@media (max-width: 480px) {
-  .rsvp-section {
-    padding: 40px 10px;
-  }
-
-  .rsvp-section h2 {
-    font-size: 2rem;
-  }
-
-  .form-container {
-    margin: 0 5px;
-    max-width: calc(100vw - 10px);
-  }
-
-  /* Form adjustments for very small screens */
-  form input, form textarea, form select {
-    padding: 16px 18px;
-    font-size: 16px;
-  }
-
-  form button {
-    padding: 16px 25px;
-    font-size: 1rem;
-  }
-
-  .note {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .error-msg {
-    font-size: 0.85rem;
-    padding: 8px 12px;
-  }
-}
-
-/* Global text wrapping for mobile */
-.rsvp-section * {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Force text wrapping for very long words */
-.note em, 
-.note small,
-#responseMsg,
-.error-msg {
-  word-break: break-all;
-  overflow-wrap: anywhere;
-}
-
-/* Prevent horizontal scroll */
-html, body {
-  overflow-x: hidden;
-}
-
-/* Enhanced visual effects */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-form button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out infinite;
-  border-radius: 25px;
-}
-
-form button {
-  position: relative;
-  overflow: hidden;
-}
-
-    /* Enhanced Hero Section */
     .hero {
-  min-height: 100vh;
-  background: var(--gradient-main),
-              url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-md);
+      background: linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%);
       position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: moveBackground 20s infinite linear;
     }
 
-    @keyframes moveBackground {
-      0% { transform: translate(-50px, -50px); }
-      100% { transform: translate(0, 0); }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      margin-bottom: var(--spacing-md);
     }
-
-.hero h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(2.2rem, 7vw, 3.5rem);
-  font-weight: 300;  /* Light weight */
-  letter-spacing: 8px;
-  text-transform: uppercase;
-  margin-bottom: 30px;
-  color: white;
-  position: relative;
-  z-index: 1;
-}
 
     .hero .quote {
-      max-width: 700px;
-      font-size: clamp(1rem, 3vw, 1.3rem);
-      margin: 30px auto 50px;
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
-      font-weight: 300;
-      text-align: center;
+      max-width: 600px;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--secondary);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-xl);
+      font-weight: 400;
     }
 
-    /* Enhanced Countdown */
-   .countdown-container {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 40px 0 50px;
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-
-.time-label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+    /* Countdown - Apple Watch Style */
+    .countdown-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-sm);
+      margin: var(--spacing-lg) 0;
+      max-width: 500px;
+      width: 100%;
+    }
 
     .time-box {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 20px;
-      border-radius: var(--border-radius);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      min-width: 100px;
-      transition: transform 0.3s ease;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--divider);
+      transition: all var(--transition-base);
     }
 
     .time-box:hover {
-      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
 
     .time-box span {
       display: block;
       font-size: clamp(2rem, 5vw, 2.5rem);
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: white;
+      font-weight: 600;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
     }
 
-    /* Enhanced Button */
+    .time-label {
+      font-size: 0.75rem;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: var(--spacing-xs);
+      font-weight: 500;
+    }
+
+    /* Button - iOS Style */
     .btn {
       display: inline-block;
-      padding: 16px 40px;
-      background: linear-gradient(135deg, var(--primary-pink), #a44d6c);
-      border: none;
+      padding: 14px 28px;
+      background: var(--accent);
       color: white;
-      border-radius: 50px;
       text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      z-index: 1;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: var(--shadow-medium);
+      border-radius: 980px;
+      font-size: 1.0625rem;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      border: none;
+      cursor: pointer;
+      letter-spacing: -0.01em;
     }
 
     .btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: var(--shadow-strong);
-      background: linear-gradient(135deg, #a44d6c, var(--primary-pink));
+      background: var(--accent-hover);
+      transform: scale(1.02);
     }
 
-   /* Enhanced Control Buttons with CSS Icons */
-    #music-control, #chatbot-btn {
-      position: fixed;
-      bottom: 20px;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(188, 108, 137, 0.4);
-      z-index: 1000;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 3px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
+    /* ==========================================
+       BIBLE VERSE SECTION
+       ========================================== */
+
+    .verse-section {
+      background: var(--surface-secondary);
+      padding: var(--spacing-2xl) var(--spacing-md);
+      text-align: center;
     }
 
-    #music-control {
-      right: 100px;
-      background: linear-gradient(135deg, #bc6c89, #a44d6c);
-      display: none;
+    .verse-section h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: var(--spacing-lg);
     }
 
-    #chatbot-btn {
-      right: 20px;
-      background: linear-gradient(135deg, #6b8e72, #557a60);
-      box-shadow: 0 8px 25px rgba(107, 142, 114, 0.4);
+    .verse-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--spacing-xl);
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--divider);
     }
 
-    #music-control:hover, #chatbot-btn:hover {
-      transform: translateY(-3px) scale(1.1);
-      box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
+    .verse-text {
+      font-size: clamp(1.125rem, 3vw, 1.375rem);
+      line-height: 1.7;
+      color: var(--primary);
+      font-weight: 400;
+      margin-bottom: var(--spacing-md);
+      letter-spacing: -0.01em;
     }
 
-    #chatbot-btn:hover {
-      box-shadow: 0 12px 35px rgba(107, 142, 114, 0.6);
+    .verse-reference {
+      font-size: 1rem;
+      color: var(--secondary);
+      font-weight: 500;
+      letter-spacing: 0.01em;
     }
 
-    /* Music Note Icon */
-    .music-icon {
-      position: relative;
-      display: block;
-      width: 20px;
-      height: 20px;
+    /* ==========================================
+       SECTIONS - Clean Layout
+       ========================================== */
+
+    section {
+      padding: var(--spacing-2xl) var(--spacing-md);
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .music-icon::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 8px;
-      width: 3px;
+    section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+      color: var(--primary);
+    }
+
+    /* ==========================================
+       VENUE CARDS - Clean Card Design
+       ========================================== */
+
+    .venue-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl) var(--spacing-lg);
+      margin: var(--spacing-lg) auto;
+      max-width: 600px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--divider);
+      transition: all var(--transition-base);
+    }
+
+    .venue-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .venue-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .venue-type {
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--secondary);
+      font-weight: 500;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .venue-title {
+      font-family: var(--font-display);
+      font-size: 1.625rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--spacing-sm);
+      color: var(--primary);
+    }
+
+    .venue-name {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--secondary);
+      margin-bottom: 4px;
+    }
+
+    .venue-location {
+      font-size: 0.9375rem;
+      color: var(--secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .venue-location svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.6;
+    }
+
+    .venue-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-lg);
+      border-top: 1px solid #f5f5f7;
+    }
+
+    .venue-time {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+      padding: 10px 0;
+    }
+
+    .venue-time svg {
+      width: 16px;
       height: 16px;
-      background: white;
-      border-radius: 2px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      color: var(--secondary);
     }
 
-    .music-icon::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 4px;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    .time-text {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
     }
 
-    /* When music is paused, show play icon */
-    #music-control.paused .music-icon::before {
-      width: 2px;
-      height: 14px;
-      left: 6px;
-      box-shadow: 4px 0 0 white, 0 2px 4px rgba(0, 0, 0, 0.2);
+    .venue-map-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 980px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      margin-top: var(--spacing-xs);
     }
 
-    #music-control.paused .music-icon::after {
-      display: none;
+    .venue-map-btn svg {
+      width: 16px;
+      height: 16px;
     }
 
-    /* Chat Bubble Icon */
-    .chat-icon {
-      position: relative;
-      display: block;
-      width: 24px;
-      height: 24px;
+    .venue-map-btn:hover {
+      background: #42424a;
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================
+       PHOTO GALLERY - Grid Layout
+       ========================================== */
+
+    .moments-section {
+      background: var(--surface-tertiary);
+    }
+
+    .moments-subtitle {
+      text-align: center;
+      color: var(--secondary);
+      font-size: 1.125rem;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-md);
+      max-width: 1000px;
       margin: 0 auto;
     }
 
-    .chat-icon::before {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 20px;
-      height: 14px;
+    .photo-item {
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .photo-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .photo-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ==========================================
+       RSVP FORM - Clean Input Design
+       ========================================== */
+
+    .rsvp-section {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      background-image: 
-        radial-gradient(circle at 6px 7px, #6b8e72 1.5px, transparent 1.5px),
-        radial-gradient(circle at 10px 7px, #6b8e72 1.5px, transparent 1.5px),
-        radial-gradient(circle at 14px 7px, #6b8e72 1.5px, transparent 1.5px);
     }
 
-    .chat-icon::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 6px;
-      width: 0;
-      height: 0;
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 6px solid white;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    }
-
-    /* Floating Animation */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-3px); }
-    }
-
-    #music-control, #chatbot-btn {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    #music-control:hover, #chatbot-btn:hover {
-      animation: none; /* Stop floating on hover */
-    }
-
-    /* Enhanced RSVP Form */
     .form-container {
       max-width: 600px;
       margin: 0 auto;
-      padding: 40px;
-      background: var(--gradient-card);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-medium);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      text-align: left;
+      gap: var(--spacing-md);
     }
 
-    form input, form textarea, form select {
+    form input,
+    form textarea,
+    form select {
+      width: 100%;
       padding: 16px 20px;
-      border: 2px solid rgba(188, 108, 137, 0.2);
-      border-radius: 15px;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-md);
+      font-size: 1.0625rem;
+      font-family: var(--font-system);
+      transition: all var(--transition-fast);
+      background: white;
+      color: var(--primary);
     }
 
-    form input:focus, form textarea:focus, form select:focus {
+    form input:focus,
+    form textarea:focus,
+    form select:focus {
       outline: none;
-      border-color: var(--primary-pink);
-      box-shadow: 0 0 20px rgba(188, 108, 137, 0.3);
-      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
     }
 
     form textarea {
@@ -991,2395 +543,917 @@ form button {
     }
 
     form button {
-      background: linear-gradient(135deg, var(--primary-pink), #a44d6c);
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
       color: white;
-      padding: 16px 30px;
       border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      font-weight: 600;
+      border-radius: var(--radius-md);
+      font-size: 1.0625rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-fast);
+      margin-top: var(--spacing-sm);
     }
 
     form button:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-medium);
-      background: linear-gradient(135deg, #a44d6c, var(--primary-pink));
-    }
-
-    #responseMsg {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: 600;
-      padding: 15px;
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-    }
-
-    .attendance-wrapper {
-      margin-top: 20px;
-      text-align: center;
+      background: #42424a;
+      transform: translateY(-1px);
     }
 
     .attendance-label {
       font-size: 1rem;
-      color: var(--text-light);
-      margin-bottom: 10px;
+      color: var(--secondary);
+      margin-bottom: var(--spacing-xs);
       font-weight: 500;
     }
 
     .error-msg {
-      color: #d46a6a;
-      font-size: 0.9rem;
+      color: #ff3b30;
+      font-size: 0.9375rem;
       display: none;
-      margin-top: 8px;
-      font-style: italic;
-      padding: 8px 12px;
-      background: rgba(212, 106, 106, 0.1);
-      border-radius: 8px;
-      border-left: 4px solid #d46a6a;
+      margin-top: var(--spacing-xs);
     }
 
-    /* Enhanced Notes Section */
-    #notesContainer {
-      margin-top: 40px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
+    #responseMsg {
+      text-align: center;
+      margin-top: var(--spacing-md);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 500;
     }
+
+    /* ==========================================
+       NOTES SECTION
+       ========================================== */
 
     .note {
-      padding: 20px;
-      margin-bottom: 15px;
-      background: var(--gradient-card);
-      border-radius: 15px;
-      border-left: 4px solid var(--primary-pink);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--divider);
+      transition: all var(--transition-base);
     }
 
     .note:hover {
-      transform: translateX(5px);
+      box-shadow: var(--shadow-md);
+      transform: translateX(4px);
     }
 
     .note strong {
-      color: var(--primary-pink);
+      color: var(--primary);
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.0625rem;
+    }
+
+    .note em {
+      color: var(--secondary);
+      font-style: normal;
+      display: block;
+      margin: var(--spacing-xs) 0;
+    }
+
+    .note small {
+      color: var(--secondary);
+      font-size: 0.875rem;
     }
 
     .pagination {
-      margin-top: 30px;
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-lg);
     }
 
     .pagination button {
       padding: 12px 24px;
-      border: none;
-      border-radius: 25px;
-      background: linear-gradient(135deg, var(--primary-pink), #a44d6c);
-      color: white;
+      background: white;
+      border: 1px solid var(--divider);
+      border-radius: 980px;
+      color: var(--primary);
+      font-weight: 500;
       cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-fast);
     }
 
     .pagination button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-medium);
+      background: var(--surface-secondary);
+      border-color: var(--primary);
     }
 
     .pagination button:disabled {
-      background: #ccc;
+      opacity: 0.4;
       cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
     }
 
-    /* Enhanced Footer */
-footer {
-  background: linear-gradient(135deg, rgba(44, 44, 44, 0.9), rgba(26, 26, 26, 0.9)),
-              url('https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-position: center;
-      color: white;
-      padding: 40px 20px;
-      margin-top: 60px;
-      text-align: center;
-      position: relative;
+    /* ==========================================
+       FLOATING BUTTONS - Elegant Minimal Style
+       ========================================== */
+
+    #music-control,
+    #chatbot-btn {
+      position: fixed;
+      bottom: 24px;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 
+                  0 1px 3px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0.5px solid rgba(0, 0, 0, 0.04);
     }
 
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-main);
+    #music-control {
+      right: 88px;
     }
 
-    /* Chatbot Styles */
+    #chatbot-btn {
+      right: 24px;
+    }
+
+    #music-control:hover,
+    #chatbot-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16), 
+                  0 2px 8px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    #music-control:active,
+    #chatbot-btn:active {
+      transform: translateY(0);
+      transition: transform 0.1s;
+    }
+
+    /* SVG icon styling */
+    #music-control svg,
+    #chatbot-btn svg {
+      color: var(--primary);
+      opacity: 0.85;
+      transition: opacity var(--transition-fast);
+    }
+
+    #music-control:hover svg,
+    #chatbot-btn:hover svg {
+      opacity: 1;
+    }
+
+    #music-control.paused {
+      opacity: 0.6;
+    }
+
+    #music-control.paused svg {
+      opacity: 0.5;
+    }
+
+    #music-control.paused {
+      opacity: 0.6;
+    }
+
+    #music-control.paused svg {
+      opacity: 0.5;
+    }
+
+    /* ==========================================
+       CHATBOT - Clean Design
+       ========================================== */
+
     #chat-window {
       position: fixed;
-      bottom: 100px;
-      right: 20px;
-      width: 360px;
-      max-height: 500px;
-      background: var(--ivory);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-strong);
+      bottom: 96px;
+      right: 24px;
+      width: 380px;
+      max-height: 600px;
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
       display: none;
       flex-direction: column;
       overflow: hidden;
-      font-family: 'Poppins', sans-serif;
       z-index: 1000;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid var(--divider);
     }
 
     #chat-header {
-      background: linear-gradient(135deg, var(--primary-green), #557a60);
-      color: white;
-      padding: 16px 20px;
+      background: var(--surface-secondary);
+      padding: var(--spacing-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    #chat-header h3 {
+      font-size: 1.125rem;
       font-weight: 600;
-      text-align: center;
-      border-radius: var(--border-radius) var(--border-radius) 0 0;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      color: var(--primary);
+      margin: 0;
+    }
+
+    #chat-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #chat-close-btn:hover {
+      background: var(--divider);
     }
 
     #chat-box {
       flex: 1;
-      padding: 15px;
+      padding: var(--spacing-md);
       overflow-y: auto;
-      max-height: 350px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: var(--spacing-sm);
     }
 
     .msg {
       padding: 12px 16px;
-      border-radius: 18px;
-      max-width: 85%;
-      line-height: 1.4;
+      border-radius: var(--radius-md);
+      max-width: 80%;
       word-wrap: break-word;
-      box-shadow: var(--shadow-soft);
-      animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .msg.user {
-      background: linear-gradient(135deg, #557a60, var(--primary-green));
+      background: var(--accent);
       color: white;
       align-self: flex-end;
       margin-left: auto;
     }
 
     .msg.bot {
-      background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
-      color: var(--text-dark);
+      background: var(--surface-secondary);
+      color: var(--primary);
       align-self: flex-start;
-      margin-right: auto;
     }
 
     #chat-input-area {
-      border-top: 1px solid #eee;
-      padding: 12px;
+      padding: var(--spacing-md);
+      border-top: 1px solid var(--divider);
       display: flex;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      gap: var(--spacing-sm);
     }
 
     #chat-input {
       flex: 1;
       padding: 12px 16px;
-      border: 2px solid rgba(107, 142, 114, 0.2);
-      outline: none;
-      border-radius: 25px;
-      font-family: 'Poppins', sans-serif;
-      transition: all 0.3s ease;
-      background: white;
+      border: 1px solid var(--divider);
+      border-radius: 980px;
+      font-family: var(--font-system);
+      font-size: 1rem;
+      transition: all var(--transition-fast);
     }
 
     #chat-input:focus {
-      border-color: var(--primary-green);
-      box-shadow: 0 0 15px rgba(107, 142, 114, 0.3);
+      outline: none;
+      border-color: var(--accent);
     }
 
     #send-btn {
       padding: 12px 20px;
-      border: none;
-      border-radius: 25px;
-      background: linear-gradient(135deg, var(--primary-green), #557a60);
+      background: var(--accent);
       color: white;
+      border: none;
+      border-radius: 980px;
+      font-weight: 500;
       cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow-soft);
+      transition: all var(--transition-fast);
     }
 
     #send-btn:hover {
-      transform: scale(1.05);
-      box-shadow: var(--shadow-medium);
+      background: var(--accent-hover);
     }
 
-    /* Responsive Design */
+    /* ==========================================
+       FOOTER
+       ========================================== */
+
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: var(--spacing-xl) var(--spacing-md);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
+
     @media (max-width: 768px) {
-      section {
-        padding: 50px 15px;
+      .countdown-container {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .form-container {
-        margin: 0 15px;
-        padding: 30px 20px;
+      .venue-card {
+        padding: var(--spacing-lg) var(--spacing-md);
       }
 
-      #countdown {
-        gap: 20px;
+      .venue-title {
+        font-size: 1.375rem;
       }
-
-.time-box {
-  padding: 20px 25px;  /* Bigger on mobile too */
-  min-width: 100px;
-}
 
       #chat-window {
-        width: calc(100vw - 40px);
-        right: 20px;
-        left: 20px;
+        width: calc(100vw - 48px);
+        right: 24px;
+        left: 24px;
+      }
+
+      .photo-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--spacing-sm);
+      }
+
+      /* Floating buttons on mobile */
+      #music-control,
+      #chatbot-btn {
+        width: 44px;
+        height: 44px;
+        bottom: 20px;
       }
 
       #music-control {
-        right: 90px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        right: 76px;
       }
 
       #chatbot-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        right: 20px;
+      }
+
+      #music-control svg,
+      #chatbot-btn svg {
+        width: 18px;
+        height: 18px;
       }
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    /* ==========================================
+       UTILITY CLASSES
+       ========================================== */
+
+    .hidden {
+      display: none !important;
     }
 
-    ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-pink);
-      border-radius: 4px;
+    /* Selection */
+    ::selection {
+      background: var(--accent);
+      color: white;
     }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #a44d6c;
-    }
-/* ========================================
-   NEW CSS FOR CHATBOT NAVIGATION FEATURE
-   Add this to the END of your existing <style> section
-   ======================================== */
-
-/* Navigation buttons in chat messages */
-.msg .nav-button {
-  background: linear-gradient(135deg, #6b8e72, #557a60) !important;
-  color: white !important;
-  border: none !important;
-  padding: 10px 18px !important;
-  border-radius: 20px !important;
-  cursor: pointer !important;
-  font-size: 0.9rem !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-  margin-right: 8px !important;
-  margin-top: 8px !important;
-  display: inline-block !important;
-  box-shadow: 0 2px 8px rgba(107, 142, 114, 0.3) !important;
-}
-
-.msg .nav-button:hover {
-  transform: scale(1.05) translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(107, 142, 114, 0.4) !important;
-  background: linear-gradient(135deg, #557a60, #6b8e72) !important;
-}
-
-.msg .nav-button:active {
-  transform: scale(0.98) !important;
-  transition: all 0.1s ease !important;
-}
-
-/* Helper button in chat messages */
-.msg .helper-button {
-  background: transparent !important;
-  color: #6b8e72 !important;
-  border: 2px solid #6b8e72 !important;
-  padding: 8px 16px !important;
-  border-radius: 20px !important;
-  cursor: pointer !important;
-  font-size: 0.9rem !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-  margin-top: 8px !important;
-  display: inline-block !important;
-}
-
-.msg .helper-button:hover {
-  background: #6b8e72 !important;
-  color: white !important;
-  transform: scale(1.05) !important;
-}
-
-/* Section highlight animation */
-@keyframes highlightPulse {
-  0% { 
-    opacity: 0; 
-    transform: scale(0.95); 
-  }
-  50% { 
-    opacity: 1; 
-    transform: scale(1.02); 
-    box-shadow: 0 0 30px rgba(107, 142, 114, 0.5);
-  }
-  100% { 
-    opacity: 0; 
-    transform: scale(1); 
-  }
-}
-
-/* Enhanced section highlighting */
-.section-highlight {
-  position: relative;
-  overflow: visible;
-}
-
-.section-highlight::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: rgba(107, 142, 114, 0.1);
-  border: 3px solid #6b8e72;
-  border-radius: 15px;
-  pointer-events: none;
-  z-index: 1000;
-  animation: highlightPulse 2s ease-in-out;
-}
-
-/* Chat header with close button */
-#chat-header {
-  background: linear-gradient(135deg, var(--primary-green), #557a60);
-  color: white;
-  padding: 16px 20px;
-  font-weight: 600;
-  text-align: center;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#chat-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  flex: 1;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-}
-
-#chat-close-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#chat-close-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg);
-}
-
-/* Typing indicator */
-.msg.typing {
-  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
-  padding: 16px 20px;
-}
-
-.typing-dots {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.typing-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary-green);
-  animation: typing 1.4s infinite ease-in-out;
-}
-
-.typing-dots span:nth-child(1) { animation-delay: 0s; }
-.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typing {
-  0%, 60%, 100% {
-    transform: translateY(0);
-    opacity: 0.4;
-  }
-  30% {
-    transform: translateY(-10px);
-    opacity: 1;
-  }
-}
-
-/* Question Helper */
-.question-helper {
-  background: linear-gradient(135deg, #fff8e1, #f3e5f5);
-  border-radius: 15px;
-  padding: 16px;
-  margin: 10px 0;
-  border: 2px dashed rgba(107, 142, 114, 0.3);
-  animation: fadeIn 0.5s ease-out;
-  transition: all 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.helper-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--primary-green);
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.helper-questions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.helper-question {
-  background: rgba(107, 142, 114, 0.1);
-  border: 1px solid rgba(107, 142, 114, 0.3);
-  color: #4a5f4f;
-  padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
-  font-family: 'Poppins', sans-serif;
-}
-
-.helper-question:hover {
-  background: rgba(107, 142, 114, 0.2);
-  transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(107, 142, 114, 0.2);
-}
-
-.show-more-btn {
-  background: none;
-  border: 1px solid rgba(107, 142, 114, 0.5);
-  color: var(--primary-green);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
-  width: 100%;
-}
-
-.show-more-btn:hover {
-  background: rgba(107, 142, 114, 0.1);
-}
-
-.more-questions {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Mobile responsive navigation buttons */
-@media (max-width: 768px) {
-  .msg .nav-button,
-  .msg .helper-button {
-    display: block !important;
-    width: 100% !important;
-    margin: 5px 0 !important;
-    text-align: center !important;
-  }
-  
-  .msg .nav-button {
-    margin-bottom: 8px !important;
-  }
-  
-  .helper-question {
-    font-size: 0.8rem;
-    padding: 8px 10px;
-  }
-  
-  .helper-title {
-    font-size: 0.85rem;
-  }
-}
-
-/* Icon animations for navigation buttons */
-.nav-button::before {
-  content: '📍 ';
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.nav-button:hover::before {
-  transform: scale(1.2);
-}
-
-.helper-button::before {
-  content: '💡 ';
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.helper-button:hover::before {
-  transform: scale(1.2);
-}
-    /* ======================================== 
-   OUR MOMENTS GALLERY
-   ======================================== */
-
-.moments-section {
-  background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
-              url('https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 80px 20px;
-}
-
-.moments-section h2 {
-  text-align: center;
-  color: var(--primary-pink);
-  margin-bottom: 15px;
-  font-size: 2.5rem;
-}
-
-.moments-subtitle {
-  text-align: center;
-  color: var(--text-light);
-  margin-bottom: 50px;
-  font-size: 1.1rem;
-  font-style: italic;
-}
-
-/* Photo Gallery Grid */
-.photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
-  min-height: 600px; /* Ensure consistent height */
-}
-
-.photo-item {
-  position: relative;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  background: var(--gradient-card);
-}
-
-.photo-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-}
-
-.photo-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.photo-item:hover img {
-  transform: scale(1.1);
-}
-
-/* Photo Overlay */
-.photo-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(0, 0, 0, 0.7), 
-    rgba(0, 0, 0, 0.5));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(5px);
-}
-
-.photo-item:hover .photo-overlay {
-  opacity: 1;
-}
-
-.photo-icon {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  border: 2px solid white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.photo-icon::before {
-  content: '→';
-  font-size: 20px;
-  color: white;
-  transform: rotate(-45deg);
-}
-
-.photo-icon::after {
-  display: none;
-}
-
-.photo-item:hover .photo-icon {
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-}
-
-/* Alternative: Elegant View Text */
-.photo-text {
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-top: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.9;
-}
-
-/* ======================================== 
-   LIGHTBOX MODAL
-   ======================================== */
-
-.photo-lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.photo-lightbox.active {
-  display: flex;
-  opacity: 1;
-}
-
-.lightbox-backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(10px);
-}
-
-.lightbox-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.lightbox-content {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.lightbox-image {
-  max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  transition: transform 0.4s ease;
-  animation: zoomIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Lightbox Controls */
-.lightbox-close {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  z-index: 10001;
-}
-
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg);
-}
-
-.lightbox-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 2.5rem;
-  cursor: pointer;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  z-index: 10001;
-}
-
-.lightbox-prev {
-  left: 30px;
-}
-
-.lightbox-next {
-  right: 30px;
-}
-
-.lightbox-nav:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.lightbox-nav:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.lightbox-nav:disabled:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-50%) scale(1);
-}
-
-/* Photo Info */
-.lightbox-info {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.photo-counter {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 500;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 8px 16px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .photo-gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 0 15px;
-  }
-  
-  .moments-section {
-    padding: 60px 15px;
-  }
-  
-  .moments-section h2 {
-    font-size: 2rem;
-  }
-  
-  .lightbox-close {
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
-  }
-  
-  .lightbox-nav {
-    width: 45px;
-    height: 45px;
-    font-size: 2rem;
-  }
-  
-  .lightbox-prev {
-    left: 15px;
-  }
-  
-  .lightbox-next {
-    right: 15px;
-  }
-  
-  .lightbox-image {
-    max-height: 70vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .photo-gallery {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .photo-item {
-    aspect-ratio: 4/3;
-  }
-}
-
-/* Loading Animation */
-.photo-item.loading img {
-  opacity: 0;
-}
-
-.photo-item.loading::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30px;
-  height: 30px;
-  margin: -15px 0 0 -15px;
-  border: 3px solid rgba(188, 108, 137, 0.3);
-  border-top: 3px solid var(--primary-pink);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* Enhanced RSVP Section Background */
-.rsvp-section {
-  /* Enhanced background with better wedding theme */
-  background: 
-    linear-gradient(135deg, 
-      rgba(251, 211, 233, 0.85) 0%, 
-      rgba(187, 210, 197, 0.85) 50%, 
-      rgba(145, 161, 240, 0.85) 100%
-    ),
-    url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 80px 20px;
-  position: relative;
-  min-height: 600px;
-}
-
-/* Add decorative overlay pattern */
-.rsvp-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-/* Enhanced form container */
-.form-container {
-  position: relative;
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-}
-
-/* MOBILE TEXT OVERFLOW FIXES */
-
-/* Global text wrapping rules */
-* {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
-
-/* Prevent horizontal scroll */
-html, body {
-  overflow-x: hidden;
-}
-
-.rsvp-section * {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Fix form inputs - prevent overflow */
-form input, form textarea, form select {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Allow wrapping for textarea */
-form textarea {
-  white-space: normal;
-  resize: vertical;
-  overflow: auto;
-}
-
-/* Fix button text overflow */
-form button {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Fix error messages */
-.error-msg {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-/* Fix response message */
-#responseMsg {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-/* Fix notes container */
-.note {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  overflow: hidden;
-  max-width: 100%;
-}
-
-.note strong {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  display: block;
-  max-width: 100%;
-}
-
-/* Force text wrapping for very long words */
-.note em, 
-.note small,
-#responseMsg,
-.error-msg {
-  word-break: break-all;
-  overflow-wrap: anywhere;
-}
-
-/* Enhanced pagination buttons */
-.pagination button {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  min-width: 120px;
-}
-
-/* MOBILE RESPONSIVE ENHANCEMENTS */
-@media (max-width: 768px) {
-  .rsvp-section {
-    padding: 60px 15px;
-    background-attachment: scroll; /* Better performance on mobile */
-  }
-
-  .form-container {
-    margin: 0 10px;
-    padding: 25px 20px;
-    max-width: calc(100vw - 20px);
-  }
-
-  /* Smaller form elements on mobile */
-  form input, form textarea, form select {
-    font-size: 16px; /* Prevent zoom on iOS */
-    padding: 14px 16px;
-  }
-
-  form button {
-    font-size: 1rem;
-    padding: 14px 20px;
-    letter-spacing: 0.5px;
-  }
-
-  /* Notes container mobile adjustments */
-  #notesContainer {
-    margin: 30px 10px;
-    max-width: calc(100vw - 20px);
-  }
-
-  .note {
-    padding: 15px;
-    margin-bottom: 12px;
-    max-width: 100%;
-  }
-
-  .note strong {
-    font-size: 1rem;
-  }
-
-  /* Pagination mobile */
-  .pagination {
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 20px;
-  }
-
-  .pagination button {
-    width: 100%;
-    min-width: auto;
-    padding: 12px 16px;
-  }
-
-  /* Header adjustments */
-  .rsvp-section h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    color: #bc6c89;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-  }
-
-  /* Attendance label */
-  .attendance-label {
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-  }
-}
-
-/* EXTRA SMALL MOBILE (< 480px) */
-@media (max-width: 480px) {
-  .rsvp-section {
-    padding: 40px 10px;
-  }
-
-  .form-container {
-    margin: 0 5px;
-    padding: 20px 15px;
-    border-radius: 15px;
-    max-width: calc(100vw - 10px);
-  }
-
-  .rsvp-section h2 {
-    font-size: 1.8rem;
-  }
-
-  /* Ensure no horizontal scroll */
-  .note {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  /* Error messages on very small screens */
-  .error-msg {
-    font-size: 0.8rem;
-    padding: 6px 10px;
-  }
-
-  /* Form adjustments for very small screens */
-  form input, form textarea, form select {
-    padding: 12px 14px;
-    font-size: 16px;
-  }
-
-  form button {
-    padding: 12px 16px;
-    font-size: 0.95rem;
-  }
-}
-
-/* ADDITIONAL ENHANCEMENTS */
-
-/* Enhanced visual depth */
-.rsvp-section h2:first-of-type {
-  position: relative;
-  z-index: 2;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-}
-
-/* Improved focus styles for accessibility */
-form input:focus, 
-form textarea:focus, 
-form select:focus {
-  outline: none;
-  border-color: #bc6c89;
-  box-shadow: 0 0 20px rgba(188, 108, 137, 0.3);
-  transform: translateY(-2px);
-}
-
-/* Enhanced hover effects */
-form button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
-}
-
-/* Better note hover effect */
-.note:hover {
-  transform: translateX(5px);
-}
-
-/* Improved pagination hover */
-.pagination button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(188, 108, 137, 0.6);
-}
-  /* ======================================== 
-   ENHANCED VENUE CARDS WITH BUILDING IMAGES
-   ======================================== */
-
-.venue-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 0;
-  margin: 30px auto;
-  max-width: 700px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-  transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(15px);
-}
-
-.venue-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
-}
-
-/* Church Image for Ceremony Card */
-.ceremony-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
-  background: linear-gradient(
-    rgba(139, 111, 71, 0.3), 
-    rgba(139, 111, 71, 0.1)
-  ),
-  url('https://images.unsplash.com/photo-1520637836862-4d197d17c93a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-  background-size: cover;
-  background-position: center;
-  border-radius: 20px 20px 0 0;
-  z-index: 1;
-}
-
-/* Reception Hall Image for Reception Card */
-.reception-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
-  background: linear-gradient(
-    rgba(107, 142, 114, 0.3), 
-    rgba(107, 142, 114, 0.1)
-  ),
-  url('https://images.unsplash.com/photo-1519167758481-83f29c852c26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-  background-size: cover;
-  background-position: center;
-  border-radius: 20px 20px 0 0;
-  z-index: 1;
-}
-
-/* Content positioning to accommodate images */
-.venue-content {
-  position: relative;
-  padding: 220px 40px 40px 40px;
-  z-index: 2;
-}
-
-/* Venue labels on images */
-.ceremony-card::after {
-  content: 'CEREMONY';
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(139, 111, 71, 0.8);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  z-index: 3;
-  backdrop-filter: blur(10px);
-}
-
-.reception-card::after {
-  content: 'RECEPTION';
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(107, 142, 114, 0.8);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  z-index: 3;
-  backdrop-filter: blur(10px);
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .venue-content {
-    padding: 200px 25px 30px 25px;
-  }
-  
-  .ceremony-card::before,
-  .reception-card::before {
-    height: 180px;
-  }
-}  
-
-    /* EMERGENCY FIX for notes */
-.note {
-  overflow: visible !important;
-}
-
-.note em {
-  white-space: pre-wrap !important;
-  word-break: break-word !important;
-  overflow-wrap: anywhere !important;
-  max-width: 100% !important;
-  font-style: normal !important;
-}
-
-.note strong {
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
-}
   </style>
 </head>
 <body>
-  <!-- Animated Background Particles -->
-  <div class="bg-particles" id="particles"></div>
-
-  <!-- 🎶 Music -->
-  <audio id="bg-music" loop>
-    <source src="music/Music-1.mp3" type="audio/mpeg">
-  </audio>
-<button id="music-control" title="Music Control">
-  <span class="music-icon"></span>
-</button>
-
-<!-- REPLACE your existing chatbot HTML section with this enhanced version -->
-
-<!-- Chatbot -->
-<button id="chatbot-btn" title="Ask me about the wedding!">
-  <span class="chat-icon"></span>
-</button>
-<div id="chat-window">
-  <div id="chat-header">
-    <h3>Wedding Assistant 💒</h3>
-    <button id="chat-close-btn" title="Close chat">×</button>
-  </div>
-  <div id="chat-box"></div>
-  <div id="chat-input-area">
-    <input type="text" id="chat-input" placeholder="Ask me about the wedding..."/>
-    <button id="send-btn">Send</button>
-  </div>
-</div>
-
-<!-- ADD these CSS styles to your existing <style> section -->
-<style>
-/* Enhanced Chatbot Styles - ADD to your existing CSS */
-
-/* Chat header with close button */
-#chat-header {
-  background: linear-gradient(135deg, var(--primary-green), #557a60);
-  color: white;
-  padding: 16px 20px;
-  font-weight: 600;
-  text-align: center;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#chat-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  flex: 1;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-}
-
-#chat-close-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#chat-close-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg);
-}
-
-/* Typing indicator */
-.msg.typing {
-  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
-  padding: 16px 20px;
-}
-
-.typing-dots {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.typing-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary-green);
-  animation: typing 1.4s infinite ease-in-out;
-}
-
-.typing-dots span:nth-child(1) { animation-delay: 0s; }
-.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typing {
-  0%, 60%, 100% {
-    transform: translateY(0);
-    opacity: 0.4;
-  }
-  30% {
-    transform: translateY(-10px);
-    opacity: 1;
-  }
-}
-
-/* Question Helper */
-.question-helper {
-  background: linear-gradient(135deg, #fff8e1, #f3e5f5);
-  border-radius: 15px;
-  padding: 16px;
-  margin: 10px 0;
-  border: 2px dashed rgba(107, 142, 114, 0.3);
-  animation: fadeIn 0.5s ease-out;
-  transition: all 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.helper-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--primary-green);
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.helper-questions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.helper-question {
-  background: rgba(107, 142, 114, 0.1);
-  border: 1px solid rgba(107, 142, 114, 0.3);
-  color: #4a5f4f;
-  padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
-  font-family: 'Poppins', sans-serif;
-}
-
-.helper-question:hover {
-  background: rgba(107, 142, 114, 0.2);
-  transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(107, 142, 114, 0.2);
-}
-
-.show-more-btn {
-  background: none;
-  border: 1px solid rgba(107, 142, 114, 0.5);
-  color: var(--primary-green);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
-  width: 100%;
-}
-
-.show-more-btn:hover {
-  background: rgba(107, 142, 114, 0.1);
-}
-
-.more-questions {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Enhanced animations */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-#chat-window {
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes messageSlide {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.msg {
-  animation: messageSlide 0.3s ease-out;
-}
-
-/* Mobile responsive updates */
-@media (max-width: 768px) {
-  .helper-question {
-    font-size: 0.8rem;
-    padding: 8px 10px;
-  }
-  
-  .helper-title {
-    font-size: 0.85rem;
-  }
-}
-</style>
-
-<!-- REPLACE your chatbot JavaScript with this enhanced version -->
-<!-- Change this line in your script tags: -->
-<!-- FROM: <script src="js/chatbot-original.js"></script> -->
-<!-- TO: <script src="js/chatbot-enhanced.js"></script> -->
-
-  <!-- COVER PAGE -->
+  <!-- Cover Page -->
   <div class="cover" id="coverPage">
     <h1>Zen & Yessica</h1>
-    <p>Dear <span id="guestName">Guest</span></p>
+    <p>You're invited to our wedding</p>
+    <p style="font-size: 1rem; margin-top: -20px;">Dear <span id="guestName">Guest</span></p>
     <button id="openBtn">Open Invitation</button>
   </div>
 
-  <!-- Save the Date -->
+  <!-- Hero Section -->
   <section class="hero">
-    <h1>SAVE THE DATE</h1>
+    <h1>Save the Date</h1>
     <p class="quote">
-      "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal. 
-      It is only fitting that every effort to attain His love is pursued with joy."
+      "Marriage is an act of worship, and every act of worship leads to His love as its ultimate goal."
     </p>
+    
     <div id="countdown" class="countdown-container">
-  <div class="time-box">
-    <span id="days">00</span>
-    <div class="time-label">Days</div>
-  </div>
-  <div class="time-box">
-    <span id="hours">00</span>
-    <div class="time-label">Hours</div>
-  </div>
-  <div class="time-box">
-    <span id="minutes">00</span>
-    <div class="time-label">Minutes</div>
-  </div>
-  <div class="time-box">
-    <span id="seconds">00</span>
-    <div class="time-label">Seconds</div>
-  </div>
-</div>
-    <a class="btn" 
-       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z&details=Join+us+for+our+wedding+day!&location=Gereja+Santo+Fransiskus+Asisi,+Cibinong" 
-       target="_blank">
-      Save The Date
+      <div class="time-box">
+        <span id="days">00</span>
+        <div class="time-label">Days</div>
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <div class="time-label">Hours</div>
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <div class="time-label">Minutes</div>
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <div class="time-label">Seconds</div>
+      </div>
+    </div>
+    
+    <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Zen+%26+Yessica+Wedding&dates=20260117T030000Z/20260117T090000Z" target="_blank">
+      Add to Calendar
     </a>
   </section>
 
-<!-- Clean Wedding Details Section -->
-<section id="wedding-venues">
-  <h2>Wedding Day Details</h2>
-  <p class="date">Saturday, 17 January 2026</p>
-  
-  <!-- Ceremony Card -->
-  <div class="venue-card ceremony-card">
-    <div class="venue-content">
-      <div class="venue-header">
-        <div class="venue-icon ceremony-icon">⛪</div>
-        <div class="venue-info">
-          <h3 class="venue-title">Holy Matrimony</h3>
-          <p class="venue-name">Gereja Santo Fransiskus Asisi</p>
-          <p class="venue-location">📍 Cibinong</p>
-        </div>
-      </div>
-      
-      <div class="venue-details">
-        <div class="venue-time">
-          <span class="time-icon">🕰️</span>
-          <span class="time-text">8:00 AM</span>
-        </div>
-        
-        <a href="https://maps.app.goo.gl/Yd4EiuMgOozPLCBgH" 
-           target="_blank" 
-           class="venue-map-btn">
-          📍 View Location on Maps
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Reception Card -->
-  <div class="venue-card reception-card">
-    <div class="venue-content">
-      <div class="venue-header">
-        <div class="venue-icon reception-icon">🥂</div>
-        <div class="venue-info">
-          <h3 class="venue-title">Wedding Reception</h3>
-          <p class="venue-name">Bagas Raya Cibinong</p>
-          <p class="venue-location">📍 Cibinong</p>
-        </div>
-      </div>
-      
-      <div class="venue-details">
-        <div class="venue-time">
-          <span class="time-icon">🕰️</span>
-          <span class="time-text">11:00 AM</span>
-        </div>
-        
-        <a href="https://maps.app.goo.gl/y3GcJGPvrLARQwwz9" 
-           target="_blank" 
-           class="venue-map-btn">
-          📍 View Location on Maps
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Enhanced CSS Styles -->
-<style>
-/* ======================================== 
-   ELEGANT VENUE CARDS
-   ======================================== */
-
-.venue-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  padding: 0;
-  margin: 30px auto;
-  max-width: 650px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.venue-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-/* Elegant Church Background */
-.ceremony-card {
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.95) 0%, 
-    rgba(248, 246, 243, 0.95) 100%),
-    url('https://images.unsplash.com/photo-1520637836862-4d197d17c93a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: overlay;
-}
-
-/* Elegant Reception Background */
-.reception-card {
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.95) 0%, 
-    rgba(243, 248, 246, 0.95) 100%),
-    url('https://images.unsplash.com/photo-1519167758481-83f29c852c26?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: overlay;
-}
-
-/* Remove childish background elements */
-.venue-background,
-.venue-overlay {
-  display: none;
-}
-
-/* Elegant Content Layout */
-.venue-content {
-  position: relative;
-  padding: 40px;
-  z-index: 2;
-}
-
-.venue-header {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Sophisticated Icon */
-.venue-icon {
-  position: relative;
-  top: 0;
-  left: 0;
-  font-size: 2.5rem;
-  padding: 15px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  flex-shrink: 0;
-}
-
-.ceremony-icon {
-  color: #8B6F47;
-  background: linear-gradient(135deg, #fff, #f8f6f3);
-}
-
-.reception-icon {
-  color: #6B8E72;
-  background: linear-gradient(135deg, #fff, #f3f8f6);
-}
-
-.venue-info {
-  flex: 1;
-}
-
-/* Elegant Typography */
-.venue-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
-  margin: 0 0 8px 0;
-  color: #5D4E37;
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: auto;
-  text-shadow: none;
-}
-
-.reception-card .venue-title {
-  color: #4A5D4A;
-}
-
-.venue-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: #2C2C2C;
-  letter-spacing: 0.5px;
-}
-
-.venue-location {
-  font-size: 1rem;
-  color: #757575;
-  margin: 0;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Refined Time Display */
-.venue-details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.venue-time {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  align-self: flex-start;
-}
-
-.time-icon {
-  font-size: 1.1rem;
-  opacity: 0.7;
-}
-
-.time-text {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2C2C2C;
-}
-
-/* Sophisticated Button */
-.venue-map-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #8B6F47, #A0845C);
-  color: white;
-  text-decoration: none;
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(139, 111, 71, 0.3);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-}
-
-.reception-card .venue-map-btn {
-  background: linear-gradient(135deg, #6B8E72, #7BA083);
-  box-shadow: 0 4px 15px rgba(107, 142, 114, 0.3);
-}
-
-.venue-map-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 111, 71, 0.4);
-  text-decoration: none;
-  color: white;
-}
-
-.reception-card .venue-map-btn:hover {
-  box-shadow: 0 8px 25px rgba(107, 142, 114, 0.4);
-}
-
-/* Remove cartoonish elements */
-.venue-title-section,
-.ceremony-time,
-.reception-time,
-.venue-actions,
-.ceremony-btn,
-.reception-btn,
-.ceremony-info,
-.reception-info {
-  /* Remove all these classes - they're making it look cartoonish */
-}
-
-/* Mobile Responsive - Elegant */
-@media (max-width: 768px) {
-  .venue-card {
-    margin: 20px 15px;
-    max-width: none;
-  }
-  
-  .venue-content {
-    padding: 30px 25px;
-  }
-  
-  .venue-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-  }
-  
-  .venue-icon {
-    font-size: 2rem;
-    padding: 12px;
-  }
-  
-  .venue-title {
-    font-size: 1.6rem;
-  }
-  
-  .venue-name {
-    font-size: 1.1rem;
-  }
-}
-
-/* Section Header - More Elegant */
-#wedding-venues h2 {
-  font-size: 2.2rem;
-  margin-bottom: 15px;
-  text-align: center;
-  color: #8B6F47;
-  font-weight: 400;
-  letter-spacing: 1px;
-}
-
-.date {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-bottom: 40px;
-  font-weight: 400;
-  color: #6B8E72;
-  letter-spacing: 0.5px;
-}
-
-/* Venue Details */
-.venue-details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.venue-time {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px 20px;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.9), 
-    rgba(248, 248, 248, 0.9));
-  border-radius: 50px;
-  border: 2px solid;
-  backdrop-filter: blur(10px);
-}
-
-.ceremony-time {
-  border-color: var(--primary-pink);
-}
-
-.reception-time {
-  border-color: var(--primary-green);
-}
-
-.time-icon {
-  font-size: 1.4rem;
-}
-
-.time-text {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--text-dark);
-}
-
-/* Venue Actions */
-.venue-actions {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.venue-map-btn,
-.venue-info-btn {
-  flex: 1;
-  min-width: 180px;
-  padding: 15px 25px;
-  border: none;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
-  text-align: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.ceremony-btn {
-  background: linear-gradient(135deg, var(--primary-pink), #a44d6c);
-  color: white;
-  box-shadow: 0 8px 25px rgba(188, 108, 137, 0.4);
-}
-
-.reception-btn {
-  background: linear-gradient(135deg, var(--primary-green), #557a60);
-  color: white;
-  box-shadow: 0 8px 25px rgba(107, 142, 114, 0.4);
-}
-
-.ceremony-info {
-  background: transparent;
-  color: var(--primary-pink);
-  border: 2px solid var(--primary-pink);
-}
-
-.reception-info {
-  background: transparent;
-  color: var(--primary-green);
-  border: 2px solid var(--primary-green);
-}
-
-.venue-map-btn:hover,
-.venue-info-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-}
-
-.ceremony-info:hover {
-  background: var(--primary-pink);
-  color: white;
-}
-
-.reception-info:hover {
-  background: var(--primary-green);
-  color: white;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .venue-card {
-    margin: 30px 15px;
-    max-width: none;
-  }
-  
-  .venue-content {
-    padding: 25px 20px;
-    padding-top: 140px;
-  }
-  
-  .venue-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-  }
-  
-  .venue-icon {
-    position: static;
-    align-self: center;
-    font-size: 3rem;
-    margin-bottom: 15px;
-  }
-  
-  .venue-title {
-    position: static;
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  .venue-title-section {
-    text-align: center;
-  }
-  
-  .venue-actions {
-    flex-direction: column;
-  }
-  
-  .venue-map-btn,
-  .venue-info-btn {
-    min-width: auto;
-  }
-  
-  .travel-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .travel-info {
-    margin: 30px 15px;
-    padding: 25px 20px;
-  }
-}
-
-/* Venue highlight animation for chatbot navigation */
-@keyframes venueHighlight {
-  0% { 
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    transform: translateY(0) scale(1);
-  }
-  50% { 
-    box-shadow: 0 30px 80px rgba(188, 108, 137, 0.4);
-    transform: translateY(-5px) scale(1.02);
-  }
-  100% { 
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    transform: translateY(0) scale(1);
-  }
-}
-
-.venue-highlighted {
-  animation: venueHighlight 2s ease-in-out;
-}
-
-/* Section spacing */
-#wedding-venues {
-  padding: 60px 20px;
-}
-
-#wedding-venues h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.date {
-  font-size: 1.3rem;
-  text-align: center;
-  margin-bottom: 50px;
-  font-weight: 500;
-  color: var(--primary-green);
-}
-
-  /* ========== APPLE BUTTONS ========== */
-#music-control, #chatbot-btn {
-  width: 56px !important;
-  height: 56px !important;
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(20px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  border: none !important;
-}
-
-#music-control {
-  right: 90px !important;
-}
-
-#music-control:hover, #chatbot-btn:hover {
-  transform: translateY(-2px) scale(1.05) !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
-}
-
-.music-icon::before, .music-icon::after {
-  background: #1d1d1f !important;
-}
-
-.chat-icon::before {
-  border: 2.5px solid #1d1d1f !important;
-  background: transparent !important;
-}
-</style>
-</style>
-</section>
-
-<!-- Verse -->
+  <!-- Bible Verse Section -->
   <section class="verse-section">
-    <h2>Bible Verse</h2>
-    <div class="verse">
-      "So they are no longer two, but one flesh.<br>
-      What therefore God has joined together, let no man separate."<br>
-      <strong>– Matthew 19:6</strong>
+    <h2>Our Foundation</h2>
+    <div class="verse-container">
+      <p class="verse-text">
+        "So they are no longer two, but one flesh.<br>
+        What therefore God has joined together, let no man separate."
+      </p>
+      <p class="verse-reference">— Matthew 19:6</p>
     </div>
   </section>
 
-  <!-- ADD GALLERY HERE -->
-<!-- Our Moments Gallery -->
-<section class="moments-section">
-  <h2>Our Moments</h2>
-  <p class="moments-subtitle">Beautiful memories we've shared together</p>
-  
-  <div class="photo-gallery">
-    <div class="photo-item" data-index="0">
-      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 1" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
+  <!-- Venue Section -->
+  <section>
+    <h2>Wedding Details</h2>
+    <p style="text-align: center; color: var(--secondary); font-size: 1.125rem; margin-bottom: 3rem;">Saturday, January 17, 2026</p>
     
-    <div class="photo-item" data-index="1">
-      <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 2" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="2">
-      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 3" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="3">
-      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 4" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="4">
-      <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 5" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="5">
-      <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 6" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="6">
-      <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 7" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="7">
-      <img src="https://images.unsplash.com/photo-1594736797933-d0e501ba2fe6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 8" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-    
-    <div class="photo-item" data-index="8">
-      <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Moment 9" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-icon"></div>
-        <div class="photo-text">View Photo</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- Photo Lightbox Modal -->
-  <div class="photo-lightbox" id="photoLightbox">
-    <div class="lightbox-backdrop"></div>
-    <div class="lightbox-container">
-      <button class="lightbox-close" id="closeLightbox">×</button>
-      <button class="lightbox-nav lightbox-prev" id="prevPhoto">‹</button>
-      <button class="lightbox-nav lightbox-next" id="nextPhoto">›</button>
-      
-      <div class="lightbox-content">
-        <img class="lightbox-image" id="lightboxImage" src="" alt="">
-        <div class="lightbox-info">
-          <span class="photo-counter" id="photoCounter">1 / 9</span>
+    <!-- Ceremony -->
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-type">Ceremony</div>
+        <div class="venue-title">Holy Matrimony</div>
+        <div class="venue-name">Gereja Santo Fransiskus Asisi</div>
+        <div class="venue-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Cibinong
         </div>
       </div>
+      <div class="venue-details">
+        <div class="venue-time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="time-text">8:00 AM</span>
+        </div>
+        <a href="https://maps.app.goo.gl/Yd4EiuMgOozPLCBgH" target="_blank" class="venue-map-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Get Directions
+        </a>
+      </div>
     </div>
-  </div>
-  
-  <!-- RSVP -->
-<section class="rsvp-section">
-  <h2>RSVP & Notes</h2>
+
+    <!-- Reception -->
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-type">Reception</div>
+        <div class="venue-title">Wedding Celebration</div>
+        <div class="venue-name">Bagas Raya Cibinong</div>
+        <div class="venue-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Cibinong
+        </div>
+      </div>
+      <div class="venue-details">
+        <div class="venue-time">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="time-text">11:00 AM</span>
+        </div>
+        <a href="https://maps.app.goo.gl/y3GcJGPvrLARQwwz9" target="_blank" class="venue-map-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery -->
+  <section class="moments-section">
+    <h2>Our Moments</h2>
+    <p class="moments-subtitle">Beautiful memories we've shared together</p>
+    
+    <div class="photo-gallery">
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600" alt="Our Moment 1">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600" alt="Our Moment 2">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600" alt="Our Moment 3">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600" alt="Our Moment 4">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600" alt="Our Moment 5">
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600" alt="Our Moment 6">
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP Section -->
+  <section class="rsvp-section">
+    <h2>RSVP</h2>
     <div class="form-container">
       <form id="rsvpForm">
         <input type="hidden" name="token" value="ZENYESSICA2026">
         <input type="hidden" id="referer" name="referer">
-
-        <!-- Name -->
-        <input name="Name" id="nameInput" type="text" placeholder="We'd like to know you 💌" required>
-        <small id="nameError" class="error-msg">Oops, please tell us your name 🌷</small>
-
-        <!-- Notes -->
-        <textarea name="Notes" placeholder="Write your wishes and prayers for us"></textarea>
-
-        <!-- Attendance -->
+        
+        <input 
+          type="text" 
+          id="nameInput"
+          name="Name" 
+          placeholder="Your name" 
+          required
+        >
+        
+        <textarea 
+          name="Notes" 
+          placeholder="Your message for us" 
+          rows="4"
+        ></textarea>
+        
         <div class="attendance-wrapper">
-          <p class="attendance-label">Attendance confirmation</p>
-          <select name="Attendance" id="attendanceInput" required>
-            <option value="">-- Select attendance --</option>
-            <option value="Yes">💖 Yes, I'll be there</option>
-            <option value="No">🌸 Sorry, can't attend</option>
+          <label class="attendance-label">Will you attend?</label>
+          <select id="attendanceInput" name="Attendance" required>
+            <option value="">Select your response</option>
+            <option value="Yes">Yes, I'll be there</option>
+            <option value="No">Sorry, can't attend</option>
           </select>
-          <small id="attendanceError" class="error-msg">Please let us know if you can attend 💐</small>
         </div>
 
         <button type="submit">Send RSVP</button>
       </form>
-      <p id="responseMsg"></p>
+      <div id="responseMsg"></div>
     </div>
 
-    <h2 style="margin-top: 60px;">Guest Notes 💌</h2>
-    <div id="notesContainer">Loading...</div>
+    <h2 style="margin-top: 4rem;">Guest Messages</h2>
+    <div id="notesContainer">
+      <p style="text-align: center; color: var(--secondary);">Loading messages...</p>
+    </div>
     <div class="pagination">
       <button id="prevBtn">← Previous</button>
       <button id="nextBtn">Next →</button>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <p>✨ With love, Zen & Yessica 💕 ✨</p>
+    <p>With love, Zen & Yessica</p>
   </footer>
 
-  <!-- Dependencies for Chatbot -->
+  <!-- Floating Buttons -->
+  <audio id="bg-music" loop>
+    <source src="music/Music-1.mp3" type="audio/mpeg">
+  </audio>
+  
+  <button id="music-control" title="Music" aria-label="Toggle music">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="6" cy="18" r="3"></circle>
+      <circle cx="18" cy="16" r="3"></circle>
+    </svg>
+  </button>
+  <button id="chatbot-btn" title="Chat" aria-label="Open chat">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <!-- Chat Window -->
+  <div id="chat-window">
+    <div id="chat-header">
+      <h3>Wedding Assistant</h3>
+      <button id="chat-close-btn">×</button>
+    </div>
+    <div id="chat-box"></div>
+    <div id="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Ask about the wedding...">
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <!-- External Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  
-  <!-- External JavaScript Files -->
-<script src="js/countdown.js"></script>        <!-- ADD THIS LINE -->
-<script src="js/main.js"></script>
-<script src="js/photo-gallery.js"></script>
-<script src="js/chatbot-original.js"></script>
 
-  <!-- Particle Animation Script -->
   <script>
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 15;
+    // ============================================
+    // CONFIGURATION
+    // ============================================
+    const CONFIG = {
+      scriptURL: "https://script.google.com/macros/s/AKfycbwRSHvhi28_Fes26DuLR8Ywf0zqY2U7ePzQCdb_4vyUH_Nq0_culqdSfb1U7tajj8zT/exec",
+      csvURL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9ryftjbytcsFzmU4KAactGkErWIvh7mzfZ4kpuXREGuPCb6RkNo2qlea5IPE6SpCKYTn7Jzh0QMzb/pub?gid=2043771999&single=true&output=csv",
+      weddingDate: "Jan 17, 2026 09:00:00",
+      notesPerPage: 5
+    };
 
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 8 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-        particlesContainer.appendChild(particle);
+    let notes = [];
+    let currentPage = 1;
+    let fuse;
+    let qaData = [];
+
+    // ============================================
+    // COUNTDOWN TIMER
+    // ============================================
+    function updateCountdown() {
+      const wedding = new Date(CONFIG.weddingDate).getTime();
+      const now = new Date().getTime();
+      const diff = wedding - now;
+      
+      if (diff > 0) {
+        document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+      } else {
+        document.getElementById('countdown').innerHTML = '🎉 Today is the wedding day!';
+      }
+    }
+    
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ============================================
+    // COVER PAGE & MUSIC
+    // ============================================
+    const coverPage = document.getElementById('coverPage');
+    const openBtn = document.getElementById('openBtn');
+    const music = document.getElementById('bg-music');
+    const musicControl = document.getElementById('music-control');
+    
+    openBtn.onclick = () => {
+      coverPage.classList.add('hidden');
+      musicControl.style.display = 'flex';
+      music.play().catch(err => console.log('Autoplay blocked'));
+    };
+
+    musicControl.onclick = () => {
+      if (music.paused) {
+        music.play();
+        musicControl.classList.remove('paused');
+      } else {
+        music.pause();
+        musicControl.classList.add('paused');
+      }
+    };
+
+    musicControl.style.display = 'none';
+
+    // ============================================
+    // RSVP FORM
+    // ============================================
+    const rsvpForm = document.getElementById('rsvpForm');
+    const responseMsg = document.getElementById('responseMsg');
+
+    rsvpForm.onsubmit = async (e) => {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('nameInput');
+      const attendanceInput = document.getElementById('attendanceInput');
+      
+      if (!nameInput.value.trim() || !attendanceInput.value) {
+        responseMsg.textContent = '⚠️ Please fill in all required fields';
+        responseMsg.style.color = '#ff3b30';
+        return;
+      }
+
+      responseMsg.textContent = '⏳ Sending...';
+      responseMsg.style.color = 'var(--secondary)';
+
+      try {
+        const formData = new FormData(rsvpForm);
+        const response = await fetch(CONFIG.scriptURL, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          responseMsg.textContent = '✅ Thank you! Your RSVP has been received.';
+          responseMsg.style.color = '#34c759';
+          rsvpForm.reset();
+          loadNotes();
+        } else {
+          throw new Error('Failed to submit');
+        }
+      } catch (err) {
+        responseMsg.textContent = '❌ Something went wrong. Please try again.';
+        responseMsg.style.color = '#ff3b30';
+      }
+    };
+
+    // ============================================
+    // GUEST NOTES
+    // ============================================
+    async function loadNotes() {
+      try {
+        const response = await fetch(CONFIG.scriptURL);
+        notes = await response.json();
+        notes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        renderNotes();
+      } catch (err) {
+        document.getElementById('notesContainer').innerHTML = 
+          '<p style="text-align: center; color: var(--secondary);">Unable to load notes</p>';
       }
     }
 
-    // Initialize particles when page loads
-    document.addEventListener('DOMContentLoaded', createParticles);
+    function renderNotes() {
+      const container = document.getElementById('notesContainer');
+      container.innerHTML = '';
+
+      if (!notes.length) {
+        container.innerHTML = '<p style="text-align: center; color: var(--secondary); font-style: italic;">No messages yet. Be the first!</p>';
+        return;
+      }
+
+      const start = (currentPage - 1) * CONFIG.notesPerPage;
+      const end = start + CONFIG.notesPerPage;
+      const pageNotes = notes.slice(start, end);
+
+      pageNotes.forEach(note => {
+        const noteEl = document.createElement('div');
+        noteEl.className = 'note';
+        noteEl.innerHTML = `
+          <strong>${note.name}</strong> ${note.attendance === 'Yes' ? '💖' : '🌸'}<br>
+          <em>${note.notes || 'No message'}</em><br>
+          <small>${timeAgo(note.timestamp)}</small>
+        `;
+        container.appendChild(noteEl);
+      });
+
+      document.getElementById('prevBtn').disabled = currentPage === 1;
+      document.getElementById('nextBtn').disabled = end >= notes.length;
+    }
+
+    function timeAgo(dateString) {
+      const diff = (new Date() - new Date(dateString)) / 1000;
+      if (diff < 60) return 'just now';
+      if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+      if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+      return `${Math.floor(diff / 86400)} days ago`;
+    }
+
+    document.getElementById('prevBtn').onclick = () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderNotes();
+      }
+    };
+
+    document.getElementById('nextBtn').onclick = () => {
+      if ((currentPage * CONFIG.notesPerPage) < notes.length) {
+        currentPage++;
+        renderNotes();
+      }
+    };
+
+    // ============================================
+    // CHATBOT
+    // ============================================
+    const chatWindow = document.getElementById('chat-window');
+    const chatBtn = document.getElementById('chatbot-btn');
+    const chatCloseBtn = document.getElementById('chat-close-btn');
+    const chatBox = document.getElementById('chat-box');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    chatBtn.onclick = () => {
+      chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+      if (chatWindow.style.display === 'flex' && chatBox.children.length === 0) {
+        addMessage('bot', "Hi! I'm here to help with questions about Zen & Yessica's wedding. What would you like to know?");
+      }
+    };
+
+    chatCloseBtn.onclick = () => {
+      chatWindow.style.display = 'none';
+    };
+
+    function addMessage(sender, text) {
+      const msg = document.createElement('div');
+      msg.className = 'msg ' + sender;
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const userMsg = chatInput.value.trim();
+      if (!userMsg) return;
+
+      addMessage('user', userMsg);
+      chatInput.value = '';
+
+      // Show typing indicator
+      const typingDiv = document.createElement('div');
+      typingDiv.id = 'typing';
+      typingDiv.className = 'msg bot';
+      typingDiv.textContent = '...';
+      chatBox.appendChild(typingDiv);
+
+      setTimeout(() => {
+        typingDiv.remove();
+        
+        const answer = searchAnswer(userMsg);
+        if (answer) {
+          addMessage('bot', answer);
+        } else {
+          addMessage('bot', "I'm not sure about that. Please contact Zen & Yessica directly, or try asking something else!");
+        }
+      }, 800);
+    }
+
+    function searchAnswer(query) {
+      if (!fuse || !qaData.length) {
+        return "I'm still loading my knowledge base. Please try again in a moment.";
+      }
+      
+      const result = fuse.search(query);
+      if (result.length > 0) {
+        return result[0].item.answer;
+      }
+      
+      return null;
+    }
+
+    sendBtn.onclick = sendMessage;
+    chatInput.onkeydown = (e) => {
+      if (e.key === 'Enter') sendMessage();
+    };
+
+    // Load chatbot data
+    Papa.parse(CONFIG.csvURL, {
+      download: true,
+      header: true,
+      complete: (results) => {
+        qaData = results.data
+          .filter(r => r.Questions && r.Answer)
+          .map(r => ({
+            question: r.Questions.trim(),
+            answer: r.Answer.trim()
+          }));
+
+        fuse = new Fuse(qaData, {
+          keys: ['question'],
+          threshold: 0.4,
+          includeScore: true
+        });
+
+        console.log(`✅ Chatbot loaded with ${qaData.length} Q&A pairs`);
+      },
+      error: (err) => {
+        console.error('Failed to load chatbot data:', err);
+      }
+    });
+
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+      loadNotes();
+      
+      // Set guest name from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const guestName = urlParams.get('to');
+      if (guestName) {
+        document.getElementById('guestName').textContent = guestName;
+      }
+      
+      // Set referer
+      document.getElementById('referer').value = window.location.hostname;
+    });
   </script>
 </body>
 </html>
