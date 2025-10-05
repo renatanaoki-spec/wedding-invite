@@ -1,34 +1,4 @@
-.attendance-label {
-      font-size: 1rem;
-      color: var(--secondary);
-      margin-bottom: var(--spacing-xs);
-      font-weight: 500;
-      display: block;
-    }
-
-    .attendance-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xs);
-    }
-
-    #responseMsg {
-      text-align: center;
-      margin-top: var(--spacing-md);
-      padding: var(--spacing-md);
-      border-radius: var(--radius-md);
-      font-weight: 500;
-      transition: all var(--transition-fast);
-    }
-
-    /* Music control paused state */
-    #music-control.paused {
-      opacity: 0.6;
-    }
-
-    #music-control.paused svg {
-      opacity: 0.5;
-    }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -95,6 +65,22 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(230, 230, 250, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(245, 222, 179, 0.02) 0%, transparent 30%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* ==========================================
@@ -107,13 +93,48 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+      background: linear-gradient(135deg, #fdfbfb 0%, #f5f2f7 50%, #f2f5f9 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
       transition: opacity var(--transition-slow), visibility var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -15%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255, 182, 193, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -15%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(230, 230, 250, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(30px, 30px) scale(1.1);
+      }
     }
 
     .cover.hidden {
@@ -130,6 +151,8 @@
       color: var(--primary);
       margin-bottom: var(--spacing-sm);
       animation: fadeInUp 0.8s var(--transition-base) backwards;
+      position: relative;
+      z-index: 1;
     }
 
     .cover p {
@@ -138,6 +161,8 @@
       font-weight: 400;
       margin-bottom: var(--spacing-xl);
       animation: fadeInUp 0.8s var(--transition-base) 0.2s backwards;
+      position: relative;
+      z-index: 1;
     }
 
     .cover button {
@@ -152,6 +177,8 @@
       transition: all var(--transition-fast);
       animation: fadeInUp 0.8s var(--transition-base) 0.4s backwards;
       letter-spacing: -0.01em;
+      position: relative;
+      z-index: 1;
     }
 
     .cover button:hover {
@@ -182,8 +209,33 @@
       align-items: center;
       text-align: center;
       padding: var(--spacing-2xl) var(--spacing-md);
-      background: linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%);
+      background: linear-gradient(135deg, #fdfbfb 0%, #f7f4f9 100%);
       position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 182, 193, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(230, 230, 250, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .hero h1 {
@@ -193,6 +245,8 @@
       letter-spacing: -0.03em;
       color: var(--primary);
       margin-bottom: var(--spacing-md);
+      position: relative;
+      z-index: 1;
     }
 
     .hero .quote {
@@ -202,6 +256,8 @@
       line-height: 1.6;
       margin-bottom: var(--spacing-xl);
       font-weight: 400;
+      position: relative;
+      z-index: 1;
     }
 
     /* Countdown - Apple Watch Style */
@@ -212,6 +268,8 @@
       margin: var(--spacing-lg) 0;
       max-width: 500px;
       width: 100%;
+      position: relative;
+      z-index: 1;
     }
 
     .time-box {
@@ -260,6 +318,8 @@
       border: none;
       cursor: pointer;
       letter-spacing: -0.01em;
+      position: relative;
+      z-index: 1;
     }
 
     .btn:hover {
@@ -272,14 +332,42 @@
        ========================================== */
 
     .verse-section {
-      background: var(--surface-secondary);
+      background: linear-gradient(135deg, #f5e6e8 0%, #f7f4f9 50%, #e8eef7 100%);
       padding: var(--spacing-2xl) var(--spacing-md);
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verse-section::before {
+      content: '❦';
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      opacity: 0.08;
+      color: var(--primary);
+    }
+
+    .verse-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(230, 230, 250, 0.1) 0%, transparent 50%);
+      pointer-events: none;
     }
 
     .verse-section h2 {
       font-size: clamp(1.5rem, 4vw, 2rem);
       margin-bottom: var(--spacing-lg);
+      position: relative;
+      z-index: 1;
     }
 
     .verse-container {
@@ -290,6 +378,8 @@
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--divider);
+      position: relative;
+      z-index: 1;
     }
 
     .verse-text {
@@ -316,6 +406,24 @@
       padding: var(--spacing-2xl) var(--spacing-md);
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+    }
+
+    .venue-section {
+      background: linear-gradient(180deg, #ffffff 0%, #faf8fc 50%, #ffffff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .venue-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: radial-gradient(ellipse at top, rgba(230, 230, 250, 0.15) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     section h2 {
@@ -326,6 +434,8 @@
       text-align: center;
       margin-bottom: var(--spacing-lg);
       color: var(--primary);
+      position: relative;
+      z-index: 1;
     }
 
     /* ==========================================
@@ -341,6 +451,8 @@
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--divider);
       transition: all var(--transition-base);
+      position: relative;
+      z-index: 1;
     }
 
     .venue-card:hover {
@@ -453,7 +565,31 @@
        ========================================== */
 
     .moments-section {
-      background: var(--surface-tertiary);
+      background: linear-gradient(135deg, #fef9f9 0%, #f9f5fc 50%, #f5f9fc 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .moments-section::before {
+      content: '✿';
+      position: absolute;
+      top: 80px;
+      right: 10%;
+      font-size: 8rem;
+      opacity: 0.05;
+      color: var(--primary);
+      transform: rotate(-15deg);
+    }
+
+    .moments-section::after {
+      content: '✿';
+      position: absolute;
+      bottom: 80px;
+      left: 10%;
+      font-size: 6rem;
+      opacity: 0.05;
+      color: var(--primary);
+      transform: rotate(25deg);
     }
 
     .moments-subtitle {
@@ -461,6 +597,8 @@
       color: var(--secondary);
       font-size: 1.125rem;
       margin-bottom: var(--spacing-xl);
+      position: relative;
+      z-index: 1;
     }
 
     .photo-gallery {
@@ -469,6 +607,8 @@
       gap: var(--spacing-md);
       max-width: 1000px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .photo-item {
@@ -501,12 +641,40 @@
        ========================================== */
 
     .rsvp-section {
-      background: white;
+      background: linear-gradient(180deg, #ffffff 0%, #faf7fb 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rsvp-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 218, 224, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .rsvp-section::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(230, 230, 250, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .form-container {
       max-width: 600px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     form {
@@ -566,13 +734,13 @@
       color: var(--secondary);
       margin-bottom: var(--spacing-xs);
       font-weight: 500;
+      display: block;
     }
 
-    .error-msg {
-      color: #ff3b30;
-      font-size: 0.9375rem;
-      display: none;
-      margin-top: var(--spacing-xs);
+    .attendance-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
     }
 
     #responseMsg {
@@ -581,6 +749,7 @@
       padding: var(--spacing-md);
       border-radius: var(--radius-md);
       font-weight: 500;
+      transition: all var(--transition-fast);
     }
 
     /* ==========================================
@@ -595,6 +764,8 @@
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--divider);
       transition: all var(--transition-base);
+      position: relative;
+      z-index: 1;
     }
 
     .note:hover {
@@ -625,6 +796,8 @@
       justify-content: center;
       gap: var(--spacing-sm);
       margin-top: var(--spacing-lg);
+      position: relative;
+      z-index: 1;
     }
 
     .pagination button {
@@ -646,11 +819,6 @@
     .pagination button:disabled {
       opacity: 0.4;
       cursor: not-allowed;
-    }
-
-    .note small {
-      color: var(--secondary);
-      font-size: 0.875rem;
     }
 
     /* ==========================================
@@ -701,7 +869,6 @@
       transition: transform 0.1s;
     }
 
-    /* SVG icon styling */
     #music-control svg,
     #chatbot-btn svg {
       color: var(--primary);
@@ -712,22 +879,6 @@
     #music-control:hover svg,
     #chatbot-btn:hover svg {
       opacity: 1;
-    }
-
-    #music-control.paused {
-      opacity: 0.6;
-    }
-
-    #music-control.paused svg {
-      opacity: 0.5;
-    }
-
-    #music-control.paused {
-      opacity: 0.6;
-    }
-
-    #music-control.paused svg {
-      opacity: 0.5;
     }
 
     #music-control.paused {
@@ -864,15 +1015,32 @@
        ========================================== */
 
     footer {
-      background: var(--primary);
+      background: linear-gradient(135deg, #1d1d1f 0%, #2d2d2f 100%);
       color: white;
       padding: var(--spacing-xl) var(--spacing-md);
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     footer p {
       font-size: 1rem;
       opacity: 0.8;
+      position: relative;
+      z-index: 1;
     }
 
     /* ==========================================
@@ -903,7 +1071,6 @@
         gap: var(--spacing-sm);
       }
 
-      /* Floating buttons on mobile */
       #music-control,
       #chatbot-btn {
         width: 44px;
@@ -934,12 +1101,10 @@
       display: none !important;
     }
 
-    /* Smooth scrolling */
     html {
       scroll-behavior: smooth;
     }
 
-    /* Selection */
     ::selection {
       background: var(--accent);
       color: white;
@@ -999,9 +1164,9 @@
   </section>
 
   <!-- Venue Section -->
-  <section>
+  <section class="venue-section">
     <h2>Wedding Details</h2>
-    <p style="text-align: center; color: var(--secondary); font-size: 1.125rem; margin-bottom: 3rem;">Saturday, January 17, 2026</p>
+    <p style="text-align: center; color: var(--secondary); font-size: 1.125rem; margin-bottom: 3rem; position: relative; z-index: 1;">Saturday, January 17, 2026</p>
     
     <!-- Ceremony -->
     <div class="venue-card">
@@ -1389,7 +1554,6 @@
       addMessage('user', userMsg);
       chatInput.value = '';
 
-      // Show typing indicator
       const typingDiv = document.createElement('div');
       typingDiv.id = 'typing';
       typingDiv.className = 'msg bot';
@@ -1426,7 +1590,6 @@
       if (e.key === 'Enter') sendMessage();
     };
 
-    // Load chatbot data
     Papa.parse(CONFIG.csvURL, {
       download: true,
       header: true,
@@ -1457,14 +1620,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadNotes();
       
-      // Set guest name from URL
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('to');
       if (guestName) {
         document.getElementById('guestName').textContent = guestName;
       }
       
-      // Set referer
       document.getElementById('referer').value = window.location.hostname;
     });
   </script>
