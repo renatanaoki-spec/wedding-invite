@@ -3169,6 +3169,35 @@ form button:hover {
   font-weight: 500;
   color: var(--primary-green);
 }
+
+  /* ========== APPLE BUTTONS ========== */
+#music-control, #chatbot-btn {
+  width: 56px !important;
+  height: 56px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+}
+
+#music-control {
+  right: 90px !important;
+}
+
+#music-control:hover, #chatbot-btn:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.music-icon::before, .music-icon::after {
+  background: #1d1d1f !important;
+}
+
+.chat-icon::before {
+  border: 2.5px solid #1d1d1f !important;
+  background: transparent !important;
+}
+</style>
 </style>
 </section>
 
