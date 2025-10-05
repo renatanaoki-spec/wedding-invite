@@ -648,6 +648,11 @@
       cursor: not-allowed;
     }
 
+    .note small {
+      color: var(--secondary);
+      font-size: 0.875rem;
+    }
+
     /* ==========================================
        FLOATING BUTTONS - Elegant Minimal Style
        ========================================== */
@@ -707,6 +712,14 @@
     #music-control:hover svg,
     #chatbot-btn:hover svg {
       opacity: 1;
+    }
+
+    #music-control.paused {
+      opacity: 0.6;
+    }
+
+    #music-control.paused svg {
+      opacity: 0.5;
     }
 
     #music-control.paused {
